@@ -1,0 +1,7 @@
+version: '3.0'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: iotteam/t-energy:latest
