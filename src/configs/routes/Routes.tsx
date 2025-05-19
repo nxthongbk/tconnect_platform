@@ -19,9 +19,7 @@ export const privateRoutes = [
   { path: routes.mapbox, component: MapboxPage, layout: true },
 ];
 
-export const publicRoutes = [
-  { path: routes.home, component: HomePage, layout: false },
-];
+export const publicRoutes = [{ path: routes.home, component: HomePage, layout: false }];
 
 const IsLogin = () => {
   const token = Cookies.get('token');

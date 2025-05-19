@@ -27,118 +27,54 @@ interface PropsIcon {
   className?: string;
 }
 
-const IconPhosphor: FunctionComponent<PropsIcon> = (propsIcon) => {
+const IconPhosphor: FunctionComponent<PropsIcon> = propsIcon => {
   const { className, color, iconName, size, weight, style } = propsIcon;
   switch (iconName) {
     case 'CaretLeft':
       return (
-        <CaretLeft
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <CaretLeft size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'CaretRight':
       return (
-        <CaretRight
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <CaretRight size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'GridNine':
       return (
-        <GridNine
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <GridNine size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'Fan':
-      return (
-        <Fan
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
-      );
+      return <Fan size={size} weight={weight} color={color} style={style} className={className} />;
       break;
     case 'CaretDown':
       return (
-        <CaretDown
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <CaretDown size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'BellSimple':
       return (
-        <BellSimple
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <BellSimple size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'Monitor':
       return (
-        <Monitor
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <Monitor size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'ChartLine':
       return (
-        <ChartLine
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <ChartLine size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'House':
       return (
-        <House
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <House size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'List':
-      return (
-        <List
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
-      );
+      return <List size={size} weight={weight} color={color} style={style} className={className} />;
       break;
     case 'GlobeSimple':
       return (
@@ -164,46 +100,18 @@ const IconPhosphor: FunctionComponent<PropsIcon> = (propsIcon) => {
       break;
     case 'Lightning':
       return (
-        <Lightning
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <Lightning size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
     case 'Sun':
-      return (
-        <Sun
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
-      );
+      return <Sun size={size} weight={weight} color={color} style={style} className={className} />;
       break;
     case 'Wind':
-      return (
-        <Wind
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
-      );
+      return <Wind size={size} weight={weight} color={color} style={style} className={className} />;
       break;
     case 'Sigma':
       return (
-        <Sigma
-          size={size}
-          weight={weight}
-          color={color}
-          style={style}
-          className={className}
-        />
+        <Sigma size={size} weight={weight} color={color} style={style} className={className} />
       );
       break;
 

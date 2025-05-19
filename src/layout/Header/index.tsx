@@ -118,11 +118,7 @@ const Header = () => {
               }}
             >
               <ListItemIcon>
-                <IconPhosphor
-                  iconName={text.iconName}
-                  size={28}
-                  color="#FFFFFF"
-                />
+                <IconPhosphor iconName={text.iconName} size={28} color="#FFFFFF" />
               </ListItemIcon>
               <ListItemText primary={text.text} />
             </ListItemButton>
@@ -167,58 +163,30 @@ const Header = () => {
                 </Typography>
               </Stack>
             </Box>
-            <Box
-              display={'flex'}
-              justifyContent={'center'}
-              position={'absolute'}
-              left={'25%'}
-            >
+            <Box display={'flex'} justifyContent={'center'} position={'absolute'} left={'25%'}>
               <div className="animation-left">
-                <IconPhosphor iconName='CaretRight' size={35} weight='bold'  className='span'/>
-                <IconPhosphor iconName='CaretRight' size={35} weight='bold'  className='span'/>
-                <IconPhosphor iconName='CaretRight' size={35} weight='bold'  className='span'/>
-                <IconPhosphor iconName='CaretRight' size={35} weight='bold'  className='span'/>
-
-
+                <IconPhosphor iconName="CaretRight" size={35} weight="bold" className="span" />
+                <IconPhosphor iconName="CaretRight" size={35} weight="bold" className="span" />
+                <IconPhosphor iconName="CaretRight" size={35} weight="bold" className="span" />
+                <IconPhosphor iconName="CaretRight" size={35} weight="bold" className="span" />
               </div>
             </Box>
-            <Box
-              display={'flex'}
-              justifyContent={'center'}
-              position={'absolute'}
-              left={'34%'}
-            >
-              <Typography variant="h5">
-                TMA-eCloud Smart Energy Management Platform
-              </Typography>
+            <Box display={'flex'} justifyContent={'center'} position={'absolute'} left={'34%'}>
+              <Typography variant="h5">TMA-eCloud Smart Energy Management Platform</Typography>
             </Box>
-            <Box
-              display={'flex'}
-              justifyContent={'center'}
-              position={'absolute'}
-              right={'25%'}
-            >
+            <Box display={'flex'} justifyContent={'center'} position={'absolute'} right={'25%'}>
               <div className="animation-right">
-                <IconPhosphor iconName='CaretLeft' size={35} weight='bold'  className='span'/>
-                <IconPhosphor iconName='CaretLeft' size={35} weight='bold'  className='span'/>
-                <IconPhosphor iconName='CaretLeft' size={35} weight='bold'  className='span'/>
-                <IconPhosphor iconName='CaretLeft' size={35} weight='bold'  className='span'/>
-
-
+                <IconPhosphor iconName="CaretLeft" size={35} weight="bold" className="span" />
+                <IconPhosphor iconName="CaretLeft" size={35} weight="bold" className="span" />
+                <IconPhosphor iconName="CaretLeft" size={35} weight="bold" className="span" />
+                <IconPhosphor iconName="CaretLeft" size={35} weight="bold" className="span" />
               </div>
             </Box>
             <Box component={'div'} className="header-component-right">
-              <Stack
-                spacing={3}
-                direction={'row'}
-                alignItems={'center'}
-                mr={'10px'}
-              >
+              <Stack spacing={3} direction={'row'} alignItems={'center'} mr={'10px'}>
                 <SelectProject />
                 <ButtonLanguage
-                  onClick={() =>
-                    handleChangeLanguage(lang && lang === 'en' ? 'vi' : 'en')
-                  }
+                  onClick={() => handleChangeLanguage(lang && lang === 'en' ? 'vi' : 'en')}
                 />
 
                 {/* profile */}

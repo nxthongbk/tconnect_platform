@@ -127,11 +127,7 @@ div .MuiPopover-paper {
   background-color: transparent !important;
 }
 .drower-sider {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 58, 102, 1),
-    rgba(0, 58, 102, 0.8)
-  );
+  background: linear-gradient(to bottom, rgba(0, 58, 102, 1), rgba(0, 58, 102, 0.8));
   border-right: 1px solid var(--blue-400);
 }
 
@@ -180,7 +176,6 @@ div .MuiPopover-paper {
   .span {
     color: #0794ff;
     opacity: 0;
-    
   }
 
   .span:nth-child(4) {
