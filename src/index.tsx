@@ -1,26 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './i18n'
+import './i18n';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './i18n'
-import {
-  CssBaseline,
-  StyledEngineProvider,
-  ThemeProvider,
-} from '@mui/material';
+import './i18n';
+import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { theme } from './themes/Theme';
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-          <CssBaseline />
-    <App />
-    </ThemeProvider>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </StyledEngineProvider>
   </React.StrictMode>
 );
