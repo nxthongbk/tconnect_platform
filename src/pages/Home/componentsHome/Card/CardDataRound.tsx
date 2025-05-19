@@ -46,10 +46,18 @@ const CardDataRound = ({ props }: { props: Props }) => {
       </Box>
       <Box component={'div'} className="card-rectangular-content">
         <Stack spacing={0} alignItems={'center'}>
-          <Typography variant="caption1" color={'var(--text-primary)'} noWrap={true}>
+          <Typography
+            variant="caption1"
+            color={'var(--text-primary)'}
+            noWrap={true}
+          >
             {props.title}
           </Typography>
-          <Typography variant="caption1" color={'var(--text-primary)'} noWrap={true}>
+          <Typography
+            variant="caption1"
+            color={'var(--text-primary)'}
+            noWrap={true}
+          >
             {props.description}
           </Typography>
         </Stack>

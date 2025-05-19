@@ -48,8 +48,7 @@
     "build": "react-scripts build",
     "serve": "serve -s build -p 7009",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "format": "prettier --write ."
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

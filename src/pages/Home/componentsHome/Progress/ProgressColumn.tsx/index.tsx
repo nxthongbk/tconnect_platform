@@ -15,7 +15,11 @@ const ProgressColumn = ({ props }: { props: Props }) => {
             </Typography>
           </Box>
 
-          <Box component={'div'} className="precent-column" height={props.precent}></Box>
+          <Box
+            component={'div'}
+            className="precent-column"
+            height={props.precent}
+          ></Box>
         </Box>
         <Box component={'div'} className="border">
           <Box component={'div'} className="background"></Box>

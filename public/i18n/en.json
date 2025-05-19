@@ -1,15 +1,15 @@
 {
-  "header": {
-    "overview": "Overview",
-    "monitoring": "Monitoring",
-    "alarm": "Alarm",
-    "analysis": "Analysis"
-  },
-  "home-page": {
-    "instant-power": "Instant power",
-    "device-statistics": "Device statistics",
-    "total-carbon-reduction": "Total carbon reduction",
-    "monthly-equi": "Monthly equipment time top 5",
-    "pr-top-5": "PR top 5"
-  }
+                    "header": {
+                                        "overview": "Overview",
+                                        "monitoring": "Monitoring",
+                                        "alarm": "Alarm",
+                                        "analysis": "Analysis"
+                    },
+                    "home-page": {
+                                        "instant-power": "Instant power",
+                                        "device-statistics": "Device statistics",
+                                        "total-carbon-reduction":"Total carbon reduction",
+                                        "monthly-equi":"Monthly equipment time top 5",
+                                        "pr-top-5":"PR top 5"
+                    }
 }

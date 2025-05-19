@@ -1,8 +1,8 @@
 {
-  "header": {
-    "overview": "Tổng quan",
-    "monitoring": "Giám sát",
-    "alarm": "Cảnh báo",
-    "analysis": "Thống kê"
-  }
+                    "header": {
+                                        "overview": "Tổng quan",
+                                        "monitoring": "Giám sát",
+                                        "alarm": "Cảnh báo",
+                                        "analysis":"Thống kê"
+                    }
 }

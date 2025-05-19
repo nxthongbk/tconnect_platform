@@ -122,7 +122,12 @@ const CardPrecent = () => {
   return (
     <Box component={'div'} className="card-precent">
       <Stack spacing={'8px'} alignItems={'center'}>
-        <Box component={'div'} height={'150px'} width={'150px'} position={'relative'}>
+        <Box
+          component={'div'}
+          height={'150px'}
+          width={'150px'}
+          position={'relative'}
+        >
           <Box
             component={'div'}
             height={'120px'}
@@ -164,7 +169,12 @@ const CardPrecent = () => {
         </Typography>
       </Stack>
       <Stack spacing={'8px'} alignItems={'center'}>
-        <Box component={'div'} height={'150px'} width={'150px'} position={'relative'}>
+        <Box
+          component={'div'}
+          height={'150px'}
+          width={'150px'}
+          position={'relative'}
+        >
           <Box
             component={'div'}
             height={'120px'}
@@ -281,13 +291,25 @@ const HomePage = () => {
           <Box component={'div'} display={'flex'}>
             {tagIconHome.map((item: TagIconHome, idx: number) => {
               if (++idx % 2 !== 0)
-                return <IconTag data={item.data} iconName={item.iconName} key={idx} />;
+                return (
+                  <IconTag
+                    data={item.data}
+                    iconName={item.iconName}
+                    key={idx}
+                  />
+                );
             })}
           </Box>
           <Box component={'div'} display={'flex'}>
             {tagIconHome.map((item: TagIconHome, idx: number) => {
               if (++idx % 2 === 0)
-                return <IconTag data={item.data} iconName={item.iconName} key={idx} />;
+                return (
+                  <IconTag
+                    data={item.data}
+                    iconName={item.iconName}
+                    key={idx}
+                  />
+                );
             })}
           </Box>
         </Box>
@@ -298,10 +320,16 @@ const HomePage = () => {
                 <CardDataBorder
                   childrent={
                     <Stack spacing={1} alignItems={'center'}>
-                      <Typography variant="label2" color={'var(--text-primary)'}>
+                      <Typography
+                        variant="label2"
+                        color={'var(--text-primary)'}
+                      >
                         1563.78 MWh
                       </Typography>
-                      <Typography variant="caption1" color={'var(--text-secondary)'}>
+                      <Typography
+                        variant="caption1"
+                        color={'var(--text-secondary)'}
+                      >
                         Daily power
                       </Typography>
                     </Stack>
@@ -310,10 +338,16 @@ const HomePage = () => {
                 <CardDataBorder
                   childrent={
                     <Stack spacing={1} alignItems={'center'}>
-                      <Typography variant="label2" color={'var(--text-primary)'}>
+                      <Typography
+                        variant="label2"
+                        color={'var(--text-primary)'}
+                      >
                         7563.78 MWh
                       </Typography>
-                      <Typography variant="caption1" color={'var(--text-secondary)'}>
+                      <Typography
+                        variant="caption1"
+                        color={'var(--text-secondary)'}
+                      >
                         Monthly power
                       </Typography>
                     </Stack>
@@ -322,10 +356,16 @@ const HomePage = () => {
                 <CardDataBorder
                   childrent={
                     <Stack spacing={1} alignItems={'center'}>
-                      <Typography variant="label2" color={'var(--text-primary)'}>
+                      <Typography
+                        variant="label2"
+                        color={'var(--text-primary)'}
+                      >
                         13563.7 MWh
                       </Typography>
-                      <Typography variant="caption1" color={'var(--text-secondary)'}>
+                      <Typography
+                        variant="caption1"
+                        color={'var(--text-secondary)'}
+                      >
                         Yearly power
                       </Typography>
                     </Stack>
@@ -341,7 +381,12 @@ const HomePage = () => {
               <Grid item width={'100%'}>
                 <CardTitle title="monthly-equi" />
               </Grid>
-              <Grid item width={'100%'} display="flex" justifyContent={'space-between'}>
+              <Grid
+                item
+                width={'100%'}
+                display="flex"
+                justifyContent={'space-between'}
+              >
                 {progressList1.map((item: ProgressType, idx: number) => {
                   return <ProgressColumn key={idx} props={item} />;
                 })}
@@ -350,7 +395,12 @@ const HomePage = () => {
               <Grid item width={'100%'} mt={'20px'}>
                 <CardTitle title="total-carbon-reduction" />
               </Grid>
-              <Grid item width={'100%'} display={'flex'} justifyContent={'space-between'}>
+              <Grid
+                item
+                width={'100%'}
+                display={'flex'}
+                justifyContent={'space-between'}
+              >
                 <CardDataRound props={cardRoudData[3]} />
                 <CardDataRound props={cardRoudData[4]} />
 
@@ -365,18 +415,17 @@ const HomePage = () => {
             justifyContent={'center'}
             alignItems={'center'}
             position={'relative'}
+          
           >
-            <Box
-              sx={{
-                backgroundImage: `url(${images.mapBgColor})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'contain',
-                backgroundPosition: 'center',
-                height: '150%',
-                width: '100%',
-                position: 'absolute',
-              }}
-            ></Box>
+            <Box    sx={{
+              backgroundImage: `url(${images.mapBgColor})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              height: '150%',
+              width: '100%',
+              position: 'absolute'
+            }}></Box>
             <Box component={'div'} className="home-page-map-vn">
               <Xwrapper>
                 <img
@@ -385,7 +434,12 @@ const HomePage = () => {
                   height={'30px'}
                   id="mark-end-center"
                 />
-                <img src={images.markEnd} width={'45px'} height={'60px'} id="mark-end" />
+                <img
+                  src={images.markEnd}
+                  width={'45px'}
+                  height={'60px'}
+                  id="mark-end"
+                />
 
                 <Marker id="marker-1" />
                 <Marker id="marker-2" />
@@ -488,7 +542,12 @@ const HomePage = () => {
               <Grid item width={'100%'}>
                 <CardTitle title="device-statistics" />
               </Grid>
-              <Grid item width={'100%'} display={'flex'} justifyContent={'space-between'}>
+              <Grid
+                item
+                width={'100%'}
+                display={'flex'}
+                justifyContent={'space-between'}
+              >
                 <CardDataRound props={cardRoudData[0]} />
                 <CardDataRound props={cardRoudData[1]} />
 

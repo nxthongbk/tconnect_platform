@@ -60,7 +60,9 @@ export default function SelectProject() {
         label={false}
         onChange={handleChange}
         defaultValue="ĐIỆN GIÓ SỐ 5 - NINH THUẬN"
-        IconComponent={() => <IconPhosphor iconName="CaretDown" size={20} color="white" />}
+        IconComponent={() => (
+          <IconPhosphor iconName="CaretDown" size={20} color="white" />
+        )}
         sx={{
           border: 'none',
           ':focus': {
@@ -79,9 +81,9 @@ export default function SelectProject() {
           PaperProps: {
             sx: {
               bgcolor: 'var(--blue-900)',
-              padding: 2,
+              padding:2,
               '& .MuiMenuItem-root': {
-                borderRadius: '8px',
+                borderRadius:'8px'
               },
             },
           },

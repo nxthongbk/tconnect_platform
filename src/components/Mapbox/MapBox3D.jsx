@@ -137,7 +137,9 @@ function MapCardV3({}) {
   useEffect(() => {
     if (map.current) {
       marker?.map((mark, idx) => {
-        new mapboxgl.Marker({ rotation: 15 }).setLngLat([mark.long, mark.lat]).addTo(map.current);
+        new mapboxgl.Marker({ rotation: 15 })
+          .setLngLat([mark.long, mark.lat])
+          .addTo(map.current);
       });
     }
   }, []);
