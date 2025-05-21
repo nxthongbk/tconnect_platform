@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import './style.scss';
 import { Avatar } from '@mui/material';
 import DeviceCard from './components/DeviceCard';
-import CameraList from './components/CameraList';
 
 const MasterBoardPage = () => {
   const [time, setTime] = useState(new Date());

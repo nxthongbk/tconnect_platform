@@ -1,10 +1,9 @@
 import './style.scss';
 
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import IconPhosphor from '../../components/icons';
 
 const ButtonLanguage = ({ onClick }: { onClick: (params: any) => any }) => {
-  const lang = localStorage.getItem('cft-language');
 
   return (
     <Box

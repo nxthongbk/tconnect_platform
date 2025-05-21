@@ -1,6 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
 import '../../style.scss';
-import IconPhosphor from '../../../../components/icons';
 import { ReactElement } from 'react';
 type Props = {
   iconName: ReactElement;

@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import HomePage from '../../pages/Home';
@@ -25,7 +25,7 @@ export const privateRoutes = [
 export const publicRoutes = [{ path: routes.home, component: HomePage, layout: false }];
 
 const IsLogin = () => {
-  const token = Cookies.get('token');
+  // const token = Cookies.get('token');
   return <Outlet />; //: <Navigate to="/" />;
 };
 

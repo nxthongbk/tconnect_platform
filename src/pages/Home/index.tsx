@@ -8,7 +8,7 @@ import ChartArea from './componentsHome/Chart/ChartArea';
 import CardDataRound from './componentsHome/Card/CardDataRound';
 import ProgressLine from './componentsHome/Progress/ProgressLine';
 import ProgressColumn from './componentsHome/Progress/ProgressColumn.tsx';
-import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows';
+import Xarrow, { Xwrapper } from 'react-xarrows';
 import { images } from '../../assets/images/image';
 import { ReactElement } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';

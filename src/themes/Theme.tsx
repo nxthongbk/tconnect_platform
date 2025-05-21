@@ -3,12 +3,6 @@ import { createTheme } from '@mui/material/styles';
 const cssVar = (name: string) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-const sizeButton = {
-  small: '6px 12px',
-  medium: '8px 16px',
-  large: '12px 32px',
-};
-
 export const theme = createTheme({
   palette: {
     primary: {
