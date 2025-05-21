@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 import HomePage from '../../pages/Home';
 import MapboxPage from '../../pages/MapboxPage';
+import MasterBoardPage from '../../pages/MasterDashboard';
 
 const routes = {
   home: '/',
@@ -10,6 +11,7 @@ const routes = {
   setting: '/setting',
   overview: '/overview',
   mapbox: '/monitoring',
+  masterDasboard: '/dashboard',
 
   notFound: '*',
 };
@@ -17,6 +19,7 @@ const routes = {
 export const privateRoutes = [
   { path: routes.home, component: HomePage, layout: true },
   { path: routes.mapbox, component: MapboxPage, layout: true },
+  { path: routes.masterDasboard, component: MasterBoardPage, layout: false },
 ];
 
 export const publicRoutes = [{ path: routes.home, component: HomePage, layout: false }];
