@@ -72,11 +72,19 @@
 }
 
 .maintenance {
-  background-color: #a28744;
-  color: white;
+  background-image: url('../../../../../public/assets/Button Maintenance.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  color: #fec84b;
 }
 
 .details {
-  background-color: #1d4ed8;
-  color: white;
+  background-image: url('../../../../../public/assets/Button View details.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  color: #7cd4fd;
 }

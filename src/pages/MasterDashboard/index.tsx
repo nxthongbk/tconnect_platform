@@ -18,6 +18,15 @@ const MasterBoardPage = () => {
     'Wulu-000010',
   ];
 
+  const cameraList = [
+    'CAM-CK-001',
+    'CAM-CK-002',
+    'CAM-CK-003',
+    'CAM-CK-004',
+    'CAM-CK-005',
+    'CAM-CK-006',
+  ];
+
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(interval);
@@ -103,6 +112,18 @@ const MasterBoardPage = () => {
                 waitingTime: '5 mins',
               }}
             />
+
+            <div className="camera-list-container">
+              <h2>Camera List</h2>
+              <div className="camera-grid">
+                {cameraList.map((cam, index) => (
+                  <div key={index} className="camera-item">
+                    <img src="/assets/device-camera.png" alt={cam} className="camera-icon" />
+                    <div className="camera-name">{cam}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

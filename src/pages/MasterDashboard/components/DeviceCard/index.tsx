@@ -28,8 +28,8 @@ const DeviceCard = ({ device }: { device: any }) => {
       </div>
 
       <div className="device-actions">
-        <button className="btn maintenance">Maintenance</button>
-        <button className="btn details">View Details</button>
+        <button className="btn maintenance">MAINTENANCE</button>
+        <button className="btn details">VIEW DETAILS</button>
       </div>
     </div>
   );
