@@ -64,37 +64,39 @@ const MasterBoardPage = () => {
       </div>
 
       <div className="router-layout">
-        <div className="router-overview">
-          <h2>Router Overview</h2>
+        <div className="left-container">
+          <div className="router-overview">
+            <h2>Router Overview</h2>
 
-          <ul className="device-list">
-            {devices.map((device, index) => (
-              <li
-                key={index}
-                className={activeDevice === index ? 'active' : ''}
-                onClick={() => setActiveDevice(index)}
-              >
-                <div className="device-container">
-                  <div className="device-info">
-                    <span className="device-id">{device}</span>
-                    <span className="device-location">QTSC1</span>
-                    <span className="device-ip-label">IP ADDRESS</span>
-                    <span className="device-ip">192.168.1.23</span>
-                    <span className="device-mac-label">MAC</span>
-                    <span className="device-mac">8D:74:32:AB:3F:12</span>
+            <ul className="device-list">
+              {devices.map((device, index) => (
+                <li
+                  key={index}
+                  className={activeDevice === index ? 'active' : ''}
+                  onClick={() => setActiveDevice(index)}
+                >
+                  <div className="device-container">
+                    <div className="device-info">
+                      <span className="device-id">{device}</span>
+                      <span className="device-location">QTSC1</span>
+                      <span className="device-ip-label">IP ADDRESS</span>
+                      <span className="device-ip">192.168.1.23</span>
+                      <span className="device-mac-label">MAC</span>
+                      <span className="device-mac">8D:74:32:AB:3F:12</span>
+                    </div>
+                    <img src="/assets/wulu-device.png" alt="Device Img" className="device-image" />
                   </div>
-                  <img src="/assets/wulu-device.png" alt="Device Img" className="device-image" />
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="router-main">
           <h2>MAP BOX</h2>
         </div>
 
-        <div>
+        <div className="right-container">
           <div className="search-container">
             <input type="text" placeholder="Search location" className="search-input" />
           </div>

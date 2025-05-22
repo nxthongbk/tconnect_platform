@@ -5,6 +5,11 @@
   background-color: #000;
   position: relative;
 
+  .right-container,
+  .left-container {
+    background-color: #000000cc;
+  }
+
   .top-bar-wrapper {
     position: relative;
     width: 100%;
@@ -149,6 +154,7 @@
           }
 
           &.active {
+            background: transparent;
             background-image: url('../../../public/assets/Frame-Active.png');
           }
 
