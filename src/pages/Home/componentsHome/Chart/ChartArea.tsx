@@ -34,9 +34,9 @@ const optionsDef: ApexOptions = {
     fontSize: '10px',
     showForSingleSeries: true,
     markers: {
-      width: 34,
-      height: 3,
-      radius: 2,
+      size: 6,
+      strokeWidth: 2,
+      shape: 'circle',
     },
     labels: {
       colors: 'var(--blue-200)',

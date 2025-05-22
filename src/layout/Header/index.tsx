@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
   Box,
-  Button,
   Container,
-  Menu,
-  MenuItem,
+
   Stack,
-  Tab,
-  Tabs,
+
   Typography,
   Drawer,
   List,
@@ -30,15 +26,8 @@ import IconPhosphor from '../../components/icons';
 import SelectProject from './SelectProject';
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { t, i18n } = useTranslation();
-
   const lang = localStorage.getItem('cft-language');
-  const userJson = localStorage.getItem('userInfo');
-
-  const [tab, setTabs] = useState<string>('/overview');
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [pageNumber, setPageNumber] = useState(0);
   // useEffect(() => {
@@ -55,18 +44,6 @@ const Header = () => {
   //   }
   // }, [location?.pathname]);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleChangeTab = (event: React.SyntheticEvent, value: string) => {
-    setTabs(value);
-    // navigate(value);
-    setAnchorEl(null);
-  };
 
   //language
   const handleChangeLanguage = (value: string) => {

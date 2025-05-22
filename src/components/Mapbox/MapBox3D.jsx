@@ -1,6 +1,6 @@
 import 'mapbox-gl';
 import './style.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
@@ -115,9 +115,9 @@ const marker = [
 function MapCardV3({}) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(106.628809);
-  const [lat, setLat] = useState(10.854426);
-  const [zoom, setZoom] = useState(16);
+  const [lng] = useState(106.628809);
+  const [lat] = useState(10.854426);
+  const [zoom] = useState(16);
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
@@ -136,7 +136,7 @@ function MapCardV3({}) {
   }, []);
   useEffect(() => {
     if (map.current) {
-      marker?.map((mark, idx) => {
+      marker?.map((mark) => {
         new mapboxgl.Marker({ rotation: 15 }).setLngLat([mark.long, mark.lat]).addTo(map.current);
       });
     }
