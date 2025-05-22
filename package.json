@@ -47,7 +47,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "serve": "serve -s build -p 7009",
+    "serve": "serve -s build -p 7070",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write ."
