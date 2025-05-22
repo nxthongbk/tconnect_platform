@@ -11,11 +11,16 @@ import {
 } from '@mui/material';
 // import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import bg1 from '../../assets/images/png/bg_login_layer_1.png';
-import bg2 from '../../assets/images/png/bg_login_layer_2.png';
-import bg3 from '../../assets/images/png/bg_login_layer_3.png';
-import bg4 from '../../assets/images/png/bg_login_layer_4.png';
-import loginBg from '../../assets/images/png/container.png';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import authService from '../../services/auth.service';
+import { useContext } from 'react';
+import { useMutation } from '@tanstack/react-query';
+
+import signInBackground from '../../assets/images/png/signInBackground.png';
+import signInFrame from '../../assets/images/png/signInFrame.png';
+import { Eye, EyeSlash } from '@phosphor-icons/react';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,135 +31,23 @@ const LoginPage = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        width: '100vw',
-        position: 'relative',
-        overflow: 'hidden',
-        background: '#0c1126',
+        width: '100%',
+        backgroundImage: `url(${signInBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      {/* Full-page background image */}
-      <img
-        src={bg1}
-        alt=""
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '90vw',
-          height: '100vh',
-          objectFit: 'cover',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
-      <img
-        src={bg2}
-        alt=""
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '80vw',
-          height: '100vh',
-          objectFit: 'cover',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
-      <img
-        src={bg3}
-        alt=""
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          zIndex: 2,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* All other content */}
-      {/* Left: Cityscape Illustration */}
-      <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flex: 1 }}>
-        <Box
-          sx={{
-            flex: 2,
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minWidth: 0,
-          }}
-        >
-          {/* <img
-          src={bg1}
-          alt=""
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }}
-        /> */}
-          {/* <img
-          src={bg2}
-          alt=""
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 10,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 2,
-            pointerEvents: 'none',
-          }}
-        /> */}
-
-          <img
-            src={bg4}
-            alt=""
-            style={{
-              position: 'absolute',
-              left: 240,
-              top: 10,
-              width: '60%',
-              height: '90%',
-              objectFit: 'cover',
-              zIndex: 4,
-              pointerEvents: 'none',
-            }}
-          />
-        </Box>
-      </Box>
-      <div
-        style={{
-          // flex: 1,
-          // display: 'flex',
-          // flexDirection: 'column',
-          // alignItems: 'center',
-          // justifyContent: 'center',
-          // minWidth: 0,
-          // padding: '2rem',
-          // paddingLeft: '140px',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          paddingRight: '5vw',
-          position: 'relative',
+      <Box
+        sx={{
+          '@media (min-width:1025px)': {
+            paddingLeft: '60vw',
+          },
         }}
       >
-        {/* Login form goes here */}
-
         <Box
           sx={{
             position: 'relative',
@@ -169,9 +62,8 @@ const LoginPage = () => {
             overflow: 'hidden',
           }}
         >
-          {/* Absolutely positioned background image */}
           <img
-            src={loginBg}
+            src={signInFrame}
             alt=""
             style={{
               position: 'absolute',
@@ -180,92 +72,143 @@ const LoginPage = () => {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              zIndex: 2,
+              zIndex: 0,
               pointerEvents: 'none',
             }}
           />
-          <Paper sx={{ padding: 4, width: '300px' }}>
+          <Paper
+            sx={{
+              zIndex: 3,
+              position: 'relative',
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              backdropFilter: 'blur(8px)',
+              padding: 2,
+            }}
+          >
             <Typography
               variant="h4"
               sx={{
                 color: '#fff',
-                fontWeight: 700,
-                mb: 4,
+                fontWeight: 400,
+                mb: 8,
                 textAlign: 'center',
                 letterSpacing: 1,
-                fontFamily: 'Montserrat, monospace',
-                fontSize: 32,
+                fontSize: { xs: 28, sm: 32 },
               }}
             >
               Sign in
             </Typography>
+
             <TextField
+              placeholder="Nhập email"
               label="Email"
-              variant="filled"
+              variant="outlined"
               fullWidth
               sx={{
-                mb: 3,
-                input: { color: '#fff' },
-                label: { color: '#abadb0' },
-                bgcolor: '#232b3e',
-                borderRadius: 1,
+                mb: 6,
+                '& .MuiInputBase-root': {
+                  bgcolor: '#232b3e',
+                  borderRadius: 2,
+                  color: '#fff',
+                },
+                '& .MuiInputLabel-root': {
+                  color: '#abadb0',
+                  fontSize: 20,
+                  top: '-20px',
+                  left: '-10px',
+                  background: 'transparent',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  border: 'none',
+                },
+                '& .MuiInputBase-input': {
+                  color: '#fff',
+                  fontSize: 16,
+                  py: 1.5,
+                },
               }}
-              InputLabelProps={{ style: { color: '#abadb0' } }}
+              InputLabelProps={{ shrink: true }}
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
+
             <TextField
+              placeholder="Nhập password"
               label="Password"
-              variant="filled"
+              variant="outlined"
               fullWidth
               type={showPassword ? 'text' : 'password'}
               sx={{
-                mb: 2,
-                input: { color: '#fff' },
-                label: { color: '#abadb0' },
-                bgcolor: '#232b3e',
-                borderRadius: 1,
+                mb: 1,
+                '& .MuiInputBase-root': {
+                  bgcolor: '#232b3e',
+                  borderRadius: 2,
+                  color: '#fff',
+                },
+                '& .MuiInputLabel-root': {
+                  color: '#abadb0',
+                  fontSize: 20,
+                  top: '-20px',
+                  left: '-10px',
+                  background: 'transparent',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  border: 'none',
+                },
+                '& .MuiInputBase-input': {
+                  color: '#fff',
+                  fontSize: 16,
+                  py: 1.5,
+                },
               }}
-              InputLabelProps={{ style: { color: '#abadb0' } }}
+              InputLabelProps={{ shrink: true }}
               value={password}
               onChange={e => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(show => !show)}
-                      edge="end"
-                      sx={{ color: '#abadb0' }}
-                    >
-                      {/* {showPassword ? <VisibilityOff /> : <Visibility />} */}
-                    </IconButton>
-                  </InputAdornment>
+                  <span
+                    onClick={() => {
+                      setShowPassword(prev => !prev);
+                    }}
+                    style={{
+                      cursor: 'pointer',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingTop: '4px',
+                    }}
+                  >
+                    {!showPassword ? (
+                      <EyeSlash size={20} color="var(--text-tertiary)" />
+                    ) : (
+                      <Eye size={20} color="var(--text-tertiary)" />
+                    )}
+                  </span>
                 ),
               }}
             />
+
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
               <Link href="#" underline="hover" sx={{ color: '#0BA5EC', fontSize: 14 }}>
                 Forgot password?
               </Link>
             </Box>
+
             <Button
               variant="contained"
               fullWidth
               sx={{
                 bgcolor: '#0794ff',
                 color: '#fff',
-                fontWeight: 600,
+                fontWeight: 400,
                 fontSize: 18,
                 borderRadius: 0,
-                py: 1.5,
+                py: 1,
+                mt: 1,
                 textTransform: 'none',
                 boxShadow: 'none',
-                position: 'relative',
-                mt: 2,
-                // Custom cut corners for button
                 clipPath:
-                  'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                  'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
                 '&:hover': { bgcolor: '#007fe0' },
               }}
             >
@@ -273,7 +216,7 @@ const LoginPage = () => {
             </Button>
           </Paper>
         </Box>
-      </div>
+      </Box>
     </Box>
   );
 };
