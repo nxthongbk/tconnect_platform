@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 import HomePage from '../../pages/Home';
 import MapboxPage from '../../pages/MapboxPage';
+import LoginPage from '../../pages/LoginPage';
 import MasterBoardPage from '../../pages/MasterDashboard';
 
 const routes = {
@@ -22,7 +22,11 @@ export const privateRoutes = [
   { path: routes.masterDasboard, component: MasterBoardPage, layout: false },
 ];
 
-export const publicRoutes = [{ path: routes.home, component: HomePage, layout: false }];
+export const publicRoutes = [{ path: routes.home, component: HomePage, layout: false }, {
+  path: '/login',
+  component: LoginPage,
+  layout: false,
+},];
 
 const IsLogin = () => {
   // const token = Cookies.get('token');
