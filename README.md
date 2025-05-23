@@ -1,3 +1,1 @@
-# MasterDashboard
-
-MasterDashboard app
+# Master Dashboard

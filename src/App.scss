@@ -1,203 +1,125 @@
-@use './assets/scss/index.scss' as *;
 :root {
-  --flex-basis-setting-oversize: 37%;
-  --flex-basis-setting-mobile: 33%;
-  --padding-y-wrapper: 24px;
-  --padding-x-oversize: 400px;
-  --height-header: 65px;
+  --height-header: 56px;
   --padding-x: 32px;
 
-  --drop-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.2);
+  --primary: #007ef5;
+  --tertiary: #9ea2a9;
+  --neutral: #c9cccf;
+  --red-60: #ffebeb;
+  --alert: #cc0000;
+  --semantic-alert: #ff1f1f;
+  --text-tertiary: #818588;
+  --text-secondary: #737982;
+  --text-primary: #3a3d41;
+  --border-color: #dfe0e2;
+  --text-success: #188b54;
+  --button-Tertiary-default: #d9e1e8;
 
-  --primary: #0794ff;
-  --alert: #fe2200;
-  --warning: #ffd500;
-  --success: #00fe7f;
-  --information: #00a9fe;
-  --purple: #fe00fe;
+  --hover-btn: var(--blue-600);
+  --disable-btn: var(--grey-neutral-80);
 
-  --text-primary: #ffffff;
-  --text-secondary: #abadb0;
-  --text-tertiary: #888581;
-  --disable: #c0c2c4;
+  --border-color: #cedfdf;
+  --bg: #ffffff;
+  --divider-color: #e6efef;
+
   --white: #ffffff;
   --black: #000000;
 
-  --blue-900: #00233d;
-  --blue-800: #003a66;
-  --blue-700: #00518f;
-  --blue-600: #0068b8;
-  --blue-500: #007fe0;
-  --blue-400: #0794ff;
-  --blue-300: #33a7ff;
-  --blue-200: #5cb8ff;
-  --blue-100: #85caff;
-  --blue-80: #addcff;
-  --blue-60: #d6edff;
+  --grey-neutral-900: #26282b;
+  --grey-neutral-800: #3a3d41;
+  --grey-neutral-700: #4d5156;
+  --grey-neutral-600: #60656c;
+  --grey-neutral-500: #737982;
+  --grey-neutral-400: #888e96;
+  --grey-neutral-300: #9ea2a9;
+  --grey-neutral-200: #b3b7bc;
+  --grey-neutral-100: #c9cccf;
+  --grey-neutral-80: #dfe0e2;
+  --grey-neutral-60: #f4f5f5;
+  --grey-neutral-40: #f4f5f5;
 
-  --green-900: #053933;
-  --green-800: #085e54;
-  --green-700: #0b8476;
-  --green-600: #0eaa98;
-  --green-500: #11d0b9;
-  --green-400: #1dedd4;
-  --green-300: #42f0db;
-  --green-200: #68f3e3;
-  --green-100: #8ef6ea;
-  --green-80: #b4f9f1;
-  --green-60: #d9fcf8;
+  --grey-primary-900: #1f2933;
+  --grey-primary-800: #2f3e4c;
+  --grey-primary-700: #3e5265;
+  --grey-primary-600: #4e677e;
+  --grey-primary-500: #5d7b98;
+  --grey-primary-400: #7490aa;
+  --grey-primary-300: #8da4b9;
+  --grey-primary-200: #a6b8c9;
+  --grey-primary-100: #c0ccd8;
+  --grey-primary-80: #d9e1e8;
+  --grey-primary-60: #f2f5f7;
+  --grey-primary-40: #f2f5f7;
 
-  --yellow-900: #3d3100;
-  --yellow-800: #665200;
-  --yellow-700: #8f7200;
-  --yellow-600: #b89300;
-  --yellow-500: #e0b400;
-  --yellow-400: #ffcc00;
-  --yellow-300: #ffd633;
-  --yellow-200: #ffde5c;
-  --yellow-100: #ffe785;
-  --yellow-80: #ffefad;
-  --yellow-60: #fff7d6;
+  --turquoise-900: #140052;
+  --turquoise-800: #1f007a;
+  --turquoise-700: #2900a3;
+  --turquoise-600: #3300cc;
+  --turquoise-500: #3d00f5;
+  --turquoise-400: #571fff;
+  --turquoise-300: #7547ff;
+  --turquoise-200: #9470ff;
+  --turquoise-100: #b399ff;
+  --turquoise-80: #d1c2ff;
+  --turquoise-60: #f0ebff;
 
-  --orange-900: #3d1900;
-  --orange-800: #652901;
-  --orange-700: #8e3901;
-  --orange-600: #b74a01;
-  --orange-500: #df5a01;
-  --orange-400: #fe6c0b;
-  --orange-300: #fe8534;
-  --orange-200: #fe9d5d;
-  --orange-100: #feb685;
-  --orange-80: #ffceae;
-  --orange-60: #ffe7d6;
+  --blue-900: #002a52;
+  --blue-800: #003f7a;
+  --blue-700: #0054a3;
+  --blue-600: #0069cc;
+  --blue-500: #007ef5;
+  --blue-400: #1f93ff;
+  --blue-300: #47a7ff;
+  --blue-200: #70baff;
+  --blue-100: #99ceff;
+  --blue-80: #c2e1ff;
+  --blue-60: #ebf5ff;
 
-  --red-900: #3d0a00;
-  --red-800: #651101;
-  --red-700: #8e1801;
-  --red-600: #b71f01;
-  --red-500: #df2601;
-  --red-400: #fe330b;
-  --red-300: #fe5634;
-  --red-200: #fe785d;
-  --red-100: #fe9985;
-  --red-80: #ffbbae;
-  --red-60: #ffddd6;
+  --green-900: #0c452a;
+  --green-800: #12683f;
+  --green-700: #188b54;
+  --green-600: #1fad68;
+  --green-500: #25d07e;
+  --green-400: #40dd91;
+  --green-300: #63e3a5;
+  --green-200: #86eab9;
+  --green-100: #a8f0cd;
+  --green-80: #cbf6e1;
+  --green-60: #eefcf5;
 
-  --purple-900: #19003d;
-  --purple-800: #2a0066;
-  --purple-700: #3b008f;
-  --purple-600: #4c00b8;
-  --purple-500: #5d00e0;
-  --purple-400: #6e07ff;
-  --purple-300: #8833ff;
-  --purple-200: #a05cff;
-  --purple-100: #b885ff;
-  --purple-80: #cfadff;
-  --purple-60: #e7d6ff;
+  --red-900: #660000;
+  --red-800: #8f0000;
+  --red-700: #b80000;
+  --red-600: #cc0000;
+  --red-500: #f50000;
+  --red-400: #ff1f1f;
+  --red-300: #ff4747;
+  --red-200: #ff7070;
+  --red-100: #ff9999;
+  --red-80: #ffc2c2;
+  --red-60: #ffebeb;
 
-  --grey-900: #152028;
-  --grey-800: #233543;
-  --grey-700: #314a5e;
-  --grey-600: #3e6079;
-  --grey-500: #4c7594;
-  --grey-400: #5d8aac;
-  --grey-300: #789dba;
-  --grey-200: #93b1c8;
-  --grey-100: #aec4d5;
-  --grey-80: #c9d8e3;
-  --grey-60: #e4ebf1;
+  --yellow-900: #524000;
+  --yellow-800: #7a6000;
+  --yellow-700: #a38000;
+  --yellow-600: #cca000;
+  --yellow-500: #f5c000;
+  --yellow-400: #ffce1f;
+  --yellow-300: #ffd747;
+  --yellow-200: #ffe070;
+  --yellow-100: #ffe999;
+  --yellow-80: #fff2c2;
+  --yellow-60: #fffbeb;
 
-  --grey-neutral-900: #1e1f20;
-  --grey-neutral-800: #313335;
-  --grey-neutral-700: #45474a;
-  --grey-neutral-600: #595c5f;
-  --grey-neutral-500: #6d7074;
-  --grey-neutral-400: #818588;
-  --grey-neutral-300: #96999c;
-  --grey-neutral-200: #abadb0;
-  --grey-neutral-100: #c0c2c4;
-  --grey-neutral-80: #d5d6d7;
-  --grey-neutral-60: #eaebeb;
-}
-
-a {
-  color: var(--text-primary);
-  text-decoration: none;
-}
-$animation-duration: 0.7s;
-$keyframes: 30px;
-$-keyframes: -30px;
-
-.reveal {
-  position: relative;
-  opacity: 0;
-  &.active {
-    opacity: 1;
-    &.fade-top {
-      animation: fade-top $animation-duration ease-in;
-    }
-    &.fade-right {
-      animation: fade-right $animation-duration ease-in;
-    }
-    &.fade-bottom {
-      animation: fade-bottom $animation-duration ease-in;
-    }
-    &.fade-left {
-      animation: fade-left $animation-duration ease-in;
-    }
-    &.fade-in {
-      animation: fade-in 1.5s ease-in-out;
-    }
-  }
-}
-
-@keyframes fade-top {
-  0% {
-    transform: translateY($-keyframes);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes fade-right {
-  0% {
-    transform: translateX($keyframes);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes fade-bottom {
-  0% {
-    transform: translateY($keyframes);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-left {
-  0% {
-    transform: translateX($-keyframes);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  --orange-900: #522600;
+  --orange-800: #7a3900;
+  --orange-700: #a34c00;
+  --orange-600: #cc5f00;
+  --orange-500: #f57200;
+  --orange-400: #ff871f;
+  --orange-300: #ff9d47;
+  --orange-200: #ffb370;
+  --orange-100: #ffc999;
+  --orange-80: #ffdec2;
+  --orange-60: #fff4eb;
 }

@@ -13,4 +13,6 @@ COPY . .
 
 RUN npm run build
 
-CMD ["npm", "run", "serve"]
+EXPOSE 3000
+
+CMD ["npm", "run", "preview"]

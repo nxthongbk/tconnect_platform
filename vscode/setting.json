@@ -1,33 +1,7 @@
 {
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.fixAll": true,
-    "source.fixAll.eslint": true
-  },
-  "organizeImportsSkipDestructiveCodeActions": true,
-
-  "prettier.requireConfig": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "eslint.format.enable": true,
-  "eslint.alwaysShowStatus": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "files.autoSave": "onFocusChange",
-  "files.exclude": {
-    "**/.next": true,
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/build": true
-  },
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/build": true
-  },
-
-  "importSorter.generalConfiguration.sortOnBeforeSave": true,
-  "importSorter.generalConfiguration.removeUnusedImports": true
-}
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  }
+  

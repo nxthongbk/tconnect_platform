@@ -25,6 +25,6 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["src", "updateVersion.js", "updateVersion.js", "vite.config.ts"],
+  "include": ["src", "updateVersion.js", "updateVersion.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
