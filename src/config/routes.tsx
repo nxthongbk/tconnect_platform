@@ -1,16 +1,15 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 import { AppContext } from '~/contexts/app.context';
-import AuthLayout from '~/layouts/AuthLayout';
 import NotFoundPage from '~/pages/common/404Page';
 import ROUTES from '~/constants/routes.constant';
 import { useContext } from 'react';
-import LoginPage from '~/layouts/LoginPage';
+import LogInPage from '~/pages/common/LogInPage';
 import MasterBoardPage from '~/pages/MasterDashboard/DashboardPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
 
-  return isAuthenticated ? <Outlet /> : <LoginPage />;
+  return isAuthenticated ? <Outlet /> : <LogInPage />;
 };
 
 // const CheckRoleSYSAdmin = () => {
@@ -38,9 +37,13 @@ const useRoutes = () => {
         },
       ],
     },
+    // {
+    //   path: '/login',
+    //   element: <AuthLayout />,
+    // },
     {
       path: '/login',
-      element: <AuthLayout />,
+      element: <LogInPage />,
     },
     {
       path: '*',

@@ -67,7 +67,11 @@ export default function InputCustom(props: TProps) {
                   <Typography component='div' className='w-full h-[18px]'></Typography>
                 ) : null
               }
-              sx={{ [`& .${inputBaseClasses.root}`]: { border: 'none' } }}
+                sx={{
+                [`& .${inputBaseClasses.root}`]: { border: 'none' },
+                [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 2 },
+                [`& .MuiInputBase-input::placeholder`]: { color: '#fff', opacity: 1 },
+              }}
               InputProps={
                 type === 'password'
                   ? {
