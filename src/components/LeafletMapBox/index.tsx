@@ -1,16 +1,9 @@
-import {
-  MapContainer,
-  TileLayer,
-  useMapEvents,
-  Marker,
-  Popup,
-  useMap,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { useState, useContext, useEffect, useMemo, useRef } from "react";
-import L from "leaflet";
-import { AppContext } from "~/contexts/app.context";
-import type { LatLngTuple } from "leaflet";
+import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useState, useContext, useEffect, useMemo, useRef } from 'react';
+import L from 'leaflet';
+import { AppContext } from '~/contexts/app.context';
+import type { LatLngTuple } from 'leaflet';
 
 // Define default location
 const DEFAULT_LOCATION = {
@@ -36,7 +29,7 @@ interface CustomMapProps {
 
 function MapEventHandler({ onMoveEnd }: { onMoveEnd: (center: any) => void }) {
   useMapEvents({
-    moveend: (e) => {
+    moveend: e => {
       const center = e.target.getCenter();
       onMoveEnd(center);
     },
@@ -55,11 +48,7 @@ function MapInstanceSetter({ setMap }: { setMap: (map: any) => void }) {
 function extractValuesOnly(data: Record<string, any>) {
   const result: Record<string, any> = {};
   for (const key in data) {
-    if (
-      typeof data[key] === "object" &&
-      data[key] !== null &&
-      "value" in data[key]
-    ) {
+    if (typeof data[key] === 'object' && data[key] !== null && 'value' in data[key]) {
       result[key] = data[key].value;
     } else {
       result[key] = data[key];
@@ -68,17 +57,9 @@ function extractValuesOnly(data: Record<string, any>) {
   return result;
 }
 
-export default function CustomMap({
-  initialCenter,
-  mapRef,
-  socketData,
-}: CustomMapProps) {
-  const {
-    listOfDevices,
-    setListOfDevices,
-    openMarkerPopup,
-    setOpenMarkerPopup,
-  } = useContext(AppContext);
+export default function CustomMap({ initialCenter, mapRef, socketData }: CustomMapProps) {
+  const { listOfDevices, setListOfDevices, openMarkerPopup, setOpenMarkerPopup } =
+    useContext(AppContext);
   const [center, setCenter] = useState(initialCenter || DEFAULT_LOCATION);
   const [map, setMap] = useState<any>(null);
 
@@ -91,12 +72,10 @@ export default function CustomMap({
 
     const lat = cleanedSocketData.latitude;
     const lon = cleanedSocketData.longitude;
-    if (!lat || !lon || lat === "null" || lon === "null") return;
+    if (!lat || !lon || lat === 'null' || lon === 'null') return;
 
-    setListOfDevices((prev) => {
-      const index = prev.findIndex(
-        (item) => item.id === cleanedSocketData.deviceId
-      );
+    setListOfDevices(prev => {
+      const index = prev.findIndex(item => item.id === cleanedSocketData.deviceId);
       if (index === -1) return prev;
 
       const oldItem = prev[index];
@@ -104,8 +83,7 @@ export default function CustomMap({
       const oldLon = oldItem.longitude;
 
       const hasMoved =
-        parseFloat(oldLat) !== parseFloat(lat) ||
-        parseFloat(oldLon) !== parseFloat(lon);
+        parseFloat(oldLat) !== parseFloat(lat) || parseFloat(oldLon) !== parseFloat(lon);
 
       if (!hasMoved) return prev;
 
@@ -115,9 +93,8 @@ export default function CustomMap({
     });
   }, [socketData]);
 
-  const handleMoveEnd = (newCenter) => {
+  const handleMoveEnd = newCenter => {
     if (center.lat !== newCenter.lat || center.lng !== newCenter.lng) {
-      console.log("Map moved to:", newCenter);
       setCenter(newCenter);
     }
   };
@@ -145,8 +122,8 @@ export default function CustomMap({
         lng = convertedLng;
         lat = convertedLat;
 
-        if (northSouth === "S") lat *= -1;
-        if (eastWest === "W") lng *= -1;
+        if (northSouth === 'S') lat *= -1;
+        if (eastWest === 'W') lng *= -1;
       }
     }
 
@@ -156,27 +133,16 @@ export default function CustomMap({
   const coordinates: LatLngTuple[] = useMemo(() => {
     if (!socketData?.deviceId) return [];
 
-    const latestDevice = listOfDevices.find(
-      (item) => item.id === socketData.deviceId
-    );
+    const latestDevice = listOfDevices.find(item => item.id === socketData.deviceId);
     const lonStr = latestDevice?.longitude;
     const latStr = latestDevice?.latitude;
 
     if (!lonStr || !latStr) return [];
 
-    const lon =
-      typeof lonStr === "string" ? convertNMEAToDecimal(lonStr) : lonStr;
-    const lat =
-      typeof latStr === "string" ? convertNMEAToDecimal(latStr) : latStr;
+    const lon = typeof lonStr === 'string' ? convertNMEAToDecimal(lonStr) : lonStr;
+    const lat = typeof latStr === 'string' ? convertNMEAToDecimal(latStr) : latStr;
 
-    if (
-      !isFinite(lat) ||
-      !isFinite(lon) ||
-      lon < -180 ||
-      lon > 180 ||
-      lat < -90 ||
-      lat > 90
-    ) {
+    if (!isFinite(lat) || !isFinite(lon) || lon < -180 || lon > 180 || lat < -90 || lat > 90) {
       return [];
     }
 
@@ -203,11 +169,12 @@ export default function CustomMap({
     <MapContainer
       center={center}
       zoom={13}
-      style={{ height: "100vh", width: "100%", zIndex: 1 }}
+      style={{ height: '100vh', width: '100%', zIndex: 1 }}
       ref={mapRef as any}
     >
+      {/* <TileLayer url="http://192.168.12.10:8089/tile/{z}/{x}/{y}.png" /> */}
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      <TileLayer url="http://192.168.12.10:8089/tile/{z}/{x}/{y}.png" />
       {/* <TileLayer url="http://14.161.14.155:8081/tile/{z}/{x}/{y}.png" /> */}
       <MapEventHandler onMoveEnd={handleMoveEnd} />
       <MapInstanceSetter setMap={setMap} />
@@ -216,15 +183,15 @@ export default function CustomMap({
         const { lat, lng } = getValidCoordinates(
           item?.longitude,
           item?.latitude,
-          item?.["north/south"],
-          item?.["east/west"]
+          item?.['north/south'],
+          item?.['east/west']
         );
 
         return (
           <Marker
             key={item?.id || index}
             position={[lat, lng]}
-            ref={(ref) => {
+            ref={ref => {
               if (ref && item.id) {
                 markerRefs.current[item.id] = ref;
               }
@@ -235,9 +202,9 @@ export default function CustomMap({
           >
             <Popup>
               <div>
-                <strong>{item?.name || "No name"}</strong>
+                <strong>{item?.name || 'No name'}</strong>
                 <br />
-                IP: {item?.ip_address || "192.168.1.23"}
+                IP: {item?.ip_address || '192.168.1.23'}
               </div>
             </Popup>
           </Marker>

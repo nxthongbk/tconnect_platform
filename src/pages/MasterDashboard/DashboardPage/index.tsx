@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './style.scss';
-import { Avatar } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 import DeviceCard from './components/DeviceCard';
 import topBar from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
 import wuluDevice from '~/assets/images/png/wulu-device.png';
 import cameraDevice from '~/assets/images/png/camera.png';
+import CustomMap from '~/components/LeafletMapBox';
+import { MapRef } from 'react-map-gl';
+import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
 
 const MasterBoardPage = () => {
+  const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
   const [activeDevice, setActiveDevice] = useState<any>();
@@ -41,6 +45,13 @@ const MasterBoardPage = () => {
 
   return (
     <div className="master-board-page">
+      <Box className="router-main" sx={popupStyles}>
+        <CustomMap
+          initialCenter={{ lat: -16.92250772004144, lng: 145.7485087054897 }}
+          mapRef={mapRefRight}
+        />
+      </Box>
+
       <div className="top-bar-wrapper">
         <img src={topBar} alt="Top Bar" className="top-bar" />
 
@@ -94,10 +105,6 @@ const MasterBoardPage = () => {
               ))}
             </ul>
           </div>
-        </div>
-
-        <div className="router-main">
-          <h2>MAP BOX</h2>
         </div>
 
         <div className="right-container">
