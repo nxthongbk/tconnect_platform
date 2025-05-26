@@ -1,7 +1,6 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter, useLocation } from 'react-router-dom';
 
 import { AppContext } from '~/contexts/app.context';
-import AuthLayout from '~/layouts/AuthLayout';
 import ControlCenterPage from '~/pages/tenant/ControlCenterPage';
 import DevicePage from '~/pages/tenant/DevicePage';
 import FireAlertPage from '~/pages/tenant/FireAlertPage';
@@ -20,12 +19,12 @@ import SysToolsPage from '~/pages/systemAdmin/SysToolsPage';
 import { useContext } from 'react';
 import DashboardPage from '~/pages/tenant/Dashboard/index.page';
 import ConfigPage from '~/pages/tenant/ConfigPage';
-import LoginPage from '~/layouts/LoginPage';
+import LogInPage from '~/pages/common/LogInPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
 
-  return isAuthenticated ? <Outlet /> : <LoginPage />;
+  return isAuthenticated ? <Outlet /> : <LogInPage />;
 };
 
 const CheckRoleSYSAdmin = () => {
@@ -138,6 +137,7 @@ const systemAdminRoutes: RouteObject[] = [
     element: <ReportPage />,
   },
 ];
+
 const useRoutes = (role: USER_ROLE) => {
   const routes = [USER_ROLE.TENANT, USER_ROLE.STAFF].includes(role)
     ? tenantRoutes
@@ -154,9 +154,13 @@ const useRoutes = (role: USER_ROLE) => {
         },
       ],
     },
+    // {
+    //   path: '/login',
+    //   element: <AuthLayout />,
+    // },
     {
       path: '/login',
-      element: <AuthLayout />,
+      element: <LogInPage />,
     },
     {
       path: '*',
