@@ -5,6 +5,7 @@ import ROUTES from '~/constants/routes.constant';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
 import MasterBoardPage from '~/pages/MasterDashboard/DashboardPage';
+import EnergyPage from '~/pages/MasterDashboard/EnergyPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -35,6 +36,10 @@ const useRoutes = () => {
           path: ROUTES.HOME,
           element: <MasterBoardPage />,
         },
+				{
+					path: ROUTES.ENERGY,
+					element: <EnergyPage />,
+				}
       ],
     },
     // {

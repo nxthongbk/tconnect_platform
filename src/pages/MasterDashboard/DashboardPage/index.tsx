@@ -7,10 +7,15 @@ import bottomBar from '~/assets/images/png/Bottombar.png';
 import wuluDevice from '~/assets/images/png/wulu-device.png';
 import cameraDevice from '~/assets/images/png/camera.png';
 
+import { useNavigate } from 'react-router-dom';
+import BottomMenu from '~/components/BottomMenu';
+import { menuItems } from '~/constants/menuItems';
+
 const MasterBoardPage = () => {
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
   const [activeDevice, setActiveDevice] = useState<any>();
+  const navigate = useNavigate();
 
   const devices = [
     'Wulu-000007',
@@ -134,14 +139,11 @@ const MasterBoardPage = () => {
         </div>
       </div>
 
-      <ul className="bottom-menu">
-        <li>Traffic</li>
-        <li>Light</li>
-        <li>CCTV</li>
-        <li>Energy</li>
-        <li>Fire Alarm</li>
-        <li>Street Light</li>
-      </ul>
+      <BottomMenu
+        items={menuItems}
+        onMenuClick={path => path && navigate(path)}
+        activePath={location.pathname}
+      />
 
       <img src={bottomBar} alt="Bottom Bar" className="bottom-bar" />
     </div>
