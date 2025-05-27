@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["scity-dev-online"]
+    branches: ["main"]
   pull_request:
-    branches: ["scity-dev-online"]
+    branches: ["main"]
     types: [closed]
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: nxthongbk/scity-ui-service:scity-dev-online
+          tags: nxthongbk/scity-ui-service:master-dashboard
 
   Deploy:
     if: |
