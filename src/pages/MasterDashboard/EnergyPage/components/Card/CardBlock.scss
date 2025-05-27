@@ -1,0 +1,43 @@
+.card-data-border {
+  background: url('/src/assets/images/png/Block.png') no-repeat center center / cover;
+  // border: 2px solid #36bffa;
+  // border-radius: 12px;
+  position: relative;
+
+  width: 104px;
+  height: 88px;
+  flex-shrink: 0;
+  margin: 8px;
+  // box-shadow: 0 0 24px #36bffa33;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+	.card-label {
+		color: #36bffa;
+	}
+  .card-value {
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 100;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .card-unit {
+      color: #b0b9c6;
+      font-size: 14px;
+
+      font-family: inherit;
+      font-weight: 100;
+
+      margin-top: 1px;
+      display: block;
+    }
+  }
+}

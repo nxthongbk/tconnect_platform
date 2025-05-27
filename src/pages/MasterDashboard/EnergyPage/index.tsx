@@ -9,75 +9,190 @@ import CardDataBorder from './components/Card/CardDataBorder';
 import CardTitle from './components/Card/CardTitle';
 import ChartArea from './components/Chart/ChartArea';
 import CardDataRound from './components/Card/CardDataRound';
+import CardBlock from './components/Card/CardBlock';
+
+// Card component for reuse
+const Card = ({
+  title,
+  icon,
+  children,
+  height,
+}: {
+  title: string;
+  icon?: string;
+  children: React.ReactNode;
+  height?: string | number;
+}) => (
+  <div className="dashboard-card" style={height ? { height } : undefined}>
+    {/* <img src='/src/assets/images/png/frameEnergy.png' alt="" className="card-bg" /> */}
+
+    <div className="dashboard-card-header">
+      {/* <span className="dashboard-card-corner"></span> */}
+      {/* {icon && <img src={icon} alt="" className="dashboard-card-icon" />} */}
+      <span className="dashboard-card-title">{title}</span>
+    </div>
+    <div className="dashboard-card-content">{children}</div>
+  </div>
+);
+
+const LeftPanel = () => (
+  <div className="dashboard-panel left-panel">
+    <Card title="OVERVIEW">
+      <div className="overview-grid">
+        <div className="overview-item">
+          <span className="overview-icon">
+            <img src="/src/assets/images/png/metrics.png" alt="icon" />
+          </span>
+          <div>
+            <div className="overview-label">POWER STATIONS</div>
+            <div className="overview-value">
+              38 <span className="overview-unit">PCS</span>
+            </div>
+          </div>
+        </div>
+        <div className="overview-item">
+          <span className="overview-icon">
+            <img src="/src/assets/images/png/metrics.png" alt="icon" />
+          </span>
+          <div>
+            <div className="overview-label">INSTANT POWER</div>
+            <div className="overview-value">
+              858.41 <span className="overview-unit">MWh</span>
+            </div>
+          </div>
+        </div>
+        <div className="overview-item">
+          <span className="overview-icon">
+            <img src="/src/assets/images/png/metrics.png" alt="icon" />
+          </span>
+          <div>
+            <div className="overview-label">TOTAL CAPACITY</div>
+            <div className="overview-value">
+              2609.71 <span className="overview-unit">MWh</span>
+            </div>
+          </div>
+        </div>
+        <div className="overview-item">
+          <span className="overview-icon">
+            <img src="/src/assets/images/png/metrics.png" alt="icon" />
+          </span>
+          <div>
+            <div className="overview-label">WIND POWER</div>
+            <div className="overview-value">
+              1097 <span className="overview-unit">MWh</span>
+            </div>
+          </div>
+        </div>
+        <div className="overview-item">
+          <span className="overview-icon">
+            <img src="/src/assets/images/png/metrics.png" alt="icon" />
+          </span>
+          <div>
+            <div className="overview-label">PV CAPACITY</div>
+            <div className="overview-value">
+              858.41 <span className="overview-unit">MWh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Card>
+    <Card title="POWER" height='154px'>
+      {/* <div className="power-station-list">
+				<div className="station-item">
+					<span className="station-icon">
+						<img src="/src/assets/images/png/station.png" alt="icon" />
+					</span>
+					<div className="station-info">
+						<div className="station-name">WULU-000007</div>
+						<div className="station-location">QTSC1</div>
+					</div>
+				</div>
+				
+			</div> */}
+      <div className="power-blocks">
+    <CardBlock label="DAILY" value="1536.78" unit="MWh" />
+    <CardBlock label="MONTHLY" value="7563.78" unit="MWh" />
+    <CardBlock label="YEARLY" value="13563.7" unit="MWh" />
+  </div>
+    </Card>
+    <Card title="INSTANT POWER">
+      <div className="chart-placeholder">[Chart]</div>
+    </Card>
+    <Card title="TOP 5 EQUIPMENT TIME MONTHLY">
+      <div className="chart-placeholder">[Bar Chart]</div>
+    </Card>
+  </div>
+);
+
+const RightPanel = () => (
+  <div className="dashboard-panel right-panel">
+    {/* <img src='/src/assets/images/png/eneryFrame.png' alt="" className="panel-bg" /> */}
+    <Card title="POWER">
+      <div className="power-circles">
+        <div>
+          <div className="circle">85%</div>
+          <div className="circle-label">PC for the month</div>
+        </div>
+        <div>
+          <div className="circle">68%</div>
+          <div className="circle-label">PC for the year</div>
+        </div>
+      </div>
+    </Card>
+    <Card title="TOP 5 PR">
+      <div className="chart-placeholder">[Horizontal Bar Chart]</div>
+    </Card>
+    <Card title="TOTAL CARBON REDUCTION">
+      <div className="carbon-stats">
+        <div>
+          <div className="carbon-label">COAL</div>
+          <div className="carbon-value">36.26</div>
+          <div className="carbon-unit">Million tones</div>
+        </div>
+        <div>
+          <div className="carbon-label">CO2</div>
+          <div className="carbon-value">90.3</div>
+          <div className="carbon-unit">Million tones</div>
+        </div>
+        <div>
+          <div className="carbon-label">TREES</div>
+          <div className="carbon-value">84.42</div>
+          <div className="carbon-unit">Million tones</div>
+        </div>
+      </div>
+    </Card>
+    <Card title="DEVICE STATISTIC">
+      <div className="device-stats">
+        <div>
+          <div className="device-label">PV INVESTERS</div>
+          <div className="device-value">5679</div>
+          <div className="device-unit">Set</div>
+        </div>
+        <div>
+          <div className="device-label">WIND TUITION</div>
+          <div className="device-value">879</div>
+          <div className="device-unit">Set</div>
+        </div>
+        <div>
+          <div className="device-label">TRANSFORMERS</div>
+          <div className="device-value">879</div>
+          <div className="device-unit">Set</div>
+        </div>
+      </div>
+    </Card>
+  </div>
+);
+
+const CenterMapPanel = () => (
+  <div className="dashboard-panel center-panel">
+    <img src="/src/assets/images/png/map.png" alt="Map" className="map-bg" />
+  </div>
+);
 
 const EnergyPage = () => {
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
-  const [activeDevice, setActiveDevice] = useState<any>();
   const navigate = useNavigate();
-
-  // 	const cardRoudData: CardRoundData[] = [
-  //   {
-  //     iconName: <img src={images.iconPV} />,
-  //     title: 'PV investers',
-  //     description: '(Set)',
-  //     value: 5679,
-  //   },
-  //   {
-  //     iconName: <img src={images.iconWind} />,
-
-  //     title: 'Wind tuition',
-  //     description: '(Set)',
-  //     value: 879,
-  //   },
-  //   {
-  //     iconName: <img src={images.iconTran} />,
-
-  //     title: 'Transformers',
-  //     description: '(Set)',
-  //     value: 879,
-  //   },
-  //   {
-  //     iconName: <img src={images.iconCoal} />,
-
-  //     title: 'Coal',
-  //     description: '(million tones)',
-  //     value: 36.26,
-  //   },
-  //   {
-  //     iconName: <img src={images.iconCo2} />,
-
-  //     title: 'CO2',
-  //     description: '(million tones)',
-  //     value: 90.3,
-  //   },
-  //   {
-  //     iconName: <img src={images.iconTrees} />,
-
-  //     title: 'Trees',
-  //     description: '(million tones)',
-  //     value: 84.42,
-  //   },
-  // ];
-
-  // const devices = [
-  //   'Wulu-000007',
-  //   'Wulu-000008',
-  //   'Wulu-000009',
-  //   'Wulu-000010',
-  //   'Wulu-000010',
-  //   'Wulu-000010',
-  //   'Wulu-000010',
-  // ];
-
-  // const cameraList = [
-  //   'CAM-CK-001',
-  //   'CAM-CK-002',
-  //   'CAM-CK-003',
-  //   'CAM-CK-004',
-  //   'CAM-CK-005',
-  //   'CAM-CK-006',
-  // ];
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -88,17 +203,15 @@ const EnergyPage = () => {
   const formattedTime = time.toLocaleTimeString();
 
   return (
-    <div className="energy-page">
+    <div className="energy-page dashboard-template">
+      {/* Top Bar */}
       <div className="top-bar-wrapper">
         <img src="/src/assets/images/png/Topbar.png" alt="Top Bar" className="top-bar" />
-
         <div className="top-bar-content">
           <div className="top-bar-date">
             {formattedTime} {formattedDate}
           </div>
-
           <div className="top-bar-title">Master Dashboard</div>
-
           <div className="top-bar-controls">
             <select
               value={country}
@@ -109,135 +222,24 @@ const EnergyPage = () => {
               <option value="VN">Vietnam</option>
               <option value="JP">Japan</option>
             </select>
-
             <Avatar sx={{ width: 25, height: 25 }} alt="User Avatar" />
           </div>
         </div>
       </div>
 
-      <div className="router-layout">
-        <div className="left-container">
-          <div className="router-overview">
-            {/* <h2>Router Overview</h2> */}
-
-            {/* <ul className="device-list">
-             
-            </ul> */}
-            <Grid container justifyContent={'space-between'}>
-              <Grid item width={'450px'}>
-                <Grid container rowGap={'22px'}>
-                  <Grid item width={'100%'} display={'flex'} columnGap={'10px'}>
-                    <CardDataBorder
-                      childrent={
-                        <Stack spacing={1} alignItems={'center'}>
-                          <Typography variant="label2" color={'var(--text-primary)'}>
-                            1563.78 MWh
-                          </Typography>
-                          <Typography variant="caption1" color={'var(--text-secondary)'}>
-                            Daily power
-                          </Typography>
-                        </Stack>
-                      }
-                    />
-                    <CardDataBorder
-                      childrent={
-                        <Stack spacing={1} alignItems={'center'}>
-                          <Typography variant="label2" color={'var(--text-primary)'}>
-                            7563.78 MWh
-                          </Typography>
-                          <Typography variant="caption1" color={'var(--text-secondary)'}>
-                            Monthly power
-                          </Typography>
-                        </Stack>
-                      }
-                    />
-                    <CardDataBorder
-                      childrent={
-                        <Stack spacing={1} alignItems={'center'}>
-                          <Typography variant="label2" color={'var(--text-primary)'}>
-                            13563.7 MWh
-                          </Typography>
-                          <Typography variant="caption1" color={'var(--text-secondary)'}>
-                            Yearly power
-                          </Typography>
-                        </Stack>
-                      }
-                    />
-                  </Grid>
-                  <Grid item width={'100%'}>
-                    <CardTitle title="instant-power" />
-                  </Grid>
-                  <Grid item width={'100%'}>
-                    <ChartArea />
-                  </Grid>
-                  <Grid item width={'100%'}>
-                    <CardTitle title="monthly-equi" />
-                  </Grid>
-                  <Grid item width={'100%'} display="flex" justifyContent={'space-between'}>
-                    {/* {progressList1.map((item: ProgressType, idx: number) => {
-                  return <ProgressColumn key={idx} props={item} />;
-                })} */}
-                  </Grid>
-
-                  <Grid item width={'100%'} mt={'20px'}>
-                    <CardTitle title="total-carbon-reduction" />
-                  </Grid>
-                  <Grid item width={'100%'} display={'flex'} justifyContent={'space-between'}>
-                    {/* <CardDataRound props={cardRoudData[3]} />
-                <CardDataRound props={cardRoudData[4]} />
-
-                <CardDataRound props={cardRoudData[5]} /> */}
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </div>
-        </div>
-
-        <div className="router-main">
-          {/* <h2>MAP BOX</h2> */}
-        </div>
-
-        <div className="right-container">
-          <div className="search-container">
-            <input type="text" placeholder="Search location" className="search-input" />
-          </div>
-          <div className="router-detail">
-            <h2>Router Detail</h2>
-
-            {/* <DeviceCard
-							device={{
-								name: 'Wulu-000007',
-								locationShort: 'QTSC1',
-								uuid: '26dcbbb1-f9c9-4638-b8a0-b5b6cfed6',
-								locationFull: '12 Quang Trung',
-								profile: '192.168.1.23',
-								type: 'WULU-MESH',
-								waitingTime: '5 mins',
-							}}
-						/> */}
-
-            <div className="camera-list-container">
-              <h2>Camera List</h2>
-              <div className="camera-grid">
-                {/* {cameraList.map((cam, index) => (
-                  <div key={index} className="camera-item">
-                    <img src="/src/assets/images/png/device-camera.png" alt={cam} className="camera-icon" />
-                    <div className="camera-name">{cam}</div>
-                  </div>
-                ))} */}
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Main Dashboard Layout */}
+      <div className="dashboard-main">
+        <LeftPanel />
+        <CenterMapPanel />
+        <RightPanel />
       </div>
 
+      {/* Bottom Menu and Bar */}
       <BottomMenu
         activePath={location.pathname}
         items={menuItems}
         onMenuClick={path => path && navigate(path)}
       />
-
       <img src="/src/assets/images/png/Bottombar.png" alt="Bottom Bar" className="bottom-bar" />
     </div>
   );
