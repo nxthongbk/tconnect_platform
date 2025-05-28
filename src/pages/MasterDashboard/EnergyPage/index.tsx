@@ -10,6 +10,24 @@ import CardTitle from './components/Card/CardTitle';
 import ChartArea from './components/Chart/ChartArea';
 import CardDataRound from './components/Card/CardDataRound';
 import CardBlock from './components/Card/CardBlock';
+import {
+  overviewData,
+  powerBlocksData,
+  progressListColumn,
+  powerCircleData,
+  top5PRData,
+  carbonStatisticData,
+  deviceStatisticData,
+} from './mockData';
+import ProgressColumn from './components/Progress/ProgressColumn.tsx';
+import ChartBar from './components/Chart/ChartBar';
+import ChartCircle from './components/Chart/ChartCircle.tsx';
+import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
+
+type ProgressType = {
+  title: string;
+  precent: string;
+};
 
 // Card component for reuse
 const Card = ({
@@ -39,87 +57,42 @@ const LeftPanel = () => (
   <div className="dashboard-panel left-panel">
     <Card title="OVERVIEW">
       <div className="overview-grid">
-        <div className="overview-item">
-          <span className="overview-icon">
-            <img src="/src/assets/images/png/metrics.png" alt="icon" />
-          </span>
-          <div>
-            <div className="overview-label">POWER STATIONS</div>
-            <div className="overview-value">
-              38 <span className="overview-unit">PCS</span>
+        {overviewData.map((item, idx) => (
+          <div className="overview-item" key={idx}>
+            <span className="overview-icon">
+              <img src={item.icon} alt="icon" />
+            </span>
+            <div>
+              <div className="overview-label">{item.label}</div>
+              <div className="overview-value">
+                {item.value} <span className="overview-unit">{item.unit}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="overview-item">
-          <span className="overview-icon">
-            <img src="/src/assets/images/png/metrics.png" alt="icon" />
-          </span>
-          <div>
-            <div className="overview-label">INSTANT POWER</div>
-            <div className="overview-value">
-              858.41 <span className="overview-unit">MWh</span>
-            </div>
-          </div>
-        </div>
-        <div className="overview-item">
-          <span className="overview-icon">
-            <img src="/src/assets/images/png/metrics.png" alt="icon" />
-          </span>
-          <div>
-            <div className="overview-label">TOTAL CAPACITY</div>
-            <div className="overview-value">
-              2609.71 <span className="overview-unit">MWh</span>
-            </div>
-          </div>
-        </div>
-        <div className="overview-item">
-          <span className="overview-icon">
-            <img src="/src/assets/images/png/metrics.png" alt="icon" />
-          </span>
-          <div>
-            <div className="overview-label">WIND POWER</div>
-            <div className="overview-value">
-              1097 <span className="overview-unit">MWh</span>
-            </div>
-          </div>
-        </div>
-        <div className="overview-item">
-          <span className="overview-icon">
-            <img src="/src/assets/images/png/metrics.png" alt="icon" />
-          </span>
-          <div>
-            <div className="overview-label">PV CAPACITY</div>
-            <div className="overview-value">
-              858.41 <span className="overview-unit">MWh</span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </Card>
-    <Card title="POWER" height='154px'>
-      {/* <div className="power-station-list">
-				<div className="station-item">
-					<span className="station-icon">
-						<img src="/src/assets/images/png/station.png" alt="icon" />
-					</span>
-					<div className="station-info">
-						<div className="station-name">WULU-000007</div>
-						<div className="station-location">QTSC1</div>
-					</div>
-				</div>
-				
-			</div> */}
+    <Card title="POWER">
       <div className="power-blocks">
-    <CardBlock label="DAILY" value="1536.78" unit="MWh" />
-    <CardBlock label="MONTHLY" value="7563.78" unit="MWh" />
-    <CardBlock label="YEARLY" value="13563.7" unit="MWh" />
-  </div>
+        {powerBlocksData.map((item, idx) => (
+          <CardBlock
+            key={idx}
+            label={item.label}
+            value={item.value}
+            unit={item.unit}
+            className="card-block"
+          />
+        ))}
+      </div>
     </Card>
     <Card title="INSTANT POWER">
-      <div className="chart-placeholder">[Chart]</div>
+      {/* <div className="chart-placeholder">[Chart]</div> */}
+
+      <ChartArea />
     </Card>
     <Card title="TOP 5 EQUIPMENT TIME MONTHLY">
-      <div className="chart-placeholder">[Bar Chart]</div>
+      {/* <div className="chart-placeholder">[Bar Chart]</div> */}
+      <ChartBar data={progressListColumn} />
     </Card>
   </div>
 );
@@ -129,55 +102,42 @@ const RightPanel = () => (
     {/* <img src='/src/assets/images/png/eneryFrame.png' alt="" className="panel-bg" /> */}
     <Card title="POWER">
       <div className="power-circles">
-        <div>
-          <div className="circle">85%</div>
-          <div className="circle-label">PC for the month</div>
-        </div>
-        <div>
-          <div className="circle">68%</div>
-          <div className="circle-label">PC for the year</div>
-        </div>
+        {powerCircleData.map((item, idx) => (
+          <div key={idx}>
+            <ChartCircle value={item.value} />
+            <div className="circle-label">{item.label}</div>
+          </div>
+        ))}
       </div>
     </Card>
     <Card title="TOP 5 PR">
-      <div className="chart-placeholder">[Horizontal Bar Chart]</div>
+      {/* <div className="chart-placeholder">[Horizontal Bar Chart]</div> */}
+      <ChartHorizontalBar data={top5PRData} />
     </Card>
     <Card title="TOTAL CARBON REDUCTION">
-      <div className="carbon-stats">
-        <div>
-          <div className="carbon-label">COAL</div>
-          <div className="carbon-value">36.26</div>
-          <div className="carbon-unit">Million tones</div>
-        </div>
-        <div>
-          <div className="carbon-label">CO2</div>
-          <div className="carbon-value">90.3</div>
-          <div className="carbon-unit">Million tones</div>
-        </div>
-        <div>
-          <div className="carbon-label">TREES</div>
-          <div className="carbon-value">84.42</div>
-          <div className="carbon-unit">Million tones</div>
-        </div>
+      <div className="power-blocks">
+        {carbonStatisticData.map((item, idx) => (
+          <CardBlock
+            key={idx}
+            label={item.label}
+            value={item.value}
+            unit={item.unit}
+            className="card-block"
+          />
+        ))}
       </div>
     </Card>
     <Card title="DEVICE STATISTIC">
-      <div className="device-stats">
-        <div>
-          <div className="device-label">PV INVESTERS</div>
-          <div className="device-value">5679</div>
-          <div className="device-unit">Set</div>
-        </div>
-        <div>
-          <div className="device-label">WIND TUITION</div>
-          <div className="device-value">879</div>
-          <div className="device-unit">Set</div>
-        </div>
-        <div>
-          <div className="device-label">TRANSFORMERS</div>
-          <div className="device-value">879</div>
-          <div className="device-unit">Set</div>
-        </div>
+      <div className="power-blocks">
+        {deviceStatisticData.map((item, idx) => (
+          <CardBlock
+            key={idx}
+            label={item.label}
+            value={item.value}
+            unit={item.unit}
+            className="card-block"
+          />
+        ))}
       </div>
     </Card>
   </div>

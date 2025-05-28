@@ -308,7 +308,7 @@
     }
   }
 }
-// Add to d:\IOT_MD\MasterDashboard\src\pages\MasterDashboard\EnergyPage\style.scss
+
 .dashboard-main {
   display: flex;
   justify-content: space-between;
@@ -324,28 +324,39 @@
     flex-direction: column;
     gap: 8px;
     background: transparent;
-
     overflow: visible;
-    min-height: 700px;
+    min-height: 0;
     position: relative;
     &.left-panel,
     &.right-panel {
-      width: 360px;
+      width: 380px;
       min-width: 340px;
       max-width: 400px;
+      flex: 1 1 0%;
       flex-shrink: 0;
-
       position: relative;
       z-index: 2;
-      padding: 0 0 0 0;
+      padding: 4px;
+      height: 100%;
+
+      height: 100%;
+      max-height: 100%;
+      overflow-y: auto;
+      scrollbar-width: none; // Firefox
+      -ms-overflow-style: none; // IE/Edge
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        // Chrome/Safari
+        display: none;
+      }
     }
     &.center-panel {
-      flex: 1 1 0;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      flex: 4 1 0%;
       min-width: 600px;
-      position: relative;
+      min-height: 0;
       .map-bg {
         max-width: 1400px;
         height: 90vh;
@@ -374,7 +385,7 @@
   border: 1px solid #36bffa3d;
   position: relative;
   margin-bottom: 2px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: none;
 
   // Blue highlights at top corners
@@ -437,11 +448,13 @@
   }
 
   .dashboard-card-content {
-    padding: 8px 8px;
     font-size: 13px;
     position: relative;
     z-index: 2;
     color: #e0f2fe;
+    overflow: visible;
+    min-height: 0;
+    height: auto;
     .overview-grid,
     .power-stats,
     .carbon-stats,
@@ -483,18 +496,20 @@
     }
     .power-circles {
       display: flex;
-      gap: 16px;
+      gap: 24px;
       justify-content: center;
+      font-size: 20px;
+      font-family: 'Orbitron', monospace;
       .circle {
-        width: 60px;
-        height: 60px;
+        // width: 60px;
+        // height: 60px;
         border-radius: 50%;
-        border: 2px solid #00eaff;
+        border: 2px solid #5fe9d0;
         background: rgba(10, 16, 26, 0.8);
         color: #fff;
-        font-size: 18px;
-        font-family: 'Orbitron', monospace;
-        font-weight: 700;
+        // font-size: 18px;
+        // font-family: 'Orbitron', monospace;
+        // font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -502,29 +517,46 @@
         margin-bottom: 4px;
       }
       .circle-label {
-        color: #00eaff;
-        font-size: 10px;
+        color: #ffffff;
+        font-size: 12px;
         text-align: center;
         margin-top: 2px;
-        text-shadow: 0 0 4px #00eaff55;
       }
     }
-    .chart-placeholder {
-      width: 100%;
-      height: 90px;
-      background: rgba(0, 234, 255, 0.08);
-      border: 1px dashed #00eaff88;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #00eaffcc;
-      font-size: 13px;
-      font-family: 'Orbitron', monospace;
-      margin-top: 4px;
-      margin-bottom: 4px;
-      text-shadow: 0 0 6px #00eaff55;
-    }
+    // .power-circles {
+
+    //   display: flex;
+    //   justify-content: space-around;
+    //   align-items: center;
+    //   gap: 12px;
+    //   > div {
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //   }
+    //   .circle-label {
+    //     margin-top: 8px;
+    //     color: #ffffff;
+    //     font-size: 11px;
+    //     text-align: center;
+    //   }
+    // }
+    // .chart-placeholder {
+    //   width: 100%;
+    //   height: 90px;
+    //   background: rgba(0, 234, 255, 0.08);
+    //   border: 1px dashed #00eaff88;
+    //   border-radius: 6px;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   color: #00eaffcc;
+    //   font-size: 13px;
+    //   font-family: 'Orbitron', monospace;
+    //   margin-top: 4px;
+    //   margin-bottom: 4px;
+    //   text-shadow: 0 0 6px #00eaff55;
+    // }
     .overview-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -563,12 +595,27 @@
       }
     }
   }
+  // .power-blocks {
+  //   display: flex;
+  //   // gap: 32px;
+  //   justify-content: center;
+  //   align-items: stretch;
+  //   // margin: 32px 0 16px 0;
+  // }
   .power-blocks {
     display: flex;
-    // gap: 32px;
-    justify-content: center;
+    flex-wrap: nowrap; // Prevent wrapping
+    justify-content: space-between; // Evenly space cards
     align-items: stretch;
-    // margin: 32px 0 16px 0;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .card-block {
+    flex: 1 1 0; // All cards take equal width
+    min-width: 0; // Allow shrinking
+    max-width: none; // Remove max-width restriction
+    width: auto;
   }
 }
 // .card-block-bg {
@@ -626,3 +673,7 @@
     padding: 0 2px;
   }
 }
+
+// .apexcharts-yaxis-label {
+//   white-space: normal !important;
+// }

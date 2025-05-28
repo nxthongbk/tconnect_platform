@@ -57,7 +57,7 @@
     "react-multi-carousel": "^2.8.5",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.1",
-    "recharts": "^2.12.7",
+    "recharts": "^2.15.3",
     "sass": "^1.77.2",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
