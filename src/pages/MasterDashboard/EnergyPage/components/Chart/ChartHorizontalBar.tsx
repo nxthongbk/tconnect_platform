@@ -18,7 +18,10 @@ const CustomLabel = ({ x, y, index }) => {
 
 export default function CustomBarChart() {
   return (
-    <div className="animated-chart-container p-4" style={{ width: '100%', height: 360 }}>
+    <div
+      className="animated-chart-container float-glow-chart p-4"
+      style={{ width: '100%', height: 360 }}
+    >
       <ResponsiveContainer>
         <BarChart data={data} layout="vertical" margin={{ top: 10, right: 5, left: 5, bottom: 10 }}>
           <defs>
@@ -29,10 +32,11 @@ export default function CustomBarChart() {
           </defs>
 
           <CartesianGrid
-            strokeDasharray="1 1"
+            strokeDasharray="1 0"
             horizontal={true}
-            vertical={false}
+            vertical={true}
             stroke="#2c4964"
+            strokeOpacity={0.1}
           />
 
           <XAxis
@@ -48,7 +52,7 @@ export default function CustomBarChart() {
             dy={10}
           />
 
-          <YAxis axisLine={false} tickLine={false} type="category" dataKey="name" hide={true} />
+          <YAxis type="category" dataKey="name" hide={true} />
 
           <Tooltip
             cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
@@ -65,11 +69,12 @@ export default function CustomBarChart() {
           <Bar
             dataKey="value"
             fill="url(#barGradient)"
-            barSize={20}
+            barSize={18}
             radius={[0, 1, 1, 0]}
             label={CustomLabel}
             isAnimationActive={true}
             animationDuration={1200}
+            className="progress-bar-glow"
           />
         </BarChart>
       </ResponsiveContainer>

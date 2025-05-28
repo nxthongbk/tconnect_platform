@@ -7,13 +7,7 @@
   position: relative;
   .right-container,
   .left-container {
-    // background-color: #000000cc;
     background-color: transparent;
-    // position: absolute;
-    // top: 0;
-    // bottom: 0;
-    // width: 50%;
-    // z-index: 1;
   }
   .top-bar-wrapper {
     background: transparent;
@@ -116,7 +110,6 @@
       &:hover,
       &.active {
         color: #fff;
-
         text-shadow: 0 0 12px #00eaff;
       }
     }
@@ -193,6 +186,7 @@
         object-fit: contain;
         position: relative;
         z-index: 2;
+        filter: drop-shadow(0 0 24px #00eaff88);
       }
     }
     .panel-bg {
@@ -214,8 +208,12 @@
   position: relative;
   margin-bottom: 2px;
   overflow: visible;
-  box-shadow: none;
-  // animation: fadeInCard 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: cardFadeIn 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+  // box-shadow: 0 0 8px #36bffa88;
+  transition: box-shadow 0.3s ease;
   &::before,
   &::after {
     content: '';
@@ -234,7 +232,6 @@
     right: 0;
     transform: scaleX(-1);
   }
-
   &::after,
   &::before {
     box-shadow: 0 0 8px #36bffa3d;
@@ -247,7 +244,6 @@
     z-index: 3;
     background: transparent;
     border: none;
-
     &::after {
       content: '';
       position: absolute;
@@ -302,7 +298,6 @@
       .device-value {
         font-size: 16px;
         font-family: 'Orbitron', monospace;
-        // font-weight: 400;
         color: #fff;
         span {
           font-size: 13px;
@@ -323,10 +318,10 @@
       justify-content: center;
       font-size: 20px;
       font-family: 'Orbitron', monospace;
+      padding: 12px 10px 4px 12px;
       .circle {
         border-radius: 50%;
         border: 2px solid #5fe9d0;
-        // background: rgba(10, 16, 26, 0.8);
         color: #fff;
         display: flex;
         align-items: center;
@@ -339,7 +334,7 @@
         font-size: 12px;
         text-align: center;
         margin-top: 1px;
-        margin-bottom: 1px;
+        margin-bottom: 4px;
       }
     }
 
@@ -363,7 +358,6 @@
     .overview-label {
       color: #36bffa;
       font-size: 13px;
-
       letter-spacing: 1px;
       margin-bottom: 2px;
       text-shadow: 0 0 4px #00eaff55;
@@ -399,51 +393,14 @@
     width: auto;
   }
 }
-
-// @media (max-width: 1200px) {
-//   .dashboard-main {
-//     flex-direction: column;
-//     .dashboard-panel.left-panel,
-//     .dashboard-panel.right-panel {
-//       width: 100%;
-//       min-width: 0;
-//       max-width: 100%;
-//       margin-bottom: 12px;
-//     }
-//     .dashboard-panel.center-panel {
-//       min-width: 0;
-//       max-width: 100%;
-//     }
-//   }
-// }
-
-// @media (max-width: 900px) {
-//   .top-bar-content {
-//     flex-direction: column;
-//     align-items: center;
-//     padding: 0 6px;
-//     .top-bar-title {
-//       font-size: 15px;
-//     }
-//     .top-bar-date {
-//       font-size: 12px;
-//     }
-//   }
-//   .dashboard-main {
-//     flex-direction: column;
-//     .dashboard-panel {
-//       width: 100% !important;
-//       min-width: 0 !important;
-//       max-width: 100% !important;
-//       margin-bottom: 12px;
-//     }
-//   }
-//   .bottom-menu {
-//     gap: 8px;
-//     font-size: 10px;
-//     padding: 0 2px;
-//   }
-// }
+.bottom-menu li:hover,
+.bottom-menu li.active {
+  transform: scale(1);
+  text-shadow:
+    0 0 16px #00eaff,
+    0 0 8px #36bffa;
+  transition: all 0.3s ease-in-out;
+}
 
 @keyframes floatIcon {
   0%,
@@ -451,46 +408,16 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px) scale(1.08);
+    transform: translateY(-6px);
   }
 }
 
-@keyframes fadeInCard {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.98);
-  }
+@keyframes cardFadeIn {
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
-
-// .recharts-layer text {
-//   opacity: 0;
-//   animation: fadeInLabel 0.8s 0.8s forwards;
-//   text-shadow:
-//     0 0 8px #36bffa88,
-//     0 0 2px #fff;
-// }
-// @keyframes fadeInLabel {
-//   to {
-//     opacity: 1;
-//   }
-// }
-
-// .animated-chart-container {
-//   opacity: 0;
-//   transform: scale(0.98);
-//   animation: fadeInChart 0.7s 0.2s forwards;
-// }
-
-// @keyframes fadeInChart {
-//   to {
-//     opacity: 1;
-//     transform: scale(1);
-//   }
-// }
 
 .animated-circle-chart {
   opacity: 0;
@@ -503,36 +430,6 @@
     opacity: 1;
     transform: scale(1);
   }
-}
-
-// .animated-chart-container,
-// .animated-circle-chart {
-//   box-shadow: 0 0 16px 0 #36bffa55;
-//   animation:
-//     fadeInChart 0.7s 0.2s forwards,
-//     pulseGlow 2.5s 1s infinite alternate;
-// }
-// .animated-chart-container:hover,
-// .animated-circle-chart:hover {
-//   transform: scale(1.03);
-//   box-shadow: 0 0 40px 8px #5fe9d0cc;
-//   transition: transform 0.2s, box-shadow 0.2s;
-// }
-// @keyframes pulseGlow {
-//   from {
-//     box-shadow: 0 0 16px 0 #36bffa55;
-//   }
-//   to {
-//     box-shadow: 0 0 32px 4px #36bffa99;
-//   }
-// }
-
-.recharts-cartesian-grid-vertical line {
-  stroke: #36bffa !important;
-  stroke-width: 2px;
-  filter: drop-shadow(0 0 6px #36bffa88);
-  opacity: 0;
-  animation: gridLineFadeIn 1.2s 0.3s forwards;
 }
 
 @keyframes gridLineFadeIn {
@@ -548,10 +445,82 @@
   }
 }
 
-// .apexcharts-radialbar-area .apexcharts-radialbar-track {
-//   filter: drop-shadow(0 0 8px #36bffa88);
+.recharts-cartesian-grid-vertical line {
+  stroke: #36bffa !important;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 6px #36bffa88);
+  opacity: 0;
+  animation: gridLineFadeIn 1.2s 0.3s forwards;
+}
+
+// @keyframes blingPulse {
+//   0%, 100% {
+//     filter: drop-shadow(0 0 2px #36bffa);
+//   }
+//   50% {
+//     filter: drop-shadow(0 0 12px #36bffa) brightness(1.3);
+//   }
+// }
+
+// .bling-bar rect {
+//   animation: blingPulse 2s infinite ease-in-out;
 //   transition: filter 0.3s;
 // }
-// .apexcharts-radialbar-area .apexcharts-radialbar-track:hover {
-//   filter: drop-shadow(0 0 24px #5fe9d0cc);
-// }
+@keyframes pulseDot {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(184, 133, 255, 0.7),
+      inset 0 2px 4px rgba(255, 255, 255, 1);
+  }
+  50% {
+    box-shadow:
+      0 0 8px 4px rgba(184, 133, 255, 1),
+      inset 0 2px 4px rgba(255, 255, 255, 1);
+  }
+}
+
+.recharts-bar .progress-bar-glow {
+  animation: barGlow 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 1px rgba(184, 133, 255, 0.8));
+}
+
+@keyframes barGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(184, 133, 255, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(184, 133, 255, 1));
+  }
+}
+
+.pulse-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(184, 133, 255, 1);
+  position: absolute;
+  animation: pulseDot 1.5s infinite ease-in-out;
+}
+
+.apexcharts-bar-series .apexcharts-series path {
+  filter: drop-shadow(0 0 8px #42f0db88);
+  transition: filter 0.3s;
+}
+.apexcharts-bar-series .apexcharts-series path:hover {
+  filter: drop-shadow(0 0 24px #42f0dbcc);
+}
+
+.animated-bar-chart {
+  opacity: 0;
+  transform: scale(0.98);
+  animation: fadeInBarChart 0.7s 0.2s forwards;
+}
+
+@keyframes fadeInBarChart {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
