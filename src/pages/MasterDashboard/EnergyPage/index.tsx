@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import './style.scss';
-import { Avatar, Grid, Stack, Typography } from '@mui/material';
+import { Avatar } from '@mui/material';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
-// import DeviceCard from './components/DeviceCard';
 import { useNavigate } from 'react-router-dom';
-import CardDataBorder from './components/Card/CardDataBorder';
-import CardTitle from './components/Card/CardTitle';
 import ChartArea from './components/Chart/ChartArea';
-import CardDataRound from './components/Card/CardDataRound';
 import CardBlock from './components/Card/CardBlock';
 import {
   overviewData,
@@ -19,20 +15,14 @@ import {
   carbonStatisticData,
   deviceStatisticData,
 } from './mockData';
-import ProgressColumn from './components/Progress/ProgressColumn.tsx';
+
 import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
 
-type ProgressType = {
-  title: string;
-  precent: string;
-};
-
 // Card component for reuse
 const Card = ({
   title,
-  icon,
   children,
   height,
 }: {
@@ -42,11 +32,7 @@ const Card = ({
   height?: string | number;
 }) => (
   <div className="dashboard-card" style={height ? { height } : undefined}>
-    {/* <img src='/src/assets/images/png/frameEnergy.png' alt="" className="card-bg" /> */}
-
     <div className="dashboard-card-header">
-      {/* <span className="dashboard-card-corner"></span> */}
-      {/* {icon && <img src={icon} alt="" className="dashboard-card-icon" />} */}
       <span className="dashboard-card-title">{title}</span>
     </div>
     <div className="dashboard-card-content">{children}</div>
@@ -86,12 +72,9 @@ const LeftPanel = () => (
       </div>
     </Card>
     <Card title="INSTANT POWER">
-      {/* <div className="chart-placeholder">[Chart]</div> */}
-
       <ChartArea />
     </Card>
     <Card title="TOP 5 EQUIPMENT TIME MONTHLY">
-      {/* <div className="chart-placeholder">[Bar Chart]</div> */}
       <ChartBar data={progressListColumn} />
     </Card>
   </div>
@@ -99,7 +82,6 @@ const LeftPanel = () => (
 
 const RightPanel = () => (
   <div className="dashboard-panel right-panel">
-    {/* <img src='/src/assets/images/png/eneryFrame.png' alt="" className="panel-bg" /> */}
     <Card title="POWER">
       <div className="power-circles">
         {powerCircleData.map((item, idx) => (
@@ -111,8 +93,7 @@ const RightPanel = () => (
       </div>
     </Card>
     <Card title="TOP 5 PR">
-      {/* <div className="chart-placeholder">[Horizontal Bar Chart]</div> */}
-      <ChartHorizontalBar data={top5PRData} />
+      <ChartHorizontalBar  />
     </Card>
     <Card title="TOTAL CARBON REDUCTION">
       <div className="power-blocks">
