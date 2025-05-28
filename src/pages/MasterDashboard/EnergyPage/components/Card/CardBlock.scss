@@ -1,6 +1,10 @@
 .card-data-border {
   background: url('/src/assets/images/png/Block.png') no-repeat center center / cover;
-  position: relative;
+  // background-color: transparent;
+  // border: 1.5px solid #36bffa;
+  // border-radius: 8px;
+  // position: relative;
+  background-color: transparent;
   width: 108px;
   height: 90px;
   flex-shrink: 0;
@@ -9,9 +13,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
+  animation: fadeInBlock 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Glowing border effect
+  // box-shadow: 0 0 12px 2px #36bffa55;
+  // transition: box-shadow 0.3s;
+  // &:hover {
+  //   box-shadow: 0 0 24px 4px #36bffa99;
+  // }
+
   .card-label {
     color: #36bffa;
+    animation: glowLabel 5s ease-in-out infinite alternate;
   }
   .card-value {
     color: #fff;
@@ -22,7 +37,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    animation: popInValue 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     .card-unit {
       color: #b0b9c6;
       font-size: 11px;
@@ -30,6 +45,49 @@
       font-weight: 100;
       margin-top: 1px;
       display: block;
+      animation: fadeInUnit 1.2s 0.5s forwards;
+      opacity: 0;
     }
+  }
+}
+
+@keyframes fadeInBlock {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes glowLabel {
+  from {
+    text-shadow:
+      0 0 4px #36bffa55,
+      0 0 8px #36bffa22;
+  }
+  to {
+    text-shadow:
+      0 0 12px #36bffa,
+      0 0 24px #36bffa55;
+  }
+}
+
+@keyframes popInValue {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUnit {
+  to {
+    opacity: 1;
   }
 }

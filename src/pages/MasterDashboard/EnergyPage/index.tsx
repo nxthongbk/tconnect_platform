@@ -84,7 +84,7 @@ const RightPanel = () => (
     <Card title="POWER">
       <div className="power-circles">
         {powerCircleData.map((item, idx) => (
-          <div key={idx}>
+          <div className="animated-circle-chart" key={idx}>
             <ChartCircle value={item.value} />
             <div className="circle-label">{item.label}</div>
           </div>

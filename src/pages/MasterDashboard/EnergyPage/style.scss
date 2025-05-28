@@ -7,7 +7,13 @@
   position: relative;
   .right-container,
   .left-container {
-    background-color: #000000cc;
+    // background-color: #000000cc;
+    background-color: transparent;
+    // position: absolute;
+    // top: 0;
+    // bottom: 0;
+    // width: 50%;
+    // z-index: 1;
   }
   .top-bar-wrapper {
     background: transparent;
@@ -209,7 +215,7 @@
   margin-bottom: 2px;
   overflow: visible;
   box-shadow: none;
-
+  // animation: fadeInCard 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   &::before,
   &::after {
     content: '';
@@ -287,7 +293,6 @@
       .device-label {
         color: #36bffa;
         font-size: 11px;
-        font-weight: 600;
         letter-spacing: 1px;
         margin-bottom: 1px;
       }
@@ -297,7 +302,7 @@
       .device-value {
         font-size: 16px;
         font-family: 'Orbitron', monospace;
-        font-weight: 400;
+        // font-weight: 400;
         color: #fff;
         span {
           font-size: 13px;
@@ -321,7 +326,7 @@
       .circle {
         border-radius: 50%;
         border: 2px solid #5fe9d0;
-        background: rgba(10, 16, 26, 0.8);
+        // background: rgba(10, 16, 26, 0.8);
         color: #fff;
         display: flex;
         align-items: center;
@@ -334,7 +339,7 @@
         font-size: 12px;
         text-align: center;
         margin-top: 1px;
-				margin-bottom: 1px;
+        margin-bottom: 1px;
       }
     }
 
@@ -353,11 +358,12 @@
       width: 36px;
       height: 36px;
       filter: drop-shadow(0 0 6px #00eaffcc);
+      animation: floatIcon 2.5s ease-in-out infinite;
     }
     .overview-label {
       color: #36bffa;
       font-size: 13px;
-      font-weight: 600;
+
       letter-spacing: 1px;
       margin-bottom: 2px;
       text-shadow: 0 0 4px #00eaff55;
@@ -394,47 +400,158 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .dashboard-main {
-    flex-direction: column;
-    .dashboard-panel.left-panel,
-    .dashboard-panel.right-panel {
-      width: 100%;
-      min-width: 0;
-      max-width: 100%;
-      margin-bottom: 12px;
-    }
-    .dashboard-panel.center-panel {
-      min-width: 0;
-      max-width: 100%;
-    }
+// @media (max-width: 1200px) {
+//   .dashboard-main {
+//     flex-direction: column;
+//     .dashboard-panel.left-panel,
+//     .dashboard-panel.right-panel {
+//       width: 100%;
+//       min-width: 0;
+//       max-width: 100%;
+//       margin-bottom: 12px;
+//     }
+//     .dashboard-panel.center-panel {
+//       min-width: 0;
+//       max-width: 100%;
+//     }
+//   }
+// }
+
+// @media (max-width: 900px) {
+//   .top-bar-content {
+//     flex-direction: column;
+//     align-items: center;
+//     padding: 0 6px;
+//     .top-bar-title {
+//       font-size: 15px;
+//     }
+//     .top-bar-date {
+//       font-size: 12px;
+//     }
+//   }
+//   .dashboard-main {
+//     flex-direction: column;
+//     .dashboard-panel {
+//       width: 100% !important;
+//       min-width: 0 !important;
+//       max-width: 100% !important;
+//       margin-bottom: 12px;
+//     }
+//   }
+//   .bottom-menu {
+//     gap: 8px;
+//     font-size: 10px;
+//     padding: 0 2px;
+//   }
+// }
+
+@keyframes floatIcon {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.08);
   }
 }
 
-@media (max-width: 900px) {
-  .top-bar-content {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 6px;
-    .top-bar-title {
-      font-size: 15px;
-    }
-    .top-bar-date {
-      font-size: 12px;
-    }
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
   }
-  .dashboard-main {
-    flex-direction: column;
-    .dashboard-panel {
-      width: 100% !important;
-      min-width: 0 !important;
-      max-width: 100% !important;
-      margin-bottom: 12px;
-    }
-  }
-  .bottom-menu {
-    gap: 8px;
-    font-size: 10px;
-    padding: 0 2px;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
+
+// .recharts-layer text {
+//   opacity: 0;
+//   animation: fadeInLabel 0.8s 0.8s forwards;
+//   text-shadow:
+//     0 0 8px #36bffa88,
+//     0 0 2px #fff;
+// }
+// @keyframes fadeInLabel {
+//   to {
+//     opacity: 1;
+//   }
+// }
+
+// .animated-chart-container {
+//   opacity: 0;
+//   transform: scale(0.98);
+//   animation: fadeInChart 0.7s 0.2s forwards;
+// }
+
+// @keyframes fadeInChart {
+//   to {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+// }
+
+.animated-circle-chart {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeInCircle 3s 0.3s forwards;
+}
+
+@keyframes fadeInCircle {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// .animated-chart-container,
+// .animated-circle-chart {
+//   box-shadow: 0 0 16px 0 #36bffa55;
+//   animation:
+//     fadeInChart 0.7s 0.2s forwards,
+//     pulseGlow 2.5s 1s infinite alternate;
+// }
+// .animated-chart-container:hover,
+// .animated-circle-chart:hover {
+//   transform: scale(1.03);
+//   box-shadow: 0 0 40px 8px #5fe9d0cc;
+//   transition: transform 0.2s, box-shadow 0.2s;
+// }
+// @keyframes pulseGlow {
+//   from {
+//     box-shadow: 0 0 16px 0 #36bffa55;
+//   }
+//   to {
+//     box-shadow: 0 0 32px 4px #36bffa99;
+//   }
+// }
+
+.recharts-cartesian-grid-vertical line {
+  stroke: #36bffa !important;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 6px #36bffa88);
+  opacity: 0;
+  animation: gridLineFadeIn 1.2s 0.3s forwards;
+}
+
+@keyframes gridLineFadeIn {
+  from {
+    opacity: 0;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  to {
+    opacity: 1;
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+// .apexcharts-radialbar-area .apexcharts-radialbar-track {
+//   filter: drop-shadow(0 0 8px #36bffa88);
+//   transition: filter 0.3s;
+// }
+// .apexcharts-radialbar-area .apexcharts-radialbar-track:hover {
+//   filter: drop-shadow(0 0 24px #5fe9d0cc);
+// }

@@ -9,7 +9,7 @@ interface CardDataBlockProps {
 }
 
 const CardBlock: React.FC<CardDataBlockProps> = ({ label, value, unit, className }) => (
-  <div className={`card-data-border${className ? ` ${className}` : ''}`}>
+  <div className={`card-data-border ${className ? ` ${className}` : ''}`}>
     <div className="card-label">{label}</div>
     <div className="card-value">
       {value}
