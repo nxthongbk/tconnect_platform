@@ -29,20 +29,20 @@ export default function ResetForm(props: IProps) {
     control,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     defaultValues: {
       username: '',
-      phone: ''
+      phone: '',
     },
-    resolver: yupResolver(resetPasswordSchema)
+    resolver: yupResolver(resetPasswordSchema),
   });
   const resetPasswordMutation = useMutation({
     mutationFn: (body: { username: string; phone: string }) => {
       return userService.resetPassword(body);
-    }
+    },
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = data => {
     resetPasswordMutation.mutate(data, {
       onSuccess: () => {
         setModeForm(MODE_RESET_PASSWORD_FORM.OTP_PASSWORD_FORM);
@@ -51,42 +51,44 @@ export default function ResetForm(props: IProps) {
       onError: (err: any) => {
         setError('username', { message: err?.response?.data?.data });
         setError('phone', { message: err?.response?.data?.data });
-      }
+      },
     });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
-      <div className='mb-5'>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+      <div className="mb-5">
         <InputCustom
-          type='text'
+          classNameContainer="text-white"
+          type="text"
           label={translation('Tên đăng nhập')}
           isRequired={true}
           control={control}
-          name='username'
+          name="username"
           isError={Boolean(errors.username)}
-          variant='outlined'
-          size='small'
+          variant="outlined"
+          size="small"
           placeholder={translation('Nhập tên đăng nhập')}
           helperText={errors.username?.message}
           isSpacingHelperText={true}
         />
         <InputCustom
-          type='text'
+          classNameContainer="text-white"
+          type="text"
           label={translation('Số điện thoại')}
           isRequired={true}
           control={control}
-          name='phone'
+          name="phone"
           isError={Boolean(errors.phone)}
-          variant='outlined'
-          size='small'
+          variant="outlined"
+          size="small"
           placeholder={translation('Nhập số điện thoại')}
           helperText={errors.phone?.message}
           isSpacingHelperText={true}
         />
       </div>
 
-      <div className='mb-4'>
-        <Button variant='contained' className='w-full' type='submit'>
+      <div className="mb-4">
+        <Button variant="contained" className="w-full" type="submit">
           Gửi mã OTP
         </Button>
       </div>

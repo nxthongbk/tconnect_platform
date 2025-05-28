@@ -16,6 +16,7 @@ const ROUTES = {
   TOOLS: '/tools',
   DASHBOARD: '/dashboard/:dashboardId',
   CONFIGURATION: '/configuration',
+	ENERGY: '/energy',
 };
 
 export default ROUTES;
