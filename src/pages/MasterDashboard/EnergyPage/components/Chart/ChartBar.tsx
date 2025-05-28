@@ -20,7 +20,6 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
         borderRadius: 4,
         columnWidth: '40%',
         distributed: true,
-        // endingShape: 'flat',
       },
     },
     dataLabels: {

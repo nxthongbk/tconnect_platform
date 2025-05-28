@@ -11,7 +11,6 @@ import {
   powerBlocksData,
   progressListColumn,
   powerCircleData,
-  top5PRData,
   carbonStatisticData,
   deviceStatisticData,
 } from './mockData';

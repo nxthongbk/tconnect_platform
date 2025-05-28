@@ -1,5 +1,4 @@
 import React from 'react';
-import activeTabImg from '~/assets/images/png/activeTab.png';
 import './style.scss';
 
 interface MenuItem {

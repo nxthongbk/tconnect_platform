@@ -36,7 +36,6 @@ const CardDataRound = ({ props }: { props: Props }) => {
           <span className="span-load"></span>
         </div>
         <Stack spacing={0} alignItems={'center'}>
-          {/* <IconPhosphor iconName={props.iconName} size={20} color="#0794FF" /> */}
           {props.iconName}
           <Typography variant="label1" color={'var(--text-primary)'}>
             {props.value}

@@ -8,7 +8,7 @@ const data = [
   { name: 'Điện mặt trời Trung Nam - Trà Vinh', value: 25 },
 ];
 
-const CustomLabel = ({ x, y, width, value, index }) => {
+const CustomLabel = ({ x, y, index }) => {
   return (
     <text x={x} y={y - 10} fill="#66ccff" fontSize={13} fontFamily="Orbitron">
       {data[index].name}
@@ -55,7 +55,7 @@ export default function CustomBarChart() {
           <YAxis
             type="category"
             dataKey="name"
-            hide={true} // hide default labels
+            hide={true}
           />
 
           <Tooltip
