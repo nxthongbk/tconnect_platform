@@ -1,6 +1,6 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
-const ChartArea = ({ options }: { options?: ApexOptions }) => {
+const ChartArea = () => {
   return <Chart options={optionsDef} series={series} type="area" height={'200px'} />;
 };
 export default ChartArea;

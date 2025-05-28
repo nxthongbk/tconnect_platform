@@ -10,7 +10,7 @@ const data = [
 
 const CustomLabel = ({ x, y, index }) => {
   return (
-    <text x={x} y={y - 10} fill="#66ccff" fontSize={13} fontFamily="Orbitron">
+    <text x={x} y={y - 10} fill="#ffffff" fontSize={13} fontFamily="Orbitron">
       {data[index].name}
     </text>
   );
@@ -52,11 +52,7 @@ export default function CustomBarChart() {
             dy={10}
           />
 
-          <YAxis
-            type="category"
-            dataKey="name"
-            hide={true}
-          />
+          <YAxis type="category" dataKey="name" hide={true} />
 
           <Tooltip
             cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}

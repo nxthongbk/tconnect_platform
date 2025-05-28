@@ -92,7 +92,7 @@ const RightPanel = () => (
       </div>
     </Card>
     <Card title="TOP 5 PR">
-      <ChartHorizontalBar  />
+      <ChartHorizontalBar />
     </Card>
     <Card title="TOTAL CARBON REDUCTION">
       <div className="power-blocks">
