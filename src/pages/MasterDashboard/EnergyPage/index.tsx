@@ -85,7 +85,7 @@ const RightPanel = () => (
     <Card title="POWER">
       <div className="power-circles">
         {powerCircleData.map((item, idx) => (
-          <div key={idx}>
+          <div className="animated-circle-chart" key={idx}>
             <ChartCircle value={item.value} />
             <div className="circle-label">{item.label}</div>
           </div>
@@ -126,7 +126,9 @@ const RightPanel = () => (
 
 const CenterMapPanel = () => (
   <div className="dashboard-panel center-panel">
-    <img src="/src/assets/images/png/map.png" alt="Map" className="map-bg" />
+    <div className="map-wrapper">
+      <img src="/src/assets/images/png/map.png" alt="Map" className="map-bg" />
+    </div>
   </div>
 );
 
@@ -183,12 +185,26 @@ const EnergyPage = () => {
       </div>
 
       {/* Bottom Menu and Bar */}
-      <BottomMenu
-        activePath={location.pathname}
-        items={menuItems}
-        onMenuClick={path => path && navigate(path)}
-      />
-      <img src="/src/assets/images/png/Bottombar.png" alt="Bottom Bar" className="bottom-bar" />
+      <div>
+        <BottomMenu
+          activePath={location.pathname}
+          items={menuItems}
+          onMenuClick={path => path && navigate(path)}
+        />
+        <img
+          src="/src/assets/images/png/Bottombar.png"
+          alt="Bottom Bar"
+          className="bottom-bar"
+          style={{
+            position: 'fixed',
+            left: 0,
+            bottom: 0,
+            width: '100vw',
+            zIndex: 100,
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
     </div>
   );
 };

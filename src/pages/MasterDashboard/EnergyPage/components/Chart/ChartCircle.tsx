@@ -5,6 +5,13 @@ const ChartCircle = ({ value }: { value: number }) => {
     chart: {
       type: 'radialBar' as const,
       sparkline: { enabled: true },
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 1200,
+        animateGradually: { enabled: true, delay: 300 },
+        dynamicAnimation: { enabled: true, speed: 900 },
+      },
     },
     plotOptions: {
       radialBar: {
@@ -18,7 +25,6 @@ const ChartCircle = ({ value }: { value: number }) => {
           value: {
             fontSize: '32px',
             color: '#fff',
-            fontWeight: 700,
             show: true,
             offsetY: 6,
             formatter: (val: number) => `${val}%`,

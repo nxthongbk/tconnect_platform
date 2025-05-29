@@ -1,42 +1,40 @@
-
-
 export const overviewData = [
   {
-    label: "POWER STATIONS",
+    label: 'POWER STATIONS',
     value: 38,
-    unit: "PCS",
-    icon: "/src/assets/images/png/metrics.png",
+    unit: 'PCS',
+    icon: '/src/assets/images/png/metrics.png',
   },
   {
-    label: "INSTANT POWER",
+    label: 'INSTANT POWER',
     value: 858.41,
-    unit: "MWh",
-    icon: "/src/assets/images/png/metrics.png",
+    unit: 'MWh',
+    icon: '/src/assets/images/png/metrics.png',
   },
   {
-    label: "TOTAL CAPACITY",
+    label: 'TOTAL CAPACITY',
     value: 2609.71,
-    unit: "MWh",
-    icon: "/src/assets/images/png/metrics.png",
+    unit: 'MWh',
+    icon: '/src/assets/images/png/metrics.png',
   },
   {
-    label: "WIND POWER",
+    label: 'WIND POWER',
     value: 1097,
-    unit: "MWh",
-    icon: "/src/assets/images/png/metrics.png",
+    unit: 'MWh',
+    icon: '/src/assets/images/png/metrics.png',
   },
   {
-    label: "PV CAPACITY",
+    label: 'PV CAPACITY',
     value: 858.41,
-    unit: "MWh",
-    icon: "/src/assets/images/png/metrics.png",
+    unit: 'MWh',
+    icon: '/src/assets/images/png/metrics.png',
   },
 ];
 
 export const powerBlocksData = [
-  { label: "DAILY", value: 1536.78, unit: "MWh" },
-  { label: "MONTHLY", value: 7563.78, unit: "MWh" },
-  { label: "YEARLY", value: 13563.7, unit: "MWh" },
+  { label: 'DAILY', value: 1536.78, unit: 'MWh' },
+  { label: 'MONTHLY', value: 7563.78, unit: 'MWh' },
+  { label: 'YEARLY', value: 13563.7, unit: 'MWh' },
 ];
 
 export const progressListColumn = [
@@ -76,13 +74,13 @@ export const top5PRData = [
 ];
 
 export const carbonStatisticData = [
-	{ label: "COAL", value: 36.26, unit: "Million tones" },
-	{ label: "CO2", value: 90.3, unit: "Million tones" },
-	{ label: "TREES", value: 84.42, unit: "Million tones" },
+  { label: 'COAL', value: 36.26, unit: 'Million tones' },
+  { label: 'CO2', value: 90.3, unit: 'Million tones' },
+  { label: 'TREES', value: 84.42, unit: 'Million tones' },
 ];
 
 export const deviceStatisticData = [
-	{ label: "PV INVESTERS", value: 5679, unit: "Set" },
-	{ label: "WIND TUITION", value: 879, unit: "Set" },
-	{ label: "TRANSFORMERS", value: 879, unit: "Set" },
+  { label: 'PV INVESTERS', value: 5679, unit: 'Set' },
+  { label: 'WIND TUITION', value: 879, unit: 'Set' },
+  { label: 'TRANSFORMERS', value: 879, unit: 'Set' },
 ];
