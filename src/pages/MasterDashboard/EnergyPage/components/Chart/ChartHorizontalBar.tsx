@@ -10,7 +10,7 @@ const data = [
 
 const CustomLabel = ({ x, y, index }) => {
   return (
-    <text x={x} y={y - 10} fill="#ffffff" fontSize={13} fontFamily="Orbitron">
+    <text x={x} y={y - 10} fill="#ffffff" fontSize={13} fontFamily="Orbitron" color="#b0b9c6">
       {data[index].name}
     </text>
   );
@@ -18,33 +18,33 @@ const CustomLabel = ({ x, y, index }) => {
 
 export default function CustomBarChart() {
   return (
-    <div style={{ width: '100%', height: 360 }}>
+    <div
+      className="animated-chart-container float-glow-chart p-4"
+      style={{ width: '100%', height: 360 }}
+    >
       <ResponsiveContainer>
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 20, right: 20, left: 20, bottom: 40 }}
-        >
+        <BarChart data={data} layout="vertical" margin={{ top: 10, right: 5, left: 5, bottom: 10 }}>
           <defs>
-            <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#0b3b60" />
-              <stop offset="100%" stopColor="#22d3ee" />
+            <linearGradient id="barGradient" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="0%" stopColor="#36BFFA" />
+              <stop offset="100%" stopColor="rgba(54, 191, 250, 0.10)" />
             </linearGradient>
           </defs>
 
           <CartesianGrid
-            strokeDasharray="3 3"
+            strokeDasharray="1 0"
             horizontal={true}
-            vertical={false}
+            vertical={true}
             stroke="#2c4964"
+            strokeOpacity={0.1}
           />
 
           <XAxis
             type="number"
             domain={[0, 100]}
-            ticks={[20, 60, 100]}
+            ticks={[20, 40, 60, 80, 100]}
             tickFormatter={value => `${value}%`}
-            stroke="#66cfff"
+            stroke="#b0b9c6"
             axisLine={false}
             tickLine={false}
             fontFamily="Orbitron"
@@ -69,9 +69,12 @@ export default function CustomBarChart() {
           <Bar
             dataKey="value"
             fill="url(#barGradient)"
-            barSize={20}
-            radius={[0, 12, 12, 0]}
+            barSize={18}
+            radius={[0, 1, 1, 0]}
             label={CustomLabel}
+            isAnimationActive={true}
+            animationDuration={1200}
+            className="progress-bar-glow"
           />
         </BarChart>
       </ResponsiveContainer>

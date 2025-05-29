@@ -14,6 +14,12 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
       type: 'bar',
       background: 'transparent',
       toolbar: { show: false },
+      animations: {
+        enabled: true,
+        speed: 1200,
+        animateGradually: { enabled: true, delay: 300 },
+        dynamicAnimation: { enabled: true, speed: 900 },
+      },
     },
     plotOptions: {
       bar: {
@@ -76,7 +82,11 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
     legend: { show: false },
   };
 
-  return <Chart options={options} series={series} type="bar" height={250} />;
+  return (
+    <div className="animated-bar-chart pt-1 ">
+      <Chart options={options} series={series} type="bar" height={260} />
+    </div>
+  );
 };
 
 export default ChartBar;
