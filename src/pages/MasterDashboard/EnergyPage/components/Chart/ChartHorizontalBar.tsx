@@ -10,7 +10,7 @@ const data = [
 
 const CustomLabel = ({ x, y, index }) => {
   return (
-    <text x={x} y={y - 10} fill="#ffffff" fontSize={13} fontFamily="Orbitron">
+    <text x={x} y={y - 10} fill="#ffffff" fontSize={13} fontFamily="Orbitron" color="#b0b9c6">
       {data[index].name}
     </text>
   );
@@ -44,7 +44,7 @@ export default function CustomBarChart() {
             domain={[0, 100]}
             ticks={[20, 40, 60, 80, 100]}
             tickFormatter={value => `${value}%`}
-            stroke="#66cfff"
+            stroke="#b0b9c6"
             axisLine={false}
             tickLine={false}
             fontFamily="Orbitron"

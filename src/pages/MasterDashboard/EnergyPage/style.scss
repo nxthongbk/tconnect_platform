@@ -183,65 +183,11 @@
       .map-bg {
         max-width: 1400px;
         height: 90vh;
-        // width: 100%;
-        // height: 100%;
         min-height: 700px;
         object-fit: contain;
-
         z-index: 0;
         position: relative;
         filter: drop-shadow(0 0 24px #00eaff88);
-
-        //   #mark-end {
-        //     position: absolute;
-        //     bottom: 26%;
-        //     right: 45%;
-        //   }
-        //   #mark-end-center {
-        //     position: absolute;
-        //     bottom: 30%;
-        //     right: 45.5%;
-        //     animation: rotation2 1s linear infinite;
-        //   }
-
-        //   .round-1,
-        //   .round-2,
-        //   .round-3 {
-        //     box-shadow:
-        //       0 0 16px 8px #42f0dbcc,
-        //       0 0 32px 16px #36bffa55;
-        //     animation: markerGlow 2s infinite alternate;
-        //   }
-
-        //   @keyframes markerGlow {
-        //     0% {
-        //       box-shadow:
-        //         0 0 8px 4px #42f0dbcc,
-        //         0 0 16px 8px #36bffa55;
-        //     }
-        //     100% {
-        //       box-shadow:
-        //         0 0 24px 12px #42f0dbcc,
-        //         0 0 48px 24px #36bffa55;
-        //     }
-        //   }
-
-        // #marker-1,
-        //   #marker-2,
-        //   #marker-3,
-        //   #marker-4,
-        //   #marker-5,
-        //   #marker-6,
-        //   #marker-7 {
-        //     display: none; // Hide old markers
-        //   }
-        //   #marker-8 {
-        //     position: absolute;
-        //     left: 49.5%;
-        //     bottom: 4.5%;
-        //     // Adjust width/height if needed for your glowing effect
-        //     z-index: 10;
-        //   }
       }
       .marker-glow {
         position: absolute;
@@ -280,7 +226,6 @@
   transform: translateY(30px);
   animation: cardFadeIn 0.8s ease-out forwards;
   animation-delay: 0.2s;
-  // box-shadow: 0 0 8px #36bffa88;
   transition: box-shadow 0.3s ease;
   &::before,
   &::after {
@@ -521,19 +466,6 @@
   animation: gridLineFadeIn 1.2s 0.3s forwards;
 }
 
-// @keyframes blingPulse {
-//   0%, 100% {
-//     filter: drop-shadow(0 0 2px #36bffa);
-//   }
-//   50% {
-//     filter: drop-shadow(0 0 12px #36bffa) brightness(1.3);
-//   }
-// }
-
-// .bling-bar rect {
-//   animation: blingPulse 2s infinite ease-in-out;
-//   transition: filter 0.3s;
-// }
 @keyframes pulseDot {
   0%,
   100% {
@@ -590,194 +522,5 @@
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-//path
-.dot-line-1 {
-  width: 20px;
-  height: 5px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 13%;
-  left: 16%;
-  offset-path: path(
-    'M 4 4 C 4 376.3472183227539, 269.50347328186035 97.08680458068847, 269.50347328186035 469.4340229034424'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 5s linear infinite forwards;
-}
-.dot-line-2 {
-  width: 20px;
-  height: 5px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 16.5%;
-  left: 26%;
-  offset-path: path(
-    'M 4 4 C 4 337.41665191650395, 194.50347328186035 87.35416297912593, 194.50347328186035 420.7708148956299'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 5s linear infinite forwards;
-}
-.dot-line-3 {
-  width: 20px;
-  height: 5px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 25%;
-  left: 21%;
-  offset-path: path(
-    'M 4 4 C 4 285.50000152587893, 232.00347328186035 74.3750003814697, 232.00347328186035 355.87500190734863'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 5s linear infinite forwards;
-}
-.dot-line-4 {
-  width: 15px;
-  height: 3px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 44%;
-  left: 51%;
-  offset-path: path(
-    'M 75.99652671813965 4 C 75.99652671813965 142.7638687133789, 4 38.69096717834472, 4 177.45483589172363'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 5s linear infinite forwards;
-}
-.dot-line-5 {
-  width: 15px;
-  height: 3px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 53%;
-  left: 51.5%;
-  offset-path: path(
-    'M 93.99999809265137 4 C 21.999999618530268 4, 4 24.267355537414545, 4 105.33677768707275'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 2s linear infinite forwards;
-}
-.dot-line-6 {
-  width: 5px;
-  height: 3px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 33.5%;
-  left: 47%;
-  offset-path: path(
-    'M 4 4 C 14.80555419921875 4, 6.701388549804687 23.548571586608887, 17.506942749023438 23.548571586608887'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 2s linear infinite forwards;
-}
-.dot-line-7 {
-  width: 10px;
-  height: 3px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 27%;
-  left: 47%;
-  offset-path: path(
-    'M 4 35.56251049041748 C 32.80555572509766 35.56251049041748, 40.00694465637207 29.250008392333985, 40.00694465637207 4'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 3s linear infinite forwards;
-}
-.dot-line-8 {
-  width: 10px;
-  height: 3px;
-  background-color: rgba(66, 240, 219, 1);
-  box-shadow: 0 0 0 2px rgba(66, 240, 219, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 27%;
-  left: 43%;
-  offset-path: path(
-    'M 4 107.68059921264648 C 4 24.73611984252929, 67.00347328186035 86.9444793701172, 67.00347328186035 4'
-  );
-  offset-distance: 0%;
-
-  animation: red-ball 3s linear infinite forwards;
-}
-
-// .glow-marker {
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 50%;
-//   background: radial-gradient(circle, #76ffe1 0%, #1bb8a8 50%, transparent 80%);
-//   box-shadow: 0 0 12px 6px rgba(0, 255, 255, 0.5);
-//   animation: pulseGlow 2s infinite ease-in-out;
-// }
-
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.4);
-  }
-}
-
-// .marker-glow {
-//   position: absolute;
-//   width: 20px;
-//   height: 20px;
-//   background-color: #00ffe0;
-//   border-radius: 50%;
-//   box-shadow:
-//     0 0 20px #00ffe0,
-//     0 0 40px #00ffe0,
-//     0 0 60px #00ffe0;
-//   z-index: 2;
-//   animation: pulseGlow 2s infinite ease-in-out;
-// }
-
-// .marker-glow {
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 50%;
-//   background-color: #3ff9e5;
-//   box-shadow: 0 0 15px #3ff9e5, 0 0 30px #3ff9e5;
-//   position: absolute;
-// }
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.4);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.8;
   }
 }
