@@ -8,12 +8,12 @@ export default defineConfig({
   server: {
     port: 7070,
     host: true,
-    allowedHosts: ['scity.innovation.com.vn'],
+    allowedHosts: ['esg.innovation.com.vn'],
   },
   preview: {
     host: true,
     port: 7070,
-    allowedHosts: ['scity.innovation.com.vn'],
+    allowedHosts: ['esg.innovation.com.vn'],
     // allowedHosts: ['*']
   },
   css: {
