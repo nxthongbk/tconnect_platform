@@ -18,6 +18,7 @@ import {
 import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
+import { useGetLatestTelemetryNoC } from '~/pages/tenant/DevicePage/handleApi';
 
 // Card component for reuse
 const Card = ({
@@ -133,6 +134,13 @@ const EnergyPage = () => {
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
   const navigate = useNavigate();
+
+  const { data: initLatestTelemetry } = useGetLatestTelemetryNoC({
+    entityType: 'DEVICE',
+    entityId: 'b220ed1d-af84-4b96-9420-346cfe6e0de6',
+  });
+
+  console.log(initLatestTelemetry);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
