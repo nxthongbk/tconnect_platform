@@ -177,12 +177,26 @@ const EnergyPage = () => {
       </div>
 
       {/* Bottom Menu and Bar */}
-      <BottomMenu
-        activePath={location.pathname}
-        items={menuItems}
-        onMenuClick={path => path && navigate(path)}
-      />
-      <img src="/src/assets/images/png/Bottombar.png" alt="Bottom Bar" className="bottom-bar" />
+      <div>
+        <BottomMenu
+          activePath={location.pathname}
+          items={menuItems}
+          onMenuClick={path => path && navigate(path)}
+        />
+        <img
+          src="/src/assets/images/png/Bottombar.png"
+          alt="Bottom Bar"
+          className="bottom-bar"
+          style={{
+            position: 'fixed',
+            left: 0,
+            bottom: 0,
+            width: '100vw',
+            zIndex: 100,
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
     </div>
   );
 };
