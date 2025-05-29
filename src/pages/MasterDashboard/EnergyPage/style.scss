@@ -324,7 +324,7 @@
       justify-content: center;
       font-size: 20px;
       font-family: 'Orbitron', monospace;
-      padding: 12px 10px 4px 12px;
+      padding: 12px;
       .circle {
         border-radius: 50%;
         border: 2px solid #5fe9d0;
@@ -348,7 +348,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      padding: 12px 10px 2px 12px;
+      padding: 12px;
     }
     .overview-item {
       display: flex;
@@ -384,6 +384,7 @@
   }
 
   .power-blocks {
+    padding: 8px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -567,9 +568,66 @@
         min-width: 0;
         .map-bg {
           min-height: 300px;
-          height: 40vh;
+          height: 80vh;
+          width: 100%;
           max-width: 100%;
         }
+      }
+    }
+  }
+  .dashboard-card {
+    margin-bottom: 10px;
+    .dashboard-card-header {
+      padding: 6px 8px;
+      .dashboard-card-title {
+        font-size: 16px;
+      }
+    }
+    .dashboard-card-content {
+      font-size: 16px;
+      .overview-grid {
+        padding: 14px !important;
+      }
+      .overview-item {
+        padding: 16px !important;
+      }
+      .overview-icon img {
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 0 6px #00eaffcc);
+        animation: floatIcon 2.5s ease-in-out infinite;
+      }
+      .overview-label {
+        color: #36bffa;
+        font-size: 14px !important;
+        letter-spacing: 1px;
+        margin-bottom: 2px;
+        text-shadow: 0 0 4px #00eaff55;
+      }
+
+      .overview-value {
+        font-size: 18px;
+      }
+      .power-blocks {
+        display: flex;
+        padding: 28px !important;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 36px;
+        width: 100%;
+        height: 100%;
+        .card-block {
+          flex: 1 1 0;
+          min-width: 0;
+          max-width: none;
+          width: auto;
+          padding: 4px;
+        }
+      }
+      .power-circles {
+        padding: 16px;
+        gap: 160px;
       }
     }
   }

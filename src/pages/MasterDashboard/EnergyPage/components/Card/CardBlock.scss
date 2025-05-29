@@ -78,3 +78,50 @@
     opacity: 1;
   }
 }
+
+@keyframes fadeInBlock {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .card-data-border {
+    width: 120px;
+    height: 280px;
+    margin: 4px !important;
+    gap: 32px;
+    .card-label {
+      font-size: 32px;
+    }
+    .card-value {
+      font-size: 28px;
+      .card-unit {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .card-data-border {
+    width: 120px;
+    height: 240px;
+    margin: 4px !important;
+    gap: 24px;
+    .card-label {
+      font-size: 24px;
+    }
+    .card-value {
+      font-size: 20px;
+      .card-unit {
+        font-size: 14px;
+      }
+    }
+  }
+}

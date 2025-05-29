@@ -83,7 +83,7 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
   };
 
   return (
-    <div className="animated-bar-chart">
+    <div className="animated-bar-chart pt-1 ">
       <Chart options={options} series={series} type="bar" height={260} />
     </div>
   );
