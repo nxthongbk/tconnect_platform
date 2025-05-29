@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './style.scss';
-import { Avatar } from '@mui/material';
+import { Avatar, Box, Grid } from '@mui/material';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,19 @@ import {
 import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
+import Xarrow, { useXarrow, Xwrapper } from 'react-xarrows';
+
+const Marker = ({ id, top, left }) => (
+  <div
+    id={id}
+    className="glow-marker"
+    style={{
+      position: 'absolute',
+      top,
+      left,
+    }}
+  />
+);
 
 // Card component for reuse
 const Card = ({
@@ -126,6 +139,98 @@ const RightPanel = () => (
 const CenterMapPanel = () => (
   <div className="dashboard-panel center-panel">
     <img src="/src/assets/images/png/map.png" alt="Map" className="map-bg" />
+    {/* <Box
+      sx={{
+        backgroundImage: `url(~/assets/images/svg/mapBgColor.svg)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        height: '150%',
+        width: '100%',
+        position: 'absolute',
+      }}
+    ></Box> */}
+
+    <Box
+      sx={{
+        backgroundImage: `url(~/assets/images/svg/mapBgColor.svg)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        height: '150%',
+        width: '100%',
+        position: 'absolute',
+      }}
+    />
+
+    <Xwrapper>
+      {/* <img
+        src="/src/assets/images/svg/markEndCenter.svg"
+        width={'35px'}
+        height={'30px'}
+        id="mark-end-center"
+        style={{ position: 'absolute', top: '500px', left: '350px' }}
+      /> */}
+      {/* <img
+        src="/src/assets/images/svg/markEnd.svg"
+        width={'45px'}
+        height={'60px'}
+        id="mark-end"
+        style={{ position: 'absolute', top: '500px', left: '350px' }}
+      /> */}
+
+      <img
+        src="/src/assets/images/svg/markEnd.svg"
+        width="45px"
+        height="60px"
+        id="mark-end"
+        style={{ position: 'absolute', top: '82%', left: '30%' }}
+      />
+
+      {/* <Marker id="marker-2" top="100px" left="120px" />
+      <Marker id="marker-3" top="150px" left="180px" />
+      <Marker id="marker-4" top="200px" left="140px" />
+      <Marker id="marker-5" top="300px" left="160px" />
+      <Marker id="marker-6" top="350px" left="100px" />
+      <Marker id="marker-7" top="400px" left="190px" />
+      <Marker id="marker-8" top="450px" left="210px" /> */}
+      {/* <div className="marker-glow" style={{ top: '10%', left: '5%' }} id="marker-1" />
+      <div className="marker-glow" style={{ top: '20%', left: '7%' }} id="marker-2" />
+      <div className="marker-glow" style={{ top: '30%', left: '8%' }} id="marker-3" />
+      <div className="marker-glow" style={{ top: '40%', left: '10%' }} id="marker-4" />
+      <div className="marker-glow" style={{ top: '50%', left: '12%' }} id="marker-5" /> */}
+
+      <div className="marker-glow" style={{ top: '12%', left: '8%' }} id="marker-1" />
+      <div className="marker-glow" style={{ top: '18%', left: '10%' }} id="marker-2" />
+      <div className="marker-glow" style={{ top: '25%', left: '12%' }} id="marker-3" />
+      <div className="marker-glow" style={{ top: '35%', left: '9%' }} id="marker-4" />
+      <div className="marker-glow" style={{ top: '45%', left: '11%' }} id="marker-5" />
+      <div className="marker-glow" style={{ top: '55%', left: '13%' }} id="marker-6" />
+
+      {/* {[2, 3, 4, 5, 6, 7, 8].map(i => (
+        <Xarrow
+          key={i}
+          start={`marker-${i}`}
+          end="mark-end"
+          showHead={false}
+          lineColor="#3ff9e5"
+          strokeWidth={2}
+          dashness={{ strokeLen: 8, nonStrokeLen: 6 }}
+        />
+      ))} */}
+      {[1, 2, 3, 4, 5, 6].map(i => (
+        <Xarrow
+          key={i}
+          start={`marker-${i}`}
+          end="mark-end"
+          showHead={false}
+          lineColor="#3ff9e5"
+          strokeWidth={2}
+          dashness={{ strokeLen: 12, nonStrokeLen: 8 }}
+          curveness={0.6} // Add this to mimic the curves
+        />
+      ))}
+    </Xwrapper>
   </div>
 );
 
