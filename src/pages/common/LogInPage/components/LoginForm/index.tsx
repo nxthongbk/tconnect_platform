@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Typography, Paper } from '@mui/material';
 
 import signInFrame from '~/assets/images/png/signInFrame.png';
+import '../../style.scss';
 
 interface IFormInput {
   username: string;
@@ -83,19 +84,23 @@ export default function LoginForm({ setResetMode }: IProps) {
 
   return (
     <Box
+      className="login-background"
       sx={{
         position: 'relative',
         width: 480,
         minHeight: 512,
-        px: 5,
+        px: 4,
         py: 6,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        overflow: 'hidden',
+        overflow: 'visible',
+        zIndex: 10,
+        backgroundColor: 'transparent'
       }}
     >
       <img
+        className="login-img"
         src={signInFrame}
         alt=""
         style={{
@@ -105,11 +110,12 @@ export default function LoginForm({ setResetMode }: IProps) {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          zIndex: 0,
+          zIndex: 10,
           pointerEvents: 'none',
         }}
       />
       <Paper
+        className="login-form"
         sx={{
           zIndex: 3,
           position: 'relative',
@@ -120,10 +126,11 @@ export default function LoginForm({ setResetMode }: IProps) {
         }}
       >
         <Typography
+          className="login-title"
           variant="h4"
           sx={{
             color: '#fff',
-            fontWeight: 400,
+            fontWeight: 600,
             mb: 8,
             textAlign: 'center',
             letterSpacing: 1,
@@ -135,7 +142,7 @@ export default function LoginForm({ setResetMode }: IProps) {
         <form onSubmit={handleSubmit(onSubmit, onInvalid)} style={{ width: '100%' }}>
           <InputCustom
             type="text"
-            classNameContainer="text-white"
+            classNameContainer="text-white font-medium"
             label={translation('Tên đăng nhập')}
             isRequired={true}
             control={control}
@@ -150,7 +157,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           <InputCustom
             type="password"
             label={translation('Mật khẩu')}
-            classNameContainer="text-white"
+            classNameContainer="text-white font-medium"
             isRequired={true}
             control={control}
             name="password"
@@ -171,6 +178,7 @@ export default function LoginForm({ setResetMode }: IProps) {
             </Typography>
           </Box>
           <Button
+            className="login-btn"
             type="submit"
             variant="contained"
             fullWidth
@@ -187,6 +195,7 @@ export default function LoginForm({ setResetMode }: IProps) {
               clipPath:
                 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
               '&:hover': { bgcolor: '#007fe0' },
+              transition: 'background 0.3s, transform 0.3s',
             }}
           >
             {loginMutation.isPending ? 'Signing in...' : 'Sign in'}

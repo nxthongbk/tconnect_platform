@@ -7,10 +7,9 @@ const ChartCircle = ({ value }: { value: number }) => {
       sparkline: { enabled: true },
       animations: {
         enabled: true,
-        easing: 'easeinout',
-        speed: 1200,
-        animateGradually: { enabled: true, delay: 300 },
-        dynamicAnimation: { enabled: true, speed: 900 },
+        speed: 1800,
+        animateGradually: { enabled: true, delay: 200 },
+        dynamicAnimation: { enabled: true, speed: 1400 },
       },
     },
     plotOptions: {
@@ -19,6 +18,14 @@ const ChartCircle = ({ value }: { value: number }) => {
         track: {
           background: '#1A2A3A',
           strokeWidth: '50%',
+          dropShadow: {
+            enabled: true,
+            top: 0,
+            left: 0,
+            blur: 8,
+            color: '#5FE9D0',
+            opacity: 0.6,
+          },
         },
         dataLabels: {
           show: true,
@@ -38,9 +45,12 @@ const ChartCircle = ({ value }: { value: number }) => {
       gradient: {
         shade: 'dark',
         type: 'horizontal',
-        gradientToColors: ['#5FE9D0'],
+        shadeIntensity: 0.8,
+        gradientToColors: ['#36BFFA', '#5FE9D0'],
+        inverseColors: false,
+        opacityFrom: 0.95,
+        opacityTo: 0.65,
         stops: [0, 100],
-        colorStops: [],
       },
       colors: ['#5FE9D0'],
     },

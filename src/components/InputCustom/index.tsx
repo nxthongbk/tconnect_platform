@@ -32,15 +32,15 @@ export default function InputCustom(props: TProps) {
     ...rest
   } = props;
   const classNameCont = classNames('flex flex-col', {
-    [classNameContainer]: classNameContainer ? true : false
+    [classNameContainer]: classNameContainer ? true : false,
   });
 
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className={classNameCont}>
       {label && (
-        <Typography variant='label3' className='!mb-1 xxx'>
-          {label} {isRequired && <span className='text-[var(--semantic-alert)]'>*</span>}
+        <Typography variant="label3" className="!mb-1 xxx">
+          {label} {isRequired && <span className="text-[var(--semantic-alert)]">*</span>}
         </Typography>
       )}
 
@@ -57,42 +57,50 @@ export default function InputCustom(props: TProps) {
               helperText={
                 isError ? (
                   <Typography
-                    variant='caption1'
-                    color='var(--semantic-alert)'
-                    className='flex items-center gap-1 !leading-[18px]'
+                    variant="caption1"
+                    color="var(--semantic-alert)"
+                    className="flex items-center gap-1 !leading-[18px]"
                   >
                     <Warning size={16} /> {helperText}
                   </Typography>
                 ) : !isError && isSpacingHelperText ? (
-                  <Typography component='div' className='w-full h-[18px]'></Typography>
+                  <Typography component="div" className="w-full h-[18px]"></Typography>
                 ) : null
               }
-                sx={{
+              sx={{
                 [`& .${inputBaseClasses.root}`]: { border: 'none' },
                 [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 2 },
-                [`& .MuiInputBase-input::placeholder`]: { color: '#fff', opacity: 1 },
+                [`& .MuiInputBase-input::placeholder`]: { color: '#fff !important', opacity: 0.75 },
               }}
               InputProps={
                 type === 'password'
                   ? {
-                    endAdornment: (
-                      <span
-                        onClick={() => {
-                          setShowPassword((prev) => !prev);
-                        }}
-                      >
-                        {!showPassword ? (
-                          <EyeSlash size={20} color='var(--text-tertiary)' className='cursor-pointer' />
-                        ) : (
-                          <Eye size={20} color='var(--text-tertiary)' className='cursor-pointer' />
-                        )}
-                      </span>
-                    )
-                  }
+                      endAdornment: (
+                        <span
+                          onClick={() => {
+                            setShowPassword(prev => !prev);
+                          }}
+                        >
+                          {!showPassword ? (
+                            <EyeSlash
+                              size={20}
+                              color="var(--text-tertiary)"
+                              className="cursor-pointer"
+                            />
+                          ) : (
+                            <Eye
+                              size={20}
+                              color="var(--text-tertiary)"
+                              className="cursor-pointer"
+                            />
+                          )}
+                        </span>
+                      ),
+                    }
                   : type === 'duration'
                     ? {
-                      endAdornment: <span>ms</span>
-                    }
+                        endAdornment: <span>ms</span>,
+                      }
                     : InputProps
               }
             />

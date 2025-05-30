@@ -35,6 +35,12 @@ const optionsDef: ApexOptions = {
       color: '#00E4FF',
       opacity: 0.6,
     },
+    animations: {
+      enabled: true,
+      speed: 1600,
+      animateGradually: { enabled: true, delay: 250 },
+      dynamicAnimation: { enabled: true, speed: 1200 },
+    },
   },
   grid: {
     borderColor: 'rgba(0, 228, 255, 0.15)',

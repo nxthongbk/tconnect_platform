@@ -153,7 +153,13 @@ const EnergyPage = () => {
           <div className="top-bar-date">
             {formattedTime} {formattedDate}
           </div>
-          <div className="top-bar-title">Master Dashboard</div>
+          <div
+            className="top-bar-title"
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+          >
+            Master Dashboard
+          </div>
           <div className="top-bar-controls">
             <select
               value={country}
