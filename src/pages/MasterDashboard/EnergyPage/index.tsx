@@ -39,11 +39,17 @@ const Card = ({
   </div>
 );
 
-const LeftPanel = () => (
+const LeftPanel = ({
+  updatedOverviewData,
+  updatedPowerBlocksData,
+}: {
+  updatedOverviewData: typeof overviewData;
+  updatedPowerBlocksData: typeof powerBlocksData;
+}) => (
   <div className="dashboard-panel left-panel">
     <Card title="OVERVIEW">
       <div className="overview-grid">
-        {overviewData.map((item, idx) => (
+        {updatedOverviewData?.map((item, idx) => (
           <div className="overview-item" key={idx}>
             <span className="overview-icon">
               <img src={item.icon} alt="icon" />
@@ -60,7 +66,7 @@ const LeftPanel = () => (
     </Card>
     <Card title="POWER">
       <div className="power-blocks">
-        {powerBlocksData.map((item, idx) => (
+        {updatedPowerBlocksData.map((item, idx) => (
           <CardBlock
             key={idx}
             label={item.label}
@@ -142,7 +148,64 @@ const EnergyPage = () => {
     entityId: 'b220ed1d-af84-4b96-9420-346cfe6e0de6',
   });
 
-  console.log(initLatestTelemetry);
+  const telemetryValues = initLatestTelemetry?.data?.data || {};
+  console.log(telemetryValues);
+
+  const labelToTelemetryKeyMap: Record<string, string> = {
+    'POWER STATIONS': 'totalP',
+    'TOTAL CAPACITY': 'totalYield',
+    'PV CAPACITY': 'PV',
+    'INSTANT POWER': 'InstalledPower',
+    DAILY: 'Daily yield',
+  };
+
+  const applyTelemetryToMockData = (
+    dataArray: any[],
+    telemetryMap: Record<string, { value: any }>,
+    labelToKeyMap: Record<string, string>
+  ) => {
+    return dataArray.map(item => {
+      const telemetryKey = labelToKeyMap[item.label] || item.label;
+      const telemetryEntry = telemetryMap[telemetryKey];
+      if (telemetryEntry) {
+        let rawValue =
+          typeof telemetryEntry.value === 'string'
+            ? Number(telemetryEntry.value)
+            : telemetryEntry.value;
+
+        // Format to 5 significant digits
+        const formattedValue =
+          typeof rawValue === 'number' ? Number(rawValue.toPrecision(5)) : rawValue;
+
+        return {
+          ...item,
+          value: formattedValue,
+        };
+      }
+      return item;
+    });
+  };
+
+  const updatedOverviewData = applyTelemetryToMockData(
+    overviewData,
+    telemetryValues,
+    labelToTelemetryKeyMap
+  );
+  const updatedPowerBlocksData = applyTelemetryToMockData(
+    powerBlocksData,
+    telemetryValues,
+    labelToTelemetryKeyMap
+  );
+  // const updatedCarbonStatisticData = applyTelemetryToMockData(
+  //   carbonStatisticData,
+  //   telemetryValues,
+  //   labelToTelemetryKeyMap
+  // );
+  // const updatedDeviceStatisticData = applyTelemetryToMockData(
+  //   deviceStatisticData,
+  //   telemetryValues,
+  //   labelToTelemetryKeyMap
+  // );
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -179,7 +242,10 @@ const EnergyPage = () => {
 
       {/* Main Dashboard Layout */}
       <div className="dashboard-main">
-        <LeftPanel />
+        <LeftPanel
+          updatedOverviewData={updatedOverviewData}
+          updatedPowerBlocksData={updatedPowerBlocksData}
+        />
         <CenterMapPanel />
         <RightPanel />
       </div>
