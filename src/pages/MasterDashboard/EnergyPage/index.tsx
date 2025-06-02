@@ -19,6 +19,10 @@ import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
 import { useGetLatestTelemetryNoC } from '~/pages/tenant/DevicePage/handleApi';
+import topBarBg from '~/assets/images/png/Topbar.png';
+import bottomBarBg from '~/assets/images/png/Bottombar.png';
+import mapBg from '~/assets/images/png/Map.png';
+import metricsIcon from '~/assets/images/png/metrics.png';
 
 // Card component for reuse
 const Card = ({
@@ -52,7 +56,7 @@ const LeftPanel = ({
         {updatedOverviewData?.map((item, idx) => (
           <div className="overview-item" key={idx}>
             <span className="overview-icon">
-              <img src={item.icon} alt="icon" />
+              <img src={metricsIcon} alt="icon" />
             </span>
             <div>
               <div className="overview-label">{item.label}</div>
@@ -133,7 +137,7 @@ const RightPanel = () => (
 const CenterMapPanel = () => (
   <div className="dashboard-panel center-panel">
     <div className="map-wrapper">
-      <img src="/src/assets/images/png/map.png" alt="Map" className="map-bg" />
+      <img src={mapBg} alt="Map" className="map-bg" />
     </div>
   </div>
 );
@@ -219,12 +223,18 @@ const EnergyPage = () => {
     <div className="energy-page dashboard-template">
       {/* Top Bar */}
       <div className="top-bar-wrapper">
-        <img src="/src/assets/images/png/Topbar.png" alt="Top Bar" className="top-bar" />
+        <img src={topBarBg} alt="Top Bar" className="top-bar" />
         <div className="top-bar-content">
           <div className="top-bar-date">
             {formattedTime} {formattedDate}
           </div>
-          <div className="top-bar-title">Master Dashboard</div>
+          <div
+            className="top-bar-title"
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+          >
+            Master Dashboard
+          </div>
           <div className="top-bar-controls">
             <select
               value={country}
@@ -258,7 +268,7 @@ const EnergyPage = () => {
           onMenuClick={path => path && navigate(path)}
         />
         <img
-          src="/src/assets/images/png/Bottombar.png"
+          src={bottomBarBg}
           alt="Bottom Bar"
           className="bottom-bar"
           style={{

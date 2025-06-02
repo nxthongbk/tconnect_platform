@@ -8,12 +8,12 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    allowedHosts: ['scity.innovation.com.vn'],
+    allowedHosts: ['esg.innovation.com.vn'],
   },
   preview: {
     host: true,
     port: 3000,
-    allowedHosts: ['scity.innovation.com.vn'],
+    allowedHosts: ['esg.innovation.com.vn'],
     // allowedHosts: ['*']
   },
   css: {

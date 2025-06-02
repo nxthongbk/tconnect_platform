@@ -3,31 +3,31 @@ export const overviewData = [
     label: 'POWER STATIONS',
     value: 38,
     unit: 'PCS',
-    icon: '/src/assets/images/png/metrics.png',
+    icon: '~/assets/images/png/metrics.png',
   },
   {
     label: 'INSTANT POWER',
     value: 858.41,
     unit: 'MWh',
-    icon: '/src/assets/images/png/metrics.png',
+    icon: '~/assets/images/png/metrics.png',
   },
   {
     label: 'TOTAL CAPACITY',
     value: 2609.71,
     unit: 'MWh',
-    icon: '/src/assets/images/png/metrics.png',
+    icon: '~/assets/images/png/metrics.png',
   },
   {
     label: 'WIND POWER',
     value: 1097,
     unit: 'MWh',
-    icon: '/src/assets/images/png/metrics.png',
+    icon: '~/assets/images/png/metrics.png',
   },
   {
     label: 'PV CAPACITY',
     value: 858.41,
     unit: 'MWh',
-    icon: '/src/assets/images/png/metrics.png',
+    icon: '~/assets/images/png/metrics.png',
   },
 ];
 

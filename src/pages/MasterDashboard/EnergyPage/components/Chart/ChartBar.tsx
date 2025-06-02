@@ -16,14 +16,14 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
       toolbar: { show: false },
       animations: {
         enabled: true,
-        speed: 1200,
-        animateGradually: { enabled: true, delay: 300 },
-        dynamicAnimation: { enabled: true, speed: 900 },
+        speed: 1800,
+        animateGradually: { enabled: true, delay: 200 },
+        dynamicAnimation: { enabled: true, speed: 1400 },
       },
     },
     plotOptions: {
       bar: {
-        borderRadius: 4,
+        borderRadius: 2,
         columnWidth: '40%',
         distributed: true,
       },
@@ -71,7 +71,7 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
         stops: [0, 100],
       },
     },
-    colors: ['#42F0DB'],
+    colors: ['#5FE9D0'],
     tooltip: {
       enabled: true,
       theme: 'dark',
