@@ -34,12 +34,16 @@ const useRoutes = () => {
       children: [
         {
           path: ROUTES.HOME,
+          element: <EnergyPage />,
+        },
+        {
+          path: ROUTES.DASHBOARD,
           element: <MasterBoardPage />,
         },
-				{
-					path: ROUTES.ENERGY,
-					element: <EnergyPage />,
-				}
+        {
+          path: ROUTES.ENERGY,
+          element: <EnergyPage />,
+        },
       ],
     },
     // {

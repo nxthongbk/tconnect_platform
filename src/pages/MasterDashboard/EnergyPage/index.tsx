@@ -14,7 +14,7 @@ import {
   carbonStatisticData,
   deviceStatisticData,
 } from './mockData';
-
+import ROUTES from '~/constants/routes.constant';
 import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
@@ -231,7 +231,7 @@ const EnergyPage = () => {
           <div
             className="top-bar-title"
             style={{ cursor: 'pointer' }}
-            onClick={() => navigate('/')}
+            onClick={() => navigate(ROUTES.DASHBOARD)}
           >
             Master Dashboard
           </div>

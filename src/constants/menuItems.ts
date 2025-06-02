@@ -4,8 +4,7 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
-  { label: 'Traffic', path: '/traffic' },
-  { label: 'Light', path: '/light' },
+  { label: 'Traffic Light', path: '/traffic-light' },
   { label: 'CCTV', path: '/cctv' },
   { label: 'Energy', path: '/energy' },
   { label: 'Fire Alarm', path: '/fire-alarm' },

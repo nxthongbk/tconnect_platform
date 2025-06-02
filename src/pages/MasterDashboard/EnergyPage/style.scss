@@ -36,6 +36,7 @@
       font-weight: bold;
       flex-wrap: wrap;
       .top-bar-date {
+        width: 135px;
         font-size: 14px;
         font-weight: 400;
         padding-bottom: 20px;
@@ -47,7 +48,6 @@
         text-transform: uppercase;
         text-align: center;
         flex: 1;
-        letter-spacing: 2px;
       }
       .top-bar-controls {
         display: flex;
