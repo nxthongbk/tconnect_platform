@@ -84,7 +84,6 @@ export default function LoginForm({ setResetMode }: IProps) {
 
   return (
     <Box
-      className="login-background"
       sx={{
         position: 'relative',
         width: 480,
@@ -95,8 +94,10 @@ export default function LoginForm({ setResetMode }: IProps) {
         flexDirection: 'column',
         justifyContent: 'center',
         overflow: 'visible',
-        zIndex: 10,
-        backgroundColor: 'transparent'
+        zIndex: 11,
+        boxShadow: 'none',
+        backgroundColor: 'transparent',
+        background: 'transparent',
       }}
     >
       <img
@@ -104,6 +105,9 @@ export default function LoginForm({ setResetMode }: IProps) {
         src={signInFrame}
         alt=""
         style={{
+          background: 'transparent',
+          backgroundColor: 'transparent',
+          backgroundSize: 'cover',
           position: 'absolute',
           left: 0,
           top: 0,
@@ -117,12 +121,12 @@ export default function LoginForm({ setResetMode }: IProps) {
       <Paper
         className="login-form"
         sx={{
-          zIndex: 3,
-          position: 'relative',
+          zIndex: 10,
           backgroundColor: 'transparent',
           boxShadow: 'none',
-          backdropFilter: 'blur(8px)',
           padding: 2,
+          position: 'relative',
+          background: 'transparent',
         }}
       >
         <Typography
@@ -142,7 +146,7 @@ export default function LoginForm({ setResetMode }: IProps) {
         <form onSubmit={handleSubmit(onSubmit, onInvalid)} style={{ width: '100%' }}>
           <InputCustom
             type="text"
-            classNameContainer="text-white font-medium"
+            classNameContainer="text-white font-normal"
             label={translation('Tên đăng nhập')}
             isRequired={true}
             control={control}
@@ -157,7 +161,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           <InputCustom
             type="password"
             label={translation('Mật khẩu')}
-            classNameContainer="text-white font-medium"
+            classNameContainer="text-white font-normal"
             isRequired={true}
             control={control}
             name="password"

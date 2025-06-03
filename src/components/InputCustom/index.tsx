@@ -39,7 +39,7 @@ export default function InputCustom(props: TProps) {
   return (
     <div className={classNameCont}>
       {label && (
-        <Typography variant="label3" className="!mb-1 xxx">
+        <Typography variant="label3" className="!mb-1">
           {label} {isRequired && <span className="text-[var(--semantic-alert)]">*</span>}
         </Typography>
       )}
@@ -69,7 +69,7 @@ export default function InputCustom(props: TProps) {
               }
               sx={{
                 [`& .${inputBaseClasses.root}`]: { border: 'none' },
-                [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 2 },
+                [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 1 },
                 [`& .MuiInputBase-input::placeholder`]: { color: '#fff !important', opacity: 0.75 },
               }}
               InputProps={

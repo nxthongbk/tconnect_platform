@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
 import MasterBoardPage from '~/pages/MasterDashboard/DashboardPage';
 import EnergyPage from '~/pages/MasterDashboard/EnergyPage';
+import StreetLightsPage from '~/pages/MasterDashboard/StreetLightsPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -43,6 +44,10 @@ const useRoutes = () => {
         {
           path: ROUTES.ENERGY,
           element: <EnergyPage />,
+        },
+				{
+          path: ROUTES.STREET_LIGHT,
+          element: <StreetLightsPage />,
         },
       ],
     },
