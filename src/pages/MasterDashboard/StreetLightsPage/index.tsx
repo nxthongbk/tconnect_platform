@@ -15,7 +15,7 @@ import CardFrame from '~/components/CardFrame';
 import { streetLights } from './mockData';
 import StatusChart from './components/StatusChart';
 import StreetLightDetails from './components/StreetLightDetails';
-import { Button, Typography, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 
 const StreetLightBoardPage = () => {
   const mapRefRight = useRef<MapRef>();

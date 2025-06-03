@@ -7,8 +7,6 @@ import alertTriangleIcon from '~/assets/images/png/alertTriangle.png';
 import blockedIcon from '~/assets/images/png/blocked.png';
 
 const DeviceCard = ({ light }: { light: any }) => {
-  // const cardClass = `streetlight-card status-${light.status.toLowerCase()}${light.status === 'Error' ? ' error-bg' : ''}`;
-
   return (
     <div className={`streetlight-card status-${light.status.toLowerCase()} bg`}>
       <div className="streetlight-card-header">

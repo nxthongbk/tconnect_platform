@@ -39,7 +39,7 @@ export default function InputCustom(props: TProps) {
   return (
     <div className={classNameCont}>
       {label && (
-        <Typography variant="label3" className="!mb-1 xxx ">
+        <Typography variant="label3" className="!mb-1">
           {label} {isRequired && <span className="text-[var(--semantic-alert)]">*</span>}
         </Typography>
       )}
