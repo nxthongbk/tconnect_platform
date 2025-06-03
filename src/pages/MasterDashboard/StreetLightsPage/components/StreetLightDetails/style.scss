@@ -1,0 +1,95 @@
+.streetlight-details-panel {
+  background: transparent;
+  // border: 1.5px solid #36bffa;
+  // border-radius: 2px;
+  text-wrap: nowrap;
+  padding: 12px 16px;
+
+  color: #fff;
+  width: 340px;
+  // height: 60vh;
+  // box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  .details-id-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+
+  .details-id {
+    color: #7cd4fd;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .details-status-badge {
+    background: #5fe9d0;
+    border-radius: 16px;
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 0;
+    gap: 4px;
+  }
+
+  .status-active {
+    background: #5fe9d0;
+    color: #001;
+  }
+  .status-error {
+    background: #f97066;
+    color: #fff;
+  }
+  .status-maintenance {
+    background: #fac515;
+    color: #001;
+  }
+  .status-offline {
+    background: #d0d5dd;
+    color: #001;
+  }
+
+  .details-location {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 28px;
+    margin-top: 2px;
+  }
+
+  .details-row {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .details-label {
+    color: #36bffa;
+    font-weight: 400;
+    font-size: 12px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+
+  .details-value {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  .details-feature-list {
+    margin: 0;
+    padding-left: 18px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 4px;
+    li {
+      margin-bottom: 2px;
+      list-style-type: disc;
+    }
+  }
+}

@@ -1,0 +1,104 @@
+.streetlight-card {
+  padding: 4px 4px 12px 4px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 152px;
+  max-height: 160px;
+  width: 100%;
+}
+
+.streetlight-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.streetlight-id {
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.streetlight-location {
+  color: #b0b9c6;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.streetlight-card-icon {
+  width: 64px;
+  height: auto;
+  margin-left: 8px;
+  margin-top: 2px;
+}
+
+.streetlight-card-body {
+  margin-top: 12px;
+}
+
+.type-label,
+.power-label {
+  color: #00bfff;
+  font-size: 12px;
+  font-weight: 300;
+  margin-right: 6px;
+}
+
+.type-value,
+.power-value {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.status-error .type-label,
+.status-error .power-label {
+  color: #ff5252;
+}
+.status-error .type-value,
+.status-error .power-value {
+  color: #fff;
+}
+.status-error .streetlight-id {
+  color: #fff;
+}
+.status-error .streetlight-location {
+  color: #b0b9c6;
+}
+
+.streetlight-status-badge {
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 300;
+  border-radius: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
+  gap: 6px;
+}
+
+.status-active .streetlight-status-badge {
+  color: #5fe9d0;
+  background-color: #5fe9d033;
+  border: 1px solid #5fe9d099;
+}
+.status-error .streetlight-status-badge {
+  color: #f97066;
+  background: #f9706633;
+  border: 1px solid #f9706699;
+}
+.status-offline .streetlight-status-badge {
+  color: #d0d5dd;
+  background: #d0d5dd33;
+  border: 1px solid #d0d5dd99;
+}
+.status-maintenance .streetlight-status-badge {
+  color: #fac515;
+  background: #fac51533;
+  border: 1px solid #fac51599;
+}

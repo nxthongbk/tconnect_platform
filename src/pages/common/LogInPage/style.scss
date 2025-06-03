@@ -1,9 +1,6 @@
 .login-background {
-  animation: fadeInBg 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.login-img {
-  animation: floatBg 4s ease-in-out infinite alternate;
-  opacity: 0.85;
+  // animation: fadeInBg 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
 }
 
 @keyframes fadeInBg {
@@ -28,10 +25,10 @@
 }
 
 .login-form {
-  position: relative;
-  z-index: 2;
+
   animation: fadeIn 1.6s 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
+
 .login-btn {
   transition:
     background 0.3s,
@@ -67,18 +64,18 @@
 
 .login-img {
   animation: floatBg 4s ease-in-out infinite alternate;
-  opacity: 0.85;
+  // opacity: 0.85;
 }
 
-.login-btn {
-  transition:
-    background 0.3s,
-    transform 0.3s;
-  &:hover {
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 24px #0794ff44;
-  }
-}
+// .login-btn {
+//   transition:
+//     background 0.3s,
+//     transform 0.3s;
+//   &:hover {
+//     transform: translateY(-2px) scale(1.03);
+//     box-shadow: 0 8px 24px #0794ff44;
+//   }
+// }
 
 .login-title {
   animation: fadeInTitle 1.2s 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;

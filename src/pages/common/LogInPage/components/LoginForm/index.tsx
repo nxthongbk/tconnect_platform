@@ -96,7 +96,7 @@ export default function LoginForm({ setResetMode }: IProps) {
         justifyContent: 'center',
         overflow: 'visible',
         zIndex: 10,
-        backgroundColor: 'transparent'
+        // backgroundColor: 'transparent'
       }}
     >
       <img
@@ -117,11 +117,11 @@ export default function LoginForm({ setResetMode }: IProps) {
       <Paper
         className="login-form"
         sx={{
-          zIndex: 3,
-          position: 'relative',
+          zIndex: 10,
+          // position: 'relative',
           backgroundColor: 'transparent',
           boxShadow: 'none',
-          backdropFilter: 'blur(8px)',
+          // backdropFilter: 'blur(8px)',
           padding: 2,
         }}
       >

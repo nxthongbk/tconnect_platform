@@ -17,6 +17,7 @@ const ROUTES = {
   DASHBOARD: '/dashboard/:dashboardId',
   CONFIGURATION: '/configuration',
 	ENERGY: '/energy',
+	STREET_LIGHT: '/street-light',
 };
 
 export default ROUTES;
