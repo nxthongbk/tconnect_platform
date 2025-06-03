@@ -91,10 +91,6 @@ const StreetLightBoardPage = () => {
         </div>
 
         <div className="right-container">
-          {/* <div className="search-container">
-            <input type="text" placeholder="Search location" className="search-input" />
-          </div> */}
-
           <CardFrame title="STREETLIGHT STATUS">
             <StatusChart />
           </CardFrame>
@@ -102,12 +98,12 @@ const StreetLightBoardPage = () => {
           <CardFrame title="STREETLIGHT DETAILS">
             <Paper
               sx={{
-                backgroundColor: 'transparent',
-                border: '2px gray solid',
+								background: 'transparent',
+                border: '2px solid',
                 borderRadius: 0,
                 boxShadow: 'none',
                 clipPath:
-                  'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+                  'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
               }}
             >
               <StreetLightDetails device={streetLights[activeDevice]} />

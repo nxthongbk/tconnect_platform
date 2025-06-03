@@ -10,8 +10,8 @@ export default function LogInPage() {
 
   return (
     <Box
-      className="login-background"
       sx={{
+        opacity: 0.94,
         minHeight: '100vh',
         width: '100%',
         backgroundImage: `url(${signInBackground})`,

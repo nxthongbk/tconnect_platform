@@ -32,9 +32,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     width: 370px;
     pointer-events: auto;
-    // height: 100%;
     overflow-y: auto;
-    // padding-bottom: 60px;
     min-width: 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -201,8 +199,6 @@
     .streetlights-overview {
       width: 360px;
       background-color: transparent;
-
-      // padding: 10px 16px;
       max-height: 85vh;
       overflow: auto;
       color: #38bdf8;
@@ -318,12 +314,8 @@
   }
 
   .dashboard-card {
-    // background: #030912a3;
     border: 1px solid #36bffa3d;
     position: relative;
-    // margin-bottom: 16px;
-    // padding-bottom: 16px;
-    // opacity: 0;
     transform: translateY(30px);
     animation: cardFadeIn 0.8s ease-out forwards;
     animation-delay: 0.2s;

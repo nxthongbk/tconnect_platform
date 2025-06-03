@@ -1,32 +1,18 @@
-.login-background {
-  // animation: fadeInBg 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative;
-}
-
-@keyframes fadeInBg {
-  from {
-    opacity: 0;
-    filter: blur(8px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.login-img {
+  animation: floatBg 4s ease-in-out infinite alternate;
 }
 
 .login-form {
-
   animation: fadeIn 1.6s 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.login-title {
+  font-weight: 500 !important;
+  animation: fadeInTitle 1.2s 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+  background: linear-gradient(90deg, #fff 0%, #fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .login-btn {
@@ -40,6 +26,17 @@
     background: linear-gradient(90deg, #007fe0 0%, #42e9f5 100%);
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 8px 24px #0794ff44;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -60,29 +57,6 @@
   100% {
     transform: translateY(12px);
   }
-}
-
-.login-img {
-  animation: floatBg 4s ease-in-out infinite alternate;
-  // opacity: 0.85;
-}
-
-// .login-btn {
-//   transition:
-//     background 0.3s,
-//     transform 0.3s;
-//   &:hover {
-//     transform: translateY(-2px) scale(1.03);
-//     box-shadow: 0 8px 24px #0794ff44;
-//   }
-// }
-
-.login-title {
-  animation: fadeInTitle 1.2s 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
-  background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 @keyframes fadeInTitle {
@@ -107,7 +81,7 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .bubble {
