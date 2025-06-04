@@ -52,7 +52,7 @@ export const useCreateLocation = () => {
       }
     },
     onSuccess: () =>
-      Promise.all([
+      void Promise.all([
         queryClient.invalidateQueries({ queryKey: ['createLocation'] }),
         queryClient.invalidateQueries({ queryKey: ['getLocations'] })
       ])
@@ -76,7 +76,7 @@ export const useUpdateLocation = () => {
       }
     },
     onSuccess: () =>
-      Promise.all([
+      void Promise.all([
         queryClient.invalidateQueries({ queryKey: ['createLocation'] }),
         queryClient.invalidateQueries({ queryKey: ['getLocations'] })
       ])
