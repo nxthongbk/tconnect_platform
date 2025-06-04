@@ -27,24 +27,27 @@
   .left-container,
   .right-container {
     padding: 4px;
+    padding-bottom: 40px;
     position: absolute;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.67);
     width: 370px;
     pointer-events: auto;
     overflow-y: auto;
     min-width: 0;
+    height: 90vh;
     scrollbar-width: none;
     -ms-overflow-style: none;
     scroll-behavior: smooth;
+
     &::-webkit-scrollbar {
       display: none;
     }
   }
 
   .left-container {
-    margin-bottom: 60px !important;
-    height: 100%;
+    // margin-bottom: 80px !important;
+
     left: 0;
   }
   .right-container {

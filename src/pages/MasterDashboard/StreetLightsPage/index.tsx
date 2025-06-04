@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 import DeviceCard from './components/DeviceCard';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
-import CustomMap from '~/components/LeafletMapBox';
 import { MapRef } from 'react-map-gl';
 import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
 
@@ -18,12 +17,14 @@ import StreetLightDetails from './components/StreetLightDetails';
 import { Paper } from '@mui/material';
 import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';
+import StreetLightMap from './components/StreetLightMap';
 
 const StreetLightBoardPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
-  const [activeDevice, setActiveDevice] = useState<any>(0);
+  const [openMarkerId, setOpenMarkerId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'Devices' | 'Locations'>('Devices');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,9 +38,24 @@ const StreetLightBoardPage = () => {
   return (
     <div className="streetlights-page dashboard-streetlights-template">
       <Box className="streetlights-main" sx={popupStyles}>
-        <CustomMap
-          initialCenter={{ lat: -16.92250772004144, lng: 145.7485087054897 }}
+        <StreetLightMap
+          initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
+          listOfDevices={streetLights.map(device => ({
+            ...device,
+            lat: device.latLng.lat,
+            lng: device.latLng.lng,
+            status:
+              device.status === 'Active'
+                ? 'Active'
+                : device.status === 'Error'
+                  ? 'Error'
+                  : device.status === 'Maintenance'
+                    ? 'Maintenance'
+                    : 'Active',
+          }))}
+          openMarkerId={openMarkerId}
+          setOpenMarkerId={setOpenMarkerId}
         />
       </Box>
 
@@ -57,15 +73,25 @@ const StreetLightBoardPage = () => {
           <CardFrame title="STREETLIGHT OVERVIEW">
             <div className="streetlights-overview">
               <div className="overview-tabs">
-                <button className="tab">Locations</button>
-                <button className="tab active">Devices</button>
+                <button
+                  className={`tab${activeTab === 'Locations' ? ' active' : ''}`}
+                  onClick={() => setActiveTab('Locations')}
+                >
+                  Locations
+                </button>
+                <button
+                  className={`tab${activeTab === 'Devices' ? ' active' : ''}`}
+                  onClick={() => setActiveTab('Devices')}
+                >
+                  Devices
+                </button>
               </div>
               <ul className="streetlight-list">
-                {streetLights.map((device, index) => (
+                {streetLights.map(device => (
                   <li
-                    key={index}
-                    className={`${activeDevice === index ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''}`}
-                    onClick={() => setActiveDevice(index)}
+                    key={device.id}
+                    className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''}`}
+                    onClick={() => setOpenMarkerId(device.id)}
                   >
                     <DeviceCard light={device} />
                   </li>
@@ -91,7 +117,9 @@ const StreetLightBoardPage = () => {
                   'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
               }}
             >
-              <StreetLightDetails device={streetLights[activeDevice]} />
+              <StreetLightDetails
+                device={streetLights.find(d => d.id === openMarkerId) || streetLights[0]}
+              />
             </Paper>
           </CardFrame>
         </div>

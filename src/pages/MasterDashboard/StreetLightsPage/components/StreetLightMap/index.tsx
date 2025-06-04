@@ -1,0 +1,170 @@
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useState, useEffect, useRef } from 'react';
+import L from 'leaflet';
+
+import lampIconActive from '~/assets/images/png/activeLight.png';
+import lampIconError from '~/assets/images/png/alertLight.png';
+import lampIconWarning from '~/assets/images/png/maintanceLight.png';
+
+export type StreetLight = {
+  id: string;
+  lat: number;
+  lng: number;
+  status: 'Active' | 'Offline' | 'Maintenance' | 'Error';
+  latitude?: string | number;
+  longitude?: string | number;
+  ['north/south']?: string;
+  ['east/west']?: string;
+};
+
+// Define default location
+const DEFAULT_LOCATION = {
+  lat: 10.853397686226927,
+  lng: 106.62823723344383,
+};
+
+export const getDeviceIcon = (status: string) => {
+  if (status === 'Active') return lampIconActive;
+  if (status === 'Error') return lampIconError;
+  if (status === 'Maintenance') return lampIconWarning;
+  return lampIconActive;
+};
+
+interface CustomMapProps {
+  initialCenter: {
+    lat: number;
+    lng: number;
+  };
+  mapRef?: any;
+  socketData?: any;
+  listOfDevices?: StreetLight[];
+  openMarkerId?: string | null;
+  setOpenMarkerId?: (id: string | null) => void;
+}
+
+function MapInstanceSetter({ setMap }: { setMap: (map: any) => void }) {
+  const map = useMap();
+  useEffect(() => {
+    setMap(map);
+  }, [map]);
+  return null;
+}
+
+function extractValuesOnly(data: Record<string, any>) {
+  const result: Record<string, any> = {};
+  for (const key in data) {
+    if (typeof data[key] === 'object' && data[key] !== null && 'value' in data[key]) {
+      result[key] = data[key].value;
+    } else {
+      result[key] = data[key];
+    }
+  }
+  return result;
+}
+
+export default function StreetLightMap({
+  initialCenter,
+  mapRef,
+  socketData,
+  listOfDevices,
+  openMarkerId,
+  setOpenMarkerId,
+}: CustomMapProps) {
+  const [center] = useState(initialCenter || DEFAULT_LOCATION);
+
+  const [map, setMap] = useState<any>(null);
+
+  const markerRefs = useRef<{ [id: string]: L.Marker | null }>({});
+
+  useEffect(() => {
+    if (map && listOfDevices.length) {
+      const bounds = L.latLngBounds(listOfDevices.map(item => [item.lat ?? 0, item.lng ?? 0]));
+      map.fitBounds(bounds, { padding: [50, 50] });
+    }
+  }, [map, listOfDevices]);
+
+  useEffect(() => {
+    if (!socketData) return;
+
+    const cleanedSocketData = extractValuesOnly(socketData) as any;
+
+    const lat = cleanedSocketData.latitude;
+    const lon = cleanedSocketData.longitude;
+    if (!lat || !lon || lat === 'null' || lon === 'null') return;
+
+    // update later
+
+    // setListOfDevices(prev => {
+    //   const index = prev.findIndex(item => item.id === cleanedSocketData.deviceId);
+    //   if (index === -1) return prev;
+
+    //   const oldItem = prev[index];
+    //   const oldLat = oldItem.latitude;
+    //   const oldLon = oldItem.longitude;
+
+    //   const hasMoved =
+    //     parseFloat(oldLat) !== parseFloat(lat) || parseFloat(oldLon) !== parseFloat(lon);
+
+    //   if (!hasMoved) return prev;
+
+    //   const updated = [...prev];
+    //   updated[index] = { ...oldItem, ...cleanedSocketData };
+    //   return updated;
+    // });
+  }, [socketData]);
+
+  useEffect(() => {
+    if (openMarkerId && markerRefs.current[openMarkerId]) {
+      markerRefs.current[openMarkerId].openPopup();
+    }
+  }, [openMarkerId, listOfDevices]);
+
+  return (
+    <MapContainer
+      center={center}
+      zoom={13}
+      style={{ height: '100vh', width: '100%', zIndex: 1 }}
+      ref={mapRef as any}
+    >
+      {/* <TileLayer url="http://192.168.12.10:8089/tile/{z}/{x}/{y}.png" /> */}
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+      {/* <TileLayer url="http://14.161.14.155:8081/tile/{z}/{x}/{y}.png" /> */}
+      {/* <MapEventHandler onMoveEnd={handleMoveEnd} /> */}
+      <MapInstanceSetter setMap={setMap} />
+
+      {listOfDevices?.map((item, index) => {
+        if (!item.lat || !item.lng) return null;
+        return (
+          <Marker
+            key={item?.id || index}
+            position={[item.lat, item.lng]}
+            icon={
+              new L.Icon({
+                iconUrl: getDeviceIcon(item.status),
+                iconSize: [65, 95],
+              })
+            }
+            ref={ref => {
+              if (ref && item.id) {
+                markerRefs.current[item.id] = ref;
+              }
+            }}
+            eventHandlers={{
+              click: () =>
+                setOpenMarkerId && setOpenMarkerId(openMarkerId === item.id ? null : item.id),
+              popupclose: () => setOpenMarkerId && setOpenMarkerId(null),
+            }}
+          >
+            <Popup>
+              <strong>Streetlight #{item.id}</strong>
+              <br />
+              Status: {item.status}
+            </Popup>
+          </Marker>
+        );
+      })}
+    </MapContainer>
+  );
+}

@@ -17,12 +17,12 @@ const BottomMenu: React.FC<BottomMenuProps> = ({ items, onMenuClick, activePath 
     {items.map(item => (
       <li
         key={item.label}
-        className={item.path === activePath ? 'active' : ''}
+        className={item.path === (activePath || 'energy') ? 'active' : ''}
         onClick={item.path ? () => onMenuClick(item.path) : undefined}
         style={item.path ? { cursor: 'pointer' } : {}}
       >
         {item.label}
-        {/* {item.path === activePath && <img  src={activeTabImg} alt="" className="active-tab-img" />} */}
+        {/* {item.path === (activePath || 'energy') && <img src={activeTabImg} alt="" className="active-tab-img" />} */}
       </li>
     ))}
   </ul>

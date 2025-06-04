@@ -1,7 +1,9 @@
+import { latLng } from 'leaflet';
+
 export const streetLights = [
   {
     id: 'SL-TH-014',
-    location: 'Thu Thiem Bridge',
+    location: 'Thu Thiem Bridge 1',
     type: 'Smart LED Street Light',
     power: '220V AC',
     status: 'Active',
@@ -15,10 +17,11 @@ export const streetLights = [
       'Remote switch & energy monitoring',
     ],
     lifespan: '80,000 hours',
+    latLng: latLng(10.85561, 106.631128),
   },
   {
-    id: 'SL-TH-014',
-    location: 'Thu Thiem Bridge',
+    id: 'SL-TH-015',
+    location: 'Thu Thiem Bridge 2',
     type: 'Smart LED Street Light',
     power: '220V AC',
     status: 'Active',
@@ -32,10 +35,11 @@ export const streetLights = [
       'Remote switch & energy monitoring',
     ],
     lifespan: '80,000 hours',
+    latLng: latLng(10.855641, 106.631699),
   },
   {
-    id: 'SL-TH-014',
-    location: 'Thu Thiem Bridge',
+    id: 'SL-TH-016',
+    location: 'Thu Thiem Bridge 3',
     type: 'Smart LED Street Light',
     power: '220V AC',
     status: 'Error',
@@ -49,10 +53,11 @@ export const streetLights = [
       'Remote switch & energy monitoring',
     ],
     lifespan: '80,000 hours',
+    latLng: latLng(10.85646, 106.630954),
   },
   {
-    id: 'SL-TH-014',
-    location: 'Thu Thiem Bridge',
+    id: 'SL-TH-017',
+    location: 'Thu Thiem Bridge 4',
     type: 'Smart LED Street Light',
     power: '220V AC',
     status: 'Offline',
@@ -66,10 +71,11 @@ export const streetLights = [
       'Remote switch & energy monitoring',
     ],
     lifespan: '80,000 hours',
+    latLng: latLng(10.856525, 106.631692),
   },
   {
-    id: 'SL-TH-014',
-    location: 'Thu Thiem Bridge',
+    id: 'SL-TH-018',
+    location: 'Thu Thiem Bridge 5',
     type: 'Smart LED Street Light',
     power: '220V AC',
     status: 'Maintenance',
@@ -83,10 +89,11 @@ export const streetLights = [
       'Remote switch & energy monitoring',
     ],
     lifespan: '80,000 hours',
+    latLng: latLng(10.856494, 106.631313),
   },
   {
-    id: 'SL-TH-014',
-    location: 'Thu Thiem Bridge',
+    id: 'SL-TH-019',
+    location: 'Thu Thiem Bridge 6',
     type: 'Smart LED Street Light',
     power: '220V AC',
     status: 'Active',
@@ -100,6 +107,7 @@ export const streetLights = [
       'Remote switch & energy monitoring',
     ],
     lifespan: '80,000 hours',
+    latLng: latLng(10.856052, 106.631706),
   },
 ];
 
@@ -109,18 +117,6 @@ export const statusList = [
   { label: 'Error', value: 20.5, color: '#F97066' },
   { label: 'Offline', value: 10.28, color: '#D0D5DD' },
 ];
-
-export const lampIconActive = 'assets/images/png/Dot.png';
-export const lampIconWarning = 'assets/images/png/Spanner.png';
-export const lampIconError = 'assets/images/png/alertTriangle.png';
-
-export const getLampIcon = (status: string) => {
-  if (status === 'Active') return lampIconActive;
-  if (status === 'Error') return lampIconError;
-  if (status === 'Maintenance') return lampIconWarning;
-  if (status === 'Offline') return lampIconWarning;
-  return lampIconActive;
-};
 
 export const lampPositions = [
   { left: '18%', top: '16%', status: 'Active' },

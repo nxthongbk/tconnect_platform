@@ -20,14 +20,29 @@
     text-align: center;
   }
   .bottom-bar {
-    position: fixed;
-    width: 100%;
-    object-fit: cover;
     position: absolute;
+    width: 100%;
     left: 0;
     bottom: 0;
     z-index: 100;
     pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(270deg, #00eaff, #00aaff, #00eaff);
+      background-size: 600% 600%;
+      animation: animatedBorder 6s linear infinite;
+      mask-image: url('../../../assets/images/png/Bottombar.png');
+      mask-repeat: no-repeat;
+      mask-size: 100% 100%;
+      mask-position: center;
+      opacity: 0.6;
+      filter: drop-shadow(0 0 6px #00eaff);
+      pointer-events: none;
+    }
   }
   .bottom-menu {
     position: fixed;
@@ -355,7 +370,6 @@
 }
 
 .animated-circle-chart {
-  // opacity: 0;
   transform: scale(0.95);
   animation: fadeInCircle 3s 0.3s forwards;
   flex: 0 0 auto;
@@ -364,7 +378,6 @@
   justify-content: center;
   width: 120px;
   height: 120px;
-  // margin-bottom: 12px;
 }
 
 @keyframes fadeInCircle {
@@ -735,5 +748,17 @@
   .map-bg {
     min-height: 120px !important;
     height: 18vh !important;
+  }
+}
+
+@keyframes animatedBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
