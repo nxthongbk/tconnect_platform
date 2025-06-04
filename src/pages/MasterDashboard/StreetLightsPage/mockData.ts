@@ -24,7 +24,7 @@ export const streetLights = [
     location: 'Thu Thiem Bridge 2',
     type: 'Smart LED Street Light',
     power: '220V AC',
-    status: 'Active',
+    status: 'Error',
     statusColor: '#00e676',
     connectivity: 'LoRaWAN / 4G',
     controller: 'Zhaga Book 18 (Remote dimming + Diagnostics)',
@@ -42,7 +42,7 @@ export const streetLights = [
     location: 'Thu Thiem Bridge 3',
     type: 'Smart LED Street Light',
     power: '220V AC',
-    status: 'Error',
+    status: 'Active',
     statusColor: '#ff5252',
     connectivity: 'LoRaWAN / 4G',
     controller: 'Zhaga Book 18 (Remote dimming + Diagnostics)',
@@ -135,3 +135,8 @@ export const statusColorMap: Record<string, string> = {
   Offline: '#b0b9c6',
   Maintenance: '#ffd600',
 };
+
+export const streetLightPolygonCoords = streetLights.map(light => [
+  light.latLng.lat,
+  light.latLng.lng,
+]);
