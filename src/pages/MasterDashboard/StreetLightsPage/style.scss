@@ -92,10 +92,10 @@
       text-shadow: 0 0 5px #00d9ff;
       transition: all 0.2s ease;
       flex-shrink: 0;
-
-      &:hover {
-        color: #ffffff;
-        text-shadow: 0 0 10px #00d9ff;
+      &:hover,
+      &.active {
+        color: #fff;
+        text-shadow: 0 0 12px #00eaff;
       }
     }
   }
