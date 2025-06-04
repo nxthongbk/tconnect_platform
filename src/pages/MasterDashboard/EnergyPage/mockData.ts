@@ -1,68 +1,64 @@
 export const overviewData = [
   {
-    label: 'POWER STATIONS',
+    label: 'Total Energy Consumption',
     value: 38,
-    unit: 'PCS',
+    unit: 'KWh',
     icon: '~/assets/images/png/metrics.png',
   },
   {
-    label: 'INSTANT POWER',
+    label: 'Grid Energy Consumption',
     value: 858.41,
-    unit: 'MWh',
+    unit: 'KWh',
     icon: '~/assets/images/png/metrics.png',
   },
   {
-    label: 'TOTAL CAPACITY',
+    label: 'Solar Energy Generation',
     value: 2609.71,
-    unit: 'MWh',
+    unit: 'KWh',
     icon: '~/assets/images/png/metrics.png',
   },
   {
-    label: 'WIND POWER',
+    label: 'Renewable Energy Share',
     value: 1097,
-    unit: 'MWh',
-    icon: '~/assets/images/png/metrics.png',
-  },
-  {
-    label: 'PV CAPACITY',
-    value: 858.41,
-    unit: 'MWh',
+    unit: 'KWh',
     icon: '~/assets/images/png/metrics.png',
   },
 ];
 
 export const powerBlocksData = [
-  { label: 'DAILY', value: 1536.78, unit: 'MWh' },
-  { label: 'MONTHLY', value: 7563.78, unit: 'MWh' },
-  { label: 'YEARLY', value: 13563.7, unit: 'MWh' },
+  { label: 'DAILY', value: 1536.78, unit: 'KWh' },
+  { label: 'MONTHLY', value: 7563.78, unit: 'KWh' },
+  { label: 'YEARLY', value: 13563.7, unit: 'KWh' },
 ];
 
 export const progressListColumn = [
   {
-    title: 'Ninh Thuận',
+    title: 'TMA Building',
     precent: '100%',
   },
   {
-    title: 'Trà Vinh',
+    title: 'QTSC-1 Building',
     precent: '80%',
   },
   {
-    title: 'Ea Nam',
+    title: 'Ana Building',
     precent: '70%',
   },
   {
-    title: 'Ninh Thuận',
+    title: 'Saigon Tech',
     precent: '60%',
   },
   {
-    title: 'Trà Vinh',
+    title: 'SMS Building',
     precent: '10%',
   },
 ];
 
 export const powerCircleData = [
-  { value: 85, label: 'PC for the month' },
-  { value: 68, label: 'PC for the year' },
+  { value: 85, label: 'Power Factor (PF)' },
+  { value: 68, label: 'Voltage Stability' },
+  { value: 75, label: 'Harmonic Distortion (THD)' },
+  { value: 48, label: 'Phase Imbalance' },
 ];
 
 export const top5PRData = [

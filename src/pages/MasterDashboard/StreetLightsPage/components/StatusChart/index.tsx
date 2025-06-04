@@ -29,7 +29,7 @@ const StreetLightStatus = () => (
   <div style={{ display: 'flex', alignItems: 'center', width: 360 }}>
     <ReactApexChart options={options} series={series} type="donut" width={160} />
     <div>
-      {statusList.map((s, i) => (
+      {statusList.map((s) => (
         <div
           key={s.label}
           style={{ display: 'flex', alignItems: 'center', marginBottom: 6, fontSize: 13 }}

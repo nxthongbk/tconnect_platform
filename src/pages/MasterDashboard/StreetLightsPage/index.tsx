@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.scss';
-import { Avatar, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import DeviceCard from './components/DeviceCard';
-import topBar from '~/assets/images/png/Topbar.png';
+import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
 import CustomMap from '~/components/LeafletMapBox';
 import { MapRef } from 'react-map-gl';
@@ -16,6 +16,8 @@ import { streetLights } from './mockData';
 import StatusChart from './components/StatusChart';
 import StreetLightDetails from './components/StreetLightDetails';
 import { Paper } from '@mui/material';
+import TopBar from '~/components/TopBar';
+import ROUTES from '~/constants/routes.constant';
 
 const StreetLightBoardPage = () => {
   const mapRefRight = useRef<MapRef>();
@@ -41,31 +43,14 @@ const StreetLightBoardPage = () => {
         />
       </Box>
 
-      <div className="top-bar-wrapper">
-        <img src={topBar} alt="Top Bar" className="top-bar" />
-
-        <div className="top-bar-content">
-          <div className="top-bar-date">
-            {formattedTime} {formattedDate}
-          </div>
-
-          <div className="top-bar-title">Master Dashboard</div>
-
-          <div className="top-bar-controls">
-            <select
-              value={country}
-              onChange={e => setCountry(e.target.value)}
-              className="country-select"
-            >
-              <option value="US">USA</option>
-              <option value="VN">Vietnam</option>
-              <option value="JP">Japan</option>
-            </select>
-
-            <Avatar sx={{ width: 25, height: 25 }} alt="User Avatar" />
-          </div>
-        </div>
-      </div>
+      <TopBar
+        topBarBg={topBarBg}
+        formattedTime={formattedTime}
+        formattedDate={formattedDate}
+        country={country}
+        setCountry={setCountry}
+        onTitleClick={() => navigate(ROUTES.DASHBOARD)}
+      />
 
       <div className="streetlights-layout">
         <div className="left-container">
@@ -98,7 +83,7 @@ const StreetLightBoardPage = () => {
           <CardFrame title="STREETLIGHT DETAILS">
             <Paper
               sx={{
-								background: 'transparent',
+                background: 'transparent',
                 border: '2px solid',
                 borderRadius: 0,
                 boxShadow: 'none',
