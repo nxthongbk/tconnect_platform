@@ -1,7 +1,8 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import L from 'leaflet';
+import * as turf from '@turf/turf';
 
 import lampIconActive from '~/assets/images/png/activeLight.png';
 import lampIconError from '~/assets/images/png/alertLight.png';
@@ -72,10 +73,19 @@ export default function StreetLightMap({
   setOpenMarkerId,
 }: CustomMapProps) {
   const [center] = useState(initialCenter || DEFAULT_LOCATION);
-
   const [map, setMap] = useState<any>(null);
-
   const markerRefs = useRef<{ [id: string]: L.Marker | null }>({});
+
+  // Compute convex hull polygon from current device positions
+  const polygonCoords = useMemo(() => {
+    if (!listOfDevices.length) return [];
+    const points = listOfDevices.map(light => [light.lng, light.lat]);
+    const featureCollection = turf.featureCollection(points.map(pt => turf.point(pt)));
+    const hull = turf.convex(featureCollection);
+    return hull
+      ? hull.geometry.coordinates[0].map(([lng, lat]) => [lat, lng])
+      : points.map(([lng, lat]) => [lat, lng]);
+  }, [listOfDevices]);
 
   useEffect(() => {
     if (map && listOfDevices.length) {
@@ -126,6 +136,8 @@ export default function StreetLightMap({
       zoom={13}
       style={{ height: '100vh', width: '100%', zIndex: 1 }}
       ref={mapRef as any}
+      minZoom={10}
+      maxZoom={18}
     >
       {/* <TileLayer url="http://192.168.12.10:8089/tile/{z}/{x}/{y}.png" /> */}
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -133,6 +145,20 @@ export default function StreetLightMap({
       {/* <TileLayer url="http://14.161.14.155:8081/tile/{z}/{x}/{y}.png" /> */}
       {/* <MapEventHandler onMoveEnd={handleMoveEnd} /> */}
       <MapInstanceSetter setMap={setMap} />
+
+      {polygonCoords.length > 2 && (
+        <Polygon
+          positions={polygonCoords as [number, number][]}
+          pathOptions={{
+            color: '#36bffa',
+            fillColor: '#36bffa',
+            fillOpacity: 0.2,
+            weight: 2,
+            opacity: 0.8,
+            dashArray: '2',
+          }}
+        />
+      )}
 
       {listOfDevices?.map((item, index) => {
         if (!item.lat || !item.lng) return null;
