@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './style.scss';
-import { Avatar } from '@mui/material';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
 import { useNavigate } from 'react-router-dom';
@@ -23,8 +22,8 @@ import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBarBg from '~/assets/images/png/Bottombar.png';
 import mapBg from '~/assets/images/png/Map.png';
 import metricsIcon from '~/assets/images/png/metrics.png';
+import TopBar from '~/components/TopBar';
 
-// Card component for reuse
 const Card = ({
   title,
   children,
@@ -59,7 +58,7 @@ const LeftPanel = ({
               <img src={metricsIcon} alt="icon" />
             </span>
             <div>
-              <div className="overview-label">{item.label}</div>
+              <div className="overview-label uppercase">{item.label}</div>
               <div className="overview-value">
                 {item.value} <span className="overview-unit">{item.unit}</span>
               </div>
@@ -92,15 +91,17 @@ const LeftPanel = ({
 
 const RightPanel = () => (
   <div className="dashboard-panel right-panel">
-    <Card title="POWER">
+    <Card title="POWER QUALITY INDEX">
       <div className="power-circles">
-        {powerCircleData.map((item, idx) => (
-          <div className="animated-circle-chart" key={idx}>
-            <ChartCircle value={item.value} />
-            <div className="circle-label">{item.label}</div>
-          </div>
-        ))}
+  {powerCircleData.map((item, idx) => (
+    <div className="circle-item" key={idx}>
+      <div className="animated-circle-chart">
+        <ChartCircle value={item.value} />
       </div>
+      <div className="circle-label">{item.label}</div>
+    </div>
+  ))}
+</div>
     </Card>
     <Card title="TOP 5 PR">
       <ChartHorizontalBar />
@@ -221,36 +222,15 @@ const EnergyPage = () => {
 
   return (
     <div className="energy-page dashboard-template">
-      {/* Top Bar */}
-      <div className="top-bar-wrapper">
-        <img src={topBarBg} alt="Top Bar" className="top-bar" />
-        <div className="top-bar-content">
-          <div className="top-bar-date">
-            {formattedTime} {formattedDate}
-          </div>
-          <div
-            className="top-bar-title"
-            style={{ cursor: 'pointer' }}
-            onClick={() => navigate(ROUTES.DASHBOARD)}
-          >
-            Master Dashboard
-          </div>
-          <div className="top-bar-controls">
-            <select
-              value={country}
-              onChange={e => setCountry(e.target.value)}
-              className="country-select"
-            >
-              <option value="US">USA</option>
-              <option value="VN">Vietnam</option>
-              <option value="JP">Japan</option>
-            </select>
-            <Avatar sx={{ width: 25, height: 25 }} alt="User Avatar" />
-          </div>
-        </div>
-      </div>
+      <TopBar
+        topBarBg={topBarBg}
+        formattedTime={formattedTime}
+        formattedDate={formattedDate}
+        country={country}
+        setCountry={setCountry}
+        onTitleClick={() => navigate(ROUTES.DASHBOARD)}
+      />
 
-      {/* Main Dashboard Layout */}
       <div className="dashboard-main">
         <LeftPanel
           updatedOverviewData={updatedOverviewData}
@@ -260,7 +240,6 @@ const EnergyPage = () => {
         <RightPanel />
       </div>
 
-      {/* Bottom Menu and Bar */}
       <div>
         <BottomMenu
           activePath={location.pathname}

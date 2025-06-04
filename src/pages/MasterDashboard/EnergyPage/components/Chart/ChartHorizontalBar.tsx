@@ -1,16 +1,16 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
 
 const data = [
-  { name: 'Điện gió số 5 - Ninh Thuận', value: 90 },
-  { name: 'Điện gió Đông Hải 1 - Trà Vinh', value: 75 },
-  { name: 'Điện gió Ea Nam', value: 60 },
-  { name: 'Điện mặt trời Thuận Bắc - Ninh Thuận', value: 45 },
-  { name: 'Điện mặt trời Trung Nam - Trà Vinh', value: 25 },
+  { name: 'TMA Building', value: 85 },
+  { name: 'QTSC-1 Building', value: 70 },
+  { name: 'Ana Building', value: 45 },
+  { name: 'Saigon Tech', value: 35 },
+  { name: 'SMS Building', value: 20 },
 ];
 
 const CustomLabel = ({ x, y, index }) => {
   return (
-    <text x={x} y={y - 10} fill="#ffffff" fontSize={13} fontFamily="Orbitron" color="#b0b9c6">
+    <text x={x} y={y - 10} fill="#ffffff" fontWeight={400} fontSize={10} fontFamily="'Orbitron', monospace" color="#b0b9c6">
       {data[index].name}
     </text>
   );
@@ -48,7 +48,7 @@ export default function CustomBarChart() {
             axisLine={false}
             tickLine={false}
             fontFamily="Orbitron"
-            fontSize={13}
+            fontSize={14}
             dy={10}
           />
 

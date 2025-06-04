@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.scss';
-import { Avatar, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import DeviceCard from './components/DeviceCard';
 import topBar from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
@@ -13,6 +13,8 @@ import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
 import { useNavigate } from 'react-router-dom';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
+import TopBar from '~/components/TopBar';
+import ROUTES from '~/constants/routes.constant';
 
 const MasterBoardPage = () => {
   const mapRefRight = useRef<MapRef>();
@@ -57,31 +59,14 @@ const MasterBoardPage = () => {
         />
       </Box>
 
-      <div className="top-bar-wrapper">
-        <img src={topBar} alt="Top Bar" className="top-bar" />
-
-        <div className="top-bar-content">
-          <div className="top-bar-date">
-            {formattedTime} {formattedDate}
-          </div>
-
-          <div className="top-bar-title">Master Dashboard</div>
-
-          <div className="top-bar-controls">
-            <select
-              value={country}
-              onChange={e => setCountry(e.target.value)}
-              className="country-select"
-            >
-              <option value="US">USA</option>
-              <option value="VN">Vietnam</option>
-              <option value="JP">Japan</option>
-            </select>
-
-            <Avatar sx={{ width: 25, height: 25 }} alt="User Avatar" />
-          </div>
-        </div>
-      </div>
+      <TopBar
+        topBarBg={topBar}
+        formattedTime={formattedTime}
+        formattedDate={formattedDate}
+        country={country}
+        setCountry={setCountry}
+        onTitleClick={() => navigate(ROUTES.DASHBOARD)}
+      />
 
       <div className="router-layout">
         <div className="left-container">
