@@ -2,7 +2,7 @@ import './style.scss';
 import streetLamp from '~/assets/images/png/device-lamp.png';
 import 'leaflet/dist/leaflet.css';
 import dotIcon from '~/assets/images/png/Dot.png';
-import spannerIcon from '~/assets/images/png/Spanner.png';
+import spannerIcon from '~/assets/images/png/spanner.png';
 import alertTriangleIcon from '~/assets/images/png/alertTriangle.png';
 import blockedIcon from '~/assets/images/png/blocked.png';
 
