@@ -89,26 +89,34 @@ const LeftPanel = ({
   </div>
 );
 
-const RightPanel = () => (
+const RightPanel = ({
+  updatedPowerCircleData,
+  updatedCarbonStatisticData,
+  updatedDeviceStatisticData,
+}: {
+  updatedPowerCircleData: typeof powerCircleData;
+  updatedCarbonStatisticData: typeof carbonStatisticData;
+  updatedDeviceStatisticData: typeof deviceStatisticData;
+}) => (
   <div className="dashboard-panel right-panel">
     <Card title="POWER QUALITY INDEX">
       <div className="power-circles">
-  {powerCircleData.map((item, idx) => (
-    <div className="circle-item" key={idx}>
-      <div className="animated-circle-chart">
-        <ChartCircle value={item.value} />
+        {updatedPowerCircleData?.map((item, idx) => (
+          <div className="circle-item" key={idx}>
+            <div className="animated-circle-chart">
+              <ChartCircle value={item.value} />
+            </div>
+            <div className="circle-label">{item.label}</div>
+          </div>
+        ))}
       </div>
-      <div className="circle-label">{item.label}</div>
-    </div>
-  ))}
-</div>
     </Card>
     <Card title="TOP 5 PR">
       <ChartHorizontalBar />
     </Card>
     <Card title="TOTAL CARBON REDUCTION">
       <div className="power-blocks">
-        {carbonStatisticData.map((item, idx) => (
+        {updatedCarbonStatisticData.map((item, idx) => (
           <CardBlock
             key={idx}
             label={item.label}
@@ -121,7 +129,7 @@ const RightPanel = () => (
     </Card>
     <Card title="DEVICE STATISTIC">
       <div className="power-blocks">
-        {deviceStatisticData.map((item, idx) => (
+        {updatedDeviceStatisticData.map((item, idx) => (
           <CardBlock
             key={idx}
             label={item.label}
@@ -162,6 +170,7 @@ const EnergyPage = () => {
     'PV CAPACITY': 'PV',
     'INSTANT POWER': 'InstalledPower',
     DAILY: 'Daily yield',
+    CO2: 'Co2Reduction',
   };
 
   const applyTelemetryToMockData = (
@@ -201,16 +210,21 @@ const EnergyPage = () => {
     telemetryValues,
     labelToTelemetryKeyMap
   );
-  // const updatedCarbonStatisticData = applyTelemetryToMockData(
-  //   carbonStatisticData,
-  //   telemetryValues,
-  //   labelToTelemetryKeyMap
-  // );
-  // const updatedDeviceStatisticData = applyTelemetryToMockData(
-  //   deviceStatisticData,
-  //   telemetryValues,
-  //   labelToTelemetryKeyMap
-  // );
+  const updatedCarbonStatisticData = applyTelemetryToMockData(
+    carbonStatisticData,
+    telemetryValues,
+    labelToTelemetryKeyMap
+  );
+  const updatedPowerCircleData = applyTelemetryToMockData(
+    powerCircleData,
+    telemetryValues,
+    labelToTelemetryKeyMap
+  );
+  const updatedDeviceStatisticData = applyTelemetryToMockData(
+    deviceStatisticData,
+    telemetryValues,
+    labelToTelemetryKeyMap
+  );
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -237,7 +251,11 @@ const EnergyPage = () => {
           updatedPowerBlocksData={updatedPowerBlocksData}
         />
         <CenterMapPanel />
-        <RightPanel />
+        <RightPanel
+          updatedPowerCircleData={updatedPowerCircleData}
+          updatedCarbonStatisticData={updatedCarbonStatisticData}
+          updatedDeviceStatisticData={updatedDeviceStatisticData}
+        />
       </div>
 
       <div>
