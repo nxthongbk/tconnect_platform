@@ -50,45 +50,6 @@
     text-align: center;
   }
 
-  .bottom-bar {
-    width: 100%;
-    object-fit: cover;
-    position: absolute;
-    bottom: 0;
-  }
-
-  .bottom-menu {
-    position: absolute;
-    bottom: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 3vw;
-    list-style: none;
-    padding: 0 16px;
-    margin: 0;
-    z-index: 2 !important;
-    overflow-x: auto;
-    white-space: nowrap;
-    max-width: 100vw;
-
-    li {
-      color: #a5f0fc;
-      font-weight: 500;
-      font-size: 14px;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-shadow: 0 0 5px #00d9ff;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-
-      &:hover {
-        color: #ffffff;
-        text-shadow: 0 0 10px #00d9ff;
-      }
-    }
-  }
-
   .router-layout {
     position: relative;
     width: 100%;

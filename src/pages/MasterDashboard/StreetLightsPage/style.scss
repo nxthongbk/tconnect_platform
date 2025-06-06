@@ -59,69 +59,6 @@
     text-align: center;
   }
 
-  .bottom-bar {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    z-index: 100;
-    pointer-events: none;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(270deg, #00eaff, #00aaff, #00eaff);
-      background-size: 600% 600%;
-      animation: animatedBorder 6s linear infinite;
-      mask-image: url('../../../assets/images/png/Bottombar.png');
-      mask-repeat: no-repeat;
-      mask-size: 100% 100%;
-      mask-position: center;
-      opacity: 0.6;
-      filter: drop-shadow(0 0 6px #00eaff);
-      pointer-events: none;
-    }
-  }
-  .bottom-menu {
-    position: fixed;
-    bottom: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 2vw;
-    list-style: none;
-    padding: 0 16px;
-    margin: 0;
-    z-index: 200;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    max-width: 100vw;
-    li {
-      padding: 4px 8px;
-      color: #a5f0fc;
-      font-weight: 500;
-      font-size: 14px;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-shadow: 0 0 5px #00d9ff;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-      &:hover,
-      &.active {
-        color: #fff;
-        text-shadow: 0 0 12px #00eaff;
-      }
-    }
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
   .streetlights-layout {
     position: relative;
     width: 100%;
@@ -137,7 +74,6 @@
       display: flex;
       margin-bottom: 12px;
       overflow: auto;
-
       .tab {
         flex: 1;
         background: none;
@@ -168,12 +104,10 @@
       overflow: auto;
       color: #38bdf8;
       flex-shrink: 0;
-
       .streetlight-list {
         list-style: none;
         margin: 0;
         flex-grow: 1;
-
         li {
           color: #fff;
           padding: 12px;
@@ -220,61 +154,12 @@
     background-position:
       center,
       10px center;
-
     color: white;
     font-size: 14px;
     outline: none;
-
     &::placeholder {
       color: white;
       opacity: 0.6;
-    }
-  }
-
-  .camera-list-container {
-    margin-top: 20px;
-
-    h2 {
-      color: #00bfff;
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-
-    .camera-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(100px, 1fr));
-      background-image: url('../../../assets/images/png/frame.png');
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      background-position: center;
-      padding: 5px;
-    }
-
-    .camera-item {
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background-image: url('../../../assets/images/png/Camera frame.png');
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: transparent;
-      }
-
-      .camera-icon {
-        width: 48px;
-        height: 48px;
-        margin: auto;
-      }
-
-      .camera-name {
-        color: white;
-        font-size: 14px;
-      }
     }
   }
 
@@ -351,16 +236,13 @@
       flex-direction: column;
       align-items: center;
       padding: 0 20px;
-
       .top-bar-title {
         font-size: 18px;
       }
-
       .top-bar-date {
         font-size: 12px;
       }
     }
-
     .bottom-menu {
       gap: 16px;
       font-size: 12px;

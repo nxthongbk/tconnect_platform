@@ -14,7 +14,6 @@ import CardFrame from '~/components/CardFrame';
 import { streetLights } from './mockData';
 import StatusChart from './components/StatusChart';
 import StreetLightDetails from './components/StreetLightDetails';
-import { Paper } from '@mui/material';
 import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';
 import StreetLightMap from './components/StreetLightMap';
@@ -107,31 +106,19 @@ const StreetLightBoardPage = () => {
           </CardFrame>
 
           <CardFrame title="STREETLIGHT DETAILS">
-            <Paper
-              sx={{
-                background: 'transparent',
-                border: '2px solid',
-                borderRadius: 0,
-                boxShadow: 'none',
-                clipPath:
-                  'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
-              }}
-            >
-              <StreetLightDetails
-                device={streetLights.find(d => d.id === openMarkerId) || streetLights[0]}
-              />
-            </Paper>
+            <StreetLightDetails
+              device={streetLights.find(d => d.id === openMarkerId) || streetLights[0]}
+            />
           </CardFrame>
         </div>
       </div>
 
       <BottomMenu
+        activePath={location.pathname}
         items={menuItems}
         onMenuClick={path => path && navigate(path)}
-        activePath={location.pathname}
+        bottomBarBg={bottomBar}
       />
-
-      <img src={bottomBar} alt="Bottom Bar" className="bottom-bar" />
     </div>
   );
 };

@@ -1,11 +1,17 @@
 .streetlight-details-panel {
   background: transparent;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  width: 340px;
+  min-height: 440px;
+  font-family: 'Orbitron', 'Roboto', sans-serif;
+  position: relative;
+
+  overflow: hidden;
   text-wrap: nowrap;
   padding: 12px 16px;
   color: #fff;
-  width: 340px;
-  font-family: 'Orbitron', sans-serif;
-  position: relative;
   .details-id-row {
     display: flex;
     align-items: center;
@@ -18,32 +24,31 @@
     font-size: 18px;
     font-weight: 500;
   }
-
   .details-status-badge {
     background: #5fe9d0;
     border-radius: 16px;
-    padding: 2px 8px;
-    font-size: 14px;
-    font-weight: 400;
+    padding: 2px 18px;
+    font-size: 15px;
+    font-weight: 600;
     margin-left: 0;
     gap: 4px;
-  }
-
-  .status-active {
-    background: #5fe9d0;
-    color: #001;
-  }
-  .status-error {
-    background: #f97066;
-    color: #fff;
-  }
-  .status-maintenance {
-    background: #fac515;
-    color: #001;
-  }
-  .status-offline {
-    background: #d0d5dd;
-    color: #001;
+    box-shadow: 0 0 6px #00eaff66;
+    &.status-active {
+      background: #5fe9d0;
+      color: #001;
+    }
+    &.status-error {
+      background: #f97066;
+      color: #fff;
+    }
+    &.status-maintenance {
+      background: #fac515;
+      color: #001;
+    }
+    &.status-offline {
+      background: #d0d5dd;
+      color: #001;
+    }
   }
 
   .details-location {
