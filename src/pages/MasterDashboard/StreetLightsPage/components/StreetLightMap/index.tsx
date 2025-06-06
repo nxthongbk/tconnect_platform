@@ -1,4 +1,11 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  Polygon,
+} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import L from 'leaflet';
@@ -75,6 +82,7 @@ export default function StreetLightMap({
   const [center] = useState(initialCenter || DEFAULT_LOCATION);
   const [map, setMap] = useState<any>(null);
   const markerRefs = useRef<{ [id: string]: L.Marker | null }>({});
+  const [hasAutoCentered, setHasAutoCentered] = useState(false);
 
   // Compute convex hull polygon from current device positions
   const polygonCoords = useMemo(() => {
@@ -88,11 +96,12 @@ export default function StreetLightMap({
   }, [listOfDevices]);
 
   useEffect(() => {
-    if (map && listOfDevices.length) {
+    if (map && listOfDevices.length && !hasAutoCentered) {
       const bounds = L.latLngBounds(listOfDevices.map(item => [item.lat ?? 0, item.lng ?? 0]));
       map.fitBounds(bounds, { padding: [50, 50] });
+      setHasAutoCentered(true);
     }
-  }, [map, listOfDevices]);
+  }, [map, listOfDevices, hasAutoCentered]);
 
   useEffect(() => {
     if (!socketData) return;
@@ -125,10 +134,16 @@ export default function StreetLightMap({
   }, [socketData]);
 
   useEffect(() => {
-    if (openMarkerId && markerRefs.current[openMarkerId]) {
-      markerRefs.current[openMarkerId].openPopup();
+    if (map && openMarkerId && markerRefs.current[openMarkerId]) {
+      const marker = markerRefs.current[openMarkerId];
+      // Only fly if the popup is not already open (prevents repeated flyTo)
+      if (!marker.isPopupOpen()) {
+        // @ts-ignore
+        map.flyTo(marker.getLatLng(), 17, { duration: 1.2 });
+        marker.openPopup();
+      }
     }
-  }, [openMarkerId, listOfDevices]);
+  }, [openMarkerId, map]);
 
   return (
     <MapContainer

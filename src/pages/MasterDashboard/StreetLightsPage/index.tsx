@@ -90,7 +90,15 @@ const StreetLightBoardPage = () => {
                   <li
                     key={device.id}
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''}`}
-                    onClick={() => setOpenMarkerId(device.id)}
+                    onClick={() => {
+                      if (openMarkerId !== device.id) {
+                        // Clicking a different card				
+												setOpenMarkerId(openMarkerId === device.id ? null : device.id); // Close the old one
+                        setTimeout(() => setOpenMarkerId(device.id), 100); // Then open the new one
+                      } else {
+                        setOpenMarkerId(device.id); // Default behavior if clicking the same card
+                      }
+                    }}
                   >
                     <DeviceCard light={device} />
                   </li>
