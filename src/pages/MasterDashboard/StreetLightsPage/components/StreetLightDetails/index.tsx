@@ -1,9 +1,13 @@
 import './style.scss';
+import streetLightFrame from '~/assets/images/png/streetLightFrame.png';
 
 const StreetLightDetails = ({ device }) => {
   if (!device) return null;
   return (
-    <div className="streetlight-details-panel">
+    <div
+      className="streetlight-details-panel"
+      style={{ backgroundImage: `url(${streetLightFrame})` }}
+    >
       <div className="details-id-row">
         <span className="details-id">{device.id}</span>
         <span className={`details-status-badge status-${device.status?.toLowerCase()}`}>

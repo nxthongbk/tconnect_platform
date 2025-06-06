@@ -132,12 +132,11 @@ const MasterBoardPage = () => {
       </div>
 
       <BottomMenu
+        activePath={location.pathname}
         items={menuItems}
         onMenuClick={path => path && navigate(path)}
-        activePath={location.pathname}
+        bottomBarBg={bottomBar}
       />
-
-      <img src={bottomBar} alt="Bottom Bar" className="bottom-bar" />
     </div>
   );
 };

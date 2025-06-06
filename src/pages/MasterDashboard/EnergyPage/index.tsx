@@ -263,19 +263,7 @@ const EnergyPage = () => {
           activePath={location.pathname}
           items={menuItems}
           onMenuClick={path => path && navigate(path)}
-        />
-        <img
-          src={bottomBarBg}
-          alt="Bottom Bar"
-          className="bottom-bar"
-          style={{
-            position: 'fixed',
-            left: 0,
-            bottom: 0,
-            width: '100vw',
-            zIndex: 100,
-            pointerEvents: 'none',
-          }}
+          bottomBarBg={bottomBarBg}
         />
       </div>
     </div>
