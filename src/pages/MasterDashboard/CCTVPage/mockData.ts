@@ -16,7 +16,6 @@ export const cctvDevices = [
     irRange: '30m',
     smartFeatures: 'Human/vehicle detection',
     protection: 'IP67',
-		powerLabel: 'UPDATED'
   },
   {
     id: 'CAM-CK-002',
@@ -114,7 +113,4 @@ export const statusColorMap: Record<string, string> = {
   Maintenance: '#ffd600',
 };
 
-export const cctvPolygonCoords = cctvDevices.map(cctv => [
-	cctv.latLng.lat,
-	cctv.latLng.lng,
-]);
+export const cctvPolygonCoords = cctvDevices.map(cctv => [cctv.latLng.lat, cctv.latLng.lng]);

@@ -92,11 +92,9 @@ const CCTVPage = () => {
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''}`}
                     onClick={() => {
                       if (openMarkerId !== device.id) {
-                        // Clicking a different card
-                        setOpenMarkerId(openMarkerId === device.id ? null : device.id); // Close the old one
-                        setTimeout(() => setOpenMarkerId(device.id), 100); // Then open the new one
+                        setOpenMarkerId(openMarkerId === device.id ? null : device.id);
                       } else {
-                        setOpenMarkerId(device.id); // Default behavior if clicking the same card
+                        setOpenMarkerId(device.id);
                       }
                     }}
                   >
@@ -109,6 +107,9 @@ const CCTVPage = () => {
         </div>
 
         <div className="right-container">
+          <div className="search-container">
+            <input type="text" placeholder="Search location" className="search-input" />
+          </div>
           <CardFrame title="CCTV STATUS">
             <StatusChart />
           </CardFrame>
