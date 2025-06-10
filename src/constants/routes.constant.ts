@@ -18,6 +18,8 @@ const ROUTES = {
   CONFIGURATION: '/configuration',
 	ENERGY: '/energy',
 	STREET_LIGHT: '/street-light',
+	CCTV: '/cctv',
+	TRAFFIC_LIGHT: '/traffic-light',
 };
 
 export default ROUTES;

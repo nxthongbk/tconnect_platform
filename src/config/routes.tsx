@@ -7,6 +7,7 @@ import LogInPage from '~/pages/common/LogInPage';
 import MasterBoardPage from '~/pages/MasterDashboard/DashboardPage';
 import EnergyPage from '~/pages/MasterDashboard/EnergyPage';
 import StreetLightsPage from '~/pages/MasterDashboard/StreetLightsPage';
+import CCTVPage from '~/pages/MasterDashboard/CCTVPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -45,9 +46,17 @@ const useRoutes = () => {
           path: ROUTES.ENERGY,
           element: <EnergyPage />,
         },
-				{
+        {
           path: ROUTES.STREET_LIGHT,
           element: <StreetLightsPage />,
+        },
+        {
+          path: ROUTES.CCTV,
+          element: <CCTVPage />,
+        },
+        {
+          path: ROUTES.TRAFFIC_LIGHT,
+          element: <MasterBoardPage />,
         },
       ],
     },
