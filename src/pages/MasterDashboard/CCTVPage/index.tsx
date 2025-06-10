@@ -1,24 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import './style.scss';
 import { Box } from '@mui/material';
-import DeviceCard from './components/DeviceCard';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
 import { MapRef } from 'react-map-gl';
 import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
-
 import { useNavigate } from 'react-router-dom';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
-import CardFrame from '~/components/CardFrame';
-import { streetLights } from './mockData';
-import StatusChart from './components/StatusChart';
-import StreetLightDetails from './components/StreetLightDetails';
 import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';
-import StreetLightMap from './components/StreetLightMap';
 
-const StreetLightBoardPage = () => {
+import StatusChart from '../StreetLightsPage/components/StatusChart';
+import CardFrame from '~/components/CardFrame';
+import { cctvDevices } from './mockData';
+import DeviceCard from '../StreetLightsPage/components/DeviceCard';
+import StreetLightMap from '../StreetLightsPage/components/StreetLightMap';
+import CCTVDetails from './components/CCTVDetails';
+
+const CCTVPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
@@ -40,11 +39,11 @@ const StreetLightBoardPage = () => {
         <StreetLightMap
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={streetLights.map(device => ({
+          listOfDevices={cctvDevices.map(device => ({
             ...device,
             lat: device.latLng.lat,
             lng: device.latLng.lng,
-            type: 'streetlight',
+            type: 'cctv',
             status:
               device.status === 'Active'
                 ? 'Active'
@@ -70,7 +69,7 @@ const StreetLightBoardPage = () => {
 
       <div className="streetlights-layout">
         <div className="left-container">
-          <CardFrame title="STREETLIGHT OVERVIEW">
+          <CardFrame title="CCTV OVERVIEW">
             <div className="streetlights-overview">
               <div className="overview-tabs">
                 <button
@@ -87,7 +86,7 @@ const StreetLightBoardPage = () => {
                 </button>
               </div>
               <ul className="streetlight-list">
-                {streetLights.map(device => (
+                {cctvDevices.map(device => (
                   <li
                     key={device.id}
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''}`}
@@ -101,7 +100,7 @@ const StreetLightBoardPage = () => {
                       }
                     }}
                   >
-                    <DeviceCard light={device} deviceType="streetlight" />
+                    <DeviceCard light={device} deviceType="cctv" />
                   </li>
                 ))}
               </ul>
@@ -110,14 +109,12 @@ const StreetLightBoardPage = () => {
         </div>
 
         <div className="right-container">
-          <CardFrame title="STREETLIGHT STATUS">
+          <CardFrame title="CCTV STATUS">
             <StatusChart />
           </CardFrame>
 
-          <CardFrame title="STREETLIGHT DETAILS">
-            <StreetLightDetails
-              device={streetLights.find(d => d.id === openMarkerId) || streetLights[0]}
-            />
+          <CardFrame title="CCTV DETAILS">
+            <CCTVDetails device={cctvDevices.find(d => d.id === openMarkerId) || cctvDevices[0]} />
           </CardFrame>
         </div>
       </div>
@@ -132,4 +129,4 @@ const StreetLightBoardPage = () => {
   );
 };
 
-export default StreetLightBoardPage;
+export default CCTVPage;

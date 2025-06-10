@@ -5,8 +5,15 @@ import dotIcon from '~/assets/images/png/Dot.png';
 import spannerIcon from '~/assets/images/png/spanner.png';
 import alertTriangleIcon from '~/assets/images/png/alertTriangle.png';
 import blockedIcon from '~/assets/images/png/blocked.png';
+import cctvDevice from '~/assets/images/png/cctvDevice.png';
 
-const DeviceCard = ({ light }: { light: any }) => {
+interface DeviceCardProps {
+  light: any;
+  deviceType: 'streetlight' | 'cctv';
+}
+
+const DeviceCard = ({ light, deviceType }: DeviceCardProps) => {
+  const icon = deviceType === 'cctv' ? cctvDevice : streetLamp;
   return (
     <div className={`streetlight-card status-${light.status.toLowerCase()} bg`}>
       <div className="streetlight-card-header">
@@ -14,7 +21,7 @@ const DeviceCard = ({ light }: { light: any }) => {
           <div className="streetlight-id">{light.id}</div>
           <div className="streetlight-location">{light.location}</div>
         </div>
-        <img src={streetLamp} alt="lamp" className="streetlight-card-icon" />
+        <img src={icon} alt={deviceType} className="streetlight-card-icon" />
       </div>
       <div className="streetlight-card-body">
         <div>
@@ -22,8 +29,17 @@ const DeviceCard = ({ light }: { light: any }) => {
           <span className="type-value">{light.type}</span>
         </div>
         <div>
-          <span className="power-label">POWER SUPPLY</span>
-          <span className="power-value">{light.power}</span>
+          {deviceType === 'streetlight' ? (
+            <>
+              <span className="power-label">POWER SUPPLY</span>
+              <span className="power-value">{light.power}</span>
+            </>
+          ) : (
+            <>
+              <span className="power-label">UPDATE</span>
+              <span className="power-value">{light.updatedAt}</span>
+            </>
+          )}
         </div>
       </div>
       <div className={`streetlight-status-badge status-${light.status.toLowerCase()}`}>

@@ -1,11 +1,4 @@
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMap,
-  Polygon,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import L from 'leaflet';
@@ -15,7 +8,11 @@ import lampIconActive from '~/assets/images/png/activeLight.png';
 import lampIconError from '~/assets/images/png/alertLight.png';
 import lampIconWarning from '~/assets/images/png/maintanceLight.png';
 
-export type StreetLight = {
+import cctvIconActive from '~/assets/images/png/cctvIconActive.png';
+import cctvIconError from '~/assets/images/png/cctvIconError.png';
+import cctvIconWarning from '~/assets/images/png/cctvIconWarning.png';
+
+export type DeviceItems = {
   id: string;
   lat: number;
   lng: number;
@@ -24,6 +21,7 @@ export type StreetLight = {
   longitude?: string | number;
   ['north/south']?: string;
   ['east/west']?: string;
+  type: 'streetlight' | 'cctv';
 };
 
 // Define default location
@@ -32,11 +30,18 @@ const DEFAULT_LOCATION = {
   lng: 106.62823723344383,
 };
 
-export const getDeviceIcon = (status: string) => {
-  if (status === 'Active') return lampIconActive;
-  if (status === 'Error') return lampIconError;
-  if (status === 'Maintenance') return lampIconWarning;
-  return lampIconActive;
+export const getDeviceIcon = (type: string, status: string) => {
+  if (type === 'cctv') {
+    if (status === 'Active') return cctvIconActive;
+    if (status === 'Error') return cctvIconError;
+    if (status === 'Maintenance') return cctvIconWarning;
+    return cctvIconActive;
+  } else {
+    if (status === 'Active') return lampIconActive;
+    if (status === 'Error') return lampIconError;
+    if (status === 'Maintenance') return lampIconWarning;
+    return lampIconActive;
+  }
 };
 
 interface CustomMapProps {
@@ -46,7 +51,7 @@ interface CustomMapProps {
   };
   mapRef?: any;
   socketData?: any;
-  listOfDevices?: StreetLight[];
+  listOfDevices?: DeviceItems[];
   openMarkerId?: string | null;
   setOpenMarkerId?: (id: string | null) => void;
 }
@@ -183,7 +188,7 @@ export default function StreetLightMap({
             position={[item.lat, item.lng]}
             icon={
               new L.Icon({
-                iconUrl: getDeviceIcon(item.status),
+                iconUrl: getDeviceIcon(item.type, item.status),
                 iconSize: [65, 95],
               })
             }
@@ -199,7 +204,9 @@ export default function StreetLightMap({
             }}
           >
             <Popup>
-              <strong>Streetlight #{item.id}</strong>
+              <strong>
+                {item.type === 'cctv' ? 'CCTV' : 'Streetlight'} #{item.id}
+              </strong>
               <br />
               Status: {item.status}
             </Popup>

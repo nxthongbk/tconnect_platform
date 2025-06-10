@@ -17,7 +17,8 @@ const BottomMenu: React.FC<BottomMenuProps> = ({ items, onMenuClick, activePath,
   <div style={{ position: 'relative' }}>
     <ul className="bottom-menu">
       {items.map(item => {
-        const isActive = item.path === (activePath || 'energy');
+        const currentPath = activePath === '/' || activePath === '' ? '/energy' : activePath;
+        const isActive = item.path === currentPath;
         return (
           <li
             key={item.label}
