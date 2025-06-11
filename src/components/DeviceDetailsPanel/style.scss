@@ -1,16 +1,15 @@
-.streetlight-details-panel {
+.details-panel {
   background: transparent;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
   width: 340px;
-  min-height: 440px;
+  min-height: 512px;
   font-family: 'Orbitron', 'Roboto', sans-serif;
   position: relative;
-
   overflow: hidden;
   text-wrap: nowrap;
-  padding: 12px 16px;
+  padding: 14px;
   color: #fff;
   .details-id-row {
     display: flex;

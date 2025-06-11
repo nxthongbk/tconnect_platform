@@ -1,12 +1,12 @@
-.streetlights-page,
-.dashboard-streetlights-template {
+.cctv-page,
+.dashboard-cctv-template {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-color: #000;
   overflow: hidden;
 
-  .streetlights-main {
+  .cctv-main {
     position: absolute;
     top: 0;
     left: 0;
@@ -19,7 +19,7 @@
     }
   }
 
-  > *:not(.streetlights-main) {
+  > *:not(.cctv-main) {
     position: relative;
     z-index: 1;
   }
@@ -59,7 +59,7 @@
     text-align: center;
   }
 
-  .streetlights-layout {
+  .cctv-layout {
     position: relative;
     width: 100%;
     height: 100%;
@@ -96,7 +96,7 @@
       }
     }
 
-    .streetlights-overview {
+    .cctv-overview {
       width: 360px;
       background-color: transparent;
       max-height: 85vh;
@@ -225,3 +225,9 @@
     }
   }
 }
+
+// .cctv-list li.error {
+//   background-image: url('../../../assets/images/png/Frame-Alert.png') !important;
+//   background-size: 100% 100%;
+//   background: transparent;
+// }

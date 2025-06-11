@@ -76,7 +76,7 @@ function extractValuesOnly(data: Record<string, any>) {
   return result;
 }
 
-export default function StreetLightMap({
+export default function DeviceMapContainer({
   initialCenter,
   mapRef,
   socketData,
