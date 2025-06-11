@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.scss';
 import { Box } from '@mui/material';
-import DeviceCard from './components/DeviceCard';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
 import { MapRef } from 'react-map-gl';
@@ -11,12 +10,16 @@ import { useNavigate } from 'react-router-dom';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
 import CardFrame from '~/components/CardFrame';
-import { streetLights } from './mockData';
-import StatusChart from './components/StatusChart';
-import StreetLightDetails from './components/StreetLightDetails';
+import { streetLights, statusList } from './mockData';
+
 import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';
-import StreetLightMap from './components/StreetLightMap';
+import DeviceCardItem from '~/components/DeviceCard';
+import streetLamp from '~/assets/images/png/device-lamp.png';
+import DeviceMapContainer from '~/components/DeviceMap';
+import StatusChart from '~/components/StatusChart';
+import streetLightFrame from '~/assets/images/png/streetLightFrame.png';
+import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
 
 const StreetLightBoardPage = () => {
   const mapRefRight = useRef<MapRef>();
@@ -26,6 +29,14 @@ const StreetLightBoardPage = () => {
   const [activeTab, setActiveTab] = useState<'Devices' | 'Locations'>('Devices');
   const navigate = useNavigate();
 
+  const streetLightFields = [
+    { label: 'TYPE', key: 'type' },
+    { label: 'MODEL', key: 'model' },
+    { label: 'POWER SUPPLY', key: 'power' },
+    { label: 'CONNECTIVITY', key: 'connectivity' },
+    { label: 'CONTROLLER', key: 'controller' },
+  ];
+
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(interval);
@@ -34,10 +45,12 @@ const StreetLightBoardPage = () => {
   const formattedDate = time.toLocaleDateString();
   const formattedTime = time.toLocaleTimeString();
 
+  const device = streetLights.find(d => d.id === openMarkerId) || streetLights[0];
+
   return (
     <div className="streetlights-page dashboard-streetlights-template">
       <Box className="streetlights-main" sx={popupStyles}>
-        <StreetLightMap
+        <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
           listOfDevices={streetLights.map(device => ({
@@ -86,7 +99,7 @@ const StreetLightBoardPage = () => {
                   Devices
                 </button>
               </div>
-              <ul className="streetlight-list">
+              <ul className="device-list">
                 {streetLights.map(device => (
                   <li
                     key={device.id}
@@ -100,7 +113,12 @@ const StreetLightBoardPage = () => {
                       }
                     }}
                   >
-                    <DeviceCard light={device} deviceType="streetlight" />
+                    <DeviceCardItem
+                      device={device}
+                      icon={streetLamp}
+                      deviceType="streetlight"
+                      powerLabel="POWER SUPPLY"
+                    />
                   </li>
                 ))}
               </ul>
@@ -113,12 +131,28 @@ const StreetLightBoardPage = () => {
             <input type="text" placeholder="Search location" className="search-input" />
           </div>
           <CardFrame title="STREETLIGHT STATUS">
-            <StatusChart />
+            <StatusChart statusList={statusList} />
           </CardFrame>
 
           <CardFrame title="STREETLIGHT DETAILS">
-            <StreetLightDetails
-              device={streetLights.find(d => d.id === openMarkerId) || streetLights[0]}
+            <DeviceDetailsPanel
+              device={device}
+              fields={streetLightFields}
+              backgroundImage={streetLightFrame}
+              customRows={
+                <>
+                  <div className="details-row">
+                    <span className="details-label">FEATURE</span>
+                    <ul className="details-feature-list">
+                      {device.feature?.map((f, i) => <li key={i}>{f}</li>)}
+                    </ul>
+                  </div>
+                  <div className="details-row">
+                    <span className="details-label">LIFESPAN</span>
+                    <span className="details-value">{device.lifespan}</span>
+                  </div>
+                </>
+              }
             />
           </CardFrame>
         </div>
