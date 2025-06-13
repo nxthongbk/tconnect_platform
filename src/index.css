@@ -67,7 +67,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--text-primary) !important;
+  /* -webkit-text-fill-color: var(--text-primary) !important; */
   -webkit-box-shadow: 0 0 0px 1000px var(--background-primary) inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
@@ -132,4 +132,14 @@ select:-webkit-autofill:focus {
   top: 0;
   left: 0;
   z-index: -10;
+}
+
+.MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill,
+.MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill:focus,
+.MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill:hover,
+.MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
 }

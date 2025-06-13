@@ -88,7 +88,7 @@ export default function LoginForm({ setResetMode }: IProps) {
         {translation('Đăng nhập')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit, onInvalid)} className='w-full'>
-        <InputCustom
+        {/* <InputCustom
           type='text'
           label={translation('Tên đăng nhập')}
           isRequired={true}
@@ -114,7 +114,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           placeholder={translation('Nhập mật khẩu')}
           helperText={translation(errors.username?.message)}
           isSpacingHelperText={true}
-        />
+        /> */}
 
         <div>
           <ButtonCustom

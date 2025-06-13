@@ -355,19 +355,8 @@
   }
 }
 
-.recharts-bar .progress-bar-glow {
-  animation: barGlow 2s infinite ease-in-out;
-  filter: drop-shadow(0 0 1px rgba(184, 133, 255, 0.8));
-}
-
-@keyframes barGlow {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 4px rgba(184, 133, 255, 0.3));
-  }
-  50% {
-    filter: drop-shadow(0 0 12px rgba(184, 133, 255, 1));
-  }
+.bar-glow-wrapper {
+  filter: drop-shadow(0 0 12px #b885ff88);
 }
 
 .pulse-dot {
