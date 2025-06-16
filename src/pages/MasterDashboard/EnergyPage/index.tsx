@@ -16,7 +16,10 @@ import ROUTES from '~/constants/routes.constant';
 import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
-import { useGetLatestTelemetryNoC } from '~/pages/tenant/DevicePage/handleApi';
+import {
+  useGetLatestTelemetryNoC,
+  useGetLatestTelemetrysNoC,
+} from '~/pages/tenant/DevicePage/handleApi';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBarBg from '~/assets/images/png/Bottombar.png';
 import mapBg from '~/assets/images/png/Map.png';
@@ -25,8 +28,6 @@ import TopBar from '~/components/TopBar';
 
 import { useGetLocationMap } from '~/pages/tenant/ControlCenterPage/handleApi';
 import { useGetDataDevice } from '~/pages/tenant/DevicePage/handleApi';
-import { useQueries } from '@tanstack/react-query';
-import telemetryService from '~/services/telemetry.service';
 
 const Card = ({
   title,
@@ -164,14 +165,15 @@ const EnergyPage = () => {
   const [country, setCountry] = useState('US');
   const navigate = useNavigate();
 
+	// Locations chart
   const { data: locationData } = useGetLocationMap({ page: 0, size: 100 });
   const locations = locationData?.data?.content || [];
-  // const locationIds = locations.map(location => location.id);
   const chartLocations = locations.map((location, idx) => ({
     name: location.name,
     value: [80, 65, 50, 40, 30][idx] ?? 20,
   }));
 
+	// Devices chart
   const { data: deviceData } = useGetDataDevice({ page: 0, size: 10, keyword: '' });
   const devices = deviceData?.data?.content || [];
   const chartBarData = devices.map((device, idx) => ({
@@ -179,17 +181,11 @@ const EnergyPage = () => {
     value: [80, 65, 50, 40, 30][idx] ?? 20,
   }));
 
-  const deviceIds = devices.map(device => device.id);
-  const telemetryQueries = useQueries({
-    queries: deviceIds.map(id => ({
-      queryKey: ['latestTelemetry', id],
-      queryFn: () =>
-        telemetryService.getLatestTelemetry({
-          entityType: 'DEVICE',
-          entityId: id,
-        }),
-      enabled: !!id,
-    })),
+  const deviceId = devices.map(device => device.id);
+	// Overview, power chart
+  const telemetryQueries = useGetLatestTelemetrysNoC({
+    entityType: 'DEVICE',
+    entityIds: deviceId,
   });
 
   const { data: initLatestTelemetry } = useGetLatestTelemetryNoC({
