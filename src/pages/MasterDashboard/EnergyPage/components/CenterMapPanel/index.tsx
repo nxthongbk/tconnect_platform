@@ -25,7 +25,7 @@ const generatePositionMap = (locations: any[]) => {
 
 const CenterMapPanel = () => {
   const { tenantCode } = useTenantCode();
-  const { data } = useGetLocations(0, 5, '', tenantCode);
+  const { data } = useGetLocations(0, 10, '', tenantCode);
   const locations = data?.data?.content || [];
   const positionMap = generatePositionMap(locations);
 
@@ -66,22 +66,30 @@ const CenterMapPanel = () => {
             const mapX = (pos.xPercent / 100) * svgSize.width;
             const mapY = (pos.yPercent / 100) * svgSize.height;
 
-            const spacing = 100;
-            const startLeft = 80;
-            const fromX = startLeft + index * spacing;
-            const fromY = 20;
+            const isLeft = index < 3;
+            const avatarWidth = 100;
+            const padding = 20;
+            const bendOffset = 30;
+
+            const avatarX = isLeft
+              ? padding + avatarWidth
+              : svgSize.width - padding - avatarWidth;
+
+            const avatarY = 60 + (index % 3) * 110 + 40;
+
+            const bendX = isLeft
+              ? avatarX + bendOffset
+              : avatarX - bendOffset;
 
             return (
-              <line
-                key={`line-${loc.id}`}
-                x1={fromX}
-                y1={fromY}
-                x2={mapX}
-                y2={mapY}
+              <polyline
+                key={`poly-${loc.id}`}
+                fill="none"
                 stroke="#ffffff"
                 strokeWidth="1.5"
                 strokeDasharray="4"
                 opacity={0.6}
+                points={`${avatarX},${avatarY} ${bendX},${avatarY} ${mapX},${mapY}`}
               />
             );
           })}
@@ -89,18 +97,27 @@ const CenterMapPanel = () => {
 
         {/* Avatars */}
         {locations.map((loc, index) => {
-          const imageUrl = avatarQueries[index]?.data || ''; // fallback nếu chưa có
-          const spacing = 110;
-          const startLeft = 70;
-          const left = startLeft + index * spacing;
+          const imageUrl = avatarQueries[index]?.data || '';
+          const isLeft = index < 3;
+          const topOffset = 60;
+          const top = topOffset + (index % 3) * 110;
+
+          const positionStyle: React.CSSProperties = {
+            top,
+            transform: 'translateY(0)',
+            zIndex: 20,
+            ...(isLeft
+              ? { left: 20 }
+              : { right: 20 }),
+          };
 
           return (
             <img
               key={`img-${loc.id}`}
               src={imageUrl as any}
-              className="absolute w-[100px] h-[80px] rounded-md object-cover z-20"
-              style={{ top: 0, left, transform: 'translateX(-50%)' }}
-            ></img>
+              className="absolute w-[100px] h-[80px] rounded-md object-cover"
+              style={positionStyle}
+            />
           );
         })}
 
