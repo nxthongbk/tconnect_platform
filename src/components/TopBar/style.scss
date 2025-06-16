@@ -198,3 +198,34 @@
     background-position: 0% 50%;
   }
 }
+
+.MuiMenu-paper {
+  min-width: unset !important;
+  width: auto !important;
+  padding: 0 4px !important;
+  background: #0a223a !important;
+  margin-top: 6px;
+  border: 1px solid #00d9ff;
+  border-radius: 6px !important;
+}
+.MuiMenu-list {
+  padding: 0 !important;
+}
+
+.MuiMenuItem-root {
+  font-size: 14px !important;
+  color: #e0f2fe !important;
+  padding: 0px 8px !important;
+  transition: background 0.2s;
+}
+
+.MuiMenuItem-root:hover {
+  background: #0a223a !important;
+  color: #00eaff !important;
+}
+
+.logout-menu-item {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
