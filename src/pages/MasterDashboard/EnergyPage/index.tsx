@@ -20,9 +20,9 @@ import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
 import { useGetLatestTelemetryNoC } from '~/pages/tenant/DevicePage/handleApi';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBarBg from '~/assets/images/png/Bottombar.png';
-import mapBg from '~/assets/images/png/Map.png';
 import metricsIcon from '~/assets/images/png/metrics.png';
 import TopBar from '~/components/TopBar';
+import CenterMapPanel from './components/CenterMapPanel/index.tsx';
 
 const Card = ({
   title,
@@ -140,14 +140,6 @@ const RightPanel = ({
         ))}
       </div>
     </Card>
-  </div>
-);
-
-const CenterMapPanel = () => (
-  <div className="dashboard-panel center-panel">
-    <div className="map-wrapper">
-      <img src={mapBg} alt="Map" className="map-bg" />
-    </div>
   </div>
 );
 
