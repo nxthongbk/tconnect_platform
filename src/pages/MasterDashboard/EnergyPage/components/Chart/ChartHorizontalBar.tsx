@@ -1,29 +1,38 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
 
-const data = [
-  { name: 'TMA Building', value: 85 },
-  { name: 'QTSC-1 Building', value: 70 },
-  { name: 'Ana Building', value: 45 },
-  { name: 'Saigon Tech', value: 35 },
-  { name: 'SMS Building', value: 20 },
-];
+interface ChartDataItem {
+  name: string;
+  value: number;
+}
 
-const CustomLabel = ({ x, y, index }) => {
+const CustomLabel = (props: any) => {
+  const { x, y, name } = props;
+  if (!name) return null;
+
   return (
-    <text x={x} y={y - 10} fill="#ffffff" fontWeight={400} fontSize={10} fontFamily="'Orbitron', monospace" color="#b0b9c6">
-      {data[index].name}
+    <text
+      x={x}
+      y={y - 10}
+      fill="#fff"
+      fontWeight={400}
+      fontSize={11}
+      fontFamily="'Orbitron', monospace"
+      color="#fff"
+    >
+      {name}
     </text>
   );
 };
 
-export default function CustomBarChart() {
+export default function CustomBarChart({ data }: { data: ChartDataItem[] }) {
+  const barHeight = 70;
+  const minHeight = 360;
+  const chartHeight = Math.max(minHeight, data.length * barHeight);
+
   return (
-    <div
-      className="animated-chart-container float-glow-chart p-4"
-      style={{ width: '100%', height: 360 }}
-    >
+    <div className="p-4 bar-glow-wrapper" style={{ width: '100%', height: chartHeight }}>
       <ResponsiveContainer>
-        <BarChart data={data} layout="vertical" margin={{ top: 10, right: 5, left: 5, bottom: 10 }}>
+        <BarChart data={data} layout="vertical" margin={{ top: 14, right: 5, left: 5, bottom: 10 }}>
           <defs>
             <linearGradient id="barGradient" x1="1" y1="0" x2="0" y2="0">
               <stop offset="0%" stopColor="#36BFFA" />
@@ -65,16 +74,15 @@ export default function CustomBarChart() {
             labelStyle={{ color: '#38bdf8' }}
             itemStyle={{ color: '#ffffff' }}
           />
-
           <Bar
             dataKey="value"
             fill="url(#barGradient)"
+            filter="url(#barGlow)"
             barSize={18}
             radius={[0, 1, 1, 0]}
             label={CustomLabel}
             isAnimationActive={true}
             animationDuration={1200}
-            className="progress-bar-glow"
           />
         </BarChart>
       </ResponsiveContainer>

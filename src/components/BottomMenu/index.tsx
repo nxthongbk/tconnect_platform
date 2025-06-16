@@ -10,22 +10,42 @@ interface BottomMenuProps {
   items: MenuItem[];
   onMenuClick: (path?: string) => void;
   activePath?: string;
+  bottomBarBg?: string;
 }
 
-const BottomMenu: React.FC<BottomMenuProps> = ({ items, onMenuClick, activePath }) => (
-  <ul className="bottom-menu">
-    {items.map(item => (
-      <li
-        key={item.label}
-        className={item.path === activePath ? 'active' : ''}
-        onClick={item.path ? () => onMenuClick(item.path) : undefined}
-        style={item.path ? { cursor: 'pointer' } : {}}
-      >
-        {item.label}
-        {/* {item.path === activePath && <img  src={activeTabImg} alt="" className="active-tab-img" />} */}
-      </li>
-    ))}
-  </ul>
+const BottomMenu: React.FC<BottomMenuProps> = ({ items, onMenuClick, activePath, bottomBarBg }) => (
+  <div style={{ position: 'relative' }}>
+    <ul className="bottom-menu">
+      {items.map(item => {
+        const currentPath = activePath === '/' || activePath === '' ? '/energy' : activePath;
+        const isActive = item.path === currentPath;
+        return (
+          <li
+            key={item.label}
+            className={isActive ? 'active' : ''}
+            onClick={item.path ? () => onMenuClick(item.path) : undefined}
+            style={item.path ? { cursor: 'pointer' } : {}}
+          >
+            {item.label}
+            {isActive && <span className="bottom-menu-glow" />}
+          </li>
+        );
+      })}
+    </ul>
+    <img
+      src={bottomBarBg}
+      alt="Bottom Bar"
+      className="bottom-bar"
+      style={{
+        position: 'fixed',
+        left: 0,
+        bottom: 0,
+        width: '100vw',
+        zIndex: 100,
+        pointerEvents: 'none',
+      }}
+    />
+  </div>
 );
 
 export default BottomMenu;

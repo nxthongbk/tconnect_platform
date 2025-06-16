@@ -1,11 +1,11 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 
-const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
+const ChartBar = ({ data }: { data: { name: string; value: string }[] }) => {
   const series = [
     {
       name: 'Time (%)',
-      data: data.map(item => parseFloat(item.precent.replace('%', ''))),
+      data: data.map(item => Number(item.value)),
     },
   ];
 
@@ -32,16 +32,24 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
       enabled: false,
     },
     xaxis: {
-      categories: data.map(item => item.title),
+      categories: data.map(item => item.name),
       labels: {
         style: {
           colors: '#b0b9c6',
-          fontSize: '15px',
+          fontSize: '11px',
+          cssClass: 'apex-xaxis-label-with-tooltip',
         },
+        rotate: -40,
+        trim: false,
+        hideOverlappingLabels: false,
+        showDuplicates: true,
+        maxHeight: 120,
+        formatter: val => (val.length > 12 ? val.slice(0, 12) + '…' : val),
       },
       axisBorder: { color: 'rgba(0, 228, 255, 0.25)' },
       axisTicks: { show: false },
     },
+
     yaxis: {
       max: 100,
       labels: {
@@ -75,6 +83,11 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
     tooltip: {
       enabled: true,
       theme: 'dark',
+      x: {
+        formatter: (val: any, opts: any) => {
+          return data[opts.dataPointIndex]?.name || val;
+        },
+      },
       y: {
         formatter: val => `${val}%`,
       },
@@ -83,8 +96,8 @@ const ChartBar = ({ data }: { data: { title: string; precent: string }[] }) => {
   };
 
   return (
-    <div className="animated-bar-chart pt-1 ">
-      <Chart options={options} series={series} type="bar" height={260} />
+    <div className="animated-bar-chart pt-1">
+      <Chart options={options} series={series} type="bar" height={320} />
     </div>
   );
 };

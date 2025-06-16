@@ -119,7 +119,7 @@ export default function LoginForm({ setResetMode }: IProps) {
         }}
       />
       <Paper
-        className="login-form"
+        className="login-form text-white"
         sx={{
           zIndex: 10,
           backgroundColor: 'transparent',

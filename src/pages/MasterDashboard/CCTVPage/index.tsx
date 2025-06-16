@@ -1,27 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
 import './style.scss';
+import { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
 import { MapRef } from 'react-map-gl';
 import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
-
 import { useNavigate } from 'react-router-dom';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
-import CardFrame from '~/components/CardFrame';
-import { streetLights, statusList } from './mockData';
-
 import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';
+
+import CardFrame from '~/components/CardFrame';
+import { cctvDevices, statusList } from './mockData';
+import cctvIcon from '~/assets/images/png/cctvDevice.png';
 import DeviceCardItem from '~/components/DeviceCard';
-import streetLamp from '~/assets/images/png/device-lamp.png';
 import DeviceMapContainer from '~/components/DeviceMap';
 import StatusChart from '~/components/StatusChart';
-import streetLightFrame from '~/assets/images/png/streetLightFrame.png';
 import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
+import cctvDetailFrame from '~/assets/images/png/cctvDetailFrame.png';
+import liveCamera from '~/assets/images/png/cameraCCTV.png';
 
-const StreetLightBoardPage = () => {
+const CCTVPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
@@ -29,12 +29,15 @@ const StreetLightBoardPage = () => {
   const [activeTab, setActiveTab] = useState<'Devices' | 'Locations'>('Devices');
   const navigate = useNavigate();
 
-  const streetLightFields = [
+  const cctvFields = [
     { label: 'TYPE', key: 'type' },
-    { label: 'MODEL', key: 'model' },
-    { label: 'POWER SUPPLY', key: 'power' },
-    { label: 'CONNECTIVITY', key: 'connectivity' },
-    { label: 'CONTROLLER', key: 'controller' },
+    { label: 'RESOLUTION', key: 'resolution' },
+    { label: 'LENS', key: 'lens' },
+    { label: 'NIGHT VERSION', key: 'nightVersion' },
+    { label: 'IR RANGE', key: 'irRange' },
+    { label: 'SMART FEATURE', key: 'smartFeatures' },
+    { label: 'PROTECTION', key: 'protection' },
+    { label: 'POWER', key: 'power' },
   ];
 
   useEffect(() => {
@@ -45,19 +48,19 @@ const StreetLightBoardPage = () => {
   const formattedDate = time.toLocaleDateString();
   const formattedTime = time.toLocaleTimeString();
 
-  const device = streetLights.find(d => d.id === openMarkerId) || streetLights[0];
+  const device = cctvDevices.find(d => d.id === openMarkerId) || cctvDevices[0];
 
   return (
-    <div className="streetlights-page dashboard-streetlights-template">
-      <Box className="streetlights-main" sx={popupStyles}>
+    <div className="cctv-page dashboard-cctv-template">
+      <Box className="cctv-main" sx={popupStyles}>
         <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={streetLights.map(device => ({
+          listOfDevices={cctvDevices.map(device => ({
             ...device,
             lat: device.latLng.lat,
             lng: device.latLng.lng,
-            type: 'streetlight',
+            type: 'cctv',
             status:
               device.status === 'Active'
                 ? 'Active'
@@ -81,10 +84,10 @@ const StreetLightBoardPage = () => {
         onTitleClick={() => navigate(ROUTES.DASHBOARD)}
       />
 
-      <div className="streetlights-layout">
+      <div className="cctv-layout">
         <div className="left-container">
-          <CardFrame title="STREETLIGHT OVERVIEW">
-            <div className="streetlights-overview">
+          <CardFrame title="CCTV OVERVIEW">
+            <div className="cctv-overview">
               <div className="overview-tabs">
                 <button
                   className={`tab${activeTab === 'Locations' ? ' active' : ''}`}
@@ -100,7 +103,7 @@ const StreetLightBoardPage = () => {
                 </button>
               </div>
               <ul className="device-list">
-                {streetLights.map(device => (
+                {cctvDevices.map(device => (
                   <li
                     key={device.id}
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''}`}
@@ -115,9 +118,9 @@ const StreetLightBoardPage = () => {
                   >
                     <DeviceCardItem
                       device={device}
-                      icon={streetLamp}
-                      deviceType="streetlight"
-                      powerLabel="POWER SUPPLY"
+                      icon={cctvIcon}
+                      deviceType="cctv"
+                      powerLabel="UPDATED"
                     />
                   </li>
                 ))}
@@ -130,28 +133,22 @@ const StreetLightBoardPage = () => {
           <div className="search-container">
             <input type="text" placeholder="Search location" className="search-input" />
           </div>
-          <CardFrame title="STREETLIGHT STATUS">
+          <CardFrame title="CCTV STATUS">
             <StatusChart statusList={statusList} />
           </CardFrame>
 
-          <CardFrame title="STREETLIGHT DETAILS">
+          <CardFrame title="CCTV DETAILS">
             <DeviceDetailsPanel
               device={device}
-              fields={streetLightFields}
-              backgroundImage={streetLightFrame}
+              backgroundImage={cctvDetailFrame}
+              fields={cctvFields}
               customRows={
-                <>
-                  <div className="details-row">
-                    <span className="details-label">FEATURE</span>
-                    <ul className="details-feature-list">
-                      {device.feature?.map((f, i) => <li key={i}>{f}</li>)}
-                    </ul>
-                  </div>
-                  <div className="details-row">
-                    <span className="details-label">LIFESPAN</span>
-                    <span className="details-value">{device.lifespan}</span>
-                  </div>
-                </>
+                <div className="details-row">
+                  <span className="details-label">LIVE CAMERA</span>
+                  <span className="details-value">
+                    <img src={liveCamera} alt="Live Camera" />
+                  </span>
+                </div>
               }
             />
           </CardFrame>
@@ -168,4 +165,4 @@ const StreetLightBoardPage = () => {
   );
 };
 
-export default StreetLightBoardPage;
+export default CCTVPage;

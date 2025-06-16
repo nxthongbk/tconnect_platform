@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import permissionService, { CreatePermissionConfig, UpdatePermissionConfig } from '~/services/permission.service';
+import permissionService, {
+  CreatePermissionConfig,
+  UpdatePermissionConfig,
+} from '~/services/permission.service';
 import staffService, { CreateStaff, UpdateStaff } from '~/services/staff.service';
 import userService from '~/services/user.service';
 import handleNotificationMessege from '~/utils/notification';
@@ -11,7 +14,7 @@ export const useGetStaffs = ({
   tenantCode,
   locationId,
   permissionGroupId,
-  status = 'ACTIVE'
+  status = 'ACTIVE',
 }: {
   page: number;
   size: number;
@@ -22,9 +25,21 @@ export const useGetStaffs = ({
   status?: string;
 }) => {
   const { isLoading, data, error } = useQuery({
-    queryKey: ['getStaffs', { page, size, keyword, tenantCode, locationId, permissionGroupId, status }],
-    queryFn: () => staffService.getStaffs(page, size, keyword, tenantCode, locationId, permissionGroupId, status),
-    staleTime: 3000
+    queryKey: [
+      'getStaffs',
+      { page, size, keyword, tenantCode, locationId, permissionGroupId, status },
+    ],
+    queryFn: () =>
+      staffService.getStaffs(
+        page,
+        size,
+        keyword,
+        tenantCode,
+        locationId,
+        permissionGroupId,
+        status
+      ),
+    staleTime: 3000,
   });
   return { isLoading, data, error };
 };
@@ -33,7 +48,7 @@ export const useGetStaffDetail = (staffId: string, tenantCode: string) => {
   const { isLoading, status, data, error } = useQuery({
     queryKey: ['getStaffDetail', { tenantCode, staffId }],
     queryFn: () => staffService.getStaffDetail(staffId, tenantCode),
-    staleTime: 3000
+    staleTime: 3000,
   });
   return { isLoading, status, data, error };
 };
@@ -51,10 +66,10 @@ export const useCreateStaff = () => {
       }
     },
     onSuccess: () =>
-      Promise.all([
+      void Promise.all([
         queryClient.invalidateQueries({ queryKey: ['createStaff'] }),
-        queryClient.invalidateQueries({ queryKey: ['getStaffs'] })
-      ])
+        queryClient.invalidateQueries({ queryKey: ['getStaffs'] }),
+      ]),
   });
   return { isPending, isSuccess, mutate, isError };
 };
@@ -74,7 +89,7 @@ export const useChangeStaffStatus = () => {
         handleNotificationMessege(error.message);
       }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['getStaffs'] })
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['getStaffs'] }),
   });
   return { isPending, isSuccess, mutate, isError };
 };
@@ -95,10 +110,10 @@ export const useUpdateStaff = () => {
       }
     },
     onSuccess: () =>
-      Promise.all([
+      void Promise.all([
         queryClient.invalidateQueries({ queryKey: ['createStaff'] }),
-        queryClient.invalidateQueries({ queryKey: ['getStaffs'] })
-      ])
+        queryClient.invalidateQueries({ queryKey: ['getStaffs'] }),
+      ]),
   });
   return { isPending, isSuccess, mutate, isError };
 };
@@ -118,7 +133,7 @@ export const useSetPassword = () => {
         handleNotificationMessege(error.message);
       }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['getStaffs'] })
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['getStaffs'] }),
   });
   return { isPending, isSuccess, mutate, isError };
 };
@@ -135,16 +150,21 @@ export const useDeleteStaff = (staffId: string) => {
         handleNotificationMessege(error.message);
       }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['getStaffs'] })
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['getStaffs'] }),
   });
   return { mutate, isPending, isSuccess };
 };
 
-export const useGetPermissionConfigs = (page: number, size: number, keyword: string, tenantCode: string) => {
+export const useGetPermissionConfigs = (
+  page: number,
+  size: number,
+  keyword: string,
+  tenantCode: string
+) => {
   const { isLoading, data, error } = useQuery({
     queryKey: ['getPermissionConfigs', { page, size, keyword, tenantCode }],
     queryFn: () => permissionService.getPermissionConfigs(page, size, keyword, tenantCode),
-    staleTime: 3000
+    staleTime: 3000,
   });
   return { isLoading, data, error };
 };
@@ -153,7 +173,7 @@ export const useGetPermissionConfigDetail = (permissionGroupId: string) => {
   const { isLoading, status, data, error } = useQuery({
     queryKey: ['getPermissionConfigDetail', { permissionGroupId }],
     queryFn: () => permissionService.getPermissionConfigDetail(permissionGroupId),
-    staleTime: 3000
+    staleTime: 3000,
   });
   return { isLoading, status, data, error };
 };
@@ -172,7 +192,7 @@ export const useDeletePermissionConfig = (permissionGroupId: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getPermissionConfigs'] });
-    }
+    },
   });
   return { mutate, isPending, isSuccess };
 };
@@ -181,7 +201,8 @@ export const useCreatePermissionConfig = () => {
   const queryClient = useQueryClient();
   const { isPending, isSuccess, mutate, isError } = useMutation({
     mutationKey: ['createPermissionConfig'],
-    mutationFn: (requestBody: CreatePermissionConfig) => permissionService.createPermissionConfig(requestBody),
+    mutationFn: (requestBody: CreatePermissionConfig) =>
+      permissionService.createPermissionConfig(requestBody),
     onError: (error: any) => {
       if (error.response && error.response.data.data) {
         handleNotificationMessege(error?.response?.data?.data);
@@ -190,10 +211,10 @@ export const useCreatePermissionConfig = () => {
       }
     },
     onSuccess: () =>
-      Promise.all([
+      void Promise.all([
         queryClient.invalidateQueries({ queryKey: ['createPermissionConfig'] }),
-        queryClient.invalidateQueries({ queryKey: ['getPermissionConfigs'] })
-      ])
+        queryClient.invalidateQueries({ queryKey: ['getPermissionConfigs'] }),
+      ]),
   });
   return { isPending, isSuccess, mutate, isError };
 };
@@ -214,28 +235,38 @@ export const useUpdatePermissionConfig = () => {
       }
     },
     onSuccess: () =>
-      Promise.all([
+      void Promise.all([
         queryClient.invalidateQueries({ queryKey: ['createPermissionConfig'] }),
-        queryClient.invalidateQueries({ queryKey: ['getPermissionConfigs'] })
-      ])
+        queryClient.invalidateQueries({ queryKey: ['getPermissionConfigs'] }),
+      ]),
   });
   return { isPending, isSuccess, mutate, isError };
 };
 
-export const useGetFunctionGroupPermission = (page: number, size: number, keyword: string, tenantCode: string) => {
+export const useGetFunctionGroupPermission = (
+  page: number,
+  size: number,
+  keyword: string,
+  tenantCode: string
+) => {
   const { isLoading, data, error } = useQuery({
     queryKey: ['getFunctionGroupPermission', { page, size, keyword, tenantCode }],
     queryFn: () => permissionService.getFunctionGroupPermission(page, size, keyword, tenantCode),
-    staleTime: 3000
+    staleTime: 3000,
   });
   return { isLoading, data, error };
 };
 
-export const useGetPermissionList = (page: number, size: number, keyword: string, tenantCode: string) => {
+export const useGetPermissionList = (
+  page: number,
+  size: number,
+  keyword: string,
+  tenantCode: string
+) => {
   const { isLoading, data, error } = useQuery({
     queryKey: ['getPermissionList', { page, size, keyword, tenantCode }],
     queryFn: () => permissionService.getPermissionList(page, size, keyword, tenantCode),
-    staleTime: 3000
+    staleTime: 3000,
   });
   return { isLoading, data, error };
 };

@@ -30,20 +30,20 @@ jobs:
           push: true
           tags: nxthongbk/scity-ui-service:master-dashboard
 
-  Deploy:
-    if: |
-      (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true) ||
-      (github.event_name == 'push' && github.ref == 'refs/heads/develop')
-    needs: Build
-    name: Deploy to Server
-    runs-on: ubuntu-latest
+  # Deploy:
+  #   if: |
+  #     (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true) ||
+  #     (github.event_name == 'push' && github.ref == 'refs/heads/develop')
+  #   needs: Build
+  #   name: Deploy to Server
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Build & Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            cd /home/nxthong/Desktop/scity && sudo docker-compose pull scity-ui && sudo docker-compose up -d scity-ui
+  #   steps:
+  #     - name: Build & Deploy
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.SERVER_HOST }}
+  #         username: ${{ secrets.SERVER_USERNAME }}
+  #         password: ${{ secrets.SERVER_PASSWORD }}
+  #         script: |
+  #           cd /home/nxthong/Desktop/scity && sudo docker-compose pull scity-ui && sudo docker-compose up -d scity-ui

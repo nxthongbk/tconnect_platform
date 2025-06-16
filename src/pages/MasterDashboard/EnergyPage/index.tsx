@@ -8,7 +8,6 @@ import CardBlock from './components/Card/CardBlock';
 import {
   overviewData,
   powerBlocksData,
-  progressListColumn,
   powerCircleData,
   carbonStatisticData,
   deviceStatisticData,
@@ -17,12 +16,18 @@ import ROUTES from '~/constants/routes.constant';
 import ChartBar from './components/Chart/ChartBar';
 import ChartCircle from './components/Chart/ChartCircle.tsx';
 import ChartHorizontalBar from './components/Chart/ChartHorizontalBar.tsx';
-import { useGetLatestTelemetryNoC } from '~/pages/tenant/DevicePage/handleApi';
+import {
+  useGetLatestTelemetryNoC,
+  useGetLatestTelemetrysNoC,
+} from '~/pages/tenant/DevicePage/handleApi';
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBarBg from '~/assets/images/png/Bottombar.png';
 import metricsIcon from '~/assets/images/png/metrics.png';
 import TopBar from '~/components/TopBar';
 import CenterMapPanel from './components/CenterMapPanel/index.tsx';
+
+import { useGetLocationMap } from '~/pages/tenant/ControlCenterPage/handleApi';
+import { useGetDataDevice } from '~/pages/tenant/DevicePage/handleApi';
 
 const Card = ({
   title,
@@ -45,9 +50,11 @@ const Card = ({
 const LeftPanel = ({
   updatedOverviewData,
   updatedPowerBlocksData,
+  chartBarData,
 }: {
   updatedOverviewData: typeof overviewData;
   updatedPowerBlocksData: typeof powerBlocksData;
+  chartBarData: { name: string; value: string }[];
 }) => (
   <div className="dashboard-panel left-panel">
     <Card title="OVERVIEW">
@@ -83,8 +90,8 @@ const LeftPanel = ({
     <Card title="INSTANT POWER">
       <ChartArea />
     </Card>
-    <Card title="TOP 5 EQUIPMENT TIME MONTHLY">
-      <ChartBar data={progressListColumn} />
+    <Card title="TOP EQUIPMENTS TIME MONTHLY">
+      <ChartBar data={chartBarData} />
     </Card>
   </div>
 );
@@ -93,10 +100,12 @@ const RightPanel = ({
   updatedPowerCircleData,
   updatedCarbonStatisticData,
   updatedDeviceStatisticData,
+  chartLocations,
 }: {
   updatedPowerCircleData: typeof powerCircleData;
   updatedCarbonStatisticData: typeof carbonStatisticData;
   updatedDeviceStatisticData: typeof deviceStatisticData;
+  chartLocations: { name: string; value: number }[];
 }) => (
   <div className="dashboard-panel right-panel">
     <Card title="POWER QUALITY INDEX">
@@ -111,8 +120,8 @@ const RightPanel = ({
         ))}
       </div>
     </Card>
-    <Card title="TOP 5 PR">
-      <ChartHorizontalBar />
+    <Card title="LOCATIONS">
+      <ChartHorizontalBar data={chartLocations} />
     </Card>
     <Card title="TOTAL CARBON REDUCTION">
       <div className="power-blocks">
@@ -148,13 +157,36 @@ const EnergyPage = () => {
   const [country, setCountry] = useState('US');
   const navigate = useNavigate();
 
+	// Locations chart
+  const { data: locationData } = useGetLocationMap({ page: 0, size: 100 });
+  const locations = locationData?.data?.content || [];
+  const chartLocations = locations.map((location, idx) => ({
+    name: location.name,
+    value: [80, 65, 50, 40, 30][idx] ?? 20,
+  }));
+
+	// Devices chart
+  const { data: deviceData } = useGetDataDevice({ page: 0, size: 10, keyword: '' });
+  const devices = deviceData?.data?.content || [];
+  const chartBarData = devices.map((device, idx) => ({
+    name: device.name,
+    value: [80, 65, 50, 40, 30][idx] ?? 20,
+  }));
+
+  const deviceId = devices.map(device => device.id);
+	// Overview, power chart
+  const telemetryQueries = useGetLatestTelemetrysNoC({
+    entityType: 'DEVICE',
+    entityIds: deviceId,
+  });
+
   const { data: initLatestTelemetry } = useGetLatestTelemetryNoC({
     entityType: 'DEVICE',
     entityId: 'b220ed1d-af84-4b96-9420-346cfe6e0de6',
   });
 
   const telemetryValues = initLatestTelemetry?.data?.data || {};
-  console.log(telemetryValues);
+  // console.log(telemetryValues);
 
   const labelToTelemetryKeyMap: Record<string, string> = {
     'POWER STATIONS': 'totalP',
@@ -218,6 +250,98 @@ const EnergyPage = () => {
     labelToTelemetryKeyMap
   );
 
+  const getTotalFromTelemetry = (key: string) =>
+    telemetryQueries
+      .map(query => Number((query.data as { data?: any })?.data?.data?.[key]?.value))
+      .filter(val => !isNaN(val))
+      .reduce((sum, val) => sum + val, 0);
+
+  const updateDataWithTotals = <
+    T extends { label: string; value: number; unit: string; icon?: string },
+  >(
+    data: T[],
+    labelToValueMap: Record<string, number | string>
+  ): T[] =>
+    data.map(item =>
+      labelToValueMap.hasOwnProperty(item.label)
+        ? { ...item, value: Number(labelToValueMap[item.label]) }
+        : item
+    );
+
+  // Compute all totals
+  const totalEnergyConsumption = getTotalFromTelemetry('TotalEnergyConsumption');
+  const totalGridEnergyConsumption = getTotalFromTelemetry('GridEnergyConsumption');
+  const totalSolarEnergyGeneration = getTotalFromTelemetry('SolarEnergyGeneration');
+  const totalDaily = getTotalFromTelemetry('Daily');
+  const totalMonthly = getTotalFromTelemetry('Monthly');
+  const totalYearly = getTotalFromTelemetry('Yearly');
+  const totalCoal = getTotalFromTelemetry('Coal');
+  const totalCo2 = getTotalFromTelemetry('Co2');
+  const totalTrees = getTotalFromTelemetry('Trees');
+
+  const renewableEnergyShare = totalEnergyConsumption
+    ? ((totalSolarEnergyGeneration / totalEnergyConsumption) * 100).toFixed(2)
+    : 0;
+
+  // Label-to-value maps
+  const overviewLabelToValueMap: Record<string, number | string> = {
+    'Total Energy Consumption': totalEnergyConsumption,
+    'Grid Energy Consumption': totalGridEnergyConsumption,
+    'Solar Energy Generation': totalSolarEnergyGeneration,
+    'Renewable Energy Share': renewableEnergyShare,
+  };
+
+  const powerBlockLabelToValueMap: Record<string, number | string> = {
+    DAILY: totalDaily,
+    MONTHLY: totalMonthly,
+    YEARLY: totalYearly,
+  };
+
+  const carbonStatisticDataToValueMap: Record<string, number | string> = {
+    COAL: totalCoal,
+    CO2: totalCo2,
+    TREES: totalTrees,
+  };
+
+  // Update data arrays
+  const updatedOverviewDataWithTotals = updateDataWithTotals(
+    updatedOverviewData,
+    overviewLabelToValueMap
+  );
+  const updatedPowerBlocksDataWithTotals = updateDataWithTotals(
+    updatedPowerBlocksData,
+    powerBlockLabelToValueMap
+  );
+  const updatedCarbonStatisticDataWithTotals = updateDataWithTotals(
+    updatedCarbonStatisticData,
+    carbonStatisticDataToValueMap
+  );
+
+  const getAvgFromTelemetry = (key: string) => {
+    const values = telemetryQueries
+      .map(query => Number((query.data as { data?: any })?.data?.data?.[key]?.value))
+      .filter(val => !isNaN(val));
+    if (values.length === 0) return 0;
+    return (values.reduce((sum, val) => sum + val, 0) / values.length).toFixed(2);
+  };
+
+  const avgPowerFactor = getAvgFromTelemetry('PowerFactor');
+  const avgPhaseImbalance = getAvgFromTelemetry('PhaseImbalance');
+  const avgVoltageStability = getAvgFromTelemetry('VoltageStability');
+  const avgHarmonicDistortion = getAvgFromTelemetry('HarmonicDistortion');
+
+  const powerCircleLabelToValueMap: Record<string, number | string> = {
+    'Power Factor (PF)': avgPowerFactor,
+    'Phase Imbalance': avgPhaseImbalance,
+    'Voltage Stability': avgVoltageStability,
+    'Harmonic Distortion (THD)': avgHarmonicDistortion,
+  };
+
+  const updatedPowerCircleDataWithAvg = updateDataWithTotals(
+    updatedPowerCircleData,
+    powerCircleLabelToValueMap
+  );
+
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(interval);
@@ -239,14 +363,16 @@ const EnergyPage = () => {
 
       <div className="dashboard-main">
         <LeftPanel
-          updatedOverviewData={updatedOverviewData}
-          updatedPowerBlocksData={updatedPowerBlocksData}
+          updatedOverviewData={updatedOverviewDataWithTotals}
+          updatedPowerBlocksData={updatedPowerBlocksDataWithTotals}
+          chartBarData={chartBarData}
         />
         <CenterMapPanel />
         <RightPanel
-          updatedPowerCircleData={updatedPowerCircleData}
-          updatedCarbonStatisticData={updatedCarbonStatisticData}
+          updatedPowerCircleData={updatedPowerCircleDataWithAvg}
+          updatedCarbonStatisticData={updatedCarbonStatisticDataWithTotals}
           updatedDeviceStatisticData={updatedDeviceStatisticData}
+          chartLocations={chartLocations}
         />
       </div>
 
@@ -255,19 +381,7 @@ const EnergyPage = () => {
           activePath={location.pathname}
           items={menuItems}
           onMenuClick={path => path && navigate(path)}
-        />
-        <img
-          src={bottomBarBg}
-          alt="Bottom Bar"
-          className="bottom-bar"
-          style={{
-            position: 'fixed',
-            left: 0,
-            bottom: 0,
-            width: '100vw',
-            zIndex: 100,
-            pointerEvents: 'none',
-          }}
+          bottomBarBg={bottomBarBg}
         />
       </div>
     </div>
