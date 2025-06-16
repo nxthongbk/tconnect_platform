@@ -25,6 +25,8 @@ import TopBar from '~/components/TopBar';
 
 import { useGetLocationMap } from '~/pages/tenant/ControlCenterPage/handleApi';
 import { useGetDataDevice } from '~/pages/tenant/DevicePage/handleApi';
+import { useQueries } from '@tanstack/react-query';
+import telemetryService from '~/services/telemetry.service';
 
 const Card = ({
   title,
@@ -164,6 +166,7 @@ const EnergyPage = () => {
 
   const { data: locationData } = useGetLocationMap({ page: 0, size: 100 });
   const locations = locationData?.data?.content || [];
+  // const locationIds = locations.map(location => location.id);
   const chartLocations = locations.map((location, idx) => ({
     name: location.name,
     value: [80, 65, 50, 40, 30][idx] ?? 20,
@@ -175,6 +178,19 @@ const EnergyPage = () => {
     name: device.name,
     value: [80, 65, 50, 40, 30][idx] ?? 20,
   }));
+
+  const deviceIds = devices.map(device => device.id);
+  const telemetryQueries = useQueries({
+    queries: deviceIds.map(id => ({
+      queryKey: ['latestTelemetry', id],
+      queryFn: () =>
+        telemetryService.getLatestTelemetry({
+          entityType: 'DEVICE',
+          entityId: id,
+        }),
+      enabled: !!id,
+    })),
+  });
 
   const { data: initLatestTelemetry } = useGetLatestTelemetryNoC({
     entityType: 'DEVICE',
@@ -246,6 +262,98 @@ const EnergyPage = () => {
     labelToTelemetryKeyMap
   );
 
+  const getTotalFromTelemetry = (key: string) =>
+    telemetryQueries
+      .map(query => Number((query.data as { data?: any })?.data?.data?.[key]?.value))
+      .filter(val => !isNaN(val))
+      .reduce((sum, val) => sum + val, 0);
+
+  const updateDataWithTotals = <
+    T extends { label: string; value: number; unit: string; icon?: string },
+  >(
+    data: T[],
+    labelToValueMap: Record<string, number | string>
+  ): T[] =>
+    data.map(item =>
+      labelToValueMap.hasOwnProperty(item.label)
+        ? { ...item, value: Number(labelToValueMap[item.label]) }
+        : item
+    );
+
+  // Compute all totals
+  const totalEnergyConsumption = getTotalFromTelemetry('TotalEnergyConsumption');
+  const totalGridEnergyConsumption = getTotalFromTelemetry('GridEnergyConsumption');
+  const totalSolarEnergyGeneration = getTotalFromTelemetry('SolarEnergyGeneration');
+  const totalDaily = getTotalFromTelemetry('Daily');
+  const totalMonthly = getTotalFromTelemetry('Monthly');
+  const totalYearly = getTotalFromTelemetry('Yearly');
+  const totalCoal = getTotalFromTelemetry('Coal');
+  const totalCo2 = getTotalFromTelemetry('Co2');
+  const totalTrees = getTotalFromTelemetry('Trees');
+
+  const renewableEnergyShare = totalEnergyConsumption
+    ? ((totalSolarEnergyGeneration / totalEnergyConsumption) * 100).toFixed(2)
+    : 0;
+
+  // Label-to-value maps
+  const overviewLabelToValueMap: Record<string, number | string> = {
+    'Total Energy Consumption': totalEnergyConsumption,
+    'Grid Energy Consumption': totalGridEnergyConsumption,
+    'Solar Energy Generation': totalSolarEnergyGeneration,
+    'Renewable Energy Share': renewableEnergyShare,
+  };
+
+  const powerBlockLabelToValueMap: Record<string, number | string> = {
+    DAILY: totalDaily,
+    MONTHLY: totalMonthly,
+    YEARLY: totalYearly,
+  };
+
+  const carbonStatisticDataToValueMap: Record<string, number | string> = {
+    COAL: totalCoal,
+    CO2: totalCo2,
+    TREES: totalTrees,
+  };
+
+  // Update data arrays
+  const updatedOverviewDataWithTotals = updateDataWithTotals(
+    updatedOverviewData,
+    overviewLabelToValueMap
+  );
+  const updatedPowerBlocksDataWithTotals = updateDataWithTotals(
+    updatedPowerBlocksData,
+    powerBlockLabelToValueMap
+  );
+  const updatedCarbonStatisticDataWithTotals = updateDataWithTotals(
+    updatedCarbonStatisticData,
+    carbonStatisticDataToValueMap
+  );
+
+  const getAvgFromTelemetry = (key: string) => {
+    const values = telemetryQueries
+      .map(query => Number((query.data as { data?: any })?.data?.data?.[key]?.value))
+      .filter(val => !isNaN(val));
+    if (values.length === 0) return 0;
+    return (values.reduce((sum, val) => sum + val, 0) / values.length).toFixed(2);
+  };
+
+  const avgPowerFactor = getAvgFromTelemetry('PowerFactor');
+  const avgPhaseImbalance = getAvgFromTelemetry('PhaseImbalance');
+  const avgVoltageStability = getAvgFromTelemetry('VoltageStability');
+  const avgHarmonicDistortion = getAvgFromTelemetry('HarmonicDistortion');
+
+  const powerCircleLabelToValueMap: Record<string, number | string> = {
+    'Power Factor (PF)': avgPowerFactor,
+    'Phase Imbalance': avgPhaseImbalance,
+    'Voltage Stability': avgVoltageStability,
+    'Harmonic Distortion (THD)': avgHarmonicDistortion,
+  };
+
+  const updatedPowerCircleDataWithAvg = updateDataWithTotals(
+    updatedPowerCircleData,
+    powerCircleLabelToValueMap
+  );
+
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(interval);
@@ -267,14 +375,14 @@ const EnergyPage = () => {
 
       <div className="dashboard-main">
         <LeftPanel
-          updatedOverviewData={updatedOverviewData}
-          updatedPowerBlocksData={updatedPowerBlocksData}
+          updatedOverviewData={updatedOverviewDataWithTotals}
+          updatedPowerBlocksData={updatedPowerBlocksDataWithTotals}
           chartBarData={chartBarData}
         />
         <CenterMapPanel />
         <RightPanel
-          updatedPowerCircleData={updatedPowerCircleData}
-          updatedCarbonStatisticData={updatedCarbonStatisticData}
+          updatedPowerCircleData={updatedPowerCircleDataWithAvg}
+          updatedCarbonStatisticData={updatedCarbonStatisticDataWithTotals}
           updatedDeviceStatisticData={updatedDeviceStatisticData}
           chartLocations={chartLocations}
         />
