@@ -113,7 +113,13 @@ const RightPanel = ({
         {updatedPowerCircleData?.map((item, idx) => (
           <div className="circle-item" key={idx}>
             <div className="animated-circle-chart">
-              <ChartCircle value={item.value} />
+              <ChartCircle
+                value={
+                  item.value !== undefined && item.value !== null && !isNaN(Number(item.value))
+                    ? item.value
+                    : undefined
+                }
+              />
             </div>
             <div className="circle-label">{item.label}</div>
           </div>
@@ -157,15 +163,17 @@ const EnergyPage = () => {
   const [country, setCountry] = useState('US');
   const navigate = useNavigate();
 
-	// Locations chart
+  // Locations chart
   const { data: locationData } = useGetLocationMap({ page: 0, size: 100 });
   const locations = locationData?.data?.content || [];
+  const rawLocationValues = locations.map((_, idx) => [80, 65, 50, 40, 30][idx] ?? 20);
+  const totalLocationValue = rawLocationValues.reduce((sum, val) => sum + val, 0) || 1;
   const chartLocations = locations.map((location, idx) => ({
     name: location.name,
-    value: [80, 65, 50, 40, 30][idx] ?? 20,
+    value: Number(((rawLocationValues[idx] / totalLocationValue) * 100).toFixed(2)),
   }));
 
-	// Devices chart
+  // Devices chart
   const { data: deviceData } = useGetDataDevice({ page: 0, size: 10, keyword: '' });
   const devices = deviceData?.data?.content || [];
   const chartBarData = devices.map((device, idx) => ({
@@ -174,7 +182,7 @@ const EnergyPage = () => {
   }));
 
   const deviceId = devices.map(device => device.id);
-	// Overview, power chart
+  // Overview, power chart
   const telemetryQueries = useGetLatestTelemetrysNoC({
     entityType: 'DEVICE',
     entityIds: deviceId,
@@ -337,10 +345,10 @@ const EnergyPage = () => {
     'Harmonic Distortion (THD)': avgHarmonicDistortion,
   };
 
-  const updatedPowerCircleDataWithAvg = updateDataWithTotals(
-    updatedPowerCircleData,
-    powerCircleLabelToValueMap
-  );
+  const isTelemetryLoading = telemetryQueries.some(q => !q.data);
+  const updatedPowerCircleDataWithAvg = isTelemetryLoading
+    ? powerCircleData.map(item => ({ ...item, value: undefined }))
+    : updateDataWithTotals(updatedPowerCircleData, powerCircleLabelToValueMap);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);

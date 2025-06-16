@@ -1,6 +1,9 @@
 import Chart from 'react-apexcharts';
 
-const ChartCircle = ({ value }: { value: number }) => {
+const ChartCircle = ({ value }: { value?: number | string }) => {
+	  if (value === undefined || value === null) {
+    return <div className="chart-circle-loading">Loading...</div>;
+  }
   const options = {
     chart: {
       type: 'radialBar' as const,
@@ -60,7 +63,7 @@ const ChartCircle = ({ value }: { value: number }) => {
     labels: [''],
   };
 
-  return <Chart options={options} series={[value]} type="radialBar" height={120} width={120} />;
+  return <Chart options={options} series={[typeof value === 'string' ? parseFloat(value) : value]} type="radialBar" height={120} width={120} />;
 };
 
 export default ChartCircle;

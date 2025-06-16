@@ -20,7 +20,7 @@ export const overviewData = [
   {
     label: 'Renewable Energy Share',
     value: 1097,
-    unit: 'KWh',
+    unit: '%',
     icon: '~/assets/images/png/metrics.png',
   },
 ];
@@ -72,7 +72,7 @@ export const top5PRData = [
 export const carbonStatisticData = [
   { label: 'COAL', value: 36.26, unit: 'Million tones' },
   { label: 'CO2', value: 90.3, unit: 'Million tones' },
-  { label: 'TREES', value: 84.42, unit: 'Million tones' },
+  { label: 'TREES', value: 84.42, unit: 'Trees' },
 ];
 
 export const deviceStatisticData = [
