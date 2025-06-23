@@ -14,7 +14,7 @@ import cctvIconWarning from '~/assets/images/png/cctvIconWarning.png';
 
 export type DeviceItems = {
   id: string;
-  name: string;
+  name?: string;
   lat: number;
   lng: number;
   status: 'Active' | 'Offline' | 'Maintenance' | 'Error' | 'Alarm';
@@ -22,7 +22,7 @@ export type DeviceItems = {
   longitude?: string | number;
   ['north/south']?: string;
   ['east/west']?: string;
-  type: 'streetlight' | 'cctv';
+  type?: 'streetlight' | 'cctv';
 };
 
 // Define default location

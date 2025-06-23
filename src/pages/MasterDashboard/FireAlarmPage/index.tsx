@@ -203,7 +203,6 @@ const FireAlarmPage = () => {
             ...device,
             lat: device.latLng?.lat ?? 10.853397686226927,
             lng: device.latLng?.lng ?? 106.62823723344383,
-
             status:
               device.status === 'Active'
                 ? 'Active'
