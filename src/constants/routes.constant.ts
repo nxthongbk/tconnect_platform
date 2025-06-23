@@ -20,6 +20,7 @@ const ROUTES = {
 	STREET_LIGHT: '/street-light',
 	CCTV: '/cctv',
 	TRAFFIC_LIGHT: '/traffic-light',
+	FIRE_ALARM: '/fire-alarm',
 };
 
 export default ROUTES;

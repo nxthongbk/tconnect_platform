@@ -24,14 +24,13 @@
     font-weight: 500;
   }
   .details-status-badge {
-    background: #5fe9d0;
     border-radius: 16px;
     padding: 2px 8px;
     font-size: 12px;
     font-weight: 500;
     margin-left: 0;
     gap: 4px;
-    box-shadow: 0 0 6px #00eaff66;
+    box-shadow: 0 0 6px #95aeb166;
     &.status-active {
       background: #5fe9d0;
       color: #001;

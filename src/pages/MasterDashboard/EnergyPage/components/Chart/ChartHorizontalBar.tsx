@@ -25,8 +25,8 @@ const CustomLabel = (props: any) => {
 };
 
 export default function CustomBarChart({ data }: { data: ChartDataItem[] }) {
-  const barHeight = 70;
-  const minHeight = 360;
+  const barHeight = 60;
+  const minHeight = 220;
   const chartHeight = Math.max(minHeight, data.length * barHeight);
 
   return (

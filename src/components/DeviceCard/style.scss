@@ -21,7 +21,8 @@
       background-image: url('../../assets/images/png/Frame-Active.png');
       background-size: 100% 100%;
     }
-    &.error {
+    &.error,
+    &.alarm {
       background-image: url('../../assets/images/png/Frame-Alert.png') !important;
       background-size: 100% 100%;
     }
@@ -117,10 +118,32 @@
   background-color: #5fe9d033;
   border: 1px solid #5fe9d099;
 }
-.status-error .device-item-status-badge {
+.status-error .device-item-status-badge,
+.status-alarm {
   color: #f97066;
   background: #f9706633;
   border: 1px solid #f9706699;
+  animation: warning-shake 0.5s linear infinite alternate;
+  @keyframes warning-shake {
+    0% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-2px);
+    }
+    40% {
+      transform: translateX(2px);
+    }
+    60% {
+      transform: translateX(-2px);
+    }
+    80% {
+      transform: translateX(2px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 }
 .status-offline .device-item-status-badge {
   color: #d0d5dd;

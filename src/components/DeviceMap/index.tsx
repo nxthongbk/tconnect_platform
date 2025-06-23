@@ -14,9 +14,10 @@ import cctvIconWarning from '~/assets/images/png/cctvIconWarning.png';
 
 export type DeviceItems = {
   id: string;
+  name: string;
   lat: number;
   lng: number;
-  status: 'Active' | 'Offline' | 'Maintenance' | 'Error';
+  status: 'Active' | 'Offline' | 'Maintenance' | 'Error' | 'Alarm';
   latitude?: string | number;
   longitude?: string | number;
   ['north/south']?: string;
@@ -30,18 +31,28 @@ const DEFAULT_LOCATION = {
   lng: 106.62823723344383,
 };
 
+const iconMap = {
+  cctv: {
+    Active: cctvIconActive,
+    Error: cctvIconError,
+    Maintenance: cctvIconWarning,
+    Offline: cctvIconError,
+    Alarm: cctvIconError,
+    Default: cctvIconActive,
+  },
+  streetlight: {
+    Active: lampIconActive,
+    Error: lampIconError,
+    Maintenance: lampIconWarning,
+    Offline: lampIconError,
+    Alarm: lampIconError,
+    Default: lampIconActive,
+  },
+};
+
 export const getDeviceIcon = (type: string, status: string) => {
-  if (type === 'cctv') {
-    if (status === 'Active') return cctvIconActive;
-    if (status === 'Error') return cctvIconError;
-    if (status === 'Maintenance') return cctvIconWarning;
-    return cctvIconActive;
-  } else {
-    if (status === 'Active') return lampIconActive;
-    if (status === 'Error') return lampIconError;
-    if (status === 'Maintenance') return lampIconWarning;
-    return lampIconActive;
-  }
+  const typeIcons = iconMap[type as keyof typeof iconMap] || iconMap.cctv;
+  return typeIcons[status as keyof typeof typeIcons] || typeIcons.Default;
 };
 
 interface CustomMapProps {
@@ -52,6 +63,7 @@ interface CustomMapProps {
   mapRef?: any;
   socketData?: any;
   listOfDevices?: DeviceItems[];
+  setListOfDevices?: React.Dispatch<React.SetStateAction<DeviceItems[]>>;
   openMarkerId?: string | null;
   setOpenMarkerId?: (id: string | null) => void;
 }
@@ -76,11 +88,25 @@ function extractValuesOnly(data: Record<string, any>) {
   return result;
 }
 
+const iconCache: Record<string, L.Icon> = {};
+
+function getCachedIcon(type: string, status: string) {
+  const key = `${type}_${status}`;
+  if (!iconCache[key]) {
+    iconCache[key] = new L.Icon({
+      iconUrl: getDeviceIcon(type, status),
+      iconSize: [65, 95],
+    });
+  }
+  return iconCache[key];
+}
+
 export default function DeviceMapContainer({
   initialCenter,
   mapRef,
   socketData,
-  listOfDevices,
+  listOfDevices = [],
+  setListOfDevices,
   openMarkerId,
   setOpenMarkerId,
 }: CustomMapProps) {
@@ -89,10 +115,48 @@ export default function DeviceMapContainer({
   const markerRefs = useRef<{ [id: string]: L.Marker | null }>({});
   const [hasAutoCentered, setHasAutoCentered] = useState(false);
 
+  useEffect(() => {
+    if (!socketData || !setListOfDevices) return;
+
+    const cleanedSocketData = extractValuesOnly(socketData) as any;
+
+    const lat = cleanedSocketData.latitude;
+    const lon = cleanedSocketData.longitude;
+    if (!lat || !lon || lat === 'null' || lon === 'null') return;
+
+    setListOfDevices(prev => {
+      const index = prev.findIndex(item => item.id === cleanedSocketData.deviceId);
+      if (index === -1) return prev;
+
+      const oldItem = prev[index];
+      const oldLat = oldItem.latitude;
+      const oldLon = oldItem.longitude;
+
+      const hasMoved =
+        parseFloat(oldLat as any) !== parseFloat(lat) ||
+        parseFloat(oldLon as any) !== parseFloat(lon);
+
+      if (!hasMoved) return prev;
+
+      const updated = [...prev];
+      updated[index] = { ...oldItem, ...cleanedSocketData };
+      return updated;
+    });
+  }, [socketData, setListOfDevices]);
+
   // Compute convex hull polygon from current device positions
   const polygonCoords = useMemo(() => {
     if (!listOfDevices.length) return [];
-    const points = listOfDevices.map(light => [light.lng, light.lat]);
+    const points = listOfDevices
+      .filter(
+        light =>
+          typeof light.lat === 'number' &&
+          typeof light.lng === 'number' &&
+          !isNaN(light.lat) &&
+          !isNaN(light.lng)
+      )
+      .map(light => [light.lng, light.lat]);
+    if (points.length < 3) return [];
     const featureCollection = turf.featureCollection(points.map(pt => turf.point(pt)));
     const hull = turf.convex(featureCollection);
     return hull
@@ -107,36 +171,6 @@ export default function DeviceMapContainer({
       setHasAutoCentered(true);
     }
   }, [map, listOfDevices, hasAutoCentered]);
-
-  useEffect(() => {
-    if (!socketData) return;
-
-    const cleanedSocketData = extractValuesOnly(socketData) as any;
-
-    const lat = cleanedSocketData.latitude;
-    const lon = cleanedSocketData.longitude;
-    if (!lat || !lon || lat === 'null' || lon === 'null') return;
-
-    // update later
-
-    // setListOfDevices(prev => {
-    //   const index = prev.findIndex(item => item.id === cleanedSocketData.deviceId);
-    //   if (index === -1) return prev;
-
-    //   const oldItem = prev[index];
-    //   const oldLat = oldItem.latitude;
-    //   const oldLon = oldItem.longitude;
-
-    //   const hasMoved =
-    //     parseFloat(oldLat) !== parseFloat(lat) || parseFloat(oldLon) !== parseFloat(lon);
-
-    //   if (!hasMoved) return prev;
-
-    //   const updated = [...prev];
-    //   updated[index] = { ...oldItem, ...cleanedSocketData };
-    //   return updated;
-    // });
-  }, [socketData]);
 
   useEffect(() => {
     if (map && openMarkerId && markerRefs.current[openMarkerId]) {
@@ -182,16 +216,12 @@ export default function DeviceMapContainer({
 
       {listOfDevices?.map((item, index) => {
         if (!item.lat || !item.lng) return null;
+        const markerIcon = getCachedIcon(item.type, item.status);
         return (
           <Marker
             key={item?.id || index}
             position={[item.lat, item.lng]}
-            icon={
-              new L.Icon({
-                iconUrl: getDeviceIcon(item.type, item.status),
-                iconSize: [65, 95],
-              })
-            }
+            icon={markerIcon}
             ref={ref => {
               if (ref && item.id) {
                 markerRefs.current[item.id] = ref;
@@ -205,7 +235,11 @@ export default function DeviceMapContainer({
           >
             <Popup>
               <strong>
-                {item.type === 'cctv' ? 'CCTV' : 'Streetlight'} #{item.id}
+                {item.type === 'cctv'
+                  ? `CCTV #${item.id}`
+                  : item.type === 'streetlight'
+                    ? `Streetlight #${item.id}`
+                    : `Device #${item.name}`}
               </strong>
               <br />
               Status: {item.status}
