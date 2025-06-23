@@ -22,7 +22,7 @@ export type DeviceItems = {
   longitude?: string | number;
   ['north/south']?: string;
   ['east/west']?: string;
-  type?: 'streetlight' | 'cctv';
+  type: 'streetlight' | 'cctv' | 'firealarm';
 };
 
 // Define default location
@@ -48,11 +48,18 @@ const iconMap = {
     Alarm: lampIconError,
     Default: lampIconActive,
   },
+	firealarm: {
+		Active: cctvIconActive,
+		Error: cctvIconError,
+		Maintenance: cctvIconWarning,
+		Offline: cctvIconError,
+		Alarm: cctvIconError,
+		Default: cctvIconActive,
+	},
 };
 
 export const getDeviceIcon = (type: string, status: string) => {
-  const typeIcons = iconMap[type as keyof typeof iconMap] || iconMap.cctv;
-  return typeIcons[status as keyof typeof typeIcons] || typeIcons.Default;
+	return iconMap[type][status] || iconMap[type].Default;
 };
 
 interface CustomMapProps {
@@ -235,11 +242,13 @@ export default function DeviceMapContainer({
           >
             <Popup>
               <strong>
-                {item.type === 'cctv'
-                  ? `CCTV #${item.id}`
-                  : item.type === 'streetlight'
-                    ? `Streetlight #${item.id}`
-                    : `Device #${item.name}`}
+								{item.type === 'cctv'
+									? `CCTV #${item.id}`
+									: item.type === 'streetlight'
+									? `Streetlight #${item.id}`
+									: item.type === 'firealarm'
+									? `Device #${item.name}`
+									: `Device #${item.id}`}
               </strong>
               <br />
               Status: {item.status}

@@ -21,6 +21,36 @@ import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
 import cctvDetailFrame from '~/assets/images/png/cctvDetailFrame.png';
 import liveCamera from '~/assets/images/png/cameraCCTV.png';
 
+function mapToDeviceItems(device: any) {
+  let status: 'Active' | 'Error' | 'Maintenance' | 'Offline' | 'Alarm';
+  switch (device.status) {
+    case 'Active':
+      status = 'Active';
+      break;
+    case 'Error':
+      status = 'Error';
+      break;
+    case 'Maintenance':
+      status = 'Maintenance';
+      break;
+    case 'Offline':
+      status = 'Offline';
+      break;
+    case 'Alarm':
+      status = 'Alarm';
+      break;
+    default:
+      status = 'Active';
+  }
+  return {
+    id: device.id,
+    lat: device.latLng?.lat ?? 0,
+    lng: device.latLng?.lng ?? 0,
+    type: 'cctv' as 'cctv',
+    status,
+  };
+}
+
 const CCTVPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
@@ -56,20 +86,7 @@ const CCTVPage = () => {
         <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={cctvDevices.map(device => ({
-            ...device,
-            lat: device.latLng.lat,
-            lng: device.latLng.lng,
-            type: 'cctv',
-            status:
-              device.status === 'Active'
-                ? 'Active'
-                : device.status === 'Error'
-                  ? 'Error'
-                  : device.status === 'Maintenance'
-                    ? 'Maintenance'
-                    : 'Active',
-          }))}
+          listOfDevices={cctvDevices.map(mapToDeviceItems)}
           openMarkerId={openMarkerId}
           setOpenMarkerId={setOpenMarkerId}
         />

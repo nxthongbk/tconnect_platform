@@ -21,6 +21,36 @@ import StatusChart from '~/components/StatusChart';
 import streetLightFrame from '~/assets/images/png/streetLightFrame.png';
 import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
 
+function mapToDeviceItems(device: any) {
+  let status: 'Active' | 'Error' | 'Maintenance' | 'Offline' | 'Alarm';
+  switch (device.status) {
+    case 'Active':
+      status = 'Active';
+      break;
+    case 'Error':
+      status = 'Error';
+      break;
+    case 'Maintenance':
+      status = 'Maintenance';
+      break;
+    case 'Offline':
+      status = 'Offline';
+      break;
+    case 'Alarm':
+      status = 'Alarm';
+      break;
+    default:
+      status = 'Active';
+  }
+  return {
+    id: device.id,
+    lat: device.latLng?.lat ?? 0,
+    lng: device.latLng?.lng ?? 0,
+    type: 'streetlight' as 'streetlight',
+    status,
+  };
+}
+
 const StreetLightBoardPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
@@ -53,20 +83,7 @@ const StreetLightBoardPage = () => {
         <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={streetLights.map(device => ({
-            ...device,
-            lat: device.latLng.lat,
-            lng: device.latLng.lng,
-            type: 'streetlight',
-            status:
-              device.status === 'Active'
-                ? 'Active'
-                : device.status === 'Error'
-                  ? 'Error'
-                  : device.status === 'Maintenance'
-                    ? 'Maintenance'
-                    : 'Active',
-          }))}
+          listOfDevices={streetLights.map(mapToDeviceItems)}
           openMarkerId={openMarkerId}
           setOpenMarkerId={setOpenMarkerId}
         />

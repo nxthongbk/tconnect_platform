@@ -40,6 +40,24 @@ interface Device {
   [key: string]: any;
 }
 
+function mapToDeviceItems(device: Device) {
+  let status: 'Active' | 'Error' | 'Maintenance' | 'Offline' | 'Alarm';
+  if (device.status === 'Active') status = 'Active';
+  else if (device.status === 'Error' || device.alarmStatus === 'ALARM') status = 'Error';
+  else if (device.status === 'Maintenance') status = 'Maintenance';
+  else if (device.status === 'Offline') status = 'Offline';
+  else if (device.status === 'Alarm') status = 'Alarm';
+  else status = 'Active';
+  return {
+    id: device.id,
+    name: device.name,
+    lat: device.latLng?.lat ?? 10.853397686226927,
+    lng: device.latLng?.lng ?? 106.62823723344383,
+    type: 'firealarm' as 'firealarm',
+    status,
+  };
+}
+
 const FireAlarmPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
@@ -199,19 +217,7 @@ const FireAlarmPage = () => {
         <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={devices.map(device => ({
-            ...device,
-            lat: device.latLng?.lat ?? 10.853397686226927,
-            lng: device.latLng?.lng ?? 106.62823723344383,
-            status:
-              device.status === 'Active'
-                ? 'Active'
-                : device.status === 'Error' || device.alarmStatus === 'ALARM'
-                  ? 'Error'
-                  : device.status === 'Maintenance'
-                    ? 'Maintenance'
-                    : 'Active',
-          }))}
+          listOfDevices={devices.map(mapToDeviceItems)}
           openMarkerId={openMarkerId}
           setOpenMarkerId={setOpenMarkerId}
         />
