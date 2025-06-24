@@ -384,14 +384,12 @@ const EnergyPage = () => {
         />
       </div>
 
-      <div>
-        <BottomMenu
-          activePath={location.pathname}
-          items={menuItems}
-          onMenuClick={path => path && navigate(path)}
-          bottomBarBg={bottomBarBg}
-        />
-      </div>
+      <BottomMenu
+        activePath={location.pathname}
+        items={menuItems}
+        onMenuClick={path => path && navigate(path)}
+        bottomBarBg={bottomBarBg}
+      />
     </div>
   );
 };

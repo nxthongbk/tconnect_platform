@@ -672,3 +672,12 @@
     height: 18vh !important;
   }
 }
+
+.bottom-menu-modal {
+  pointer-events: auto;
+  z-index: 3000;
+}
+.bottom-menu-modal-content {
+  pointer-events: auto;
+  position: relative;
+}
