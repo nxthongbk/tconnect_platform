@@ -12,11 +12,10 @@ import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';
 
 import CardFrame from '~/components/CardFrame';
-import { statusList } from './mockData';
+import statusFrame from '~/assets/images/png/streetLightStatusFrame.png';
 import cctvIcon from '~/assets/images/png/cctvDevice.png';
 import DeviceCardItem from '~/components/DeviceCard';
 import DeviceMapContainer from '~/components/DeviceMap';
-import StatusChart from '~/components/StatusChart';
 import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
 import cctvDetailFrame from '~/assets/images/png/cctvDetailFrame.png';
 import {
@@ -79,6 +78,8 @@ const FireAlarmPage = () => {
   const alarmSoundRef = useRef<HTMLAudioElement | null>(null);
   const timeoutId = useRef<NodeJS.Timeout>();
   const stompClientRef = useRef<any>(null);
+
+  const [showImageModal, setShowImageModal] = useState(false);
 
   const { data: latestTelemetry } = useGetLatestTelemetryNoC({
     entityType: 'DEVICE',
@@ -282,31 +283,118 @@ const FireAlarmPage = () => {
           <div className="search-container">
             <input type="text" placeholder="Search location" className="search-input" />
           </div>
-          <CardFrame title="CCTV STATUS">
-            <StatusChart statusList={statusList} />
+          <CardFrame title="CCTV LIVE CAMERA">
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 340,
+                minHeight: 180,
+                backgroundImage: `url(${statusFrame})`,
+                backgroundSize: '100% 100%',
+                backgroundPosition: 'center',
+                position: 'relative',
+                zIndex: 3,
+                margin: '0 auto',
+                cursor: latestTelemetry?.data?.data?.image?.value ? 'pointer' : 'default',
+              }}
+              onClick={() => {
+                if (latestTelemetry?.data?.data?.image?.value) setShowImageModal(true);
+              }}
+              title={latestTelemetry?.data?.data?.image?.value ? 'Click to enlarge' : ''}
+            >
+              {latestTelemetry?.data?.data?.image?.value ? (
+                <img
+                  src={`data:image/jpeg;base64,${latestTelemetry?.data?.data?.image?.value}`}
+                  alt="Live Camera"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: 170,
+                    objectFit: 'fill',
+                    width: '324px',
+                    borderRadius: '4px',
+                    zIndex: 10,
+                  }}
+                />
+              ) : (
+                <span>No Live Camera Feed</span>
+              )}
+            </div>
           </CardFrame>
+
+          {showImageModal && latestTelemetry?.data?.data?.image?.value && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                background: 'rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 9999,
+              }}
+              onClick={() => setShowImageModal(false)}
+            >
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'inline-block',
+                  maxWidth: '90vw',
+                  maxHeight: '90vh',
+                }}
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  className="modal-close-btn"
+                  style={{
+                    position: 'absolute',
+                    top: 12,
+                    right: 12,
+                    background: 'rgba(0,0,0,0.4)',
+                    color: '#fff',
+                    border: '1px solid #00d9ff',
+                    borderRadius: '50%',
+                    width: 40,
+                    height: 40,
+                    fontSize: 22,
+                    cursor: 'pointer',
+                    zIndex: 10000,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'background 0.2s',
+                  }}
+                  onClick={() => setShowImageModal(false)}
+                  aria-label="Close"
+                  title="Close"
+                >
+                  &times;
+                </button>
+                <img
+                  src={`data:image/jpeg;base64,${latestTelemetry?.data?.data?.image?.value}`}
+                  alt="Live Camera Large"
+                  style={{
+                    maxWidth: '90vw',
+                    maxHeight: '90vh',
+                    borderRadius: 8,
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                    background: '#222',
+                    display: 'block',
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           <CardFrame title="CCTV DETAILS">
             <DeviceDetailsPanel
               device={selectedDevice}
               backgroundImage={cctvDetailFrame}
               fields={cctvFields}
-              customRows={
-                <div className="details-row">
-                  <span className="details-label">LIVE CAMERA</span>
-                  <span className="details-value">
-                    {latestTelemetry?.data?.data?.image?.value ? (
-                      <img
-                        src={`data:image/jpeg;base64,${latestTelemetry?.data?.data?.image?.value}`}
-                        alt="Live Camera"
-                        style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }}
-                      />
-                    ) : (
-                      <span>No Live Camera Feed</span>
-                    )}
-                  </span>
-                </div>
-              }
             />
           </CardFrame>
         </div>
