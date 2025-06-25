@@ -7,13 +7,13 @@ import {
   FireExtinguisher,
   Leaf,
   Drop,
-  Park,
   Door,
   SunDim,
   SquaresFour,
   TrafficSignal,
-  FirstAidKit,
   ThermometerHot,
+	LetterCircleP,
+	ShieldCheck
 } from '@phosphor-icons/react';
 
 interface MenuItem {
@@ -29,11 +29,11 @@ const iconMap: Record<string, React.ReactNode> = {
   'fire-extinguisher': <FireExtinguisher size={32} />,
   leaf: <Leaf size={32} />,
   tint: <Drop size={32} />,
-  parking: <Park size={32} />,
+  parking: <LetterCircleP size={32} />,
   'door-closed': <Door size={32} />,
   'solar-panel': <SunDim size={32} />,
   'street-light': <TrafficSignal size={32} />,
-  safety: <FirstAidKit size={32} />,
+  safety: <ShieldCheck size={32} />,
   hvac: <ThermometerHot size={32} />,
 };
 

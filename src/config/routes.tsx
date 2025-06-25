@@ -9,6 +9,7 @@ import EnergyPage from '~/pages/MasterDashboard/EnergyPage';
 import StreetLightsPage from '~/pages/MasterDashboard/StreetLightsPage';
 import CCTVPage from '~/pages/MasterDashboard/CCTVPage';
 import FireAlarmPage from '~/pages/MasterDashboard/FireAlarmPage';
+import SafetyPage from '~/pages/MasterDashboard/SafetyPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -63,6 +64,10 @@ const useRoutes = () => {
 					path: ROUTES.FIRE_ALARM,
 					element: <FireAlarmPage />,
 				},
+				{
+					path: ROUTES.SAFETY,
+					element: <SafetyPage />,
+				}
       ],
     },
     // {

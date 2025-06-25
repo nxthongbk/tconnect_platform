@@ -21,6 +21,13 @@ const ROUTES = {
 	CCTV: '/cctv',
 	TRAFFIC_LIGHT: '/traffic-light',
 	FIRE_ALARM: '/fire-alarm',
+	SOLAR_MONITORING: '/solar-monitoring',
+	ENVIRONMENT_MONITORING: '/environment-monitoring',
+	WATER_METER_MONITORING: '/water-meter-monitoring',
+	PARKING_MONITORING: '/parking-monitoring',
+	ACCESS_CONTROL: '/access-control',
+	SAFETY: '/safety',
+	HVAC: '/hvac',
 };
 
 export default ROUTES;
