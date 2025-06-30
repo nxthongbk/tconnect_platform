@@ -1,8 +1,7 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
-import * as turf from '@turf/turf';
 
 import lampIconActive from '~/assets/images/png/activeLight.png';
 import lampIconError from '~/assets/images/png/alertLight.png';
@@ -152,24 +151,24 @@ export default function DeviceMapContainer({
   }, [socketData, setListOfDevices]);
 
   // Compute convex hull polygon from current device positions
-  const polygonCoords = useMemo(() => {
-    if (!listOfDevices.length) return [];
-    const points = listOfDevices
-      .filter(
-        light =>
-          typeof light.lat === 'number' &&
-          typeof light.lng === 'number' &&
-          !isNaN(light.lat) &&
-          !isNaN(light.lng)
-      )
-      .map(light => [light.lng, light.lat]);
-    if (points.length < 3) return [];
-    const featureCollection = turf.featureCollection(points.map(pt => turf.point(pt)));
-    const hull = turf.convex(featureCollection);
-    return hull
-      ? hull.geometry.coordinates[0].map(([lng, lat]) => [lat, lng])
-      : points.map(([lng, lat]) => [lat, lng]);
-  }, [listOfDevices]);
+  // const polygonCoords = useMemo(() => {
+  //   if (!listOfDevices.length) return [];
+  //   const points = listOfDevices
+  //     .filter(
+  //       light =>
+  //         typeof light.lat === 'number' &&
+  //         typeof light.lng === 'number' &&
+  //         !isNaN(light.lat) &&
+  //         !isNaN(light.lng)
+  //     )
+  //     .map(light => [light.lng, light.lat]);
+  //   if (points.length < 3) return [];
+  //   const featureCollection = turf.featureCollection(points.map(pt => turf.point(pt)));
+  //   const hull = turf.convex(featureCollection);
+  //   return hull
+  //     ? hull.geometry.coordinates[0].map(([lng, lat]) => [lat, lng])
+  //     : points.map(([lng, lat]) => [lat, lng]);
+  // }, [listOfDevices]);
 
   useEffect(() => {
     if (map && listOfDevices.length && !hasAutoCentered) {
@@ -207,7 +206,7 @@ export default function DeviceMapContainer({
       {/* <MapEventHandler onMoveEnd={handleMoveEnd} /> */}
       <MapInstanceSetter setMap={setMap} />
 
-      {polygonCoords.length > 2 && (
+      {/* {polygonCoords.length > 2 && (
         <Polygon
           positions={polygonCoords as [number, number][]}
           pathOptions={{
@@ -219,7 +218,7 @@ export default function DeviceMapContainer({
             dashArray: '2',
           }}
         />
-      )}
+      )} */}
 
       {listOfDevices?.map((item, index) => {
         if (!item.lat || !item.lng) return null;

@@ -39,7 +39,31 @@ interface Device {
   [key: string]: any;
 }
 
-function mapToDeviceItems(device: Device) {
+const DEVICE_LATLNG_LIST = [
+  { lat: 10.85, lng: 106.62 },
+  { lat: 10.86, lng: 106.63 },
+  { lat: 10.87, lng: 106.64 },
+  { lat: 10.88, lng: 106.65 },
+  { lat: 10.89, lng: 106.66 },
+  { lat: 10.9, lng: 106.67 },
+  { lat: 10.91, lng: 106.68 },
+  { lat: 10.92, lng: 106.69 },
+  { lat: 10.93, lng: 106.7 },
+  { lat: 10.94, lng: 106.71 },
+  { lat: 10.95, lng: 106.72 },
+  { lat: 10.96, lng: 106.73 },
+  { lat: 10.97, lng: 106.74 },
+  { lat: 10.98, lng: 106.75 },
+  { lat: 10.99, lng: 106.76 },
+  { lat: 11.0, lng: 106.77 },
+  { lat: 11.01, lng: 106.78 },
+  { lat: 11.02, lng: 106.79 },
+  { lat: 11.03, lng: 106.8 },
+  { lat: 11.04, lng: 106.81 },
+  { lat: 11.05, lng: 106.82 },
+];
+
+function mapToDeviceItems(device: Device, idx: number) {
   let status: 'Active' | 'Error' | 'Maintenance' | 'Offline' | 'Alarm';
   if (device.status === 'Active') status = 'Active';
   else if (device.status === 'Error' || device.alarmStatus === 'ALARM') status = 'Error';
@@ -47,11 +71,18 @@ function mapToDeviceItems(device: Device) {
   else if (device.status === 'Offline') status = 'Offline';
   else if (device.status === 'Alarm') status = 'Alarm';
   else status = 'Active';
+
+  const latlng =
+    device.latLng && device.latLng.lat && device.latLng.lng
+      ? device.latLng
+      : DEVICE_LATLNG_LIST[idx] || { lat: null, lng: null };
+
   return {
+    ...device,
     id: device.id,
     name: device.name,
-    lat: device.latLng?.lat ?? 10.853397686226927,
-    lng: device.latLng?.lng ?? 106.62823723344383,
+    lat: latlng.lat,
+    lng: latlng.lng,
     type: 'firealarm' as 'firealarm',
     status,
   };
@@ -212,13 +243,15 @@ const FireAlarmPage = () => {
   const formattedDate = time.toLocaleDateString();
   const formattedTime = time.toLocaleTimeString();
 
+  const mappedDevices = devices.map(mapToDeviceItems);
+
   return (
     <div className="cctv-page dashboard-cctv-template">
       <Box className="cctv-main" sx={popupStyles}>
         <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={devices.map(mapToDeviceItems)}
+          listOfDevices={mappedDevices}
           openMarkerId={openMarkerId}
           setOpenMarkerId={setOpenMarkerId}
         />
@@ -252,7 +285,7 @@ const FireAlarmPage = () => {
                 </button>
               </div>
               <ul className="device-list">
-                {devices.map(device => (
+                {mappedDevices.map(device => (
                   <li
                     key={device.id}
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''} ${device.alarmStatus === 'ALARM' ? 'alarm' : ''}`}
