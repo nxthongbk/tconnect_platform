@@ -3,45 +3,8 @@
   left: 0;
   bottom: 0;
   width: 100vw;
-  z-index: 200;
+  z-index: 99;
   pointer-events: none;
-}
-
-.bottom-menu {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: transparent;
-  margin: 0;
-  padding: 0 0 16px 0;
-  list-style: none;
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.bottom-menu li {
-  flex: 1 1 0;
-  text-align: center;
-  color: #888;
-  font-size: 22px;
-  padding: 8px 0 0 0;
-  background: none;
-  border: none;
-  position: relative;
-  pointer-events: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bottom-menu li.active {
-  color: #3b36ff;
-}
-
-.bottom-menu li span {
-  font-size: 12px;
-  margin-top: 2px;
 }
 
 .bottom-menu-center-placeholder {
@@ -53,7 +16,7 @@
 .bottom-menu-center-btn {
   position: absolute;
   left: 50%;
-  bottom: 14px;
+  bottom: 18px;
   transform: translateX(-50%);
   width: 64px;
   height: 64px;
@@ -78,8 +41,43 @@
 }
 
 .bottom-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 62px;
+  z-index: 100;
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
+
+.bottom-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(90deg, #36bffa, #10719b, #36bffa, #10719b, #36bffa);
+  background-size: 400% 100%;
+  opacity: 0.8;
+  animation: border-glow-move 3s linear infinite;
+  clip-path: polygon(26% 0, 74% 0, 76% 40%, 100% 0%, 100% 100%, 50% 100%, 0 100%, 0 0, 24% 40%);
+}
+
+@keyframes border-glow-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 .bottom-menu-modal {
   position: fixed;
   left: 0;
@@ -114,14 +112,6 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 18px 18px;
   width: 620px;
-}
-
-@media (max-width: 600px) {
-  .bottom-menu-modal-list {
-    grid-template-columns: 1fr;
-    max-width: 90vw;
-    gap: 14px;
-  }
 }
 
 .bottom-menu-modal-list-item {
@@ -221,4 +211,113 @@
   padding: 0;
   line-height: 1;
   transition: color 0.2s;
+}
+
+@media (min-width: 1600px) and (max-width: 1920px) {
+  .bottom-bar {
+    height: 64px;
+    img {
+      height: 62px;
+      pointer-events: none;
+    }
+  }
+  .bottom-menu-center-btn {
+    width: 68px;
+    height: 68px;
+    font-size: 36px;
+    bottom: 20px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .bottom-bar {
+    height: 52px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .bottom-bar {
+    height: 42px;
+  }
+  .bottom-menu-center-btn {
+    width: 58px;
+    height: 58px;
+    font-size: 32px;
+    bottom: 14px;
+  }
+  .bottom-menu-modal-list {
+    width: 99vw;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+  .bottom-menu-modal-list-item {
+    width: 99%;
+    min-width: 140px;
+    font-size: 16px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bottom-bar {
+    height: 34px;
+  }
+  .bottom-bar::before {
+    filter: blur(4px) brightness(1.4);
+  }
+  .bottom-menu-center-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 28px;
+    bottom: 10px;
+  }
+  .bottom-menu-modal-list {
+    width: 98vw;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .bottom-menu-modal-list-item {
+    width: 98%;
+    min-width: 120px;
+    font-size: 15px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bottom-bar {
+    height: 32px;
+  }
+  .bottom-menu-center-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    bottom: 4px;
+  }
+  .bottom-menu-modal-content {
+    min-width: unset;
+    width: 96vw;
+    padding: 10px 4px;
+  }
+  .bottom-menu-modal-list {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 8px;
+  }
+  .bottom-menu-modal-list-item {
+    width: 100%;
+    min-width: unset;
+    font-size: 14px;
+    height: 64px;
+    padding: 0 2px;
+  }
+  .bottom-menu-modal-content h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .bottom-menu-modal-close {
+    font-size: 24px;
+    top: 8px;
+    right: 10px;
+  }
 }

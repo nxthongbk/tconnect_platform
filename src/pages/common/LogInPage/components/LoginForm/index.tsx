@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Typography, Paper } from '@mui/material';
+import { Box, Button, Typography, Paper, CircularProgress } from '@mui/material';
 
 import signInFrame from '~/assets/images/png/signInFrame.png';
 import '../../style.scss';
@@ -100,6 +100,23 @@ export default function LoginForm({ setResetMode }: IProps) {
         background: 'transparent',
       }}
     >
+      {loginMutation.isPending && (
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 100,
+            background: 'rgba(0,0,0,0.25)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 2,
+          }}
+        >
+          <CircularProgress size={48} sx={{ color: '#0794ff' }} />
+        </Box>
+      )}
+
       <img
         className="login-img"
         src={signInFrame}

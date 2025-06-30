@@ -12,8 +12,8 @@ import {
   SquaresFour,
   TrafficSignal,
   ThermometerHot,
-	LetterCircleP,
-	ShieldCheck
+  LetterCircleP,
+  ShieldCheck,
 } from '@phosphor-icons/react';
 
 interface MenuItem {
@@ -104,19 +104,22 @@ const BottomMenu: React.FC<BottomMenuProps> = ({
           </div>
         </div>
       )}
-      <img
-        src={bottomBarBg}
-        alt="Bottom Bar"
-        className="bottom-bar"
-        style={{
-          position: 'fixed',
-          left: 0,
-          bottom: 0,
-          width: '100vw',
-          zIndex: 100,
-          pointerEvents: 'none',
-        }}
-      />
+      <div className="bottom-bar">
+        <img
+          src={bottomBarBg}
+          alt="Bottom Bar"
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            width: '100vw',
+            zIndex: 100,
+            paddingRight: '2px',
+            paddingLeft: '2px',
+            paddingBottom: '1px',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
     </div>
   );
 };

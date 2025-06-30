@@ -10,6 +10,7 @@ import StreetLightsPage from '~/pages/MasterDashboard/StreetLightsPage';
 import CCTVPage from '~/pages/MasterDashboard/CCTVPage';
 import FireAlarmPage from '~/pages/MasterDashboard/FireAlarmPage';
 import SafetyPage from '~/pages/MasterDashboard/SafetyPage';
+import WaterMeterMonitoringPage from '~/pages/MasterDashboard/WaterMeterPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -67,7 +68,12 @@ const useRoutes = () => {
 				{
 					path: ROUTES.SAFETY,
 					element: <SafetyPage />,
-				}
+				},
+				{
+					path: ROUTES.WATER_METER_MONITORING,
+					element: <WaterMeterMonitoringPage />,
+				},
+
       ],
     },
     // {

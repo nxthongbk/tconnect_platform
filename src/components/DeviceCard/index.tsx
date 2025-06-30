@@ -21,39 +21,33 @@ const DeviceCardItem = ({
   deviceType,
 }: DeviceCardProps) => {
   const imageFileId =
-    deviceType === 'cctv' && device.deviceProfile?.imageUrl
-      ? device.deviceProfile.imageUrl
-      : '';
+    deviceType === 'cctv' && device.deviceProfile?.imageUrl ? device.deviceProfile.imageUrl : '';
 
   const { imageUrl } =
     deviceType === 'cctv' ? useDownloadFileAvatar(imageFileId) : { imageUrl: '' };
 
   const deviceProfileName =
-    deviceType === 'cctv' && device.deviceProfile?.name
-      ? device.deviceProfile.name
-      : '';
+    deviceType === 'cctv' && device.deviceProfile?.name ? device.deviceProfile.name : '';
 
   const updatedAtString =
     deviceType === 'streetlight'
       ? device.power
       : device.updatedAt
-      ? new Date(device.updatedAt)
-          .toLocaleString('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour12: false,
-          })
-          .replace(',', '')
-      : '';
+        ? new Date(device.updatedAt)
+            .toLocaleString('en-GB', {
+              hour: '2-digit',
+              minute: '2-digit',
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+              hour12: false,
+            })
+            .replace(',', '')
+        : '';
 
   const statusBadgeClass =
     'device-item-status-badge status-' +
-    (device.alarmStatus === 'ALARM'
-      ? 'alarm'
-      : (device.status || '').toLowerCase());
+    (device.alarmStatus === 'ALARM' ? 'alarm' : (device.status || '').toLowerCase());
 
   const cardClass = [
     'device-card-item',
@@ -69,20 +63,32 @@ const DeviceCardItem = ({
     (device.deviceProfile?.imageUrl?.startsWith('http')
       ? device.deviceProfile.imageUrl
       : device.deviceProfile?.imageUrl
-      ? `/images/${device.deviceProfile.imageUrl}`
-      : icon);
+        ? `/images/${device.deviceProfile.imageUrl}`
+        : icon);
 
   return (
     <div className={cardClass}>
       <div className="device-card-item-header">
         <div>
           <div className="device-item-id">
-            {deviceType === 'cctv' ? device.name ?? 'CAM' : device.id}
+            {deviceType === 'cctv'
+              ? typeof device.name === 'object'
+                ? JSON.stringify(device.name)
+                : String(device.name ?? 'CAM')
+              : String(device.id)}
           </div>
           <div className="device-item-location">
             {deviceType === 'cctv'
-              ? device.locationInfo ?? 'TMA'
-              : device.location}
+              ? device.locationInfo &&
+                typeof device.locationInfo === 'object' &&
+                typeof device.locationInfo.name === 'string'
+                ? device.locationInfo.name
+                : String(device.locationInfo ?? 'TMA')
+              : device.location &&
+                  typeof device.location === 'object' &&
+                  typeof device.location.name === 'string'
+                ? device.location.name
+                : String(device.location ?? '')}
           </div>
         </div>
         <img
@@ -95,18 +101,22 @@ const DeviceCardItem = ({
         <div>
           <span className="type-label">{typeLabel}</span>
           <span className="type-value">
-            {deviceType === 'cctv' ? deviceProfileName : device.type}
+            {deviceType === 'cctv'
+              ? typeof deviceProfileName === 'object'
+                ? JSON.stringify(deviceProfileName)
+                : String(deviceProfileName)
+              : typeof device.type === 'object'
+                ? JSON.stringify(device.type)
+                : String(device.type ?? '')}
           </span>
         </div>
         <div>
           <span className="power-label">{powerLabel}</span>
-          <span className="power-value">{updatedAtString}</span>
+          <span className="power-value">{String(updatedAtString ?? '')}</span>
         </div>
       </div>
       <div className={statusBadgeClass}>
-        {device.status === 'Active' && (
-          <img src={dotIcon} alt="Active" className="status-dot" />
-        )}
+        {device.status === 'Active' && <img src={dotIcon} alt="Active" className="status-dot" />}
         {(device.status === 'Error' || device.alarmStatus === 'ALARM') && (
           <img src={alertTriangleIcon} alt="Error" className="status-dot" />
         )}
@@ -117,7 +127,7 @@ const DeviceCardItem = ({
           <img src={blockedIcon} alt="Offline" className="status-dot" />
         )}
         <span className="status-text">
-          {device.alarmStatus === 'ALARM' ? 'WARNING' : device.status}
+          {String(device.alarmStatus === 'ALARM' ? 'WARNING' : (device.status ?? ''))}
         </span>
       </div>
     </div>
