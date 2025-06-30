@@ -54,7 +54,7 @@ export const cctvDevices = [
     location: 'Highland Rd & Elm St.',
     type: 'Fixed Mini Bullet Camera',
     power: '220V AC',
-    status: 'Offline',
+    status: 'Error',
     statusColor: '#b0b9c6',
     latLng: latLng(10.856525, 106.631692),
     updatedAt: '12:18:22, 05-15-2025',

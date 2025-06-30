@@ -28,34 +28,10 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Sound from '~/assets/videos/fire-alarm-33770.mp3';
 import { AppContext } from '~/contexts/app.context';
+import DEVICE_LATLNG_LIST, { Device } from '../common/tempData';
+import { mapToDeviceItems } from '../common/mapToDeviceItems';
 
 const SOCKET_URL = import.meta.env.VITE_API_HOST + '/websocket/ws';
-
-interface Device {
-  id: string;
-  status: string;
-  alarmStatus?: string;
-  latLng: { lat: number; lng: number };
-  [key: string]: any;
-}
-
-function mapToDeviceItems(device: Device) {
-  let status: 'Active' | 'Error' | 'Maintenance' | 'Offline' | 'Alarm';
-  if (device.status === 'Active') status = 'Active';
-  else if (device.status === 'Error' || device.alarmStatus === 'ALARM') status = 'Error';
-  else if (device.status === 'Maintenance') status = 'Maintenance';
-  else if (device.status === 'Offline') status = 'Offline';
-  else if (device.status === 'Alarm') status = 'Alarm';
-  else status = 'Active';
-  return {
-    id: device.id,
-    name: device.name,
-    lat: device.latLng?.lat ?? 10.853397686226927,
-    lng: device.latLng?.lng ?? 106.62823723344383,
-    type: 'firealarm' as 'firealarm',
-    status,
-  };
-}
 
 const SafetyPage = () => {
   const mapRefRight = useRef<MapRef>();
@@ -212,13 +188,17 @@ const SafetyPage = () => {
   const formattedDate = time.toLocaleDateString();
   const formattedTime = time.toLocaleTimeString();
 
+  const mappedDevices = devices.map((device, idx) =>
+    mapToDeviceItems(device, idx, 'firealarm', DEVICE_LATLNG_LIST)
+  );
+
   return (
     <div className="cctv-page dashboard-cctv-template">
       <Box className="cctv-main" sx={popupStyles}>
         <DeviceMapContainer
           initialCenter={{ lat: 10.855641, lng: 106.631699 }}
           mapRef={mapRefRight}
-          listOfDevices={devices.map(mapToDeviceItems)}
+          listOfDevices={mappedDevices}
           openMarkerId={openMarkerId}
           setOpenMarkerId={setOpenMarkerId}
         />
@@ -252,7 +232,7 @@ const SafetyPage = () => {
                 </button>
               </div>
               <ul className="device-list">
-                {devices.map(device => (
+                {mappedDevices.map(device => (
                   <li
                     key={device.id}
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''} ${device.alarmStatus === 'ALARM' ? 'alarm' : ''}`}

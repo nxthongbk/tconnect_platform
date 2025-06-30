@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import BottomMenu from '~/components/BottomMenu';
 import { menuItems } from '~/constants/menuItems';
 import CardFrame from '~/components/CardFrame';
-import { streetLights, statusList } from './mockData';
+import { streetLights, statusList } from './../StreetLightsPage/mockData';
 
 import TopBar from '~/components/TopBar';
 import ROUTES from '~/constants/routes.constant';

@@ -28,65 +28,12 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Sound from '~/assets/videos/fire-alarm-33770.mp3';
 import { AppContext } from '~/contexts/app.context';
+import DEVICE_LATLNG_LIST, { Device } from '../common/tempData';
+import  { mapToDeviceItems }  from '../common/mapToDeviceItems';
 
 const SOCKET_URL = import.meta.env.VITE_API_HOST + '/websocket/ws';
 
-interface Device {
-  id: string;
-  status: string;
-  alarmStatus?: string;
-  latLng: { lat: number; lng: number };
-  [key: string]: any;
-}
 
-const DEVICE_LATLNG_LIST = [
-  { lat: 10.85, lng: 106.62 },
-  { lat: 10.86, lng: 106.63 },
-  { lat: 10.87, lng: 106.64 },
-  { lat: 10.88, lng: 106.65 },
-  { lat: 10.89, lng: 106.66 },
-  { lat: 10.9, lng: 106.67 },
-  { lat: 10.91, lng: 106.68 },
-  { lat: 10.92, lng: 106.69 },
-  { lat: 10.93, lng: 106.7 },
-  { lat: 10.94, lng: 106.71 },
-  { lat: 10.95, lng: 106.72 },
-  { lat: 10.96, lng: 106.73 },
-  { lat: 10.97, lng: 106.74 },
-  { lat: 10.98, lng: 106.75 },
-  { lat: 10.99, lng: 106.76 },
-  { lat: 11.0, lng: 106.77 },
-  { lat: 11.01, lng: 106.78 },
-  { lat: 11.02, lng: 106.79 },
-  { lat: 11.03, lng: 106.8 },
-  { lat: 11.04, lng: 106.81 },
-  { lat: 11.05, lng: 106.82 },
-];
-
-function mapToDeviceItems(device: Device, idx: number) {
-  let status: 'Active' | 'Error' | 'Maintenance' | 'Offline' | 'Alarm';
-  if (device.status === 'Active') status = 'Active';
-  else if (device.status === 'Error' || device.alarmStatus === 'ALARM') status = 'Error';
-  else if (device.status === 'Maintenance') status = 'Maintenance';
-  else if (device.status === 'Offline') status = 'Offline';
-  else if (device.status === 'Alarm') status = 'Alarm';
-  else status = 'Active';
-
-  const latlng =
-    device.latLng && device.latLng.lat && device.latLng.lng
-      ? device.latLng
-      : DEVICE_LATLNG_LIST[idx] || { lat: null, lng: null };
-
-  return {
-    ...device,
-    id: device.id,
-    name: device.name,
-    lat: latlng.lat,
-    lng: latlng.lng,
-    type: 'firealarm' as 'firealarm',
-    status,
-  };
-}
 
 const FireAlarmPage = () => {
   const mapRefRight = useRef<MapRef>();
@@ -243,7 +190,9 @@ const FireAlarmPage = () => {
   const formattedDate = time.toLocaleDateString();
   const formattedTime = time.toLocaleTimeString();
 
-  const mappedDevices = devices.map(mapToDeviceItems);
+  const mappedDevices = devices.map((device, idx) =>
+    mapToDeviceItems(device, idx, 'firealarm', DEVICE_LATLNG_LIST)
+  );
 
   return (
     <div className="cctv-page dashboard-cctv-template">

@@ -47,18 +47,18 @@ const iconMap = {
     Alarm: lampIconError,
     Default: lampIconActive,
   },
-	firealarm: {
-		Active: cctvIconActive,
-		Error: cctvIconError,
-		Maintenance: cctvIconWarning,
-		Offline: cctvIconError,
-		Alarm: cctvIconError,
-		Default: cctvIconActive,
-	},
+  firealarm: {
+    Active: cctvIconActive,
+    Error: cctvIconError,
+    Maintenance: cctvIconWarning,
+    Offline: cctvIconError,
+    Alarm: cctvIconError,
+    Default: cctvIconActive,
+  },
 };
 
 export const getDeviceIcon = (type: string, status: string) => {
-	return iconMap[type][status] || iconMap[type].Default;
+  return iconMap[type][status] || iconMap[type].Default;
 };
 
 interface CustomMapProps {
@@ -105,6 +105,19 @@ function getCachedIcon(type: string, status: string) {
     });
   }
   return iconCache[key];
+}
+
+function getAnimatedErrorIcon(type: string) {
+  return L.divIcon({
+    className: 'custom-marker-icon error-animate',
+    html: `
+      <div style="display: flex; flex-direction: column; align-items: center; ">
+        <img src="${getDeviceIcon(type, 'Error')}" style="width:65px;height:95px;" class="custom-marker-icon error-animate" />
+      </div>
+    `,
+    iconSize: [65, 110],
+    iconAnchor: [32, 104],
+  });
 }
 
 export default function DeviceMapContainer({
@@ -222,7 +235,11 @@ export default function DeviceMapContainer({
 
       {listOfDevices?.map((item, index) => {
         if (!item.lat || !item.lng) return null;
-        const markerIcon = getCachedIcon(item.type, item.status);
+        const isError = item.status === 'Error';
+        const markerIcon = isError
+          ? getAnimatedErrorIcon(item.type)
+          : getCachedIcon(item.type, item.status);
+
         return (
           <Marker
             key={item?.id || index}
@@ -241,13 +258,13 @@ export default function DeviceMapContainer({
           >
             <Popup>
               <strong>
-								{item.type === 'cctv'
-									? `CCTV #${item.id}`
-									: item.type === 'streetlight'
-									? `Streetlight #${item.id}`
-									: item.type === 'firealarm'
-									? `Device #${item.name}`
-									: `Device #${item.id}`}
+                {item.type === 'cctv'
+                  ? `CCTV #${item.id}`
+                  : item.type === 'streetlight'
+                    ? `Streetlight #${item.id}`
+                    : item.type === 'firealarm'
+                      ? `Device #${item.name}`
+                      : `Device #${item.id}`}
               </strong>
               <br />
               Status: {item.status}

@@ -64,7 +64,7 @@ export const streetLights = [
     type: 'Smart LED Street Light',
     model: 'Philips DigiStreet Catenary',
     power: '220V AC',
-    status: 'Offline',
+    status: 'Error',
     statusColor: '#b0b9c6',
     connectivity: 'LoRaWAN / 4G',
     controller: 'Zhaga Book 18 (Remote dimming + Diagnostics)',

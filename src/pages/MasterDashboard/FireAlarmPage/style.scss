@@ -230,3 +230,19 @@
   background: #0a223a !important;
   color: #00eaff !important;
 }
+
+.custom-marker-icon .error-animate {
+	animation: pulse 0.6s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.2);
+	}
+	50% {
+		transform: scale(0.6);
+	}
+	100% {
+		transform: scale(0.2);
+	}
+}
