@@ -31,3 +31,71 @@ const DEVICE_LATLNG_LIST = [
 ];
 
 export default DEVICE_LATLNG_LIST;
+
+
+export const mockVoltageData = [
+  { time: '14:23', A: 226.69, B: 195.69, C: 215.99 },
+  { time: '14:24', A: 228.12, B: 197.01, C: 217.12 },
+  { time: '14:25', A: 229.45, B: 196.88, C: 216.55 },
+  { time: '14:26', A: 230.50, B: 200.00, C: 215.99 },
+  { time: '14:27', A: 235.00, B: 207.42, C: 215.99 },
+];
+
+export const mockEnergyConsumptionBarData = [
+  { hour: '08:00', A: 0.01, B: 0.01, C: 0.02 },
+  { hour: '10:00', A: 0.02, B: 0.01, C: 0.01 },
+  { hour: '12:00', A: 0.01, B: 0.02, C: 0.01 },
+  { hour: '14:00', A: 0.02, B: 0.01, C: 0.02 },
+  { hour: '16:00', A: 0.01, B: 0.01, C: 0.01 },
+  { hour: '18:00', A: 0.02, B: 0.02, C: 0.01 },
+  { hour: '20:00', A: 0.01, B: 0.01, C: 0.02 },
+  { hour: '22:00', A: 0.01, B: 0.01, C: 0.01 },
+];
+
+export const mockEnergyMeters = [
+  {
+    name: 'Smart Meter A',
+    label: '1st Floor',
+    voltage: 216.88,
+    amperage: 8.0,
+    power: 1735.04,
+  },
+  {
+    name: 'Smart Meter B',
+    label: '2nd Floor',
+    voltage: 195.24,
+    amperage: 6.66,
+    power: 1300.3,
+  },
+  {
+    name: 'Smart Meter C',
+    label: '3rd Floor',
+    voltage: 207.42,
+    amperage: 9.08,
+    power: 1883.37,
+  },
+];
+
+export const mockEnergyConsumptionPie = [
+  { name: 'Smart Meter A', value: 0.01, percent: 32, color: '#ff4c4c' },
+  { name: 'Smart Meter B', value: 0.01, percent: 32, color: '#4cff4c' },
+  { name: 'Smart Meter C', value: 0.02, percent: 36, color: '#4c9cff' },
+];
+
+export const mockAmperageData = [
+  { time: '14:23', A: 7.06, B: 7.24, C: 7.78 },
+  { time: '14:24', A: 8.12, B: 8.01, C: 8.55 },
+  { time: '14:25', A: 9.45, B: 8.88, C: 8.99 },
+  { time: '14:26', A: 10.50, B: 9.00, C: 9.99 },
+  { time: '14:27', A: 9.00, B: 9.42, C: 10.12 },
+];
+
+export const mockAlarms = [
+  {
+    time: '2025-07-01 14:26:59',
+    originator: 'Smart Meter B',
+    type: 'Low Voltage Alarm',
+    severity: 'Critical',
+    status: 'Active Unacknowledged',
+  },
+];

@@ -11,6 +11,7 @@ import CCTVPage from '~/pages/MasterDashboard/CCTVPage';
 import FireAlarmPage from '~/pages/MasterDashboard/FireAlarmPage';
 import SafetyPage from '~/pages/MasterDashboard/SafetyPage';
 import WaterMeterMonitoringPage from '~/pages/MasterDashboard/WaterMeterPage';
+import LocationDashboardPage from '~/pages/MasterDashboard/EnergyPage/components/LocationItemDashboard';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -48,7 +49,17 @@ const useRoutes = () => {
         {
           path: ROUTES.ENERGY,
           element: <EnergyPage />,
+					// children: [
+					// 	{
+					// 		path: ROUTES.LOCATION_DASHBOARD,
+					// 		element: <LocationDashboardPage />,
+					// 	}
+					// ]
         },
+				{
+					path: ROUTES.LOCATION_DASHBOARD,
+					element: <LocationDashboardPage />,
+				},
         {
           path: ROUTES.STREET_LIGHT,
           element: <StreetLightsPage />,

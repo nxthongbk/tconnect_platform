@@ -63,7 +63,7 @@ const ChartCircle = ({ value }: { value?: number | string }) => {
     labels: [''],
   };
 
-  return <Chart options={options} series={[typeof value === 'string' ? parseFloat(value) : value]} type="radialBar" height={120} width={120} />;
+  return <Chart key={value} options={options} series={[typeof value === 'string' ? parseFloat(value) : value]} type="radialBar" height={120} width={120} />;
 };
 
 export default ChartCircle;

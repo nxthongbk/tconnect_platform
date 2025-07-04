@@ -4,6 +4,12 @@ import { useTenantCode } from '~/utils/hooks/useTenantCode';
 import fileStorageService from '~/services/fileStorage.service';
 import { useRef, useEffect, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+
+interface CenterMapPanelProps {
+  onLocationClick?: (loc: any) => void;
+  selectedLocationId?: string | null;
+}
 
 const generatePositionMap = (locations: any[]) => {
   const total = locations.length;
@@ -23,14 +29,18 @@ const generatePositionMap = (locations: any[]) => {
   );
 };
 
-const CenterMapPanel = () => {
+const CenterMapPanel = ({ onLocationClick }: CenterMapPanelProps) => {
   const { tenantCode } = useTenantCode();
   const { data } = useGetLocations(0, 10, '', tenantCode);
   const locations = data?.data?.content || [];
   const positionMap = generatePositionMap(locations);
 
+  const { id } = useParams<{ id: string }>();
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
+
+  const navigate = useNavigate();
 
   const avatarQueries = useQueries({
     queries: locations.map(loc => ({
@@ -71,15 +81,11 @@ const CenterMapPanel = () => {
             const padding = 20;
             const bendOffset = 30;
 
-            const avatarX = isLeft
-              ? padding + avatarWidth
-              : svgSize.width - padding - avatarWidth;
+            const avatarX = isLeft ? padding + avatarWidth : svgSize.width - padding - avatarWidth;
 
             const avatarY = 60 + (index % 3) * 110 + 40;
 
-            const bendX = isLeft
-              ? avatarX + bendOffset
-              : avatarX - bendOffset;
+            const bendX = isLeft ? avatarX + bendOffset : avatarX - bendOffset;
 
             return (
               <polyline
@@ -106,18 +112,46 @@ const CenterMapPanel = () => {
             top,
             transform: 'translateY(0)',
             zIndex: 20,
-            ...(isLeft
-              ? { left: 20 }
-              : { right: 20 }),
+            ...(isLeft ? { left: 20 } : { right: 20 }),
           };
 
+          const isSelected = loc.id === id;
+
           return (
-            <img
-              key={`img-${loc.id}`}
-              src={imageUrl as any}
-              className="absolute w-[100px] h-[80px] rounded-md object-cover"
+            <div
+              key={`img-wrap-${loc.id}`}
+              className="absolute flex flex-col items-center"
               style={positionStyle}
-            />
+            >
+              <img
+                src={imageUrl as any}
+                className={`w-[100px] h-[80px] rounded-md object-cover transition-all duration-200 cursor-pointer ${
+                  isSelected ? 'ring-4 ring-[#36bffa]' : ''
+                }`}
+                onClick={() =>
+                  onLocationClick ? onLocationClick(loc) : navigate(`/dashboard/location/${loc.id}`)
+                }
+                title={loc.name}
+              />
+              <span
+                style={{
+                  marginTop: 4,
+                  color: '#fff',
+                  borderRadius: 4,
+                  padding: '2px 8px',
+                  fontSize: 13,
+                  fontWeight: 500,
+                  maxWidth: 100,
+                  textAlign: 'center',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+                title={loc.name}
+              >
+                {loc.name}
+              </span>
+            </div>
           );
         })}
 
@@ -136,6 +170,9 @@ const CenterMapPanel = () => {
                 transform: 'translate(-50%, -50%)',
               }}
               title={loc.name}
+              onClick={() =>
+                onLocationClick ? onLocationClick(loc) : navigate(`/dashboard/location/${loc.id}`)
+              }
             />
           );
         })}

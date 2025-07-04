@@ -28,6 +28,7 @@ const ROUTES = {
 	ACCESS_CONTROL: '/access-control',
 	SAFETY: '/safety',
 	HVAC: '/hvac',
+	LOCATION_DASHBOARD: '/dashboard/location/:id',
 };
 
 export default ROUTES;

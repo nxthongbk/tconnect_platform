@@ -1,9 +1,14 @@
 import {
   ArrowCounterClockwise,
+  ArrowsCounterClockwise,
   ArrowLeft,
   ArrowsDownUp,
   BellSimple,
   Buildings,
+  Calendar,
+  CalendarBlank,
+  CalendarDot,
+  CalendarDots,
   CaretDown,
   CaretLeft,
   CaretRight,
@@ -30,10 +35,12 @@ import {
   LockSimpleOpen,
   MagnifyingGlass,
   Monitor,
+	Package,
   Password,
   PencilSimple,
   Phone,
   Plus,
+	Plant,
   Sigma,
   SignIn,
   SignOut,
@@ -42,7 +49,8 @@ import {
   UploadSimple,
   Warning,
   Wind,
-  X
+	Waves,
+  X,
 } from '@phosphor-icons/react';
 
 import { FunctionComponent } from 'react';
@@ -186,8 +194,62 @@ const IconPhosphor: FunctionComponent<PropsIcon> = (propsIcon) => {
       return <FileXls size={size} weight={weight} color={color} style={style} className={className} />;
       break;
     case 'GearSix':
-      return <GearSix size={size} weight={weight} color={color} style={style} className={className} />;
+      return (
+        <GearSix size={size} weight={weight} color={color} style={style} className={className} />
+      );
       break;
+    case 'CalendarBlank':
+      return (
+        <CalendarBlank
+          size={size}
+          weight={weight}
+          color={color}
+          style={style}
+          className={className}
+        />
+      );
+      break;
+
+    case 'CalendarDot':
+      return (
+        <CalendarDot
+          size={size}
+          weight={weight}
+          color={color}
+          style={style}
+          className={className}
+        />
+      );
+      break;
+
+    case 'CalendarDots':
+      return (
+        <CalendarDots
+          size={size}
+          weight={weight}
+          color={color}
+          style={style}
+          className={className}
+        />
+      );
+      break;
+    case 'Calendar':
+      return (
+        <Calendar size={size} weight={weight} color={color} style={style} className={className} />
+      );
+      break;
+		case 'ArrowsCounterClockwise':
+			return <ArrowsCounterClockwise size={size} weight={weight} color={color} style={style} className={className} />;
+			break;
+		case 'Plant':
+			return <Plant size={size} weight={weight} color={color} style={style} className={className} />;
+			break;
+		case 'Package':
+			return <Package size={size} weight={weight} color={color} style={style} className={className} />;
+			break;
+		case 'Waves':
+			return <Waves size={size} weight={weight} color={color} style={style} className={className} />;
+			break;
 
     default:
       return <GlobeSimple size={size} weight={weight} color={color} style={style} className={className} />;

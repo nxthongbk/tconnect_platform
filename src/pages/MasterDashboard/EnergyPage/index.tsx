@@ -112,7 +112,7 @@ const RightPanel = ({
       <div className="power-circles">
         {updatedPowerCircleData?.map((item, idx) => (
           <div className="circle-item" key={idx}>
-            <div className="animated-circle-chart">
+            <div>
               <ChartCircle
                 value={
                   item.value !== undefined && item.value !== null && !isNaN(Number(item.value))
@@ -161,6 +161,7 @@ const RightPanel = ({
 const EnergyPage = () => {
   const [time, setTime] = useState(new Date());
   const [country, setCountry] = useState('US');
+  const [selectedLocation] = useState<any>(null);
   const navigate = useNavigate();
 
   // Locations chart
@@ -171,17 +172,25 @@ const EnergyPage = () => {
   const chartLocations = locations.map((location, idx) => ({
     name: location.name,
     value: Number(((rawLocationValues[idx] / totalLocationValue) * 100).toFixed(2)),
+    id: location.id,
   }));
 
   // Devices chart
   const { data: deviceData } = useGetDataDevice({ page: 0, size: 10, keyword: '' });
   const devices = deviceData?.data?.content || [];
+
+  // Filter devices by selected location if any
+  const filteredDevices = selectedLocation
+    ? devices.filter(device => device.locationId === selectedLocation.id)
+    : devices;
+
   const chartBarData = devices.map((device, idx) => ({
     name: device.name,
     value: [80, 65, 50, 40, 30][idx] ?? 20,
   }));
 
-  const deviceId = devices.map(device => device.id);
+  const deviceId = filteredDevices.map(device => device.id);
+
   // Overview, power chart
   const telemetryQueries = useGetLatestTelemetrysNoC({
     entityType: 'DEVICE',
@@ -190,8 +199,13 @@ const EnergyPage = () => {
 
   const { data: initLatestTelemetry } = useGetLatestTelemetryNoC({
     entityType: 'DEVICE',
-    entityId: 'b220ed1d-af84-4b96-9420-346cfe6e0de6',
+    entityId: deviceId[0] || '',
   });
+
+  // const { data: initLatestTelemetry } = useGetLatestTelemetryNoC({
+  //   entityType: 'DEVICE',
+  //   entityId: 'b220ed1d-af84-4b96-9420-346cfe6e0de6',
+  // });
 
   const telemetryValues = initLatestTelemetry?.data?.data || {};
   // console.log(telemetryValues);
@@ -347,7 +361,7 @@ const EnergyPage = () => {
 
   const isTelemetryLoading = telemetryQueries.some(q => !q.data);
   const updatedPowerCircleDataWithAvg = isTelemetryLoading
-    ? powerCircleData.map(item => ({ ...item, value: undefined }))
+    ? powerCircleData?.map(item => ({ ...item, value: undefined }))
     : updateDataWithTotals(updatedPowerCircleData, powerCircleLabelToValueMap);
 
   useEffect(() => {
