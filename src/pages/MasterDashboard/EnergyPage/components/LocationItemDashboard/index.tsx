@@ -19,7 +19,7 @@ import IconPhosphor from '~/assets/iconPhosphor';
 const LocationCard = ({
   title,
   children,
-  className = 'span-4', // default span-4
+  className = 'span-4',
   height,
 }: {
   title: string;
@@ -35,15 +35,30 @@ const LocationCard = ({
   </div>
 );
 
-const pieData = (device: any, value: number | undefined) =>
-  device
-    ? [
-        {
-          name: device.name,
-          value: value ?? 0,
-        },
-      ]
-    : [];
+const SUMMARY_CARDS = [
+  { key: 'Daily', label: 'Total Daily', icon: 'CalendarDot', unit: 'kWh' },
+  { key: 'Monthly', label: 'Total Monthly', icon: 'CalendarDots', unit: 'kWh' },
+  { key: 'Yearly', label: 'Total Yearly', icon: 'Calendar', unit: 'kWh' },
+  { key: 'Coal', label: 'COAL', icon: 'Package', unit: 'Million tones' },
+  { key: 'Co2', label: 'CO2', icon: 'Waves', unit: 'Million tones' },
+  { key: 'Trees', label: 'TREES', icon: 'Plant', unit: 'Trees' },
+  {
+    key: 'RenewableEnergyShare',
+    label: 'Renewable Energy Share',
+    icon: 'ArrowsCounterClockwise',
+    unit: '%',
+    isComputed: true,
+  },
+];
+
+const PIE_KEYS = [
+  { key: 'PowerFactor', title: 'Power Factor (PF)' },
+  { key: 'HarmonicDistortion', title: 'Harmonic Distortion (THD)' },
+  { key: 'PhaseImbalance', title: 'Phase Imbalance' },
+  { key: 'VoltageStability', title: 'Voltage Stability' },
+];
+
+const CHART_KEYS = ['TotalEnergyConsumption', 'GridEnergyConsumption', 'SolarEnergyGeneration'];
 
 const LocationDashboardPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -82,6 +97,8 @@ const LocationDashboardPage = () => {
   const formattedTime = time.toLocaleTimeString();
 
   const deviceIds = useMemo(() => devices.map(device => device.id).filter(Boolean), [devices]);
+  const deviceId = useMemo(() => deviceIds[0] ?? '', [deviceIds]);
+  const deviceData = devices[0] || '';
 
   // Telemetry
   const telemetryQueries = useGetLatestTelemetrysNoC({
@@ -94,52 +111,18 @@ const LocationDashboardPage = () => {
       .map(query => Number((query.data as { data?: any })?.data?.data?.[key]?.value))
       .filter(val => !isNaN(val));
 
-  const singleDevice = devices[0];
+  const getTotalTelemetry = key => getDataFromTelemetry(key).reduce((sum, val) => sum + val, 0);
 
-  // Pie chart data
-  const powerPieData = pieData(singleDevice, getDataFromTelemetry('PowerFactor')[0]);
-  const harmonicPieData = pieData(singleDevice, getDataFromTelemetry('HarmonicDistortion')[0]);
-  const phasePieData = pieData(singleDevice, getDataFromTelemetry('PhaseImbalance')[0]);
-  const voltagePieData = pieData(singleDevice, getDataFromTelemetry('VoltageStability')[0]);
+  const renewableEnergyShare = useMemo(() => {
+    const total = getTotalTelemetry('TotalEnergyConsumption');
+    const solar = getTotalTelemetry('SolarEnergyGeneration');
+    return total ? ((solar / total) * 100).toFixed(2) : 0;
+  }, [telemetryQueries]);
 
-  function getAreaChartItem(deviceId: string, key: string) {
-    return deviceId && key
-      ? {
-          deviceId,
-          telemetryIds: [{ key: key }],
-        }
-      : null;
-  }
-  const totalEnergyChartItem = useMemo(
-    () => getAreaChartItem(deviceIds[0], 'TotalEnergyConsumption'),
-    [deviceIds]
-  );
-  const gridEnergyChartItem = useMemo(
-    () => getAreaChartItem(deviceIds[0], 'GridEnergyConsumption'),
-    [deviceIds]
-  );
-
-  const solarEnergyChartItem = useMemo(
-    () => getAreaChartItem(deviceIds[0], 'SolarEnergyGeneration'),
-    [deviceIds]
-  );
-
-  const getTotalFromTelemetry = (key: string) =>
-    telemetryQueries
-      .map(query => Number((query.data as { data?: any })?.data?.data?.[key]?.value))
-      .filter(val => !isNaN(val))
-      .reduce((sum, val) => sum + val, 0);
-
-  // Compute all totals
-  const totalEnergyConsumption = getTotalFromTelemetry('TotalEnergyConsumption');
-  const totalSolarEnergyGeneration = getTotalFromTelemetry('SolarEnergyGeneration');
-  const totalDaily = getTotalFromTelemetry('Daily');
-  const totalMonthly = getTotalFromTelemetry('Monthly');
-  const totalYearly = getTotalFromTelemetry('Yearly');
-
-  const renewableEnergyShare = totalEnergyConsumption
-    ? ((totalSolarEnergyGeneration / totalEnergyConsumption) * 100).toFixed(2)
-    : 0;
+  const areaChartItems = CHART_KEYS.map(key => ({
+    key,
+    item: useMemo(() => (deviceId ? { deviceId, telemetryIds: [{ key }] } : null), [deviceId]),
+  }));
 
   return (
     <div className="dashboard-location-page dashboard-location-template">
@@ -152,101 +135,53 @@ const LocationDashboardPage = () => {
         setCountry={setCountry}
       />
 
+      <div className="breadcrumb-wrapper">
+        <span className="breadcrumb">
+          <span className="breadcrumb-link" onClick={() => navigate(ROUTES.ENERGY)}>
+            Energy
+          </span>
+          <span className="breadcrumb-separator">/</span>
+          <span className="breadcrumb-current">{deviceData?.locationInfo?.name}</span>
+        </span>
+      </div>
+
       <div className="dashboard-row">
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="CalendarDot" size={24} color="#36bffa" />}
-          label="Total Daily"
-          value={totalDaily}
-          unit="kWh"
-        />
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="CalendarDots" size={24} color="#36bffa" />}
-          label="Total Monthly"
-          value={`${totalMonthly}`}
-          unit="kWh"
-        />
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="Calendar" size={24} color="#36bffa" />}
-          label="Total Yearly"
-          value={`${totalYearly}`}
-          unit="kWh"
-        />
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="ArrowsCounterClockwise" size={24} color="#36bffa" />}
-          label="Renewable Energy Share"
-          value={`${renewableEnergyShare}`}
-          unit="%"
-        />
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="Package" size={24} color="#36bffa" />}
-          label="COAL"
-          value={99}
-          unit="Million tones"
-        />
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="Waves" size={24} color="#36bffa" />}
-          label="CO2"
-          value={99}
-          unit="Million tones"
-        />
-        <EnergySummaryCard
-          icon={<IconPhosphor iconName="Plant" size={24} color="#36bffa" />}
-          label="TREES"
-          value={99}
-          unit="Trees"
-        />
+        {SUMMARY_CARDS.map(({ key, label, icon, unit, isComputed }) => {
+          const value = isComputed ? renewableEnergyShare : (getDataFromTelemetry(key)[0] ?? 0);
+
+          return (
+            <EnergySummaryCard
+              key={key}
+              icon={<IconPhosphor iconName={icon} size={24} color="#36bffa" />}
+              label={label}
+              value={value}
+              unit={unit}
+            />
+          );
+        })}
       </div>
       <div className="dashboard-location-main">
-        <LocationCard title="ENERGY CONSUMPTION" className="span-4">
-          <div>
-            <LocationAreaChart item={totalEnergyChartItem} />
-          </div>
-        </LocationCard>
+        {areaChartItems.map(({ key, item }) => (
+          <LocationCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, ' $1')
+              .trim()
+              .toUpperCase()}
+            className="span-4"
+          >
+            <LocationAreaChart item={item} />
+          </LocationCard>
+        ))}
 
-        <LocationCard title="GRID ENERGY CONSUMPTION" className="span-4">
-          <div>
-            <LocationAreaChart item={gridEnergyChartItem} />
-          </div>
-        </LocationCard>
-        <LocationCard title="SOLAR ENERGY GENERATION" className="span-4">
-          <div>
-            <LocationAreaChart item={solarEnergyChartItem} />
-          </div>
-        </LocationCard>
-
-        <LocationCard title="Power Factor (PF)" className="span-3">
-          <div>
+        {PIE_KEYS.map(({ key, title }) => (
+          <LocationCard key={key} title={title} className="span-3">
             <LocationChartCircle
-              value={powerPieData[0]?.value ?? 0}
-              name={powerPieData[0]?.name ?? ''}
-            ></LocationChartCircle>
-          </div>
-        </LocationCard>
-
-        <LocationCard title="Harmonic Distortion (THD)" className="span-3">
-          <div>
-            <LocationChartCircle
-              value={harmonicPieData[0]?.value ?? 0}
-              name={harmonicPieData[0]?.name ?? ''}
-            ></LocationChartCircle>
-          </div>
-        </LocationCard>
-        <LocationCard title="Phase Imbalance" className="span-3">
-          <div>
-            <LocationChartCircle
-              value={phasePieData[0]?.value ?? 0}
-              name={phasePieData[0]?.name ?? ''}
-            ></LocationChartCircle>
-          </div>
-        </LocationCard>
-        <LocationCard title="Voltage Stability" className="span-3">
-          <div>
-            <LocationChartCircle
-              value={voltagePieData[0]?.value ?? 0}
-              name={voltagePieData[0]?.name ?? ''}
-            ></LocationChartCircle>
-          </div>
-        </LocationCard>
+              value={getDataFromTelemetry(key)[0] ?? 0}
+              name={deviceData?.name ?? ''}
+            />
+          </LocationCard>
+        ))}
       </div>
       <BottomMenu
         activePath={location.pathname}
