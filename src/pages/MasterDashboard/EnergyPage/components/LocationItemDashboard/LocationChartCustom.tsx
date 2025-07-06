@@ -24,7 +24,7 @@ export function LocationAreaChart({ item }) {
     dependency: [deviceId],
     topic: `/topic/${deviceId}`,
     connectHeaders: {},
-    initData: {},
+    initData: { telemetryIds },
   });
 
   useEffect(() => {

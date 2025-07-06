@@ -107,17 +107,22 @@ function getCachedIcon(type: string, status: string) {
   return iconCache[key];
 }
 
+const animatedErrorIconCache: Record<string, L.DivIcon> = {};
+
 function getAnimatedErrorIcon(type: string) {
-  return L.divIcon({
-    className: 'custom-marker-icon error-animate',
-    html: `
-      <div style="display: flex; flex-direction: column; align-items: center; ">
-        <img src="${getDeviceIcon(type, 'Error')}" style="width:65px;height:95px;" class="custom-marker-icon error-animate" />
-      </div>
-    `,
-    iconSize: [65, 110],
-    iconAnchor: [32, 104],
-  });
+  if (!animatedErrorIconCache[type]) {
+    animatedErrorIconCache[type] = L.divIcon({
+      className: 'custom-marker-icon error-animate',
+      html: `
+        <div style="display: flex; flex-direction: column; align-items: center; ">
+          <img src="${getDeviceIcon(type, 'Error')}" style="width:65px;height:95px;" class="custom-marker-icon error-animate" />
+        </div>
+      `,
+      iconSize: [65, 110],
+      iconAnchor: [32, 104],
+    });
+  }
+  return animatedErrorIconCache[type];
 }
 
 export default function DeviceMapContainer({
