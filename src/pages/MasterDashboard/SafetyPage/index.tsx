@@ -1,33 +1,35 @@
 import './style.scss';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { MapRef } from 'react-map-gl';
+
 import topBarBg from '~/assets/images/png/Topbar.png';
 import bottomBar from '~/assets/images/png/Bottombar.png';
-import { MapRef } from 'react-map-gl';
-import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
-import { useNavigate } from 'react-router-dom';
-import BottomMenu from '~/components/BottomMenu';
-import { menuItems } from '~/constants/menuItems';
-import TopBar from '~/components/TopBar';
-import ROUTES from '~/constants/routes.constant';
-
-import CardFrame from '~/components/CardFrame';
 import statusFrame from '~/assets/images/png/streetLightStatusFrame.png';
 import cctvIcon from '~/assets/images/png/cctvDevice.png';
-import DeviceCardItem from '~/components/DeviceCard';
-import DeviceMapContainer from '~/components/DeviceMap';
-import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
 import cctvDetailFrame from '~/assets/images/png/cctvDetailFrame.png';
+import Sound from '~/assets/videos/fire-alarm-33770.mp3';
+
+import { popupStyles } from '~/pages/tenant/ControlCenterPage/styled';
 import {
   useGetDataDevice,
   useGetLatestTelemetryNoC,
   useGetLatestTelemetrysNoC,
 } from '~/pages/tenant/DevicePage/handleApi';
+import ROUTES from '~/constants/routes.constant';
+import { AppContext } from '~/contexts/app.context';
 
+import CardFrame from '~/components/CardFrame';
+import DeviceCardItem from '~/components/DeviceCard';
+import DeviceMapContainer from '~/components/DeviceMap';
+import DeviceDetailsPanel from '~/components/DeviceDetailsPanel';
+import BottomMenu from '~/components/BottomMenu';
+import TopBar from '~/components/TopBar';
+
+import { menuItems } from '~/constants/menuItems';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import Sound from '~/assets/videos/fire-alarm-33770.mp3';
-import { AppContext } from '~/contexts/app.context';
 import DEVICE_LATLNG_LIST, { Device } from '../common/tempData';
 import { mapToDeviceItems } from '../common/mapToDeviceItems';
 
@@ -39,8 +41,16 @@ const SafetyPage = () => {
   const [country, setCountry] = useState('US');
   const [openMarkerId, setOpenMarkerId] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState<'Devices' | 'Locations'>('Devices');
-  const navigate = useNavigate();
   const [telemetries, setTelemetries] = useState<any>();
+  const [showImageModal, setShowImageModal] = useState(false);
+
+  const alarmSoundRef = useRef<HTMLAudioElement | null>(null);
+  const timeoutId = useRef<NodeJS.Timeout>();
+  const stompClientRef = useRef<any>(null);
+
+  const navigate = useNavigate();
+  const { userInfo } = useContext(AppContext);
+
   const deviceQueryParams = useMemo(() => ({ page: 0, size: 10, keyword: '' }), []);
   const { data: deviceData } = useGetDataDevice(deviceQueryParams);
   const devices = deviceData?.data?.content || [];
@@ -48,21 +58,18 @@ const SafetyPage = () => {
   const mappedId = devices.map(device => device.id);
   const [listOfDevices, setListOfDevices] = useState<any[]>(devices);
   const [selectedDeviceId, setSelectedDeviceId] = useState<any | null>(null);
-  const { userInfo } = useContext(AppContext);
-
-  const [socketData, setSocketData] = useState<any>(null);
-  const alarmSoundRef = useRef<HTMLAudioElement | null>(null);
-  const timeoutId = useRef<NodeJS.Timeout>();
-  const stompClientRef = useRef<any>(null);
-
-  const [showImageModal, setShowImageModal] = useState(false);
 
   const { data: latestTelemetry } = useGetLatestTelemetryNoC({
     entityType: 'DEVICE',
     entityId: selectedDeviceId,
   });
 
-  // Setup socket connection and alarm sound
+  const telemetryQueries = useGetLatestTelemetrysNoC({
+    entityType: 'DEVICE',
+    entityIds: mappedId,
+  });
+
+  // ===== WebSocket Setup =====
   useEffect(() => {
     const socket = new SockJS(SOCKET_URL);
     const stompClient = Stomp.over(socket);
@@ -74,7 +81,18 @@ const SafetyPage = () => {
     stompClient.connect(connectHeaders, () => {
       stompClient.subscribe(topic, (message: any) => {
         const body = JSON.parse(message.body);
-        setSocketData(body);
+
+        setListOfDevices(prev =>
+          prev.map(device =>
+            device.id === body.id
+              ? {
+                  ...device,
+                  ...body,
+                  image: body.image?.value ?? device.image,
+                }
+              : device
+          )
+        );
 
         if (body.alarmStatus === 'ALARM' || body.status === 'ALARM') {
           if (!alarmSoundRef.current) {
@@ -101,13 +119,7 @@ const SafetyPage = () => {
     };
   }, [userInfo?.tenant?.id]);
 
-  useEffect(() => {
-    if (!socketData) return;
-    setListOfDevices(prev =>
-      prev.map(device => (device.id === socketData.id ? { ...device, ...socketData } : device))
-    );
-  }, [socketData]);
-
+  // ===== Sync device data and socket image =====
   useEffect(() => {
     setListOfDevices(devices);
   }, [devices]);
@@ -119,30 +131,12 @@ const SafetyPage = () => {
     }
   }, [devices]);
 
-  const cctvFields = [
-    { label: 'RESOLUTION', key: 'resolution' },
-    { label: 'LENS', key: 'lens' },
-    { label: 'NIGHT VERSION', key: 'nightVersion' },
-    { label: 'IR RANGE', key: 'irRange' },
-    { label: 'SMART FEATURE', key: 'smartFeatures' },
-    { label: 'PROTECTION', key: 'protection' },
-    { label: 'POWER', key: 'power' },
-  ];
-
-  const telemetryQueries = useGetLatestTelemetrysNoC({
-    entityType: 'DEVICE',
-    entityIds: mappedId,
-  });
-
   function cleanedData(data: Record<string, any>[]) {
     return data.map((item: Record<string, any>) => {
       const result: Record<string, any> = {};
       for (const key in item) {
-        if (typeof item[key] === 'object' && item[key] !== null && 'value' in item[key]) {
-          result[key] = item[key].value;
-        } else {
-          result[key] = item[key];
-        }
+        result[key] =
+          typeof item[key] === 'object' && item[key]?.value ? item[key].value : item[key];
       }
       return result;
     });
@@ -173,12 +167,11 @@ const SafetyPage = () => {
           };
         }
       });
+
       setTelemetries(newTelemetries);
       setListOfDevices(updatedList);
     }
   }, [telemetryQueries]);
-
-  const selectedDevice = devices.find((d: Device) => d.id === openMarkerId) || devices[0] || {};
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -191,6 +184,20 @@ const SafetyPage = () => {
   const mappedDevices = devices.map((device, idx) =>
     mapToDeviceItems(device, idx, 'firealarm', DEVICE_LATLNG_LIST)
   );
+
+  const selectedDevice =
+    listOfDevices.find((d: Device) => d.id === openMarkerId) || devices[0] || {};
+  const imageValue = selectedDevice?.image || latestTelemetry?.data?.data?.image?.value;
+
+  const cctvFields = [
+    { label: 'RESOLUTION', key: 'resolution' },
+    { label: 'LENS', key: 'lens' },
+    { label: 'NIGHT VERSION', key: 'nightVersion' },
+    { label: 'IR RANGE', key: 'irRange' },
+    { label: 'SMART FEATURE', key: 'smartFeatures' },
+    { label: 'PROTECTION', key: 'protection' },
+    { label: 'POWER', key: 'power' },
+  ];
 
   return (
     <div className="cctv-page dashboard-cctv-template">
@@ -237,12 +244,7 @@ const SafetyPage = () => {
                     key={device.id}
                     className={`${openMarkerId === device.id ? 'active' : ''} ${device.status === 'Error' ? 'error' : ''} ${device.alarmStatus === 'ALARM' ? 'alarm' : ''}`}
                     onClick={() => {
-                      if (openMarkerId !== device.id) {
-                        setOpenMarkerId(openMarkerId === device.id ? null : device.id);
-                        setTimeout(() => setOpenMarkerId(device.id), 100);
-                      } else {
-                        setOpenMarkerId(device.id);
-                      }
+                      setOpenMarkerId(device.id);
                       setSelectedDeviceId(device.id);
                     }}
                   >
@@ -263,6 +265,7 @@ const SafetyPage = () => {
           <div className="search-container">
             <input type="text" placeholder="Search location" className="search-input" />
           </div>
+
           <CardFrame title="CCTV LIVE CAMERA">
             <div
               style={{
@@ -277,16 +280,14 @@ const SafetyPage = () => {
                 position: 'relative',
                 zIndex: 3,
                 margin: '0 auto',
-                cursor: latestTelemetry?.data?.data?.image?.value ? 'pointer' : 'default',
+                cursor: imageValue ? 'pointer' : 'default',
               }}
-              onClick={() => {
-                if (latestTelemetry?.data?.data?.image?.value) setShowImageModal(true);
-              }}
-              title={latestTelemetry?.data?.data?.image?.value ? 'Click to enlarge' : ''}
+              onClick={() => imageValue && setShowImageModal(true)}
+              title={imageValue ? 'Click to enlarge' : ''}
             >
-              {latestTelemetry?.data?.data?.image?.value ? (
+              {imageValue ? (
                 <img
-                  src={`data:image/jpeg;base64,${latestTelemetry?.data?.data?.image?.value}`}
+                  src={`data:image/jpeg;base64,${imageValue}`}
                   alt="Live Camera"
                   style={{
                     maxWidth: '100%',
@@ -303,7 +304,7 @@ const SafetyPage = () => {
             </div>
           </CardFrame>
 
-          {showImageModal && latestTelemetry?.data?.data?.image?.value && (
+          {showImageModal && imageValue && (
             <div
               style={{
                 position: 'fixed',
@@ -322,14 +323,12 @@ const SafetyPage = () => {
               <div
                 style={{
                   position: 'relative',
-                  display: 'inline-block',
                   maxWidth: '90vw',
                   maxHeight: '90vh',
                 }}
                 onClick={e => e.stopPropagation()}
               >
                 <button
-                  className="modal-close-btn"
                   style={{
                     position: 'absolute',
                     top: 12,
@@ -343,19 +342,13 @@ const SafetyPage = () => {
                     fontSize: 22,
                     cursor: 'pointer',
                     zIndex: 10000,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'background 0.2s',
                   }}
                   onClick={() => setShowImageModal(false)}
-                  aria-label="Close"
-                  title="Close"
                 >
                   &times;
                 </button>
                 <img
-                  src={`data:image/jpeg;base64,${latestTelemetry?.data?.data?.image?.value}`}
+                  src={`data:image/jpeg;base64,${imageValue}`}
                   alt="Live Camera Large"
                   style={{
                     maxWidth: '90vw',

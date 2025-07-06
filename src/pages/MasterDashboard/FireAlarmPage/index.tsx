@@ -33,8 +33,6 @@ import  { mapToDeviceItems }  from '../common/mapToDeviceItems';
 
 const SOCKET_URL = import.meta.env.VITE_API_HOST + '/websocket/ws';
 
-
-
 const FireAlarmPage = () => {
   const mapRefRight = useRef<MapRef>();
   const [time, setTime] = useState(new Date());
@@ -77,6 +75,9 @@ const FireAlarmPage = () => {
       stompClient.subscribe(topic, (message: any) => {
         const body = JSON.parse(message.body);
         setSocketData(body);
+
+				console.log('body', body);
+				
 
         if (body.alarmStatus === 'ALARM' || body.status === 'ALARM') {
           if (!alarmSoundRef.current) {
