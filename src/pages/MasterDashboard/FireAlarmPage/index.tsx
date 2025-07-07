@@ -24,14 +24,11 @@ import {
   useGetLatestTelemetrysNoC,
 } from '~/pages/tenant/DevicePage/handleApi';
 
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
-import Sound from '~/assets/videos/fire-alarm-33770.mp3';
 import { AppContext } from '~/contexts/app.context';
 import DEVICE_LATLNG_LIST, { Device } from '../common/tempData';
-import  { mapToDeviceItems }  from '../common/mapToDeviceItems';
+import { mapToDeviceItems } from '../common/mapToDeviceItems';
 
-const SOCKET_URL = import.meta.env.VITE_API_HOST + '/websocket/ws';
+import useSocket from '~/utils/hooks/socket/useSocket';
 
 const FireAlarmPage = () => {
   const mapRefRight = useRef<MapRef>();
@@ -50,10 +47,7 @@ const FireAlarmPage = () => {
   const [selectedDeviceId, setSelectedDeviceId] = useState<any | null>(null);
   const { userInfo } = useContext(AppContext);
 
-  const [socketData, setSocketData] = useState<any>(null);
-  const alarmSoundRef = useRef<HTMLAudioElement | null>(null);
-  const timeoutId = useRef<NodeJS.Timeout>();
-  const stompClientRef = useRef<any>(null);
+  const [cameraImg, setCameraImg] = useState('');
 
   const [showImageModal, setShowImageModal] = useState(false);
 
@@ -62,47 +56,11 @@ const FireAlarmPage = () => {
     entityId: selectedDeviceId,
   });
 
-  // Setup socket connection and alarm sound
-  useEffect(() => {
-    const socket = new SockJS(SOCKET_URL);
-    const stompClient = Stomp.over(socket);
-    stompClientRef.current = stompClient;
-
-    const topic = '/topic/' + userInfo?.tenant?.id;
-    const connectHeaders = {};
-
-    stompClient.connect(connectHeaders, () => {
-      stompClient.subscribe(topic, (message: any) => {
-        const body = JSON.parse(message.body);
-        setSocketData(body);
-
-				console.log('body', body);
-				
-
-        if (body.alarmStatus === 'ALARM' || body.status === 'ALARM') {
-          if (!alarmSoundRef.current) {
-            alarmSoundRef.current = new Audio(Sound);
-            alarmSoundRef.current.loop = true;
-          }
-          alarmSoundRef.current.play();
-        } else if (alarmSoundRef.current) {
-          alarmSoundRef.current.pause();
-          alarmSoundRef.current.currentTime = 0;
-        }
-      });
-    });
-
-    return () => {
-      clearTimeout(timeoutId.current);
-      if (stompClient && stompClient.connected) {
-        stompClient.disconnect(() => {});
-      }
-      if (alarmSoundRef.current) {
-        alarmSoundRef.current.pause();
-        alarmSoundRef.current.currentTime = 0;
-      }
-    };
-  }, [userInfo?.tenant?.id]);
+  const socketData = useSocket({
+    dependency: [userInfo?.tenant?.id],
+    topic: '/topic/' + userInfo?.tenant?.id,
+    connectHeaders: {},
+  }) as any;
 
   useEffect(() => {
     if (!socketData) return;
@@ -181,7 +139,8 @@ const FireAlarmPage = () => {
     }
   }, [telemetryQueries]);
 
-  const selectedDevice = devices.find((d: Device) => d.id === openMarkerId) || devices[0] || {};
+  const selectedDevice =
+    listOfDevices.find((d: Device) => d.id === openMarkerId) || devices[0] || {};
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -194,6 +153,16 @@ const FireAlarmPage = () => {
   const mappedDevices = devices.map((device, idx) =>
     mapToDeviceItems(device, idx, 'firealarm', DEVICE_LATLNG_LIST)
   );
+
+  useEffect(() => {
+    const imageFromSocket = socketData?.image?.value;
+    const imageFromTelemetry = latestTelemetry?.data?.data?.image?.value;
+    if (imageFromSocket) {
+      setCameraImg(imageFromSocket);
+    } else if (imageFromTelemetry) {
+      setCameraImg(imageFromTelemetry);
+    }
+  }, [socketData, latestTelemetry?.data?.data?.image?.value]);
 
   return (
     <div className="cctv-page dashboard-cctv-template">
@@ -280,29 +249,25 @@ const FireAlarmPage = () => {
                 position: 'relative',
                 zIndex: 3,
                 margin: '0 auto',
-                cursor: latestTelemetry?.data?.data?.image?.value ? 'pointer' : 'default',
+                cursor: cameraImg ? 'pointer' : 'default',
               }}
               onClick={() => {
-                if (latestTelemetry?.data?.data?.image?.value) setShowImageModal(true);
+                if (cameraImg) setShowImageModal(true);
               }}
-              title={latestTelemetry?.data?.data?.image?.value ? 'Click to enlarge' : ''}
+              title={cameraImg ? 'Click to enlarge' : ''}
             >
-              {latestTelemetry?.data?.data?.image?.value ? (
-                <img
-                  src={`data:image/jpeg;base64,${latestTelemetry?.data?.data?.image?.value}`}
-                  alt="Live Camera"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: 170,
-                    objectFit: 'fill',
-                    width: '324px',
-                    borderRadius: '4px',
-                    zIndex: 10,
-                  }}
-                />
-              ) : (
-                <span>No Live Camera Feed</span>
-              )}
+              <img
+                src={`data:image/jpeg;base64,${cameraImg}`}
+                alt="Live Camera"
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: 170,
+                  objectFit: 'fill',
+                  width: '324px',
+                  borderRadius: '4px',
+                  zIndex: 10,
+                }}
+              />
             </div>
           </CardFrame>
 
@@ -375,6 +340,7 @@ const FireAlarmPage = () => {
 
           <CardFrame title="CCTV DETAILS">
             <DeviceDetailsPanel
+              isFireAlarm={true}
               device={selectedDevice}
               backgroundImage={cctvDetailFrame}
               fields={cctvFields}

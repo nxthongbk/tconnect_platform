@@ -1,21 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-import ButtonCustom from '~/components/ButtonCustom';
 import PopupCoverDelete from '~/components/Modal/DeletePopup';
-import { Typography } from '@mui/material';
 import alarmService from '~/services/alarm.service';
 import handleNotificationMessege from '~/utils/notification';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export default function PopupDeleteAlarmDevice({ token }: { token: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [t] = useTranslation('', { keyPrefix: 'devicePage' });
   const queryClient = useQueryClient();
 
-  const postTelemetryDeviceMutation = useMutation({
-    mutationFn: async ({ token, data }: { token: string; data: any }) => await alarmService.createAlarm(token, data),
+  const turnOffAlarmMutation = useMutation({
+    mutationFn: async ({ token, data }: { token: string; data: any }) =>
+      await alarmService.createAlarm(token, data),
 
     onSuccess: () => {
       handleNotificationMessege('Turn off successful!', 'success');
@@ -25,46 +21,37 @@ export default function PopupDeleteAlarmDevice({ token }: { token: string }) {
     onError: (error: any) => {
       handleNotificationMessege(error.response?.data?.data || error.message, 'error');
       setIsSuccess(false);
-    }
+    },
   });
 
   const handleTurnOff = async () => {
     setIsLoading(true);
+    const data = {
+      type: 'Tắt cảnh báo',
+      detail: 'tắt cảnh báo',
+      alarm: true,
+    };
     try {
-      const data = {
-        type: 'Tắt cảnh báo',
-        detail: 'tắt cảnh báo ',
-        alarm: true
-      };
-      await postTelemetryDeviceMutation.mutateAsync({ token, data });
-    } catch (error) {
-      setIsSuccess(false);
+      await turnOffAlarmMutation.mutateAsync({ token, data });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const btnComponent = (
-    <ButtonCustom
-      variant='contained'
-      className='gap-3'
-      sx={{ backgroundColor: '#D9E1E8', height: 32 }}
-      disabled={isLoading}
-    >
-      <Typography variant='button3' color={'black'}>
-        {t('turn-off')}
-      </Typography>
-    </ButtonCustom>
-  );
+  const handleClosePopup = () => {
+    setIsSuccess(false);
+    setIsLoading(false);
+  };
 
   return (
     <PopupCoverDelete
-      btnComponent={btnComponent}
+      title="devicePage.turn-off-alarm"
+      message=""
       isSuccess={isSuccess}
-      handleSubmit={handleTurnOff}
-      title='devicePage.turn-off-alarm'
-      message=''
       isLoading={isLoading}
+      handleSubmit={handleTurnOff}
+      handleClosePopup={handleClosePopup}
+      btnComponent={<button className="btn clear-alarm w-full text-left">TURN OFF ALARM</button>}
     />
   );
 }
