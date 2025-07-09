@@ -12,6 +12,8 @@ import FireAlarmPage from '~/pages/MasterDashboard/FireAlarmPage';
 import SafetyPage from '~/pages/MasterDashboard/SafetyPage';
 import WaterMeterMonitoringPage from '~/pages/MasterDashboard/WaterMeterPage';
 import LocationDashboardPage from '~/pages/MasterDashboard/EnergyPage/components/LocationItemDashboard';
+import EnergyMain from '~/pages/EnergyPlatform';
+import DashboardPage from '~/pages/EnergyPlatform/DashBoardPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -40,51 +42,24 @@ const useRoutes = () => {
       children: [
         {
           path: ROUTES.HOME,
-          element: <EnergyPage />,
+          element: <EnergyMain />,
+          children: [
+            {
+              path: '',
+              element: <DashboardPage />,
+            },
+          ],
         },
         {
-          path: ROUTES.DASHBOARD,
-          element: <MasterBoardPage />,
+          path: 'energy-flatform',
+          element: <EnergyMain />,
+          children: [
+            {
+              path: '',
+              element: <DashboardPage />,
+            },
+          ],
         },
-        {
-          path: ROUTES.ENERGY,
-          element: <EnergyPage />,
-					// children: [
-					// 	{
-					// 		path: ROUTES.LOCATION_DASHBOARD,
-					// 		element: <LocationDashboardPage />,
-					// 	}
-					// ]
-        },
-				{
-					path: ROUTES.LOCATION_DASHBOARD,
-					element: <LocationDashboardPage />,
-				},
-        {
-          path: ROUTES.STREET_LIGHT,
-          element: <StreetLightsPage />,
-        },
-        {
-          path: ROUTES.CCTV,
-          element: <CCTVPage />,
-        },
-        {
-          path: ROUTES.TRAFFIC_LIGHT,
-          element: <MasterBoardPage />,
-        },
-				{
-					path: ROUTES.FIRE_ALARM,
-					element: <FireAlarmPage />,
-				},
-				{
-					path: ROUTES.SAFETY,
-					element: <SafetyPage />,
-				},
-				{
-					path: ROUTES.WATER_METER_MONITORING,
-					element: <WaterMeterMonitoringPage />,
-				},
-
       ],
     },
     // {
