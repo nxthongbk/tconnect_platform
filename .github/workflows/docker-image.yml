@@ -28,7 +28,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: nxthongbk/scity-ui-service:master-dashboard
+          tags: nxthongbk/scity-ui-service:energy_platform
 
   # Deploy:
   #   if: |
