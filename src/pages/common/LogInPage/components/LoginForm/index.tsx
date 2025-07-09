@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Typography, Paper, CircularProgress } from '@mui/material';
 
-import signInFrame from '~/assets/images/png/signInFrame.png';
 import '../../style.scss';
 
 interface IFormInput {

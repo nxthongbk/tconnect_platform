@@ -16,16 +16,15 @@ type Props = {
 };
 
 export const SummaryCard = ({ title, value, change, icon, changeColor }: Props) => {
-  // Determine if change is positive or negative for icon and underline color
   const isPositive = change.trim().startsWith('+');
   const isNegative = change.trim().startsWith('-');
   const iconBg = iconBgMap[title] || 'bg-white/10';
+
   return (
     <div className="p-6 rounded-xl text-white w-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 min-h-[170px] transition-all duration-200 hover:scale-[1.03] hover:shadow-xl">
       <div className="flex items-center justify-between mb-4">
         <div className={`${iconBg}  p-3 rounded-lg`}>{icon}</div>
         <span className={`${changeColor} text-sm font-semibold flex items-center relative pb-1`}>
-          {/* Dynamic icon for up/down */}
           {isPositive && <ChartLineUp className="w-5 h-5 mr-1 text-green-400" />}
           {isNegative && <ChartLineDown className="w-5 h-5 mr-1 text-red-400" />}
           {change}
