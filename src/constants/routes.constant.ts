@@ -29,6 +29,15 @@ const ROUTES = {
 	SAFETY: '/safety',
 	HVAC: '/hvac',
 	LOCATION_DASHBOARD: '/dashboard/location/:id',
+
+ // Energy Platform routes
+  ENERGY_MAIN: '/energy-platform',
+  ENERGY_DASHBOARD: '/energy-platform/dashboard',
+  ENERGY_DEVICE: '/energy-platform/devices',
+  ENERGY_ANALYTICS: '/energy-platform/analytics',
+  ENERGY_RECOMMENDATIONS: '/energy-platform/recommendations',
+  ENERGY_COSTS: '/energy-platform/costs',
+  ENERGY_ENVIRONMENTAL: '/energy-platform/environmental',
 };
 
 export default ROUTES;

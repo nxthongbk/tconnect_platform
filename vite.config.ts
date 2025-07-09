@@ -8,13 +8,14 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    allowedHosts: ['esg.innovation.com.vn'],
+    // allowedHosts: ['esg.innovation.com.vn'],
+    allowedHosts: ['*'],
   },
   preview: {
     host: true,
     port: 3000,
-    allowedHosts: ['esg.innovation.com.vn'],
-    // allowedHosts: ['*']
+    // allowedHosts: ['esg.innovation.com.vn'],
+    allowedHosts: ['*'],
   },
   css: {
     devSourcemap: true,

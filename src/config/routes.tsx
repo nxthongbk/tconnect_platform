@@ -1,17 +1,12 @@
-import { Outlet, createBrowserRouter } from 'react-router-dom';
+import { Navigate, Outlet, createBrowserRouter } from 'react-router-dom';
 import { AppContext } from '~/contexts/app.context';
 import NotFoundPage from '~/pages/common/404Page';
 import ROUTES from '~/constants/routes.constant';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
-import MasterBoardPage from '~/pages/MasterDashboard/DashboardPage';
-import EnergyPage from '~/pages/MasterDashboard/EnergyPage';
-import StreetLightsPage from '~/pages/MasterDashboard/StreetLightsPage';
-import CCTVPage from '~/pages/MasterDashboard/CCTVPage';
-import FireAlarmPage from '~/pages/MasterDashboard/FireAlarmPage';
-import SafetyPage from '~/pages/MasterDashboard/SafetyPage';
-import WaterMeterMonitoringPage from '~/pages/MasterDashboard/WaterMeterPage';
-import LocationDashboardPage from '~/pages/MasterDashboard/EnergyPage/components/LocationItemDashboard';
+import EnergyMain from '~/pages/EnergyPlatform';
+import DashboardPage from '~/pages/EnergyPlatform/DashBoardPage';
+import DevicesPage from '~/pages/EnergyPlatform/DevicesPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -40,51 +35,43 @@ const useRoutes = () => {
       children: [
         {
           path: ROUTES.HOME,
-          element: <EnergyPage />,
+          element: <EnergyMain />,
+          children: [
+            {
+              path: '',
+              element: <Navigate to="dashboard" replace />,
+            },
+            {
+              path: 'dashboard',
+              element: <DashboardPage />,
+            },
+            {
+              path: 'devices',
+              element: <DevicesPage />,
+            },
+            // {
+            //   path: 'analytics',
+            //   element: <AnalyticsPage />,
+            // },
+            // {
+            //   path: 'recommendations',
+            //   element: <RecommendationsPage />,
+            // },
+            // {
+            //   path: 'costs',
+            //   element: <CostsPage />,
+            // },
+            // {
+            //   path: 'environmental',
+            //   element: <EnvironmentalPage />,
+            // },
+          ],
         },
-        {
-          path: ROUTES.DASHBOARD,
-          element: <MasterBoardPage />,
-        },
-        {
-          path: ROUTES.ENERGY,
-          element: <EnergyPage />,
-					// children: [
-					// 	{
-					// 		path: ROUTES.LOCATION_DASHBOARD,
-					// 		element: <LocationDashboardPage />,
-					// 	}
-					// ]
-        },
-				{
-					path: ROUTES.LOCATION_DASHBOARD,
-					element: <LocationDashboardPage />,
-				},
-        {
-          path: ROUTES.STREET_LIGHT,
-          element: <StreetLightsPage />,
-        },
-        {
-          path: ROUTES.CCTV,
-          element: <CCTVPage />,
-        },
-        {
-          path: ROUTES.TRAFFIC_LIGHT,
-          element: <MasterBoardPage />,
-        },
-				{
-					path: ROUTES.FIRE_ALARM,
-					element: <FireAlarmPage />,
-				},
-				{
-					path: ROUTES.SAFETY,
-					element: <SafetyPage />,
-				},
-				{
-					path: ROUTES.WATER_METER_MONITORING,
-					element: <WaterMeterMonitoringPage />,
-				},
 
+        {
+          path: '/',
+          element: <Navigate to="/dashboard" replace />,
+        },
       ],
     },
     // {

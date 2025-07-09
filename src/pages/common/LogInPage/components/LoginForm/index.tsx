@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Typography, Paper, CircularProgress } from '@mui/material';
 
-import signInFrame from '~/assets/images/png/signInFrame.png';
 import '../../style.scss';
 
 interface IFormInput {
@@ -116,27 +115,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           <CircularProgress size={48} sx={{ color: '#0794ff' }} />
         </Box>
       )}
-
-      <img
-        className="login-img"
-        src={signInFrame}
-        alt=""
-        style={{
-          background: 'transparent',
-          backgroundColor: 'transparent',
-          backgroundSize: 'cover',
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          zIndex: 10,
-          pointerEvents: 'none',
-        }}
-      />
       <Paper
-        className="login-form text-white"
         sx={{
           zIndex: 10,
           backgroundColor: 'transparent',
