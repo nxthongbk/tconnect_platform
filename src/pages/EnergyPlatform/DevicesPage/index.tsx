@@ -129,7 +129,6 @@ export default function DevicesPage() {
         </div>
       </div>
 
-      {/* Device Cards */}
       <div className="grid grid-cols-1 tablet:grid-cols-2 miniLaptop:grid-cols-3 gap-6">
         {devices
           .filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
@@ -138,37 +137,38 @@ export default function DevicesPage() {
               key={device.name}
               className="rounded-xl bg-white/10 backdrop-blur-md border border-white/15 shadow-lg p-6 flex flex-col h-[338px] relative"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-white/10 rounded-lg text-white">{device.icon}</div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-white font-semibold text-lg">{device.name}</span>
-                    <span className="ml-2 flex items-center gap-1">
-                      <span className={`w-2 h-2 rounded-full ${device.dotColor}`}></span>
-                      <span className={`${device.statusColor} text-sm font-medium`}>
-                        {device.status}
-                      </span>
-                    </span>
-                  </div>
-                  <div className="text-white/70 text-sm">{device.room}</div>
-                </div>
+              <div className="absolute top-8 right-8 flex items-center gap-2">
+                <span className={`w-2 h-2 rounded-full ${device.dotColor}`}></span>
+                <span className={`${device.statusColor} text-sm`}>{device.status}</span>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-y-1 text-white/80 text-sm space-y-2 mb-4">
+              <div className="flex flex-col items-start">
+                <div
+                  className="p-3 bg-white/10 rounded-lg text-white flex items-center justify-center mb-3"
+                  style={{ minWidth: 36, minHeight: 36 }}
+                >
+                  {device.icon}
+                </div>
+                <span className="block text-white font-medium text-lg leading-tight">
+                  {device.name}
+                </span>
+                <span className="block text-white/80 text-sm mt-1">{device.room}</span>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-y-1 text-white/60 text-sm">
                 <div>Power Usage</div>
-                <div className="text-right font-semibold text-white">{device.power}</div>
+                <div className="text-right text-white">{device.power}</div>
                 <div>Efficiency</div>
-                <div className="text-right">{device.efficiency}</div>
+                <div className="text-right text-white">{device.efficiency}</div>
                 <div>Schedule</div>
-                <div className="text-right">{device.schedule}</div>
+                <div className="text-right text-white">{device.schedule}</div>
                 <div>Last Used</div>
-                <div className="text-right">{device.lastUsed}</div>
+                <div className="text-right text-white">{device.lastUsed}</div>
               </div>
               <div className="flex items-center gap-2 mt-8">
-                <button className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-lg flex items-center justify-center gap-2 font-semibold transition">
-                  <Power size={18} />
+                <button className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-1.5 rounded-lg flex items-center justify-center gap-2 transition">
+                  <Power size={18} color="#fff" />
                   Toggle
                 </button>
-                <button className="bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg p-2 text-white transition">
+                <button className="bg-white/10 hover:bg-white/20 rounded-lg py-2 px-3 text-white transition">
                   <Gear size={18} />
                 </button>
               </div>

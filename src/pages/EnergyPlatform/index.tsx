@@ -10,7 +10,7 @@ const EnergyMain = () => {
         <TopMenu />
       </div>
       <main className="flex-1 px-4 py-8">
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4">
           <Outlet />
         </div>
       </main>

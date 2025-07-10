@@ -13,7 +13,7 @@ import {
   Gear,
   Dresser,
   Clock,
-	Pulse,
+  Pulse,
 } from '@phosphor-icons/react';
 
 const devices = [
@@ -136,13 +136,13 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 miniLaptop:grid-cols-2 gap-8">
-        <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px] flex flex-col justify-between">
+        <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px] flex flex-col justify-between">
           <h3 className="text-white font-semibold mb-4">Energy Usage Today</h3>
           <div className="flex-1 flex items-center justify-center">
             <EnergyUsageChart />
           </div>
         </div>
-        <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px] flex flex-col">
+        <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px] flex flex-col">
           <h3 className="text-white font-semibold mb-4">Active Devices</h3>
           <div className="space-y-4">
             {devices.map(device => (
@@ -179,10 +179,9 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Recent Activity Section */}
-      <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6">
+      <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6">
         <div className="flex items-center mb-6">
-          <Pulse size={22} color="#4ade80" className="mr-2 animate-pulse" />
+          <Pulse size={22} color="#4ade80" className="mr-2" />
           <h3 className="text-white font-semibold text-lg">Recent Activity</h3>
         </div>
         <div className="space-y-4">

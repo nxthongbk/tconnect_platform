@@ -1,20 +1,26 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Bell,
   User,
   House,
-  ChartBar,
+  ChartLine,
   Lightbulb,
   CurrencyDollar,
   Leaf,
   GearSix,
+  SignOut,
 } from '@phosphor-icons/react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AppContext } from '~/contexts/app.context';
+import { useMutation } from '@tanstack/react-query';
+import authService from '~/services/auth.service';
+import { clearCookie, getRefreshTokenFromCookie } from '~/utils/auth';
+import { Menu, MenuItem } from '@mui/material';
 
 const navItems = [
   { label: 'Dashboard', icon: <House className="mr-2" size={18} />, path: '/dashboard' },
   { label: 'Devices', icon: <GearSix className="mr-2" size={18} />, path: '/devices' },
-  { label: 'Analytics', icon: <ChartBar className="mr-2" size={18} />, path: '/analytics' },
+  { label: 'Analytics', icon: <ChartLine className="mr-2" size={18} />, path: '/analytics' },
   {
     label: 'Recommendations',
     icon: <Lightbulb className="mr-2" size={18} />,
@@ -30,8 +36,38 @@ const navItems = [
 
 const TopMenu = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { reset } = useContext(AppContext);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const activePath = location.pathname === '/' ? '/dashboard' : location.pathname;
+
+  const logoutMutation = useMutation({
+    mutationFn: (query: { refreshToken: string }) => authService.logout(query),
+  });
+
+  const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    const refreshToken = getRefreshTokenFromCookie();
+    logoutMutation.mutate(
+      { refreshToken },
+      {
+        onSettled: () => {
+          clearCookie();
+          reset();
+          navigate('/login');
+        },
+      }
+    );
+    handleMenuClose();
+  };
 
   return (
     <header className="bg-white/10 backdrop-blur-md border-b border-white/20 rounded-t-2xl mx-auto w-full shadow-lg">
@@ -87,9 +123,47 @@ const TopMenu = () => {
             <button className="p-2 text-gray-300 hover:text-white transition-colors">
               <Bell className="w-6 h-6" weight="duotone" />
             </button>
-            <button className="p-2 text-gray-300 hover:text-white transition-colors">
-              <User className="w-6 h-6" weight="duotone" />
-            </button>
+            <>
+              <button
+                className="p-2 text-gray-300 hover:text-white transition-colors"
+                onClick={handleAvatarClick}
+              >
+                <User className="w-6 h-6" weight="duotone" />
+              </button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                slotProps={{
+                  paper: {
+                    sx: {
+                      bgcolor: 'rgba(30,41,59,0.95)',
+                      color: '#fff',
+                      boxShadow: '0 8px 32px 0 rgba(16,185,129,0.15)',
+                      borderRadius: 2,
+                      minWidth: 140,
+                      mt: 1,
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      '& .MuiMenuItem-root': {
+                        fontWeight: 600,
+                        fontSize: '1rem',
+                        borderRadius: 1,
+                        transition: 'background 0.2s',
+                        '&:hover': {
+                          bgcolor: 'rgba(16,185,129,0.15)',
+                          color: '#10b981',
+                        },
+                      },
+                    },
+                  },
+                }}
+              >
+                <MenuItem onClick={handleLogout}>
+                  <SignOut size={20} className="mr-2" />
+                  <p className="text-md">Signout</p>
+                </MenuItem>
+              </Menu>
+            </>
           </div>
         </div>
         {/* Mobile nav dropdown */}
