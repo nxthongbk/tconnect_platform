@@ -120,7 +120,7 @@ export default function AnalyticPage() {
             <span className="text-white font-semibold text-lg">Device Usage Distribution</span>
           </div>
           <div className="space-y-3">
-            {deviceDistribution.map((d, i) => (
+            {deviceDistribution.map((d) => (
               <div key={d.label}>
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-white/90 text-md">{d.label}</span>
