@@ -8,6 +8,8 @@ import EnergyMain from '~/pages/EnergyPlatform';
 import DashboardPage from '~/pages/EnergyPlatform/DashBoardPage';
 import DevicesPage from '~/pages/EnergyPlatform/DevicesPage';
 import AnalyticPage from '~/pages/EnergyPlatform/AnalyticPage';
+import RecommendationsPage from '~/pages/EnergyPlatform/RecommendationsPage';
+import CostsPage from '~/pages/EnergyPlatform/CostsPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -54,14 +56,14 @@ const useRoutes = () => {
               path: 'analytics',
               element: <AnalyticPage />,
             },
-            // {
-            //   path: 'recommendations',
-            //   element: <RecommendationsPage />,
-            // },
-            // {
-            //   path: 'costs',
-            //   element: <CostsPage />,
-            // },
+            {
+              path: 'recommendations',
+              element: <RecommendationsPage />,
+            },
+            {
+              path: 'costs',
+              element: <CostsPage />,
+            },
             // {
             //   path: 'environmental',
             //   element: <EnvironmentalPage />,

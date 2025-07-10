@@ -100,8 +100,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold mt-6 text-gray-300">Welcome back!</h1>
-        <p className="text-md text-gray-400 mb-6">Here's your energy overview for today</p>
+        <h1 className="text-3xl font-bold text-white">Welcome back!</h1>
+        <p className="text-white/80">Here's your energy overview for today</p>
       </div>
 
       <div className="grid grid-cols-1 tablet:grid-cols-2 miniLaptop:grid-cols-4 gap-6">

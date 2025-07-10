@@ -38,7 +38,7 @@ export default function AnalyticPage() {
         </div>
         <div className="flex items-center gap-2">
           <CalendarBlank size={22} className="text-white/70" />
-          <select className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white/90 focus:outline-none">
+          <select className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-white/90 focus:outline-none">
             <option>This Week</option>
             <option>Last Week</option>
             <option>This Month</option>
@@ -46,7 +46,6 @@ export default function AnalyticPage() {
         </div>
       </div>
 
-      {/* Top stats */}
       <div className="grid grid-cols-1 tablet:grid-cols-2 miniLaptop:grid-cols-4 gap-6">
         <AnalyticStatCard
           icon={<Pulse size={28} />}
@@ -95,36 +94,36 @@ export default function AnalyticPage() {
       </div>
 
       <div className="grid grid-cols-1 miniLaptop:grid-cols-2 gap-8">
-        <div className="bg-white/10 border border-white/20 rounded-xl p-6">
+        <div className="bg-white/10 border backdrop-blur-md border-white/20 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <ChartBar size={22} className="text-emerald-400" />
             <div className="text-white font-semibold text-lg">Weekly Usage</div>
           </div>
-          <div className="flex items-end gap-4 h-48 w-full">
+          <div className="flex items-end gap-4 h-52 w-full">
             {weeklyUsage.map(d => (
               <div key={d.day} className="flex flex-col items-center flex-1">
                 <div
-                  className="w-16 rounded-t-xs bg-gradient-to-b from-emerald-400 to-emerald-500"
+                  className="w-16 rounded-t-sm bg-gradient-to-b from-emerald-400 to-emerald-500"
                   style={{ height: `${d.value * 3}px` }}
                 ></div>
                 <div className="mt-2 text-white/80 text-sm">{d.day}</div>
-                <div className="text-white font-bold text-sm">{d.value} kWh</div>
+                <div className="text-white text-sm">{d.value} kWh</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white/10 border border-white/20 rounded-xl p-6">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <ChartPieSlice size={22} className="text-emerald-400" />
             <span className="text-white font-semibold text-lg">Device Usage Distribution</span>
           </div>
-          <div className="space-y-3">
-            {deviceDistribution.map((d) => (
-              <div key={d.label}>
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-white/90 text-md">{d.label}</span>
-                  <span className="text-white/70 font-semibold">{d.percent}%</span>
+          <div className="space-y-4">
+            {deviceDistribution.map(d => (
+              <div key={d.label} className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-white text-sm">{d.label}</span>
+                  <span className="text-gray-300 text-sm">{d.percent}%</span>
                 </div>
                 <div className="w-full h-2 rounded bg-white/10">
                   <div

@@ -22,7 +22,7 @@ const costAnalysis = [
 ];
 
 const EnergyTrendsCard = () => (
-  <div className="bg-white/10 border border-white/20 rounded-xl p-6 mt-8">
+  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 mt-8">
     <div className="flex items-center gap-2 mb-4">
       <ArrowUpRight size={22} className="text-emerald-400" />
       <span className="text-white font-semibold text-lg">Energy Trends</span>
