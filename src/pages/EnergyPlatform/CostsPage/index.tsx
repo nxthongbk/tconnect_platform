@@ -103,15 +103,20 @@ export default function CostsPage() {
     <div className="space-y-8">
       <div className="flex flex-col miniLaptop:flex-row miniLaptop:items-center miniLaptop:justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-1">Cost Tracker</h1>
-          <p className="text-white/80">Monitor your energy costs and billing information</p>
+          <h1 className="text-3xl font-bold text-white">Cost Tracker</h1>
+          <p className="text-gray-300">Monitor your energy costs and billing information</p>
         </div>
 
         <div className="flex items-center gap-2">
           <CalendarBlank size={22} className="text-white/70" />
-          <select className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-white/90 focus:outline-none">
-            <option>Current Period</option>
-            <option>Previous Period</option>
+          <select
+            className="bg-white/10 backdrop-blur-md border text-md border-white/20 rounded-lg px-4 py-2 text-white/90 focus:outline-none"
+            style={{
+              colorScheme: 'dark',
+            }}
+          >
+            <option className="bg-[#344f8f] text-white text-md">Current Period</option>
+            <option className="bg-[#344f8f] text-white text-md">Last Period</option>
           </select>
         </div>
       </div>

@@ -125,7 +125,7 @@ export default function RecommendationsPage() {
     <div className="space-y-8">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold text-white">Energy Recommendations</h1>
-        <p className="text-white/80">Personalized tips to help you save energy and reduce costs.</p>
+        <p className="text-gray-300">Personalized tips to help you save energy and reduce costs.</p>
       </div>
 
       <div className="grid grid-cols-1 miniLaptop:grid-cols-3 gap-6 mb-10">

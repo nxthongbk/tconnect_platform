@@ -97,7 +97,7 @@ export default function DevicesPage() {
         <div className="flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-white">Device Manager</h1>
-            <p className="text-white/80 mt-1">Control and monitor all your connected devices</p>
+            <p className="text-gray-300">Control and monitor all your connected devices</p>
           </div>
           <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition mt-2 tablet:mt-0">
             <Plus size={20} />

@@ -33,15 +33,21 @@ export default function AnalyticPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-white">Analytics</h1>
-          <p className="text-white/80 mt-1">Detailed insights into your energy consumption</p>
+          <h1 className="text-3xl font-bold text-white">Analytics</h1>
+          <p className="text-gray-300">Detailed insights into your energy consumption</p>
         </div>
         <div className="flex items-center gap-2">
           <CalendarBlank size={22} className="text-white/70" />
-          <select className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-white/90 focus:outline-none">
-            <option>This Week</option>
-            <option>Last Week</option>
-            <option>This Month</option>
+          <select
+            className="bg-white/10 backdrop-blur-md border text-md border-white/20 rounded-lg px-4 py-2 text-white/90 focus:outline-none"
+            style={{
+              colorScheme: 'dark',
+            }}
+          >
+            <option className="bg-[#344f8f] text-white text-md">Today</option>
+            <option className="bg-[#344f8f] text-white text-md">This Week</option>
+            <option className="bg-[#344f8f] text-white text-md">This Month</option>
+            <option className="bg-[#344f8f] text-white text-md">This Year</option>
           </select>
         </div>
       </div>
