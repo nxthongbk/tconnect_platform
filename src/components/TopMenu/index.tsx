@@ -84,7 +84,7 @@ const TopMenu = () => {
                 <path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-white">EnergyHub</h1>
+            <h1 className="text-xl font-bold text-white">Energy Platform</h1>
           </div>
           {/* Desktop nav */}
           <nav className="hidden smallLaptop:flex items-center space-x-2">
