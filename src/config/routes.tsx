@@ -11,6 +11,7 @@ import AnalyticPage from '~/pages/EnergyPlatform/AnalyticPage';
 import RecommendationsPage from '~/pages/EnergyPlatform/RecommendationsPage';
 import CostsPage from '~/pages/EnergyPlatform/CostsPage';
 import EnviromentalPage from '~/pages/EnergyPlatform/EnviromentalPage';
+import EnergyLandingPage from '~/pages/common/EnergyLandingPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -33,6 +34,12 @@ const Guard = () => {
 
 const useRoutes = () => {
   const routesElement = createBrowserRouter([
+    // Landing page route (public, at '/')
+    {
+      path: '/',
+      element: <EnergyLandingPage />,
+    },
+    // Protected app routes
     {
       path: '',
       element: <Guard />,
@@ -71,17 +78,8 @@ const useRoutes = () => {
             },
           ],
         },
-
-        {
-          path: '/',
-          element: <Navigate to="/dashboard" replace />,
-        },
       ],
     },
-    // {
-    //   path: '/login',
-    //   element: <AuthLayout />,
-    // },
     {
       path: '/login',
       element: <LogInPage />,
