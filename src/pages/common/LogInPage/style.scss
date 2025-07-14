@@ -1,5 +1,5 @@
 .login-page {
-  @apply min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900 flex items-center justify-center;
+  @apply min-h-screen backdrop-blur-md bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900 flex items-center justify-center;
 }
 
 .login-form {

@@ -56,30 +56,24 @@ export default function InputCustom(props: TProps) {
               error={isError}
               helperText={
                 isError ? (
-                  <Typography
-                    variant="caption1"
-                    color="var(--semantic-alert)"
+                  <span
                     className="flex items-center gap-1 !leading-[18px]"
+                    style={{
+                      color: 'var(--semantic-alert)',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
                   >
                     <Warning size={16} /> {helperText}
-                  </Typography>
+                  </span>
                 ) : !isError && isSpacingHelperText ? (
-                  <Typography component="div" className="w-full h-[18px]"></Typography>
+                  <span className="w-full h-[18px] block"></span>
                 ) : null
               }
               sx={{
                 [`& .${inputBaseClasses.root}`]: { border: 'none' },
-                [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 1, },
-                [`& .MuiInputBase-input::placeholder`]: { color: '#fff !important', opacity: 0.75,  },
-								
-								// [`& .MuiInputBase-input:-webkit-autofill`]: {
-								// 	color: '#fff !important',
-								// 	background: 'transparent !important',
-								// },
-								// [`& .MuiInputBase-input:-webkit-autofill::placeholder`]: {
-								// 	color: '#fff !important',
-								// 	background: 'transparent !important',
-								// },
+                [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 1 },
+                [`& .MuiInputBase-input::placeholder`]: { color: '#fff !important', opacity: 0.75 },
               }}
               InputProps={
                 type === 'password'
