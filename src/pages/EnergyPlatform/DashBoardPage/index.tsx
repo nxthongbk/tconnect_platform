@@ -5,98 +5,23 @@ import {
   CurrencyDollar,
   SpinnerBall,
   Leaf,
-  Television,
-  Lightbulb,
-  Thermometer,
-  WashingMachine,
-  WifiHigh,
   Gear,
-  Dresser,
   Clock,
   Pulse,
 } from '@phosphor-icons/react';
 
-const devices = [
-  {
-    name: 'Living Room TV',
-    icon: <Television size={24} color="#b3e0ff" />,
-    power: '125W',
-    status: 'Active',
-    statusColor: 'text-green-400',
-    dotColor: 'bg-green-400',
-    efficiency: '85%',
-  },
-  {
-    name: 'Smart Lights',
-    icon: <Lightbulb size={24} color="#ffe066" />,
-    power: '45W',
-    status: 'Active',
-    statusColor: 'text-green-400',
-    dotColor: 'bg-green-400',
-    efficiency: '92%',
-  },
-  {
-    name: 'Thermostat',
-    icon: <Thermometer size={24} color="#ffd166" />,
-    power: '0W',
-    status: 'Standby',
-    statusColor: 'text-yellow-400',
-    dotColor: 'bg-yellow-400',
-    efficiency: '88%',
-  },
-  {
-    name: 'Refrigerator',
-    icon: <Dresser size={24} color="#b3e0ff" />,
-    power: '180W',
-    status: 'Active',
-    statusColor: 'text-green-400',
-    dotColor: 'bg-green-400',
-    efficiency: '78%',
-  },
-  {
-    name: 'Washing Machine',
-    icon: <WashingMachine size={24} color="#e0e7ef" />,
-    power: '0W',
-    status: 'Off',
-    statusColor: 'text-gray-400',
-    dotColor: 'bg-gray-400',
-    efficiency: '95%',
-  },
-  {
-    name: 'WiFi Router',
-    icon: <WifiHigh size={24} color="#b3e0ff" />,
-    power: '12W',
-    status: 'Active',
-    statusColor: 'text-green-400',
-    dotColor: 'bg-green-400',
-    efficiency: '90%',
-  },
-];
-
-const activities = [
-  {
-    time: '2 min ago',
-    desc: 'Smart thermostat adjusted to 72°F',
-    color: 'bg-blue-400',
-  },
-  {
-    time: '15 min ago',
-    desc: 'Washing machine cycle completed',
-    color: 'bg-green-400',
-  },
-  {
-    time: '1 hour ago',
-    desc: 'Peak hour started - reduced non-essential loads',
-    color: 'bg-yellow-400',
-  },
-  {
-    time: '3 hours ago',
-    desc: 'Solar panels generated 2.1 kW',
-    color: 'bg-green-400',
-  },
-];
+import { Activity, useLiveDeviceTelemetry } from '../CommonComponents/useLiveDeviceTelemetry';
+import { useState, useEffect } from 'react';
 
 export default function DashboardPage() {
+  const { filteredDevices, liveTelemetryMap, getTelemetryValue, latestPowerUpdates } =
+    useLiveDeviceTelemetry({});
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    setActivities(latestPowerUpdates);
+  }, [latestPowerUpdates]);
+
   return (
     <div className="space-y-8">
       <div className="text-center space-y-2">
@@ -145,14 +70,14 @@ export default function DashboardPage() {
         <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px] flex flex-col">
           <h3 className="text-white font-semibold mb-4">Active Devices</h3>
           <div className="space-y-4">
-            {devices.map(device => (
+            {filteredDevices.map(device => (
               <div
-                key={device.name}
+                key={device.id}
                 className="flex items-center justify-between rounded-lg bg-white/5 border border-white/10 p-4 shadow-sm hover:bg-white/20 transition"
               >
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-white/5 rounded-lg flex items-center justify-center">
-                    {device.icon}
+                    <Gear size={24} color="#b3e0ff" />
                   </div>
                   <div className="flex flex-col justify-center">
                     <span className="text-white font-medium text-base leading-tight">
@@ -160,16 +85,38 @@ export default function DashboardPage() {
                     </span>
                     <div className="flex items-center gap-1 mt-1">
                       <span
-                        className={`w-2 h-2 rounded-full inline-block ${device.dotColor}`}
+                        className={`w-2 h-2 rounded-full inline-block ${
+                          device.status === 'Active' || device.status === 'CONNECTED'
+                            ? 'bg-green-400'
+                            : device.status === 'Standby'
+                              ? 'bg-yellow-400'
+                              : 'bg-gray-400'
+                        }`}
                       ></span>
-                      <span className={`text-xs ${device.statusColor}`}>{device.status}</span>
+                      <span
+                        className={`text-xs ${
+                          device.status === 'Active' || device.status === 'CONNECTED'
+                            ? 'text-green-400'
+                            : device.status === 'Standby'
+                              ? 'text-yellow-400'
+                              : 'text-gray-400'
+                        }`}
+                      >
+                        {device.status || 'Unknown'}
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right min-w-[80px]">
-                    <div className="text-white font-semibold text-lg">{device.power}</div>
-                    <div className="text-xs text-gray-300">Efficiency: {device.efficiency}</div>
+                    <div className="text-white font-semibold text-lg">
+                      {getTelemetryValue(liveTelemetryMap[device.id] || {}, 'PowerUsage')}{' '}
+                      <span className="text-white">KWh</span>
+                    </div>
+                    <div className="text-xs text-gray-300">
+                      Efficiency:{' '}
+                      {getTelemetryValue(liveTelemetryMap[device.id] || {}, 'Efficiency')}%
+                    </div>
                   </div>
                   <Gear size={18} color="#a3aed6" />
                 </div>
