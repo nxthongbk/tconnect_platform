@@ -66,7 +66,7 @@ export default function LoginForm({ setResetMode }: IProps) {
       onSuccess: res => {
         setAuthenticated(true);
         setUserInfo(res?.data?.userInfo);
-        navigate('/');
+        navigate('/dashboard');
       },
       onError: (err: any) => {
         setError('username', { message: err?.response?.data?.data });

@@ -1,7 +1,6 @@
 import { Navigate, Outlet, createBrowserRouter } from 'react-router-dom';
 import { AppContext } from '~/contexts/app.context';
 import NotFoundPage from '~/pages/common/404Page';
-import ROUTES from '~/constants/routes.constant';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
 import EnergyMain from '~/pages/EnergyPlatform';
@@ -15,8 +14,7 @@ import EnergyLandingPage from '~/pages/common/EnergyLandingPage';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
-
-  return isAuthenticated ? <Outlet /> : <LogInPage />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 // const CheckRoleSYSAdmin = () => {
@@ -34,55 +32,32 @@ const Guard = () => {
 
 const useRoutes = () => {
   const routesElement = createBrowserRouter([
-    // Landing page route (public, at '/')
     {
       path: '/',
       element: <EnergyLandingPage />,
     },
-    // Protected app routes
+    {
+      path: '/login',
+      element: <LogInPage />,
+    },
     {
       path: '',
       element: <Guard />,
       children: [
         {
-          path: ROUTES.HOME,
+          path: '',
           element: <EnergyMain />,
           children: [
-            {
-              path: '',
-              element: <Navigate to="dashboard" replace />,
-            },
-            {
-              path: 'dashboard',
-              element: <DashboardPage />,
-            },
-            {
-              path: 'devices',
-              element: <DevicesPage />,
-            },
-            {
-              path: 'analytics',
-              element: <AnalyticPage />,
-            },
-            {
-              path: 'recommendations',
-              element: <RecommendationsPage />,
-            },
-            {
-              path: 'costs',
-              element: <CostsPage />,
-            },
-            {
-              path: 'environmental',
-              element: <EnviromentalPage />,
-            },
+            { path: '', element: <Navigate to="dashboard" replace /> },
+            { path: 'dashboard', element: <DashboardPage /> },
+            { path: 'devices', element: <DevicesPage /> },
+            { path: 'analytics', element: <AnalyticPage /> },
+            { path: 'recommendations', element: <RecommendationsPage /> },
+            { path: 'costs', element: <CostsPage /> },
+            { path: 'environmental', element: <EnviromentalPage /> },
           ],
         },
       ],
-    },
-    {
-      path: '/login',
-      element: <LogInPage />,
     },
     {
       path: '*',
