@@ -92,7 +92,7 @@ export function useLiveDeviceTelemetry({
     const initialUpdates: Activity[] = liveDevices
       .map(device => {
         const telemetry = liveTelemetryMap[device.id];
-        const power = telemetry?.PowerUsage;
+        const power = telemetry?.TotalActivePower;
         if (power?.ts && power?.value !== undefined) {
           return {
             time: getTimeAgo(power.ts),
@@ -114,14 +114,14 @@ export function useLiveDeviceTelemetry({
   }, [liveDevices, liveTelemetryMap]);
 
   useEffect(() => {
-    if (!socketData?.deviceId || !socketData?.PowerUsage?.ts) return;
+    if (!socketData?.deviceId || !socketData?.TotalActivePower?.ts) return;
 
-    const { deviceId, PowerUsage } = socketData;
+    const { deviceId, TotalActivePower } = socketData;
 
     setLatestPowerUpdates(prev => {
       const newUpdate: Activity = {
-        time: getTimeAgo(PowerUsage.ts),
-        desc: `Device ${deviceId} - Power Usage: ${PowerUsage.value} KWh`,
+        time: getTimeAgo(TotalActivePower.ts),
+        desc: `Device ${deviceId} - Power Usage: ${TotalActivePower.value} KWh`,
         color: 'bg-blue-400',
       };
 

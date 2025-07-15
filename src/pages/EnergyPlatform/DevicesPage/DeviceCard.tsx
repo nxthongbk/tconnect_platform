@@ -16,8 +16,8 @@ const DeviceCard: React.FC<DeviceCardProps> = ({
   getLatestTs,
   safeValue,
 }) => {
-  const power = getTelemetryValue(telemetry, 'PowerUsage');
-  const efficiency = getTelemetryValue(telemetry, 'Efficiency');
+  const power = getTelemetryValue(telemetry, 'TotalActivePower');
+  const efficiency = getTelemetryValue(telemetry, 'PowerFactor');
   const schedule = getTelemetryValue(telemetry, 'Schedule');
   const status = device.status || 'Unknown';
 

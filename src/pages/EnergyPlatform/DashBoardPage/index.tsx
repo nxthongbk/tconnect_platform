@@ -110,12 +110,12 @@ export default function DashboardPage() {
                 <div className="flex items-center gap-4">
                   <div className="text-right min-w-[80px]">
                     <div className="text-white font-semibold text-lg">
-                      {getTelemetryValue(liveTelemetryMap[device.id] || {}, 'PowerUsage')}{' '}
+                      {getTelemetryValue(liveTelemetryMap[device.id] || {}, 'TotalActivePower')}{' '}
                       <span className="text-white">KWh</span>
                     </div>
                     <div className="text-xs text-gray-300">
                       Efficiency:{' '}
-                      {getTelemetryValue(liveTelemetryMap[device.id] || {}, 'Efficiency')}%
+                      {getTelemetryValue(liveTelemetryMap[device.id] || {}, 'PowerFactor')}%
                     </div>
                   </div>
                   <Gear size={18} color="#a3aed6" />
