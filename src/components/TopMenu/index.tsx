@@ -16,6 +16,7 @@ import { useMutation } from '@tanstack/react-query';
 import authService from '~/services/auth.service';
 import { clearCookie, getRefreshTokenFromCookie } from '~/utils/auth';
 import { Menu, MenuItem } from '@mui/material';
+import energyLogo from '~/assets/images/png/energy-flatform-logo.png';
 
 const navItems = [
   { label: 'Dashboard', icon: <House className="mr-2" size={18} />, path: '/dashboard' },
@@ -73,16 +74,9 @@ const TopMenu = () => {
     <header className="bg-white/10 backdrop-blur-md border-b border-white/20 rounded-t-2xl mx-auto w-full shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-emerald-500 rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                className="w-6 h-6"
-              >
-                <path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z" />
-              </svg>
+          <div className="flex items-center space-x-2">
+            <div className="p-2 flex items-center justify-center">
+              <img src={energyLogo} alt="Energy Platform Logo" className="w-[54px] h-[46px]" />
             </div>
             <h1 className="text-xl font-bold text-white">Energy Platform</h1>
           </div>

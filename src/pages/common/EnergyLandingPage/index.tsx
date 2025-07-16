@@ -11,6 +11,7 @@ import {
   DeviceMobileCamera,
 } from '@phosphor-icons/react';
 import GetStartedModal from './GetStartedModal';
+import energyLogo from '~/assets/images/png/energy-flatform-logo.png';
 
 const features = [
   {
@@ -193,21 +194,10 @@ export default function EnergyLandingPage() {
           <div className="max-w-7xl mx-auto px-4 mobile:px-6 miniLaptop:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-zap w-5 h-5 text-white"
-                  >
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                  </svg>
+                <div className="flex items-center">
+                  <img src={energyLogo} alt="Energy Platform Logo" className="w-[54px] h-[46px]" />
                 </div>
-                <span className="text-xl font-bold text-gray-900">EnergyFlow</span>
+                <span className="text-xl font-bold text-gray-900">Energy Platform</span>
               </div>
               <div className="hidden tablet:flex space-x-8">
                 <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">

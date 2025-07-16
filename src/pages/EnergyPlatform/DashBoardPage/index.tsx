@@ -8,6 +8,7 @@ import {
   Gear,
   Clock,
   Pulse,
+  Cpu,
 } from '@phosphor-icons/react';
 
 import { Activity, useLiveDeviceTelemetry } from '../CommonComponents/useLiveDeviceTelemetry';
@@ -77,7 +78,7 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-white/5 rounded-lg flex items-center justify-center">
-                    <Gear size={24} color="#b3e0ff" />
+                    <Cpu size={24} color="#b3e0ff" />
                   </div>
                   <div className="flex flex-col justify-center">
                     <span className="text-white font-medium text-base leading-tight">
