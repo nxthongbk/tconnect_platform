@@ -472,7 +472,7 @@ export default function EnergyLandingPage() {
           <div className="flex-1 max-w-xl w-full">
             <h2 className="text-4xl miniLaptop:text-5xl font-bold text-gray-900 mb-4 leading-tight">
               Why Choose <br className="hidden mobile:block" />
-              EnergyFlow?
+              TMA Energy Platform?
             </h2>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Join thousands of companies already saving millions on energy costs while reducing
@@ -645,7 +645,7 @@ export default function EnergyLandingPage() {
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                 </svg>
               </div>
-              <span className="text-xl font-bold text-white">EnergyFlow</span>
+              <span className="text-xl font-bold text-white">TMA Energy Platform</span>
             </div>
             <p className="text-gray-400 leading-relaxed mb-6 miniLaptop:max-w-xs">
               Empowering businesses to monitor, analyze, and optimize their energy consumption for a
@@ -738,7 +738,7 @@ export default function EnergyLandingPage() {
         </div>
         <hr className="border-gray-700 my-8 max-w-7xl mx-auto" />
         <div className="text-center text-gray-400 text-sm">
-          © 2025 EnergyFlow. All rights reserved.
+          © 2025 TMA Energy Platform. All rights reserved.
         </div>
       </footer>
 
