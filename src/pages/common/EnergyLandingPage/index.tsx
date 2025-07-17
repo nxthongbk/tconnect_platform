@@ -274,21 +274,10 @@ export default function EnergyLandingPage() {
           <div className="relative w-full bg-white border-b border-gray-200 max-h-screen overflow-y-auto">
             <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-zap w-5 h-5 text-white"
-                  >
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                  </svg>
+                <div className=" flex items-center justify-center">
+                  <img src={energyLogo} alt="Energy Platform Logo" className="w-[54px] h-[46px]" />
                 </div>
-                <span className="text-xl font-bold text-gray-900">EnergyFlow</span>
+                <span className="text-xl font-bold text-gray-900">Energy Platform</span>
               </div>
               <button
                 className="text-2xl text-gray-600 hover:text-blue-600"
@@ -478,11 +467,11 @@ export default function EnergyLandingPage() {
       </section>
 
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 mobile:px-6 laptop:px-8 flex flex-col miniLaptop:flex-row items-center gap-16">
+        <div className="max-w-7xl mx-auto px-4 mobile:px-6 laptop:px-8 flex flex-col miniLaptop:flex-row items-center gap-10 miniLaptop:gap-16">
           {/* Left: Text and Checklist */}
-          <div className="flex-1 max-w-xl">
+          <div className="flex-1 max-w-xl w-full">
             <h2 className="text-4xl miniLaptop:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-              Why Choose <br />
+              Why Choose <br className="hidden mobile:block" />
               EnergyFlow?
             </h2>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -513,7 +502,7 @@ export default function EnergyLandingPage() {
             </button>
           </div>
           {/* Right: Stats */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center w-full">
             <div className="bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl px-12 py-10 grid grid-cols-2 gap-x-16 gap-y-8 w-full max-w-xl text-white">
               {whyChooseStats.map((stat, idx) => (
                 <div key={idx} className="text-center">

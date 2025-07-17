@@ -5,7 +5,6 @@ import OtpForm from './OtpForm';
 import NewPasswordForm from './NewPasswordForm';
 import { MODE_RESET_PASSWORD_FORM } from '~/constants/rule.constant';
 import { Box, Paper } from '@mui/material';
-import signInFrame from '~/assets/images/png/signInFrame.png';
 
 interface IProps {
   setResetMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +30,7 @@ export default function ResetPasswordForm({ setResetMode }: IProps) {
   };
 
   return (
-    <div className="min-w-[544px]">
+    <div className="min-w-[500px]">
       <Box
         sx={{
           position: 'relative',
@@ -45,27 +44,12 @@ export default function ResetPasswordForm({ setResetMode }: IProps) {
           overflow: 'hidden',
         }}
       >
-        <img
-          src={signInFrame}
-          alt=""
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-            pointerEvents: 'none',
-          }}
-        />
         <Paper
           sx={{
             zIndex: 3,
             position: 'relative',
             backgroundColor: 'transparent',
             boxShadow: 'none',
-            backdropFilter: 'blur(8px)',
             padding: 2,
           }}
         >

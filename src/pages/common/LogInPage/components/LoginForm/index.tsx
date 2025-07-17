@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Typography, Paper, CircularProgress } from '@mui/material';
+import energyLogo from '~/assets/images/png/energy-flatform-logo.png';
 
 import '../../style.scss';
 
@@ -82,126 +83,136 @@ export default function LoginForm({ setResetMode }: IProps) {
   };
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: 480,
-        minHeight: 512,
-        px: 4,
-        py: 6,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        overflow: 'visible',
-        zIndex: 11,
-        boxShadow: 'none',
-        backgroundColor: 'transparent',
-        background: 'transparent',
-      }}
-    >
-      {loginMutation.isPending && (
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: 100,
-            background: 'rgba(0,0,0,0.25)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 2,
-          }}
-        >
-          <CircularProgress size={48} sx={{ color: '#0794ff' }} />
-        </Box>
-      )}
-      <Paper
+    <div className="min-w-[480px]">
+      <Box
         sx={{
-          zIndex: 10,
-          backgroundColor: 'transparent',
-          boxShadow: 'none',
-          padding: 2,
           position: 'relative',
+          minHeight: 520,
+          px: 4,
+          py: 6,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          overflow: 'visible',
+          zIndex: 11,
+          boxShadow: 'none',
+          backgroundColor: 'transparent',
           background: 'transparent',
         }}
       >
-        <Typography
-          className="login-title"
-          variant="h4"
-          sx={{
-            color: '#fff',
-            fontWeight: 600,
-            mb: 8,
-            textAlign: 'center',
-            letterSpacing: 1,
-            fontSize: { xs: 28, sm: 32 },
-          }}
-        >
-          Sign in
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit, onInvalid)} style={{ width: '100%' }}>
-          <InputCustom
-            type="text"
-            classNameContainer="text-white font-normal"
-            label={translation('Tên đăng nhập')}
-            isRequired={true}
-            control={control}
-            name="username"
-            isError={Boolean(errors.username)}
-            variant="outlined"
-            size="small"
-            placeholder={translation('Nhập tên đăng nhập')}
-            helperText={translation(errors.username?.message)}
-            isSpacingHelperText={true}
-          />
-          <InputCustom
-            type="password"
-            label={translation('Mật khẩu')}
-            classNameContainer="text-white font-normal"
-            isRequired={true}
-            control={control}
-            name="password"
-            isError={Boolean(errors.password)}
-            variant="outlined"
-            size="small"
-            placeholder={translation('Nhập mật khẩu')}
-            helperText={translation(errors.username?.message)}
-            isSpacingHelperText={true}
-          />
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
-            <Typography
-              variant="button3"
-              sx={{ color: '#0BA5EC', fontSize: 14, cursor: 'pointer' }}
-              onClick={() => setResetMode(true)}
-            >
-              {translation('Quên mật khẩu?')}
-            </Typography>
-          </Box>
-          <Button
-            className="login-btn"
-            type="submit"
-            variant="contained"
-            fullWidth
+        {loginMutation.isPending && (
+          <Box
             sx={{
-              bgcolor: '#0794ff',
-              color: '#fff',
-              fontWeight: 400,
-              fontSize: 18,
-              borderRadius: 0,
-              py: 1,
-              mt: 1,
-              textTransform: 'none',
-              boxShadow: 'none',
-              clipPath:
-                'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
-              '&:hover': { bgcolor: '#007fe0' },
-              transition: 'background 0.3s, transform 0.3s',
+              position: 'absolute',
+              inset: 0,
+              zIndex: 100,
+              background: 'rgba(0,0,0,0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 2,
             }}
           >
-            {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
-          </Button>
-        </form>
-      </Paper>
-    </Box>
+            <CircularProgress size={48} sx={{ color: '#0794ff' }} />
+          </Box>
+        )}
+        <Paper
+          sx={{
+            zIndex: 10,
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+            padding: 2,
+            position: 'relative',
+            background: 'transparent',
+          }}
+        >
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 0 }}>
+            <img
+              src={energyLogo}
+              alt="Energy Platform Logo"
+              style={{ width: 96, height: 96, objectFit: 'contain' }}
+            />
+          </Box>
+          <Typography
+            className="login-title"
+            variant="h4"
+            sx={{
+              color: '#fff',
+              fontWeight: 600,
+              mb: 6,
+              textAlign: 'center',
+              letterSpacing: 1,
+              lineHeight: 1.1,
+              fontSize: { mobile: 18, tablet: 24 },
+            }}
+          >
+            Energy Platform
+          </Typography>
+
+          <form onSubmit={handleSubmit(onSubmit, onInvalid)} style={{ width: '100%' }}>
+            <InputCustom
+              type="text"
+              classNameContainer="text-white font-normal"
+              label={translation('Tên đăng nhập')}
+              isRequired={true}
+              control={control}
+              name="username"
+              isError={Boolean(errors.username)}
+              variant="outlined"
+              size="small"
+              placeholder={translation('Nhập tên đăng nhập')}
+              helperText={translation(errors.username?.message)}
+              isSpacingHelperText={true}
+            />
+            <InputCustom
+              type="password"
+              label={translation('Mật khẩu')}
+              classNameContainer="text-white font-normal"
+              isRequired={true}
+              control={control}
+              name="password"
+              isError={Boolean(errors.password)}
+              variant="outlined"
+              size="small"
+              placeholder={translation('Nhập mật khẩu')}
+              helperText={translation(errors.username?.message)}
+              isSpacingHelperText={true}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+              <Typography
+                variant="button3"
+                sx={{ color: '#0BA5EC', fontSize: 14, cursor: 'pointer' }}
+                onClick={() => setResetMode(true)}
+              >
+                {translation('Quên mật khẩu?')}
+              </Typography>
+            </Box>
+            <Button
+              className="login-btn"
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={{
+                bgcolor: '#0794ff',
+                color: '#fff',
+                fontWeight: 400,
+                fontSize: 18,
+                borderRadius: 0,
+                py: 1,
+                mt: 1,
+                textTransform: 'none',
+                boxShadow: 'none',
+                clipPath:
+                  'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+                '&:hover': { bgcolor: '#007fe0' },
+                transition: 'background 0.3s, transform 0.3s',
+              }}
+            >
+              {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
+            </Button>
+          </form>
+        </Paper>
+      </Box>
+    </div>
   );
 }
