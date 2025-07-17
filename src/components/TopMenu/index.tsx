@@ -10,7 +10,7 @@ import {
   GearSix,
   SignOut,
 } from '@phosphor-icons/react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '~/contexts/app.context';
 import { useMutation } from '@tanstack/react-query';
 import authService from '~/services/auth.service';
@@ -80,12 +80,11 @@ const TopMenu = () => {
             </div>
             <h1 className="text-xl font-bold text-white">Energy Platform</h1>
           </div>
-          {/* Desktop nav */}
           <nav className="hidden smallLaptop:flex items-center space-x-2">
             {navItems.map((item, index) => (
-              <a
+              <Link
                 key={index}
-                href={item.path}
+                to={item.path}
                 className={`flex items-center space-x-2 px-4 py-2 text-sm rounded-lg font-semibold transition-all duration-200 ${
                   activePath === item.path
                     ? 'bg-emerald-500 text-white shadow-lg'
@@ -94,10 +93,9 @@ const TopMenu = () => {
               >
                 {item.icon}
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
-          {/* Mobile hamburger */}
           <button
             className="smallLaptop:hidden p-2 text-gray-300 hover:text-white transition-colors focus:outline-none"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -160,13 +158,12 @@ const TopMenu = () => {
             </>
           </div>
         </div>
-        {/* Mobile nav dropdown */}
         {mobileOpen && (
           <nav className="flex flex-col smallLaptop:hidden mt-2 space-y-2 pb-2">
             {navItems.map((item, index) => (
-              <a
+              <Link
                 key={index}
-                href={item.path}
+                to={item.path}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-base ${
                   activePath === item.path
                     ? 'bg-emerald-500 text-white shadow-lg'
@@ -176,7 +173,7 @@ const TopMenu = () => {
               >
                 {item.icon}
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
         )}

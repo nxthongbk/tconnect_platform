@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, MagnifyingGlass, Funnel } from '@phosphor-icons/react';
+import { Plus, MagnifyingGlass, Funnel, Cpu } from '@phosphor-icons/react';
 import DeviceCard from './DeviceCard';
 import { useLiveDeviceTelemetry } from '../CommonComponents/useLiveDeviceTelemetry';
 
@@ -16,42 +16,25 @@ function useDebounce(value: string, delay: number = 300) {
 
 export default function DevicesPage() {
   const [search, setSearch] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const debouncedSearch = useDebounce(search);
 
-  const { isLoading, filteredDevices, liveTelemetryMap, getTelemetryValue, getLatestTs } =
-    useLiveDeviceTelemetry({ search: debouncedSearch });
+  useEffect(() => {
+    if (search !== debouncedSearch) {
+      setIsSearching(true);
+    } else {
+      setIsSearching(false);
+    }
+  }, [search, debouncedSearch]);
 
-  const safeValue = (v: unknown): string => {
-    if (v === null || v === undefined) return '-';
-    if (Array.isArray(v)) return v.join(', ');
-    if (typeof v === 'object') return '-';
-    if (typeof v === 'boolean') return v ? 'Yes' : 'No';
-    return String(v);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[300px]">
-        <svg
-          className="animate-spin h-8 w-8 text-emerald-400 mb-4"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          ></circle>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-        </svg>
-        <div className="text-white text-lg">Loading devices...</div>
-      </div>
-    );
-  }
+  const {
+    isLoading,
+    filteredDevices,
+    liveTelemetryMap,
+    getTelemetryValue,
+    getLatestTs,
+    safeValue,
+  } = useLiveDeviceTelemetry({ search: debouncedSearch });
 
   return (
     <div className="space-y-8">
@@ -90,23 +73,46 @@ export default function DevicesPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 tablet:grid-cols-2 miniLaptop:grid-cols-3 gap-6">
-        {filteredDevices.length === 0 && (
+      <div className="grid grid-cols-1 tablet:grid-cols-2 miniLaptop:grid-cols-3 gap-6 min-h-[300px]">
+        {isLoading || isSearching ? (
+          <div className="col-span-full flex flex-col items-center justify-center py-16 animate-fade-in">
+            <svg
+              className="animate-spin h-10 w-10 text-emerald-400 mb-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            </svg>
+            <div className="text-white text-lg font-medium tracking-wide animate-pulse">
+              {search ? ' ' : 'Loading devices...'}
+            </div>
+          </div>
+        ) : filteredDevices.length === 0 ? (
           <div className="text-white col-span-full text-center py-12 text-lg opacity-70">
+            <Cpu size={64} className="mx-auto mb-4 border-white/20 p-2 rounded-md bg-white/10" />
             No devices found.
           </div>
+        ) : (
+          filteredDevices.map(device => (
+            <DeviceCard
+              key={device.id}
+              device={device}
+              telemetry={liveTelemetryMap[device?.id] || {}}
+              getTelemetryValue={getTelemetryValue}
+              getLatestTs={getLatestTs}
+              safeValue={safeValue}
+            />
+          ))
         )}
-
-        {filteredDevices.map(device => (
-          <DeviceCard
-            key={device.id}
-            device={device}
-            telemetry={liveTelemetryMap[device?.id] || {}}
-            getTelemetryValue={getTelemetryValue}
-            getLatestTs={getLatestTs}
-            safeValue={safeValue}
-          />
-        ))}
       </div>
     </div>
   );

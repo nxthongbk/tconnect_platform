@@ -9,10 +9,10 @@ const EnergyMain = () => {
       <div className="sticky top-0 z-30">
         <TopMenu />
       </div>
-      <main className="flex-1 px-4 py-8">
-        <div className="container mx-auto px-4">
+      <main className="flex-1 px-4 py-8" role="main">
+        <section className="container mx-auto px-4 animate-fade-in">
           <Outlet />
-        </div>
+        </section>
       </main>
     </Box>
   );

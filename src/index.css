@@ -143,25 +143,3 @@ select:-webkit-autofill:focus {
   box-shadow: 0 0 0px 1000px transparent inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
-
-.leaflet-div-icon.error-animate {
-  background: rgba(255,0,0,0.2);
-}
-
-
-.leaflet-div-icon.error-animate img {
-  animation: pulse 0.6s infinite;
-}
-
-
-@keyframes pulse {
-	0% {
-		transform: scale(0.8);
-	}
-	50% {
-		transform: scale(1.2);
-	}
-	100% {
-		transform: scale(0.8);
-	}
-}
