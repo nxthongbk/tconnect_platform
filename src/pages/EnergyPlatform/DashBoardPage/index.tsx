@@ -30,22 +30,18 @@ export default function DashboardPage() {
   }, [latestPowerUpdates]);
 
 	 useEffect(() => {
-    // Our root node is "Devices"
     const baseNode = { name: 'Devices' };
 
-    // Create a node for each device using its name.
-    // For Recharts, nodes are an array and links refer to their index.
     const deviceNodes = filteredDevices.map(device => ({ name: device.name }));
     const nodes = [baseNode, ...deviceNodes];
 
-    // Build links: from "Devices" (index 0) to each device node (index 1, 2, ...) with weight from TotalActivePower.
     const links = filteredDevices.map((device, index) => {
       const telemetry = liveTelemetryMap[device.id] || {};
       const power = telemetry?.TotalActivePower?.value || 0;
       return {
-        source: 0,               // from "Devices"
-        target: index + 1,       // device node index in nodes array
-        value: power > 0 ? power : 0.1, // ensure a minimal value to render (Recharts may not render 0)
+        source: 0,
+        target: index + 1,
+        value: power > 0 ? power : 0.1,
       };
     });
 
@@ -179,7 +175,7 @@ export default function DashboardPage() {
       </div>
 
 			 <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px]">
-          <h3 className="text-white font-semibold mb-4">Live Device Power Flow</h3>
+          <h3 className="text-white font-semibold mb-4">Active Device Power List</h3>
           <SankeyChartRecharts data={sankeyData} />
         </div>
     </div>
