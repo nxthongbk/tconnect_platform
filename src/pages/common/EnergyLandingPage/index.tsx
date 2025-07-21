@@ -631,19 +631,8 @@ export default function EnergyLandingPage() {
           {/* Logo and Description */}
           <div className="flex-1 mb-8 miniLaptop:mb-0">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-zap w-5 h-5 text-white"
-                >
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
+              <div className="flex items-center justify-center">
+                <img src={energyLogo} alt="Energy Platform Logo" className="w-[54px] h-[46px]" />
               </div>
               <span className="text-xl font-bold text-white">TMA Energy Platform</span>
             </div>
