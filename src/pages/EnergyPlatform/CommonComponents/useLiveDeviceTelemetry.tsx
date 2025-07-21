@@ -5,7 +5,7 @@ import useSocket from '~/utils/hooks/socket/useSocket';
 import { isEqual } from 'lodash';
 
 export type Activity = {
-  time: string;
+  time: number;
   desc: string;
   color: string;
 };
@@ -95,7 +95,7 @@ export function useLiveDeviceTelemetry({
         const power = telemetry?.TotalActivePower;
         if (power?.ts && power?.value !== undefined) {
           return {
-            time: getTimeAgo(power.ts),
+            time: power.ts,
             desc: `Device ${device.name} - Power Usage: ${power.value} KWh`,
             color: 'bg-blue-400',
           };
@@ -113,28 +113,38 @@ export function useLiveDeviceTelemetry({
     setLatestPowerUpdates(sorted.slice(0, 10));
   }, [liveDevices, liveTelemetryMap]);
 
-  useEffect(() => {
-    if (!socketData?.deviceId || !socketData?.TotalActivePower?.ts) return;
 
-    const { deviceId, TotalActivePower } = socketData;
+	useEffect(() => {
+  if (
+    !socketData?.deviceId ||
+    !socketData?.TotalActivePower ||
+    typeof socketData.TotalActivePower.ts !== 'number' ||
+    typeof socketData.TotalActivePower.value !== 'number'
+  )
+    return;
 
-    setLatestPowerUpdates(prev => {
-      const newUpdate: Activity = {
-        time: getTimeAgo(TotalActivePower.ts),
-        desc: `Device ${deviceId} - Power Usage: ${TotalActivePower.value} KWh`,
-        color: 'bg-blue-400',
-      };
+  const { deviceId, TotalActivePower } = socketData;
+  const deviceName = liveDevices.find(device => device.id === deviceId)?.name || deviceId;
 
-      // Avoid duplicate by comparing desc + time
-      const isDuplicate = prev.some(
-        item => item.desc === newUpdate.desc && item.time === newUpdate.time
-      );
+  setLatestPowerUpdates(prev => {
+    const newUpdate: Activity = {
+      time: TotalActivePower.ts,
+      desc: `Device ${deviceName} - Power Usage: ${TotalActivePower.value} KWh`,
+      color: 'bg-blue-400',
+    };
 
-      if (isDuplicate) return prev;
+    // Avoid duplicate by checking if the same device update with same ts exists
+    const isDuplicate = prev.some(
+      item => item.desc === newUpdate.desc && item.time === newUpdate.time
+    );
 
-      return [newUpdate, ...prev.slice(0, 9)];
-    });
-  }, [socketData]);
+    if (isDuplicate) return prev;
+
+    const next = [newUpdate, ...prev];
+    next.sort((a, b) => b.time - a.time);
+    return next.slice(0, 10);
+  });
+}, [socketData]);
 
   // 6. Filter devices by search input
   const filteredDevices = useMemo(() => {
@@ -163,11 +173,11 @@ export function useLiveDeviceTelemetry({
     return timestamps.length ? Math.max(...timestamps) : null;
   };
 
-  function getTimeAgo(ts: number) {
-    const date = new Date(ts);
-    const pad = (n: number) => n.toString().padStart(2, '0');
-    return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-  }
+  // function getTimeAgo(ts: number) {
+  //   const date = new Date(ts);
+  //   const pad = (n: number) => n.toString().padStart(2, '0');
+  //   return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  // }
 
   return {
     isLoading: !deviceData,

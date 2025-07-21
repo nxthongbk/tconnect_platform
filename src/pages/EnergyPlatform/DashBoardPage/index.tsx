@@ -14,22 +14,31 @@ import {
 import { Activity, useLiveDeviceTelemetry } from '../CommonComponents/useLiveDeviceTelemetry';
 import { useState, useEffect } from 'react';
 import SankeyChartRecharts from '../CommonComponents/Chart/DevicesChart';
+import dayjs from 'dayjs';
 
 export default function DashboardPage() {
   const { filteredDevices, liveTelemetryMap, getTelemetryValue, latestPowerUpdates } =
     useLiveDeviceTelemetry({});
   const [activities, setActivities] = useState<Activity[]>([]);
 
-	const [sankeyData, setSankeyData] = useState<{ nodes: any[]; links: any[] }>({
+  const [sankeyData, setSankeyData] = useState<{ nodes: any[]; links: any[] }>({
     nodes: [],
-    links: []
+    links: [],
   });
 
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
+
   useEffect(() => {
-    setActivities(latestPowerUpdates);
+    const sorted = [...latestPowerUpdates].sort((a, b) => b.time - a.time);
+    setActivities(sorted);
+
+    if (sorted.length > 0) {
+      setHighlightedId(sorted[0].desc);
+      setTimeout(() => setHighlightedId(null), 2000);
+    }
   }, [latestPowerUpdates]);
 
-	 useEffect(() => {
+  useEffect(() => {
     const baseNode = { name: 'Devices' };
 
     const deviceNodes = filteredDevices.map(device => ({ name: device.name }));
@@ -158,26 +167,38 @@ export default function DashboardPage() {
           <h3 className="text-white font-semibold text-lg">Recent Activity</h3>
         </div>
         <div className="space-y-4">
-          {activities.map((a, i) => (
-            <div
-              key={i}
-              className="flex items-center space-x-4 p-3 bg-white/5 rounded-lg justify-between"
-            >
-              <div className="flex items-center gap-2 text-gray-200 text-sm">
-                <Clock size={16} className="opacity-70" />
-                <span className="text-gray-400 mr-2">{a.time}</span>
-                <span className="text-white/80">{a.desc}</span>
+          {activities.map((a, i) => {
+            const isHighlighted = a.desc === highlightedId;
+
+            return (
+              <div
+                key={i + a.desc}
+                className={`flex items-center space-x-4 p-3 rounded-lg justify-between transition-all duration-300 ${
+                  isHighlighted ? 'bg-white/15' : 'bg-white/5'
+                }`}
+              >
+                <div className="flex items-center gap-2 text-gray-200 text-sm">
+                  <Clock size={16} className="opacity-70" />
+                  <span className="text-gray-400 mr-2">
+                    {dayjs(a.time).format('DD/MM/YYYY HH:mm:ss')}
+                  </span>
+                  <span className="text-white/80">{a.desc}</span>
+                </div>
+                <span
+                  className={`w-3 h-3 rounded-full ${a.color} ${
+                    isHighlighted ? ' animate-pulse' : ''
+                  }`}
+                ></span>
               </div>
-              <span className={`w-3 h-3 rounded-full ${a.color}`}></span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-			 <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px]">
-          <h3 className="text-white font-semibold mb-4">Active Device Power List</h3>
-          <SankeyChartRecharts data={sankeyData} />
-        </div>
+      <div className="rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 min-h-[380px]">
+        <h3 className="text-white font-semibold mb-4">Active Device Power List</h3>
+        <SankeyChartRecharts data={sankeyData} />
+      </div>
     </div>
   );
 }
