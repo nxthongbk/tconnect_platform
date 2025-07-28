@@ -3,14 +3,9 @@ import { AppContext } from '~/contexts/app.context';
 import NotFoundPage from '~/pages/common/404Page';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
-import EnergyMain from '~/pages/EnergyPlatform';
-import DashboardPage from '~/pages/EnergyPlatform/DashBoardPage';
-import DevicesPage from '~/pages/EnergyPlatform/DevicesPage';
-import AnalyticPage from '~/pages/EnergyPlatform/AnalyticPage';
-import RecommendationsPage from '~/pages/EnergyPlatform/RecommendationsPage';
-import CostsPage from '~/pages/EnergyPlatform/CostsPage';
-import EnviromentalPage from '~/pages/EnergyPlatform/EnviromentalPage';
 import EnergyLandingPage from '~/pages/common/EnergyLandingPage';
+import MesSystemMain from '~/pages/MesSystem';
+import MesDashboard from '~/pages/MesSystem/Dashboard';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -46,15 +41,10 @@ const useRoutes = () => {
       children: [
         {
           path: '',
-          element: <EnergyMain />,
+          element: <MesSystemMain />,
           children: [
             { path: '', element: <Navigate to="dashboard" replace /> },
-            { path: 'dashboard', element: <DashboardPage /> },
-            { path: 'devices', element: <DevicesPage /> },
-            { path: 'analytics', element: <AnalyticPage /> },
-            { path: 'recommendations', element: <RecommendationsPage /> },
-            { path: 'costs', element: <CostsPage /> },
-            { path: 'environmental', element: <EnviromentalPage /> },
+            { path: 'dashboard', element: <MesDashboard /> },  
           ],
         },
       ],
