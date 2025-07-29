@@ -88,7 +88,7 @@ export default function DevicesManagementPage() {
   ];
 
   const [search, setSearch] = useState('');
-  const [deviceList, setDeviceList] = useState(deviceData);
+  const [deviceList] = useState(deviceData);
   const [category, setCategory] = useState('Tất cả loại');
   const [status, setStatus] = useState('Tất cả trạng thái');
   const categoryOptions = [
