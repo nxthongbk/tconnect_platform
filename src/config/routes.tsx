@@ -6,6 +6,9 @@ import LogInPage from '~/pages/common/LogInPage';
 import EnergyLandingPage from '~/pages/common/EnergyLandingPage';
 import MesSystemMain from '~/pages/MesSystem';
 import MesDashboard from '~/pages/MesSystem/Dashboard';
+import ProductionOrdersPage from '~/pages/MesSystem/ProductionOrders/Index';
+import ProductionProcessPage from '~/pages/MesSystem/ProductionProcess/Index';
+import EmployeesManagementPage from '~/pages/MesSystem/Employees/Index';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -44,7 +47,10 @@ const useRoutes = () => {
           element: <MesSystemMain />,
           children: [
             { path: '', element: <Navigate to="dashboard" replace /> },
-            { path: 'dashboard', element: <MesDashboard /> },  
+            { path: 'dashboard', element: <MesDashboard /> },
+            { path: 'orders', element: <ProductionOrdersPage /> },
+            { path: 'processing', element: <ProductionProcessPage /> },
+            { path: 'employees', element: <EmployeesManagementPage /> },
           ],
         },
       ],

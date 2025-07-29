@@ -25,7 +25,7 @@ const navItems = [
   {
     label: 'Quy trình SX',
     icon: <ListNumbers size={24} />,
-    to: '/process',
+    to: '/processing',
   },
   {
     label: 'Nhân viên',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, ClockCounterClockwise } from '@phosphor-icons/react';
+import { Clock } from '@phosphor-icons/react';
 
 export interface ProcessCardProps {
   name: string;
