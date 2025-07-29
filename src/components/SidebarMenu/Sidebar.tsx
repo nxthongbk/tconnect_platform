@@ -62,7 +62,7 @@ const navItems = [
   {
     label: 'Kiểm tra CL',
     icon: <Shield size={24} className="text-red-600" />,
-    to: '/quality',
+    to: '/quality-control',
   },
   {
     label: 'Báo cáo',
