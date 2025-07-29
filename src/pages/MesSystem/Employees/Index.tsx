@@ -198,7 +198,7 @@ export default function EmployeesManagementPage() {
         setStatus={setStatus}
         categoryOptions={['Tất cả bộ phận', 'Sản xuất', 'Kiểm định', 'Kho vận', 'Bảo trì']}
         statusOptions={['Tất cả trạng thái', 'Đang làm việc', 'Nghỉ phép', 'Nghỉ việc']}
-				placeholder="Tìm kiếm theo tên, vị trí, má nhân viên..."
+        placeholder="Tìm kiếm theo tên, vị trí, má nhân viên..."
       />
 
       <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-3 gap-6">

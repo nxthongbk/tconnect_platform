@@ -32,14 +32,14 @@ const Guard = () => {
 
 const useRoutes = () => {
   const routesElement = createBrowserRouter([
-    // {
-    //   path: '/',
-    //   element: <EnergyLandingPage />,
-    // },
-    // {
-    //   path: '/login',
-    //   element: <LogInPage />,
-    // },
+    {
+      path: '/',
+      element: <EnergyLandingPage />,
+    },
+    {
+      path: '/login',
+      element: <LogInPage />,
+    },
     {
       path: '',
       element: <Guard />,
