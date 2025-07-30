@@ -103,8 +103,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onToggleSidebar }) => {
 
         {open && (
           <div className="ml-2">
-            <div className="text-lg font-bold text-gray-900leading-tight">MES System</div>
-            <div className="text-sm text-gray-500">Nhà máy may</div>
+            <div className="text-lg font-bold text-gray-900leading-tight">MES</div>
+            <div className="text-sm text-gray-500">Nhà máy Poseidon</div>
           </div>
         )}
         <button
