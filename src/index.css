@@ -134,7 +134,7 @@ select:-webkit-autofill:focus {
   z-index: -10;
 }
 
-.MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill,
+/* .MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill,
 .MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill:focus,
 .MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill:hover,
 .MuiFormControl-root.MuiTextField-root .MuiOutlinedInput-root input:-webkit-autofill:active {
@@ -142,4 +142,4 @@ select:-webkit-autofill:focus {
   caret-color: #fff !important;
   box-shadow: 0 0 0px 1000px transparent inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
-}
+} */

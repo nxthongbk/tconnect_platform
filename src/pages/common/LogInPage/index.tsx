@@ -8,8 +8,8 @@ export default function LogInPage() {
   const [resetMode, setResetMode] = useState(false);
 
   return (
-    <Box className="login-page">
-      <Box className="login-form">
+    <Box>
+      <Box>
         {!resetMode ? (
           <LoginForm setResetMode={setResetMode} />
         ) : (

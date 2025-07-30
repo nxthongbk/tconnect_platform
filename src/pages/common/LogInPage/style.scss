@@ -10,11 +10,11 @@
   transition:
     background 0.3s,
     transform 0.3s;
-  background: linear-gradient(90deg, #1e3a8a 0%, #36bffa 100%);
+  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
   color: #fff;
   border: none;
   &:hover {
-    background: linear-gradient(90deg, #007fe0 0%, #42e9f5 100%);
+    background: linear-gradient(90deg, #007fe0 0%, #007fe0 100%);
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 8px 24px #0794ff44;
   }

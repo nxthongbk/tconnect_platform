@@ -3,7 +3,6 @@ import { AppContext } from '~/contexts/app.context';
 import NotFoundPage from '~/pages/common/404Page';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
-import EnergyLandingPage from '~/pages/common/EnergyLandingPage';
 import MesSystemMain from '~/pages/MesSystem';
 import MesDashboard from '~/pages/MesSystem/Dashboard';
 import ProductionOrdersPage from '~/pages/MesSystem/ProductionOrders/Index';
@@ -13,6 +12,7 @@ import MaterialsManagementPage from '~/pages/MesSystem/MaterialsManagement/Index
 import DevicesManagementPage from '~/pages/MesSystem/Devices/Index';
 import QualityManagementPage from '~/pages/MesSystem/QualityManagement/Index';
 import ReportsPage from '~/pages/MesSystem/Reports/Index';
+import MesLandingPage from '~/pages/common/MesLandingPage/Index';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -36,7 +36,7 @@ const useRoutes = () => {
   const routesElement = createBrowserRouter([
     {
       path: '/',
-      element: <EnergyLandingPage />,
+      element: <MesLandingPage />,
     },
     {
       path: '/login',

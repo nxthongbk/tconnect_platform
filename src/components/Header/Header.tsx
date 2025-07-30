@@ -1,4 +1,44 @@
+import { useContext, useState } from 'react';
+import { SignOut } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '~/contexts/app.context';
+import { useMutation } from '@tanstack/react-query';
+import authService from '~/services/auth.service';
+import { clearCookie, getRefreshTokenFromCookie } from '~/utils/auth';
+import { Menu, MenuItem } from '@mui/material';
+
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+  const { reset } = useContext(AppContext);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const logoutMutation = useMutation({
+    mutationFn: (query: { refreshToken: string }) => authService.logout(query),
+  });
+
+  const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    const refreshToken = getRefreshTokenFromCookie();
+    logoutMutation.mutate(
+      { refreshToken },
+      {
+        onSettled: () => {
+          clearCookie();
+          reset();
+          navigate('/login');
+        },
+      }
+    );
+    handleMenuClose();
+  };
+
   return (
     <header className="w-full bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between h-16">
       {/* Search box */}
@@ -53,12 +93,26 @@ const Header: React.FC = () => {
           <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
         </button>
         {/* User info */}
-        <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
-          <div className="text-right">
+        <div className="flex items-center space-x-3 pl-4 border-l border-gray-200 ">
+          <div className="text-right cursor-pointer relative " onClick={handleAvatarClick}>
             <div className="text-sm font-medium text-gray-900">Nguyễn Văn A</div>
             <div className="text-xs text-gray-500">Quản lý sản xuất</div>
           </div>
-          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          >
+            <MenuItem onClick={handleLogout}>
+              <div className="flex items-center space-x-2 ">
+                <SignOut size={16} className=" text-gray-600" />{' '}
+                <p className="text-gray-600 text-[15px]">Đăng xuất</p>
+              </div>
+            </MenuItem>
+          </Menu>
+          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center ">
             <span className="text-blue-600 font-bold text-lg">A</span>
           </div>
         </div>
