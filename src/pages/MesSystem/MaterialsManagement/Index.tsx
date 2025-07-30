@@ -146,26 +146,6 @@ export default function MaterialsManagementPage() {
         </button>
       </div>
 
-      <SearchFilterBar
-        search={search}
-        setSearch={setSearch}
-        category={category}
-        setCategory={setCategory}
-        status={status}
-        setStatus={setStatus}
-        categoryOptions={[
-          'Tất cả danh mục',
-          'Vải',
-          'Chỉ may',
-          'Nút',
-          'Khóa kéo',
-          'Phụ liệu',
-          'Khác',
-        ]}
-        statusOptions={['Tất cả trạng thái', 'Đủ hàng', 'Sắp hết', 'Hết hàng', 'Dư thừa']}
-        placeholder="Tìm kiếm theo tên vật liệu, trạng thái"
-      />
-
       <div className="grid grid-cols-2 tablet:grid-cols-4 gap-4">
         <SummaryCard
           icon={<Package size={32} className="text-blue-600" />}
@@ -188,6 +168,26 @@ export default function MaterialsManagementPage() {
           value={summary.avgInventoryLevel}
         />
       </div>
+
+      <SearchFilterBar
+        search={search}
+        setSearch={setSearch}
+        category={category}
+        setCategory={setCategory}
+        status={status}
+        setStatus={setStatus}
+        categoryOptions={[
+          'Tất cả danh mục',
+          'Vải',
+          'Chỉ may',
+          'Nút',
+          'Khóa kéo',
+          'Phụ liệu',
+          'Khác',
+        ]}
+        statusOptions={['Tất cả trạng thái', 'Đủ hàng', 'Sắp hết', 'Hết hàng', 'Dư thừa']}
+        placeholder="Tìm kiếm theo tên vật liệu, trạng thái"
+      />
 
       <div className="grid grid-cols-1 smallLaptop:grid-cols-2 miniLaptop:grid-cols-3 gap-6">
         {filtered.map((material, index) => (

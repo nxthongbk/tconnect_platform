@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  ChartBar,
   Package,
   Users,
   Factory,
@@ -9,6 +8,7 @@ import {
   GitBranch,
   Shield,
 } from '@phosphor-icons/react';
+import BarChart3Icon from '~/pages/MesSystem/CommonComponents/CustomIcons/BarChart3Icon';
 
 const navItems = [
   {
@@ -66,7 +66,7 @@ const navItems = [
   },
   {
     label: 'Báo cáo',
-    icon: <ChartBar size={24} className="text-teal-600" />,
+    icon: <BarChart3Icon className="text-teal-600 h-6 w-6" />,
     to: '/reports',
   },
 ];
@@ -141,7 +141,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onToggleSidebar }) => {
                 }
                 end
               >
-                {item.icon}
+                <span className={open ? '' : 'w-6 h-6 '}>{item.icon}</span>
                 {open && <span>{item.label}</span>}
               </NavLink>
             </li>
