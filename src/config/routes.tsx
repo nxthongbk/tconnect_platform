@@ -11,6 +11,7 @@ import ProductionProcessPage from '~/pages/MesSystem/ProductionProcess/Index';
 import EmployeesManagementPage from '~/pages/MesSystem/Employees/Index';
 import MaterialsManagementPage from '~/pages/MesSystem/MaterialsManagement/Index';
 import DevicesManagementPage from '~/pages/MesSystem/Devices/Index';
+import QualityManagementPage from '~/pages/MesSystem/QualityManagement/Index';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -32,14 +33,14 @@ const Guard = () => {
 
 const useRoutes = () => {
   const routesElement = createBrowserRouter([
-    // {
-    //   path: '/',
-    //   element: <EnergyLandingPage />,
-    // },
-    // {
-    //   path: '/login',
-    //   element: <LogInPage />,
-    // },
+    {
+      path: '/',
+      element: <EnergyLandingPage />,
+    },
+    {
+      path: '/login',
+      element: <LogInPage />,
+    },
     {
       path: '',
       element: <Guard />,
@@ -55,7 +56,7 @@ const useRoutes = () => {
             { path: 'employees', element: <EmployeesManagementPage /> },
 						{ path: 'materials', element: <MaterialsManagementPage /> },
 						{ path: 'devices', element: <DevicesManagementPage /> },
-
+						{ path: 'quality-control', element: <QualityManagementPage /> }
           ],
         },
       ],

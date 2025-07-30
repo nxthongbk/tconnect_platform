@@ -3,53 +3,70 @@ import { NavLink } from 'react-router-dom';
 import {
   ChartBar,
   Package,
-  GearSix,
   Users,
-  Cube,
-  ShieldCheck,
-  FileText,
-  ListNumbers,
+  Factory,
+  ClipboardText,
+  GitBranch,
+  Shield,
 } from '@phosphor-icons/react';
 
 const navItems = [
   {
     label: 'Dashboard',
-    icon: <ChartBar size={24} />,
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="lucide lucide-layout-dashboard h-5 w-5 text-blue-600"
+      >
+        <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+        <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+        <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+        <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+      </svg>
+    ),
     to: '/dashboard',
   },
   {
     label: 'Đơn hàng SX',
-    icon: <Package size={24} />,
+    icon: <ClipboardText size={24} className="text-green-600" />,
     to: '/orders',
   },
   {
     label: 'Quy trình SX',
-    icon: <ListNumbers size={24} />,
+    icon: <GitBranch size={24} className="text-purple-600" />,
     to: '/processing',
   },
   {
     label: 'Nhân viên',
-    icon: <Users size={24} />,
+    icon: <Users size={24} className="text-indigo-600" />,
     to: '/employees',
   },
   {
     label: 'Nguyên liệu',
-    icon: <Cube size={24} />,
+    icon: <Package size={24} className="text-orange-600" />,
     to: '/materials',
   },
   {
     label: 'Thiết bị',
-    icon: <GearSix size={24} />,
+    icon: <Factory mirrored size={24} className="text-gray-600" />,
     to: '/devices',
   },
   {
     label: 'Kiểm tra CL',
-    icon: <ShieldCheck size={24} />,
-    to: '/quality',
+    icon: <Shield size={24} className="text-red-600" />,
+    to: '/quality-control',
   },
   {
     label: 'Báo cáo',
-    icon: <FileText size={24} />,
+    icon: <ChartBar size={24} className="text-teal-600" />,
     to: '/reports',
   },
 ];
@@ -80,11 +97,10 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onToggleSidebar }) => {
       <div
         className={`flex items-center py-5 border-b border-gray-100 transition-all duration-300 ${open ? 'px-6 gap-2' : 'px-0 justify-center'}`}
       >
-        <img
-          src="/logo-energy.svg"
-          alt="MES System"
-          className={`w-9 h-9 ${open ? '' : 'mr-1 ml-6'}`}
-        />
+        <div className={`w-9 h-9 ${open ? '' : 'mr-1 ml-6'}`}>
+          <Factory mirrored size={34} className={`text-blue-600 `} />
+        </div>
+
         {open && (
           <div className="ml-2">
             <div className="text-lg font-bold text-gray-900leading-tight">MES System</div>
