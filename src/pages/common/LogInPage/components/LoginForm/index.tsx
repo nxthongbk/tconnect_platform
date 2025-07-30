@@ -90,7 +90,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           <div className="max-w-md mx-auto">
             <div className="flex justify-center items-center space-x-2">
               <Factory size={50} className="text-blue-700" mirrored />
-              <span className="text-2xl font-semibold text-blue-700">MES Pro System</span>
+              <span className="text-2xl font-semibold text-blue-700">TMA MES</span>
             </div>
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 mobile:text-lg mobile:leading-7">

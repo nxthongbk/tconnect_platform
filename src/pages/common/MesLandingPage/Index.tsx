@@ -98,17 +98,17 @@ const testimonials = [
     rating: 5,
     quote:
       'Hệ thống MES đã giúp chúng tôi tăng hiệu suất sản xuất đáng kể và giảm thiếu sót trong quy trình.',
-    name: 'Nguyễn Văn A',
+    name: 'Nguyễn Tấn Dũng',
     position: 'Giám đốc sản xuất',
-    company: 'Công ty May ABC',
+    company: 'Công ty May Poseidon',
     companyUrl: '#',
   },
   {
     rating: 5,
     quote: 'Giao diện trực quan và dễ sử dụng. Nhân viên có thể làm quen nhanh chóng với hệ thống.',
-    name: 'Trần Thị B',
+    name: 'Trần Nguyễn Duy Anh',
     position: 'Quản lý nhà máy',
-    company: 'Tập đoàn Dệt May XYZ',
+    company: 'Tập đoàn Dệt May Đức Phát Gia Lai',
     companyUrl: '#',
   },
 ];
@@ -162,7 +162,7 @@ export default function MesLandingPage() {
               <div className="flex items-center space-x-2">
                 <div className="flex items-center">
                   <Factory size={48} className="text-blue-600 p-1 rounded-md mr-2" mirrored />
-                  <span className="text-xl font-bold text-gray-900">MES Pro</span>
+                  <span className="text-xl font-bold text-gray-900">TMES</span>
                 </div>
               </div>
               <div className="hidden tablet:flex space-x-8">
@@ -228,7 +228,7 @@ export default function MesLandingPage() {
               <div className="flex items-center gap-2">
                 <div className=" flex items-center justify-center">
                   <Factory size={48} className="text-blue-600 p-1 rounded-md mr-2" mirrored />
-                  <span className="text-xl font-bold text-gray-900">MES Pro</span>
+                  <span className="text-xl font-bold text-gray-900">TMES</span>
                 </div>
               </div>
               <button
@@ -376,7 +376,7 @@ export default function MesLandingPage() {
                 Lợi ích vượt trội cho doanh nghiệp
               </h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Hệ thống MES Pro mang lại hiệu quả thiết thực, giúp doanh nghiệp tăng cường cạnh
+                Hệ thống TMES mang lại hiệu quả thiết thực, giúp doanh nghiệp tăng cường cạnh
                 tranh và phát triển bền vững.
               </p>
               <div className="space-y-4">
@@ -454,7 +454,7 @@ export default function MesLandingPage() {
             Khách hàng nói gì về chúng tôi
           </h2>
           <p className="text-lg text-gray-600 mb-10 text-center">
-            Hơn 500+ nhà máy may tin tưởng sử dụng MES Pro
+            Hơn 500+ nhà máy may tin tưởng sử dụng TMES
           </p>
           <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
             {testimonials.map((t, idx) => (
@@ -522,15 +522,15 @@ export default function MesLandingPage() {
               <div className="space-y-6">
                 <div className="flex items-center">
                   <Phone size={24} className="text-blue-600 mr-4" />
-                  <span className="text-gray-700">+84 123 456 789</span>
+                  <span className="text-gray-700">+84 909 774 543</span>
                 </div>
                 <div className="flex items-center">
                   <EnvelopeSimple size={24} className="text-blue-600 mr-4" />
-                  <span className="text-gray-700">info@mespro.vn</span>
+                  <span className="text-gray-700">ttnghiep@tma.com.vn</span>
                 </div>
                 <div className="flex items-center">
                   <MapPin size={24} className="text-blue-600 mr-4" />
-                  <span className="text-gray-700">123 Đường ABC, Quận 1, TP.HCM</span>
+                  <span className="text-gray-700"></span>
                 </div>
               </div>
             </div>
@@ -590,7 +590,7 @@ export default function MesLandingPage() {
             <div className="flex items-center gap-2 mb-4">
               <div className="flex items-center justify-center">
                 <Factory size={48} className="text-blue-600 p-1 rounded-md mr-2" mirrored />
-                <span className="text-xl font-bold text-white">MES Pro</span>
+                <span className="text-xl font-bold text-white">TMES</span>
               </div>
             </div>
             <p className="text-gray-400 leading-relaxed mb-6 miniLaptop:max-w-xs">
@@ -617,7 +617,7 @@ export default function MesLandingPage() {
         </div>
         <hr className="border-gray-700 my-8 max-w-7xl mx-auto" />
         <div className="text-center text-gray-400 text-sm">
-          © 2024 MES Pro. Tất cả quyền được bảo lưu.
+          © 2025 TMA MES. Tất cả quyền được bảo lưu.
         </div>
       </footer>
     </div>
