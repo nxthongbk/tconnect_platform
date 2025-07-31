@@ -5,7 +5,7 @@ const initialOrders = [
   {
     id: '#DH2024001',
     date: '2024-01-15',
-    customer: 'Công ty TNHH ABC',
+    customer: 'Công ty TNHH Nike',
     product: 'Áo sơ mi nam dài tay',
     quantity: 500,
     status: 'Đang sản xuất',
@@ -16,7 +16,7 @@ const initialOrders = [
   {
     id: '#DH2024002',
     date: '2024-01-18',
-    customer: 'Shop thời trang XYZ',
+    customer: 'Công ty TNHH Con Cưng',
     product: 'Quần jean nữ',
     quantity: 300,
     status: 'Đang sản xuất',
@@ -38,7 +38,7 @@ const initialOrders = [
   {
     id: '#DH2024004',
     date: '2024-01-20',
-    customer: 'Công ty Dệt May DEF',
+    customer: 'Công ty Richard',
     product: 'Váy dạ hội',
     quantity: 200,
     status: 'Chờ xử lý',

@@ -32,15 +32,15 @@ const mockData = {
     trend: 'up' as const,
   },
   hourlyProduction: [
-    { time: '07:00', actual: 165, target: 180, efficiency: 92 },
-    { time: '08:00', actual: 175, target: 180, efficiency: 97 },
-    { time: '09:00', actual: 182, target: 180, efficiency: 101 },
-    { time: '10:00', actual: 178, target: 180, efficiency: 99 },
-    { time: '11:00', actual: 155, target: 180, efficiency: 86 },
+    { time: '07:00', actual: 1650, target: 1800, efficiency: 92 },
+    { time: '08:00', actual: 1751, target: 1800, efficiency: 97 },
+    { time: '09:00', actual: 1824, target: 1800, efficiency: 101 },
+    { time: '10:00', actual: 1781, target: 1800, efficiency: 99 },
+    { time: '11:00', actual: 1557, target: 1800, efficiency: 86 },
     { time: '12:00', actual: 0, target: 0, efficiency: 0 },
-    { time: '13:00', actual: 170, target: 180, efficiency: 94 },
-    { time: '14:00', actual: 185, target: 180, efficiency: 103 },
-    { time: '15:00', actual: 0, target: 180, efficiency: 0 },
+    { time: '13:00', actual: 1704, target: 1800, efficiency: 94 },
+    { time: '14:00', actual: 1856, target: 1800, efficiency: 103 },
+    { time: '15:00', actual: 0, target: 1800, efficiency: 0 },
   ],
   processStatus: [
     {
