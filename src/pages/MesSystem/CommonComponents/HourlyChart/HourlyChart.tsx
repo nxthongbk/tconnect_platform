@@ -1,5 +1,4 @@
 import React from 'react';
-
 export interface HourlyChartData {
   time: string;
   target: number;
@@ -55,18 +54,18 @@ const HourlyChart: React.FC<HourlyChartProps> = ({ data }) => {
               <div key={index} className="flex flex-col items-center flex-1">
                 <div className="flex items-end justify-center w-full h-full gap-1">
                   <div
-                    className="w-3 bg-gray-300 rounded-t"
+                    className={`w-3 rounded-t ${item.efficiency > 100 ? 'bg-green-500' : 'bg-blue-500'}`}
                     style={{
-                      height: `${(item.target / maxValue) * 100}%`,
-                      minHeight: item.target > 0 ? '8px' : '0',
+                      height: maxValue > 0 ? `${(item.actual / maxValue) * 160}px` : '0',
+                      minHeight: item.actual > 0 ? '8px' : '0',
                     }}
                   />
 
                   <div
-                    className={`w-3 rounded-t ${item.efficiency > 100 ? 'bg-green-500' : 'bg-blue-500'}`}
+                    className="w-3 bg-gray-300 rounded-t"
                     style={{
-                      height: `${(item.actual / maxValue) * 100}%`,
-                      minHeight: item.actual > 0 ? '8px' : '0',
+                      height: maxValue > 0 ? `${(item.target / maxValue) * 160}px` : '0',
+                      minHeight: item.target > 0 ? '8px' : '0',
                     }}
                   />
                 </div>
@@ -77,7 +76,7 @@ const HourlyChart: React.FC<HourlyChartProps> = ({ data }) => {
                   {item.actual}/{item.target}
                 </span>
                 <span className={`text-xs font-semibold ${efficiencyColor}`}>
-                  {item.efficiency > 0 ? `${item.efficiency}%` : ''}
+                  {item.efficiency > 0 ? `${item.efficiency}%` : '0%'}
                 </span>
               </div>
             );

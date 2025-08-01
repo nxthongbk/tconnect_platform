@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  Package,
-  Users,
-  Factory,
-  ClipboardText,
-  GitBranch,
-  Shield,
-} from '@phosphor-icons/react';
+import { Package, Users, Factory, ClipboardText, GitBranch, Shield } from '@phosphor-icons/react';
 import BarChart3Icon from '~/pages/MesSystem/CommonComponents/CustomIcons/BarChart3Icon';
 
 const navItems = [
@@ -73,22 +66,18 @@ const navItems = [
 
 interface SidebarProps {
   open: boolean;
-  onToggleSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ open, onToggleSidebar }) => {
+const Sidebar: React.FC<SidebarProps> = ({ open }) => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 1024 && open) {
-        onToggleSidebar();
+        // Optionally, you can handle responsive logic elsewhere
       }
     };
     window.addEventListener('resize', handleResize);
-    if (window.innerWidth < 1024 && open) {
-      onToggleSidebar();
-    }
     return () => window.removeEventListener('resize', handleResize);
-  }, [open, onToggleSidebar]);
+  }, [open]);
 
   return (
     <aside
@@ -97,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onToggleSidebar }) => {
       <div
         className={`flex items-center py-5 border-b border-gray-100 transition-all duration-300 ${open ? 'px-6 gap-2' : 'px-0 justify-center'}`}
       >
-        <div className={`w-9 h-9 ${open ? '' : 'mr-1 ml-6'}`}>
+        <div className={`w-9 h-9}`}>
           <Factory mirrored size={34} className={`text-blue-600 `} />
         </div>
 
@@ -107,24 +96,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onToggleSidebar }) => {
             <div className="text-sm text-gray-500">Poseidon</div>
           </div>
         )}
-        <button
-          onClick={onToggleSidebar}
-          className={`ml-auto flex p-1 items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-all duration-200 ${open ? '' : 'mr-0'}`}
-          type="button"
-        >
-          <svg
-            className={`w-6 h-6 text-gray-600 transition-transform duration-300 `}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line x1="4" x2="20" y1="12" y2="12"></line>
-            <line x1="4" x2="20" y1="6" y2="6"></line>
-            <line x1="4" x2="20" y1="18" y2="18"></line>
-          </svg>
-        </button>
       </div>
       <nav className="flex-1 py-4">
         <ul className="space-y-1">

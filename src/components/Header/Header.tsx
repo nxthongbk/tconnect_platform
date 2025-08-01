@@ -7,7 +7,12 @@ import authService from '~/services/auth.service';
 import { clearCookie, getRefreshTokenFromCookie } from '~/utils/auth';
 import { Menu, MenuItem } from '@mui/material';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: React.FC<HeaderProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
   const { reset } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -41,8 +46,49 @@ const Header: React.FC = () => {
 
   return (
     <header className="w-full bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between h-16">
-      {/* Search box */}
-      <div className="flex items-center justify-between">
+      {/* Left section: Sidebar menu icon */}
+      <div className="flex items-center">
+        {sidebarOpen ? (
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="mr-4 flex p-1 items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-all duration-200"
+            type="button"
+            aria-label="Đóng menu"
+          >
+            <svg
+              className="w-6 h-6 text-gray-600 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="6" y1="18" x2="18" y2="6" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="mr-4 flex p-1 items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-all duration-200"
+            type="button"
+            aria-label="Mở menu"
+          >
+            <svg
+              className="w-6 h-6 text-gray-600 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        )}
+        {/* Search box */}
         <div className="flex items-center space-x-4">
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
