@@ -28,7 +28,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: nxthongbk/tmes:latest
+          tags: nxthongbk/scmms:latest
 
   # Deploy:
   #   if: |
