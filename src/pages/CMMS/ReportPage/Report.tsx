@@ -1,7 +1,6 @@
 import { Download, TrendUp, FileText, CalendarBlank } from '@phosphor-icons/react';
 
 export default function Report() {
-  // Dynamic quick actions
   const quickActions = [
     {
       title: 'Báo cáo hiệu suất thiết bị',
@@ -53,7 +52,6 @@ export default function Report() {
         </div>
         <button
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-          // onClick={() => setOpenModal(true)}
         >
           <Download size={20} /> Xuất báo cáo
         </button>
@@ -95,7 +93,7 @@ export default function Report() {
           </div>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">{maintenanceTitles.thisMonth}:</span>
+              <span className="text-gray-600 ">{maintenanceTitles.thisMonth}:</span>
               <span className="font-semibold text-gray-900">{maintenanceData.thisMonth}</span>
             </div>
             <div className="flex justify-between items-center">

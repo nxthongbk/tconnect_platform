@@ -10,6 +10,8 @@ import DevicesManagement from '~/pages/CMMS/DevicesPage/DevicesManagement';
 import MaintenanceManagement from '~/pages/CMMS/MaintenancePage/MaintenanceManagement';
 import InventoryManagement from '~/pages/CMMS/InventoryPage/InventoryManagement';
 import Report from '~/pages/CMMS/ReportPage/Report';
+import EmployeeManagement from '~/pages/CMMS/EmployeePage/EmployeeManagement';
+import Setting from '~/pages/CMMS/SettingPage/Setting';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -53,6 +55,9 @@ const useRoutes = () => {
             { path: 'maintenance', element: <MaintenanceManagement /> },
             { path: 'inventory', element: <InventoryManagement /> },
             { path: 'reports', element: <Report /> },
+            { path: 'employees', element: <EmployeeManagement /> },
+            { path: 'settings', element: <Setting /> },
+
           ],
         },
       ],
