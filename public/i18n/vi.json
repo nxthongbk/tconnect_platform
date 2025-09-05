@@ -31,7 +31,7 @@
   "Nhập mật khẩu mới": "Nhập mật khẩu mới",
   "Nhập mật khẩu cũ": "Nhập mật khẩu cũ",
   "Nhập mật khẩu": "Nhập mật khẩu",
-	"Sai tên đăng nhập hoặc mật khẩu": "Sai tên đăng nhập hoặc mật khẩu",
+  "Sai tên đăng nhập hoặc mật khẩu": "Sai tên đăng nhập hoặc mật khẩu",
   "search": "Tìm kiếm",
   "Thêm mới": "Thêm mới",
   "Đặt lại bộ lọc": "Đặt lại bộ lọc",
@@ -558,5 +558,19 @@
   "apply": "Áp dụng",
   "Đặt lại": "Đặt lại",
   "list-location": "Danh sách địa điểm",
-  "set-alarm-successfully": "Cài cảnh báo thành công"
+  "set-alarm-successfully": "Cài cảnh báo thành công",
+
+  "sCMMS": {
+		"title": "Factory Manager",
+		"subTitle": "Hệ thống quản lý nhà máy",
+    "sidebar": {
+      "dashboard": "Trang chủ",
+      "equipments": "Quản lý thiết bị",
+      "maintenance": "Bảo trì",
+      "inventory": "Kho vật tư",
+      "reports": "Báo cáo",
+      "employees": "Quản lý nhân viên",
+      "settings": "Cài đặt"
+    }
+  }
 }

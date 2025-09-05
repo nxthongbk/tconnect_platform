@@ -31,7 +31,7 @@
   "Nhập mật khẩu mới": "Enter new password",
   "Nhập mật khẩu cũ": "Enter old password",
   "Nhập mật khẩu": "Enter password",
-	"Sai tên đăng nhập hoặc mật khẩu": "Incorrect username or password",
+  "Sai tên đăng nhập hoặc mật khẩu": "Incorrect username or password",
   "search": "Search",
   "Thêm mới": "Add new",
   "Đặt lại bộ lọc": "Refresh filter",
@@ -522,5 +522,19 @@
   "apply": "Apply",
   "Đặt lại": "Refresh",
   "list-location": "List location",
-  "set-alarm-successfully": "Set alarm configuration successfully"
+  "set-alarm-successfully": "Set alarm configuration successfully",
+
+  "sCMMS": {
+    "title": "Factory Manager",
+    "subTitle": "Equipment & Inventory System",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "equipments": "Equipment Management",
+      "maintenance": "Maintenance",
+      "inventory": "Inventory",
+      "reports": "Reports",
+      "employees": "User Management",
+      "settings": "Settings"
+    }
+  }
 }

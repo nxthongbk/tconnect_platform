@@ -51,7 +51,7 @@ const useRoutes = () => {
           children: [
             { path: '', element: <Navigate to="dashboard" replace /> },
             { path: 'dashboard', element: <DashboardPage /> },
-            { path: 'devices', element: <DevicesManagement /> },
+            { path: 'equipments', element: <DevicesManagement /> },
             { path: 'maintenance', element: <MaintenanceManagement /> },
             { path: 'inventory', element: <InventoryManagement /> },
             { path: 'reports', element: <Report /> },

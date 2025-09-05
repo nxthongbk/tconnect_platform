@@ -2,48 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Package, Users, GearSix, HouseLine, Wrench, CalendarBlank } from '@phosphor-icons/react';
 import BarChart3Icon from '~/pages/CMMS/CommonComponents/CustomIcons/BarChart3Icon';
+import { useTranslation } from 'react-i18next';
 
+const Sidebar: React.FC = () => {
+  const [open, setOpen] = useState(true);
+  const { t } = useTranslation();
 
 const navItems = [
   {
-    label: 'Dashboard',
+    label: t('sCMMS.sidebar.dashboard'),
     icon: <HouseLine size={22} className="text-gray-300" />,
     to: '/dashboard',
   },
   {
-    label: 'Quản lý thiết bị',
+    label: t('sCMMS.sidebar.equipments'),
     icon: <Wrench size={22} className="text-gray-300" />,
-    to: '/devices',
+    to: '/equipments',
   },
   {
-    label: 'Bảo trì',
+    label: t('sCMMS.sidebar.maintenance'),
     icon: <CalendarBlank size={22} className="text-gray-300" />,
     to: '/maintenance',
   },
   {
-    label: 'Kho vật tư',
+    label: t('sCMMS.sidebar.inventory'),
     icon: <Package size={22} className="text-gray-300" />,
     to: '/inventory',
   },
   {
-    label: 'Báo cáo',
+    label: t('sCMMS.sidebar.reports'),
     icon: <BarChart3Icon className="text-gray-300 h-5 w-5" />,
     to: '/reports',
   },
   {
-    label: 'Nhân viên',
+    label: t('sCMMS.sidebar.employees'),
     icon: <Users size={22} className="text-gray-300" />,
     to: '/employees',
   },
   {
-    label: 'Cài đặt',
+    label: t('sCMMS.sidebar.settings'),
     icon: <GearSix size={22} className="text-gray-300" />,
     to: '/settings',
   },
 ];
-
-const Sidebar: React.FC = () => {
-  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -64,13 +65,13 @@ const Sidebar: React.FC = () => {
       >
         {open && (
           <div>
-            <div className="text-xl font-bold">Factory Manager</div>
-            <div className="text-slate-400 text-sm mt-1">Hệ thống quản lý nhà máy</div>
+            <div className="text-xl font-bold">{t('sCMMS.title')}</div>
+            <div className="text-slate-400 text-sm mt-1">{t('sCMMS.subTitle')}</div>
           </div>
         )}
         <button
           onClick={() => setOpen(o => !o)}
-          className={`ml-auto flex p-1 items-center justify-center w-8 h-8 rounded-lg hover:bg-[#232e47] transition-all duration-200 ${open ? '' : ''}`}
+          className={`flex p-1 items-center justify-center w-8 h-8 rounded-lg hover:bg-[#232e47] transition-all duration-200 ${open ? 'ml-auto' : ''}`}
           type="button"
           aria-label={open ? 'Đóng menu' : 'Mở menu'}
         >
@@ -109,8 +110,10 @@ const Sidebar: React.FC = () => {
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-6 py-3 font-medium transition-all duration-150 rounded-lg ${
-                    isActive ? 'bg-blue-500 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  `flex items-center gap-3 px-6 py-3 text-sm transition-all duration-150 rounded-lg ${
+                    isActive
+                      ? 'bg-blue-500 text-white'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   } ${open ? '' : 'justify-center px-0'}`
                 }
                 end
