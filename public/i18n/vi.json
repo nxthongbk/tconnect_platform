@@ -561,8 +561,8 @@
   "set-alarm-successfully": "Cài cảnh báo thành công",
 
   "sCMMS": {
-		"title": "Factory Manager",
-		"subTitle": "Hệ thống quản lý nhà máy",
+    "title": "Factory Manager",
+    "subTitle": "Hệ thống quản lý nhà máy",
     "sidebar": {
       "dashboard": "Trang chủ",
       "equipments": "Quản lý thiết bị",
@@ -571,6 +571,165 @@
       "reports": "Báo cáo",
       "employees": "Quản lý nhân viên",
       "settings": "Cài đặt"
+    },
+    "dashboard": {
+      "title": "Dashboard Tổng quan",
+      "subTitle": "Theo dõi tình trạng thiết bị và hoạt động bảo trì",
+      "deviceStatus": {
+        "title": "Tình trạng thiết bị",
+        "totalDevices": "Tổng thiết bị",
+        "normalOperation": "Hoạt động bình thường",
+        "underMaintenance": "Đang bảo trì",
+        "malfunction": "Hỏng hóc"
+      },
+      "maintenanceActivity": {
+        "title": "Hoạt động bảo trì",
+        "scheduled": "Đã lên lịch",
+        "inProgress": "Đang thực hiện",
+        "completed": "Hoàn thành"
+      },
+      "inventoryStatus": {
+        "title": "Tình trạng kho",
+        "totalItems": "Tổng mặt hàng",
+        "lowStock": "Sắp hết hàng",
+        "inventoryValue": "Giá trị tồn kho"
+      },
+      "recentActivities": {
+        "title": "Hoạt động gần đây",
+        "maintenanceCompleted": "{device} hoàn thành",
+        "maintenanceStarted": "Bắt đầu sửa chữa {device}",
+        "lowStock": "{item} sắp hết hàng",
+        "remaining": "Còn lại {quantity} cái - cần bổ sung",
+        "technician": "Kỹ thuật viên: {name}"
+      }
+    },
+    "equipmentManagement": {
+      "title": "Quản lý thiết bị",
+      "subTitle": "Theo dõi và quản lý tất cả thiết bị trong nhà máy",
+      "addDevice": "Thêm thiết bị",
+      "searchPlaceholder": "Tìm kiếm thiết bị...",
+      "allStatus": "Tất cả",
+      "tableHeaders": {
+        "device": "THIẾT BỊ",
+        "location": "VỊ TRÍ",
+        "status": "TRẠNG THÁI",
+        "nextMaintenance": "BẢO TRÌ TIẾP THEO",
+        "actions": "THAO TÁC"
+      },
+      "status": {
+        "active": "Hoạt động",
+        "maintenance": "Bảo trì",
+        "malfunction": "Hỏng"
+      }
+    },
+    "maintenanceManagement": {
+      "title": "Quản lý bảo trì",
+      "subTitle": "Lập kế hoạch và theo dõi các hoạt động bảo trì thiết bị",
+      "createSchedule": "Tạo lịch bảo trì",
+      "searchPlaceholder": "Tìm kiếm bảo trì...",
+      "allStatus": "Tất cả",
+      "tableHeaders": {
+        "device": "THIẾT BỊ",
+        "typeStatus": "LOẠI / TRẠNG THÁI",
+        "executionDate": "NGÀY THỰC HIỆN",
+        "technician": "KỸ THUẬT VIÊN",
+        "cost": "CHI PHÍ"
+      },
+      "status": {
+        "periodic": "Định kỳ",
+        "completed": "Hoàn thành",
+        "repair": "Sửa chữa",
+        "inProgress": "Đang thực hiện"
+      },
+      "descriptions": {
+        "periodicMaintenance": "Bảo trì định kỳ hệ thống thủy lực",
+        "repairMotor": "Sửa chữa motor băng tải bị hỏng"
+      }
+    },
+    "inventoryManagement": {
+      "title": "Quản lý kho vật tư",
+      "subTitle": "Theo dõi tồn kho và quản lý vật tư, phụ tùng",
+      "addSupply": "Thêm vật tư",
+      "searchPlaceholder": "Tìm kiếm vật tư...",
+      "allCategories": "Tất cả danh mục",
+      "tableHeaders": {
+        "supply": "VẬT TƯ",
+        "inventory": "TỒN KHO",
+        "status": "TRẠNG THÁI",
+        "unitPrice": "ĐƠN GIÁ",
+        "supplier": "NHÀ CUNG CẤP",
+        "location": "VỊ TRÍ KHO"
+      },
+      "status": {
+        "sufficient": "Đủ",
+        "lowStock": "Sắp hết"
+      }
+    },
+    "reports": {
+      "title": "Báo cáo & Thống kê",
+      "subTitle": "Phân tích hiệu suất và tình trạng hoạt động",
+      "exportReport": "Xuất báo cáo",
+      "deviceReport": {
+        "title": "Báo cáo thiết bị",
+        "totalDevices": "Tổng số thiết bị",
+        "operatingRate": "Tỷ lệ hoạt động",
+        "distributionByCategory": "Phân bổ theo danh mục"
+      },
+      "maintenanceReport": {
+        "title": "Báo cáo bảo trì",
+        "maintenanceThisMonth": "Bảo trì tháng này",
+        "completed": "Đã hoàn thành",
+        "totalCost": "Tổng chi phí",
+        "totalTime": "Thời gian TB"
+      },
+      "inventoryReport": {
+        "title": "Báo cáo kho vật tư",
+        "totalItems": "Tổng mặt hàng",
+        "lowStock": "Sắp hết hàng",
+        "inventoryValue": "Giá trị tồn kho",
+        "itemsToReplenish": "Vật tư cần bổ sung"
+      },
+      "quickActions": {
+        "title": "Thao tác nhanh",
+        "devicePerformanceReport": {
+          "title": "Báo cáo hiệu suất thiết bị",
+          "description": "Xuất báo cáo chi tiết về tình trạng thiết bị"
+        },
+        "weeklySchedule": {
+          "title": "Lịch bảo trì tuần tới",
+          "description": "Xem kế hoạch bảo trì 7 ngày tới"
+        },
+        "maintenanceCostReport": {
+          "title": "Báo cáo chi phí bảo trì",
+          "description": "Thống kê chi phí bảo trì theo tháng"
+        }
+      }
+    },
+    "employeesManagement": {
+      "title": "Quản lý nhân viên",
+      "subTitle": "Quản lý tài khoản và phân quyền người dùng",
+      "addEmployee": "Thêm nhân viên",
+      "searchPlaceholder": "Tìm kiếm nhân viên...",
+      "tableHeaders": {
+        "employee": "NHÂN VIÊN",
+        "position": "CHỨC VỤ",
+        "department": "BỘ PHẬN",
+        "actions": "THAO TÁC"
+      },
+      "positions": {
+        "technician": "Kỹ thuật viên",
+        "supervisor": "Giám sát"
+      },
+      "departments": {
+        "maintenance": "Bảo trì",
+        "production": "Sản xuất"
+      },
+      "employeeStatistics": {
+        "title": "Thống kê nhân viên",
+        "administrator": "Quản trị viên",
+        "supervisor": "Giám sát viên",
+        "technician": "Kỹ thuật viên"
+      }
     }
   }
 }

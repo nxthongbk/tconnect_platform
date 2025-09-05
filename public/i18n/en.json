@@ -535,6 +535,165 @@
       "reports": "Reports",
       "employees": "User Management",
       "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard Overview",
+      "subTitle": "Monitor equipment status and maintenance activities",
+      "deviceStatus": {
+        "title": "Equipment Status",
+        "totalDevices": "Total Equipment",
+        "normalOperation": "Operational",
+        "underMaintenance": "Under Maintenance",
+        "malfunction": "Out of Order"
+      },
+      "maintenanceActivity": {
+        "title": "Maintenance Activities",
+        "scheduled": "Scheduled",
+        "inProgress": "In Progress",
+        "completed": "Completed"
+      },
+      "inventoryStatus": {
+        "title": "Inventory Status",
+        "totalItems": "Total Items",
+        "lowStock": "Low Stock Items",
+        "inventoryValue": "Inventory Value"
+      },
+      "recentActivities": {
+        "title": "Recent Activities",
+        "maintenanceCompleted": "{device} maintenance completed",
+        "maintenanceStarted": "Started repair on {device}",
+        "lowStock": "{item} low stock",
+        "remaining": "{quantity} items remaining - needs replenishment",
+        "technician": "Technician: {name}"
+      }
+    },
+    "equipmentManagement": {
+      "title": "Equipment Management",
+      "subTitle": "Monitor and manage all equipment in the factory",
+      "addDevice": "Add Equipment",
+      "searchPlaceholder": "Search equipment...",
+      "allStatus": "All",
+      "tableHeaders": {
+        "device": "EQUIPMENT",
+        "location": "LOCATION",
+        "status": "STATUS",
+        "nextMaintenance": "NEXT MAINTENANCE",
+        "actions": "ACTIONS"
+      },
+      "status": {
+        "active": "Operational",
+        "maintenance": "Maintenance",
+        "malfunction": "Out of Order"
+      }
+    },
+    "maintenanceManagement": {
+      "title": "Maintenance Management",
+      "subTitle": "Plan and track equipment maintenance activities",
+      "createSchedule": "Create Maintenance Schedule",
+      "searchPlaceholder": "Search maintenance...",
+      "allStatus": "All",
+      "tableHeaders": {
+        "device": "EQUIPMENT",
+        "typeStatus": "TYPE / STATUS",
+        "executionDate": "EXECUTION DATE",
+        "technician": "TECHNICIAN",
+        "cost": "COST"
+      },
+      "status": {
+        "periodic": "Periodic",
+        "completed": "Completed",
+        "repair": "Repair",
+        "inProgress": "In Progress"
+      },
+      "descriptions": {
+        "periodicMaintenance": "Periodic maintenance of the hydraulic system",
+        "repairMotor": "Repairing a broken conveyor motor"
+      }
+    },
+    "inventoryManagement": {
+      "title": "Inventory Management",
+      "subTitle": "Track inventory and manage supplies, spare parts",
+      "addSupply": "Add Supply",
+      "searchPlaceholder": "Search supplies...",
+      "allCategories": "All Categories",
+      "tableHeaders": {
+        "supply": "SUPPLIES",
+        "inventory": "INVENTORY",
+        "status": "STATUS",
+        "unitPrice": "UNIT PRICE",
+        "supplier": "SUPPLIER",
+        "location": "WAREHOUSE LOCATION"
+      },
+      "status": {
+        "sufficient": "Sufficient",
+        "lowStock": "Low Stock"
+      }
+    },
+    "reports": {
+      "title": "Reports & Statistics",
+      "subTitle": "Analyze performance and operational status",
+      "exportReport": "Export Report",
+      "deviceReport": {
+        "title": "Equipment Report",
+        "totalDevices": "Total Equipment",
+        "operatingRate": "Operating Rate",
+        "distributionByCategory": "Distribution by Category"
+      },
+      "maintenanceReport": {
+        "title": "Maintenance Report",
+        "maintenanceThisMonth": "Maintenance this month",
+        "completed": "Completed",
+        "totalCost": "Total Cost",
+        "totalTime": "Total Time"
+      },
+      "inventoryReport": {
+        "title": "Inventory Report",
+        "totalItems": "Total Items",
+        "lowStock": "Low Stock Items",
+        "inventoryValue": "Inventory Value",
+        "itemsToReplenish": "Items to replenish"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "devicePerformanceReport": {
+          "title": "Equipment Performance Report",
+          "description": "Export a detailed report on equipment status"
+        },
+        "weeklySchedule": {
+          "title": "Upcoming Weekly Schedule",
+          "description": "View maintenance schedule for the next 7 days"
+        },
+        "maintenanceCostReport": {
+          "title": "Maintenance Cost Report",
+          "description": "Monthly maintenance cost statistics"
+        }
+      }
+    },
+    "employeesManagement": {
+      "title": "Employee Management",
+      "subTitle": "Manage user accounts and permissions",
+      "addEmployee": "Add Employee",
+      "searchPlaceholder": "Search employees...",
+      "tableHeaders": {
+        "employee": "EMPLOYEE",
+        "position": "POSITION",
+        "department": "DEPARTMENT",
+        "actions": "ACTIONS"
+      },
+      "positions": {
+        "technician": "Technician",
+        "supervisor": "Supervisor"
+      },
+      "departments": {
+        "maintenance": "Maintenance",
+        "production": "Production"
+      },
+      "employeeStatistics": {
+        "title": "Employee Statistics",
+        "administrator": "Administrator",
+        "supervisor": "Supervisor",
+        "technician": "Technician"
+      }
     }
   }
 }
