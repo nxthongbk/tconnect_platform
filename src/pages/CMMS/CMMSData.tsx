@@ -2,7 +2,6 @@ import { Clock, Wrench, Warning } from '@phosphor-icons/react';
 
 export const getCMMSData = (t: any) => {
   const dashboardTranslations = t('sCMMS.dashboard', { returnObjects: true });
-  const equipmentTranslations = t('sCMMS.equipmentManagement', { returnObjects: true });
 
   const deviceStatusData = [
     {

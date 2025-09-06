@@ -760,68 +760,77 @@
     "reports": {
       "title": "Báo cáo & Thống kê",
       "subTitle": "Phân tích hiệu suất và tình trạng hoạt động",
-      "exportReport": "Xuất báo cáo",
-      "deviceReport": {
-        "title": "Báo cáo thiết bị",
-        "totalDevices": "Tổng số thiết bị",
-        "operatingRate": "Tỷ lệ hoạt động",
-        "distributionByCategory": "Phân bổ theo danh mục"
-      },
-      "maintenanceReport": {
-        "title": "Báo cáo bảo trì",
-        "maintenanceThisMonth": "Bảo trì tháng này",
-        "completed": "Đã hoàn thành",
-        "totalCost": "Tổng chi phí",
-        "totalTime": "Thời gian TB"
-      },
-      "inventoryReport": {
-        "title": "Báo cáo kho vật tư",
-        "totalItems": "Tổng mặt hàng",
-        "lowStock": "Sắp hết hàng",
-        "inventoryValue": "Giá trị tồn kho",
-        "itemsToReplenish": "Vật tư cần bổ sung"
-      },
+      "export": "Xuất báo cáo",
+      "deviceReport": "Báo cáo thiết bị",
+      "totalDevices": "Tổng số thiết bị",
+      "activityRate": "Tỷ lệ hoạt động",
+      "byCategory": "Phân bổ theo danh mục",
+      "maintenanceReport": "Báo cáo bảo trì",
+      "inventoryReport": "Báo cáo kho vật tư",
+      "needRestock": "Vật tư cần bổ sung",
       "quickActions": {
         "title": "Thao tác nhanh",
-        "devicePerformanceReport": {
+        "performanceReport": {
           "title": "Báo cáo hiệu suất thiết bị",
-          "description": "Xuất báo cáo chi tiết về tình trạng thiết bị"
+          "desc": "Xuất báo cáo chi tiết về tình trạng thiết bị"
         },
-        "weeklySchedule": {
+        "maintenanceSchedule": {
           "title": "Lịch bảo trì tuần tới",
-          "description": "Xem kế hoạch bảo trì 7 ngày tới"
+          "desc": "Xem kế hoạch bảo trì 7 ngày tới"
         },
-        "maintenanceCostReport": {
+        "costReport": {
           "title": "Báo cáo chi phí bảo trì",
-          "description": "Thống kê chi phí bảo trì theo tháng"
+          "desc": "Thống kê chi phí bảo trì theo tháng"
         }
+      },
+      "maintenance": {
+        "thisMonth": "Bảo trì tháng này",
+        "completed": "Đã hoàn thành",
+        "totalCost": "Tổng chi phí",
+        "avgTime": "Thời gian TB"
+      },
+
+      "devices": {
+        "hydraulicPress": "Máy ép thủy lực",
+        "conveyor": "Băng chuyền",
+        "weldingRobot": "Robot hàn"
+      },
+      "time": {
+        "minutes": "phút"
       }
     },
-    "employeesManagement": {
+    "employeeManagement": {
       "title": "Quản lý nhân viên",
       "subTitle": "Quản lý tài khoản và phân quyền người dùng",
       "addEmployee": "Thêm nhân viên",
       "searchPlaceholder": "Tìm kiếm nhân viên...",
       "tableHeaders": {
         "employee": "NHÂN VIÊN",
-        "position": "CHỨC VỤ",
+        "role": "CHỨC VỤ",
         "department": "BỘ PHẬN",
         "actions": "THAO TÁC"
       },
-      "positions": {
-        "technician": "Kỹ thuật viên",
-        "supervisor": "Giám sát"
+      "roles": {
+        "admin": "Quản trị viên",
+        "supervisor": "Giám sát viên",
+        "technician": "Kỹ thuật viên"
       },
       "departments": {
         "maintenance": "Bảo trì",
         "production": "Sản xuất"
       },
-      "employeeStatistics": {
+      "stats": {
         "title": "Thống kê nhân viên",
-        "administrator": "Quản trị viên",
+        "admin": "Quản trị viên",
         "supervisor": "Giám sát viên",
         "technician": "Kỹ thuật viên"
       }
-    }
+    },
+		"settings": {
+			"title": "Cài đặt",
+			"language": "Ngôn ngữ",
+			"vi": "Tiếng Việt",
+			"en": "Tiếng Anh"
+		}
   }
 }

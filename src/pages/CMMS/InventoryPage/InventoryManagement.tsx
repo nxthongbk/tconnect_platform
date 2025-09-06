@@ -101,10 +101,10 @@ export default function InventoryManagement() {
           <h1 className="text-2xl font-bold text-gray-900">
             {t('sCMMS.inventoryManagement.title')}
           </h1>
-          <p className="text-gray-600">{t('sCMMS.inventoryManagement.subtitle')}</p>
+          <p className="text-gray-600">{t('sCMMS.inventoryManagement.subTitle')}</p>
         </div>
         <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
-          <Plus size={20} /> {t('sCMMS.inventoryManagement.addItem')}
+          <Plus size={20} /> {t('sCMMS.inventoryManagement.addSupply')}
         </button>
       </div>
 

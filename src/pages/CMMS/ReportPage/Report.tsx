@@ -1,78 +1,85 @@
 import { Download, TrendUp, FileText, CalendarBlank } from '@phosphor-icons/react';
+import { useTranslation } from 'react-i18next';
 
 export default function Report() {
+  const { t } = useTranslation();
+
   const quickActions = [
     {
-      title: 'Báo cáo hiệu suất thiết bị',
-      description: 'Xuất báo cáo chi tiết về tình trạng thiết bị',
+      title: t('sCMMS.reports.quickActions.performanceReport.title'),
+      description: t('sCMMS.reports.quickActions.performanceReport.desc'),
     },
     {
-      title: 'Lịch bảo trì tuần tới',
-      description: 'Xem kế hoạch bảo trì 7 ngày tới',
+      title: t('sCMMS.reports.quickActions.maintenanceSchedule.title'),
+      description: t('sCMMS.reports.quickActions.maintenanceSchedule.desc'),
     },
     {
-      title: 'Báo cáo chi phí bảo trì',
-      description: 'Thống kê chi phí bảo trì theo tháng',
+      title: t('sCMMS.reports.quickActions.costReport.title'),
+      description: t('sCMMS.reports.quickActions.costReport.desc'),
     },
   ];
-  const maintenanceTitles = {
-    thisMonth: 'Bảo trì tháng này',
-    completed: 'Đã hoàn thành',
-    totalCost: 'Tổng chi phí',
-    avgTime: 'Thời gian TB',
-  };
 
   const inventoryData = {
     totalItems: 3,
     lowStock: 1,
     totalValue: '12.3M',
-    supplement: [{ name: 'Gasket seal', value: '8/10 Cái' }],
+    supplement: [
+      {
+        name: t('sCMMS.inventoryManagement.items.gasketSeal'),
+        value: '8/10 ' + t('sCMMS.inventoryManagement.units.piece'),
+      },
+    ],
   };
+
   const deviceData = {
     total: 3,
     activityRate: 33.3,
     categories: {
-      'Hydraulic Press': 1,
-      Conveyor: 1,
-      'Welding Robot': 1,
+      [t('sCMMS.reports.devices.hydraulicPress')]: 1,
+      [t('sCMMS.reports.devices.conveyor')]: 1,
+      [t('sCMMS.reports.devices.weldingRobot')]: 1,
     },
   };
+
   const maintenanceData = {
     thisMonth: 0,
     completed: 0,
     totalCost: 0,
     avgTime: 0,
   };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Báo cáo & Thống kê</h1>
-          <p className="text-gray-600">Phân tích hiệu suất và tình trạng hoạt động</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('sCMMS.reports.title')}</h1>
+          <p className="text-gray-600">{t('sCMMS.reports.subTitle')}</p>
         </div>
-        <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-        >
-          <Download size={20} /> Xuất báo cáo
+        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+          <Download size={20} /> {t('sCMMS.reports.export')}
         </button>
       </div>
       <div className="grid grid-cols-1 smallLaptop:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center gap-3 mb-4">
             <TrendUp size={24} className="text-blue-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Báo cáo thiết bị</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {t('sCMMS.reports.deviceReport')}
+            </h3>
           </div>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Tổng số thiết bị:</span>
+              <span className="text-gray-600">{t('sCMMS.reports.totalDevices')}:</span>
               <span className="font-semibold text-gray-900">{deviceData.total}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Tỷ lệ hoạt động:</span>
+              <span className="text-gray-600">{t('sCMMS.reports.activityRate')}:</span>
               <span className="font-semibold text-green-600">{deviceData.activityRate}%</span>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-700 mb-2">Phân bổ theo danh mục:</p>
+              <p className="text-sm font-medium text-gray-700 mb-2">
+                {t('sCMMS.reports.byCategory')}:
+              </p>
               <div className="space-y-1">
                 {Object.entries(deviceData.categories).map(([cat, count]) => (
                   <div className="flex justify-between text-sm" key={cat}>
@@ -85,28 +92,31 @@ export default function Report() {
           </div>
         </div>
 
-        {/* Maintenance Report Card - Dynamic */}
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center gap-3 mb-4">
             <CalendarBlank size={24} className="text-blue-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Báo cáo bảo trì</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {t('sCMMS.reports.maintenanceReport')}
+            </h3>
           </div>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 ">{maintenanceTitles.thisMonth}:</span>
+              <span className="text-gray-600 ">{t('sCMMS.reports.maintenance.thisMonth')}:</span>
               <span className="font-semibold text-gray-900">{maintenanceData.thisMonth}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">{maintenanceTitles.completed}:</span>
+              <span className="text-gray-600">{t('sCMMS.reports.maintenance.completed')}:</span>
               <span className="font-semibold text-green-600">{maintenanceData.completed}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">{maintenanceTitles.totalCost}:</span>
+              <span className="text-gray-600">{t('sCMMS.reports.maintenance.totalCost')}:</span>
               <span className="font-semibold text-gray-900">{maintenanceData.totalCost} ₫</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">{maintenanceTitles.avgTime}:</span>
-              <span className="font-semibold text-gray-900">{maintenanceData.avgTime} phút</span>
+              <span className="text-gray-600">{t('sCMMS.reports.maintenance.avgTime')}:</span>
+              <span className="font-semibold text-gray-900">
+                {maintenanceData.avgTime} {t('sCMMS.reports.time.minutes')}
+              </span>
             </div>
           </div>
         </div>
@@ -115,23 +125,27 @@ export default function Report() {
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center gap-3 mb-4">
             <FileText size={24} className="text-blue-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Báo cáo kho vật tư</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {t('sCMMS.reports.inventoryReport')}
+            </h3>
           </div>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Tổng mặt hàng:</span>
+              <span className="text-gray-600">{t('sCMMS.inventoryManagement.totalItems')}:</span>
               <span className="font-semibold text-gray-900">{inventoryData.totalItems}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Sắp hết hàng:</span>
+              <span className="text-gray-600">{t('sCMMS.inventoryManagement.lowStock')}:</span>
               <span className="font-semibold text-red-600">{inventoryData.lowStock}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Giá trị tồn kho:</span>
+              <span className="text-gray-600">{t('sCMMS.inventoryManagement.stockValue')}:</span>
               <span className="font-semibold text-gray-900">{inventoryData.totalValue} ₫</span>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-700 mb-2">Vật tư cần bổ sung:</p>
+              <p className="text-sm font-medium text-gray-700 mb-2">
+                {t('sCMMS.reports.needRestock')}:
+              </p>
               <div className="space-y-1 max-h-32 overflow-y-auto">
                 {inventoryData.supplement.map((item, idx) => (
                   <div className="flex justify-between text-sm" key={item.name + idx}>
@@ -147,7 +161,9 @@ export default function Report() {
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center gap-3 mb-4">
             <TrendUp size={24} className="text-blue-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Thao tác nhanh</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {t('sCMMS.reports.quickActions.title')}
+            </h3>
           </div>
           <div className="space-y-3">
             {quickActions.map((action, idx) => (

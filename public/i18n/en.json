@@ -722,68 +722,77 @@
     "reports": {
       "title": "Reports & Statistics",
       "subTitle": "Analyze performance and operational status",
-      "exportReport": "Export Report",
-      "deviceReport": {
-        "title": "Equipment Report",
-        "totalDevices": "Total Equipment",
-        "operatingRate": "Operating Rate",
-        "distributionByCategory": "Distribution by Category"
-      },
-      "maintenanceReport": {
-        "title": "Maintenance Report",
-        "maintenanceThisMonth": "Maintenance this month",
-        "completed": "Completed",
-        "totalCost": "Total Cost",
-        "totalTime": "Total Time"
-      },
-      "inventoryReport": {
-        "title": "Inventory Report",
-        "totalItems": "Total Items",
-        "lowStock": "Low Stock Items",
-        "inventoryValue": "Inventory Value",
-        "itemsToReplenish": "Items to replenish"
-      },
+      "export": "Export Report",
+      "deviceReport": "Equipment Report",
+      "totalDevices": "Total Equipment",
+      "activityRate": "Operating Rate",
+      "byCategory": "Distribution by Category",
+      "maintenanceReport": "Maintenance Report",
+      "inventoryReport": "Inventory Report",
+      "needRestock": "Items to Replenish",
       "quickActions": {
         "title": "Quick Actions",
-        "devicePerformanceReport": {
+        "performanceReport": {
           "title": "Equipment Performance Report",
-          "description": "Export a detailed report on equipment status"
+          "desc": "Export detailed report on equipment status"
         },
-        "weeklySchedule": {
-          "title": "Upcoming Weekly Schedule",
-          "description": "View maintenance schedule for the next 7 days"
+        "maintenanceSchedule": {
+          "title": "Maintenance Schedule",
+          "desc": "View maintenance plan for the next 7 days"
         },
-        "maintenanceCostReport": {
+        "costReport": {
           "title": "Maintenance Cost Report",
-          "description": "Monthly maintenance cost statistics"
+          "desc": "Statistics on maintenance costs by month"
         }
+      },
+      "maintenance": {
+        "thisMonth": "Maintenance this month",
+        "completed": "Completed",
+        "totalCost": "Total Cost",
+        "avgTime": "Average Time"
+      },
+
+      "devices": {
+        "hydraulicPress": "Hydraulic Press",
+        "conveyor": "Conveyor",
+        "weldingRobot": "Welding Robot"
+      },
+      "time": {
+        "minutes": "Minutes"
       }
     },
-    "employeesManagement": {
+    "employeeManagement": {
       "title": "Employee Management",
-      "subTitle": "Manage user accounts and permissions",
+      "subTitle": "Manage accounts and user roles",
       "addEmployee": "Add Employee",
       "searchPlaceholder": "Search employees...",
       "tableHeaders": {
         "employee": "EMPLOYEE",
-        "position": "POSITION",
+        "role": "ROLE",
         "department": "DEPARTMENT",
         "actions": "ACTIONS"
       },
-      "positions": {
-        "technician": "Technician",
-        "supervisor": "Supervisor"
+      "roles": {
+        "admin": "Administrator",
+        "supervisor": "Supervisor",
+        "technician": "Technician"
       },
       "departments": {
         "maintenance": "Maintenance",
         "production": "Production"
       },
-      "employeeStatistics": {
+      "stats": {
         "title": "Employee Statistics",
-        "administrator": "Administrator",
-        "supervisor": "Supervisor",
-        "technician": "Technician"
+        "admin": "Administrators",
+        "supervisor": "Supervisors",
+        "technician": "Technicians"
       }
-    }
+    },
+		"settings": {
+			"title": "Settings",
+			"language": "Language",
+			"vi": "Vietnamese",
+			"en": "English"
+		}
   }
 }

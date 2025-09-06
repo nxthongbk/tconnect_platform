@@ -1,32 +1,37 @@
 import { useState } from 'react';
 import { Plus, NotePencil, Trash, MagnifyingGlass, Users } from '@phosphor-icons/react';
+import { useTranslation } from 'react-i18next';
 
 function EmployeeManagement() {
+  const { t } = useTranslation();
   const [search, setSearch] = useState('');
 
   const employees = [
     {
       name: 'Nguyễn Văn An',
       email: 'an.nguyen@factory.com',
-      role: 'Kỹ thuật viên',
+      role: t('sCMMS.employeeManagement.roles.technician'),
+      roleKey: 'technician',
       roleColor: 'bg-green-50 text-green-600',
-      department: 'Bảo trì',
+      department: t('sCMMS.employeeManagement.departments.maintenance'),
       initials: 'NVA',
     },
     {
       name: 'Trần Thị Bình',
       email: 'binh.tran@factory.com',
-      role: 'Kỹ thuật viên',
+      role: t('sCMMS.employeeManagement.roles.technician'),
+      roleKey: 'technician',
       roleColor: 'bg-green-50 text-green-600',
-      department: 'Bảo trì',
+      department: t('sCMMS.employeeManagement.departments.maintenance'),
       initials: 'TTB',
     },
     {
       name: 'Lê Minh Cường',
       email: 'cuong.le@factory.com',
-      role: 'Giám sát',
+      role: t('sCMMS.employeeManagement.roles.supervisor'),
+      roleKey: 'supervisor',
       roleColor: 'bg-blue-50 text-blue-600',
-      department: 'Sản xuất',
+      department: t('sCMMS.employeeManagement.departments.production'),
       initials: 'LMC',
     },
   ];
@@ -39,18 +44,18 @@ function EmployeeManagement() {
 
   const stats = [
     {
-      label: 'Quản trị viên',
+      label: t('sCMMS.employeeManagement.stats.admin'),
       value: 0,
       color: 'bg-purple-50 text-purple-600',
     },
     {
-      label: 'Giám sát viên',
-      value: employees.filter(e => e.role === 'Giám sát').length,
+      label: t('sCMMS.employeeManagement.stats.supervisor'),
+      value: employees.filter(e => e.roleKey === 'supervisor').length,
       color: 'bg-blue-50 text-blue-600',
     },
     {
-      label: 'Kỹ thuật viên',
-      value: employees.filter(e => e.role === 'Kỹ thuật viên').length,
+      label: t('sCMMS.employeeManagement.stats.technician'),
+      value: employees.filter(e => e.roleKey === 'technician').length,
       color: 'bg-green-50 text-green-600',
     },
   ];
@@ -59,11 +64,13 @@ function EmployeeManagement() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Quản lý nhân viên</h1>
-          <p className="text-gray-600">Quản lý tài khoản và phân quyền người dùng</p>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {t('sCMMS.employeeManagement.title')}
+          </h1>
+          <p className="text-gray-600">{t('sCMMS.employeeManagement.subTitle')}</p>
         </div>
         <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
-          <Plus size={20} /> Thêm nhân viên
+          <Plus size={20} /> {t('sCMMS.employeeManagement.addEmployee')}
         </button>
       </div>
 
@@ -76,7 +83,7 @@ function EmployeeManagement() {
           <input
             type="text"
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200"
-            placeholder="Tìm kiếm nhân viên..."
+            placeholder={t('sCMMS.employeeManagement.searchPlaceholder')}
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
@@ -89,16 +96,16 @@ function EmployeeManagement() {
             <thead className="bg-gray-50">
               <tr className="bg-gray-100 text-gray-600 text-sm">
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  NHÂN VIÊN
+                  {t('sCMMS.employeeManagement.tableHeaders.employee')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  CHỨC VỤ
+                  {t('sCMMS.employeeManagement.tableHeaders.role')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  BỘ PHẬN
+                  {t('sCMMS.employeeManagement.tableHeaders.department')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  THAO TÁC
+                  {t('sCMMS.employeeManagement.tableHeaders.actions')}
                 </th>
               </tr>
             </thead>
@@ -140,9 +147,11 @@ function EmployeeManagement() {
       </div>
 
       <div className="mt-6 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Thống kê nhân viên</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          {t('sCMMS.employeeManagement.stats.title')}
+        </h3>
         <div className="grid grid-cols-1 smallLaptop:grid-cols-3 gap-4">
-          {stats.map((stat) => (
+          {stats.map(stat => (
             <div
               key={stat.label}
               className={`rounded-xl flex flex-col items-center justify-center py-8 ${stat.color}`}
