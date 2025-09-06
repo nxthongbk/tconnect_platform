@@ -1,15 +1,12 @@
-import {
-  Clock,
-  Wrench,
-  Warning
-} from '@phosphor-icons/react';
+import { Clock, Wrench, Warning } from '@phosphor-icons/react';
 
-export const getCMMSData = (t) => {
+export const getCMMSData = (t: any) => {
   const dashboardTranslations = t('sCMMS.dashboard', { returnObjects: true });
+  const equipmentTranslations = t('sCMMS.equipmentManagement', { returnObjects: true });
 
   const deviceStatusData = [
     {
-      title: t('sCMMS.dashboard.deviceStatus.totalDevices'),
+      title: dashboardTranslations.deviceStatus.totalDevices,
       value: 3,
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
@@ -31,7 +28,7 @@ export const getCMMSData = (t) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-check-circle text-green-600"
+          className="text-green-600"
         >
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
           <path d="m9 11 3 3L22 4"></path>
@@ -80,6 +77,7 @@ export const getCMMSData = (t) => {
       title: dashboardTranslations.inventoryStatus.totalItems,
       value: '3',
       valueColor: 'text-blue-600',
+      bgColor: 'bg-blue-100',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +89,7 @@ export const getCMMSData = (t) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-package text-blue-600"
+          className="text-blue-600"
         >
           <path d="m7.5 4.27 9 5.15"></path>
           <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
@@ -99,12 +97,12 @@ export const getCMMSData = (t) => {
           <path d="M12 22V12"></path>
         </svg>
       ),
-      bgColor: 'bg-blue-100',
     },
     {
       title: dashboardTranslations.inventoryStatus.lowStock,
       value: '1',
       valueColor: 'text-red-600',
+      bgColor: 'bg-red-100',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -116,19 +114,21 @@ export const getCMMSData = (t) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-alert-triangle text-red-600"
+          className="text-red-600"
         >
           <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
           <path d="M12 9v4"></path>
           <path d="M12 17h.01"></path>
         </svg>
       ),
-      bgColor: 'bg-red-100',
     },
     {
       title: dashboardTranslations.inventoryStatus.inventoryValue,
       value: '12.3M',
       valueColor: 'text-green-600',
+      bgColor: 'bg-green-100',
+      subText: 'VNĐ',
+      subTextColor: 'text-gray-500',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -140,25 +140,24 @@ export const getCMMSData = (t) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-trending-up text-green-600"
+          className="text-green-600"
         >
           <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
           <polyline points="16 7 22 7 22 13"></polyline>
         </svg>
       ),
-      bgColor: 'bg-green-100',
-      subText: 'VNĐ',
-      subTextColor: 'text-gray-500',
     },
   ];
 
   const recentActivities = [
     {
       status: 'success',
-      title: dashboardTranslations.recentActivities.maintenanceCompleted,
+      title: t('sCMMS.dashboard.recentActivities.maintenanceCompleted', {
+        device: t('sCMMS.deviceManagement.device.hydraulicPress'),
+      }),
       detail: t('sCMMS.dashboard.recentActivities.technician', {
-        name: 'Nguyễn Văn An',
-        time: '1 tiếng trước',
+        name: t('sCMMS.employees.name.johnSmith'),
+        time: t('sCMMS.time.oneHourAgo'),
       }),
       icon: (
         <svg
@@ -180,10 +179,12 @@ export const getCMMSData = (t) => {
     },
     {
       status: 'warning',
-      title: dashboardTranslations.recentActivities.maintenanceStarted,
+      title: t('sCMMS.dashboard.recentActivities.maintenanceStarted', {
+        device: t('sCMMS.deviceManagement.device.conveyorBelt'),
+      }),
       detail: t('sCMMS.dashboard.recentActivities.technician', {
-        name: 'Trần Thị Bình',
-        time: '2 tiếng trước',
+        name: t('sCMMS.employees.name.sarahJohnson'),
+        time: t('sCMMS.time.twoHoursAgo'),
       }),
       icon: (
         <svg
@@ -205,8 +206,10 @@ export const getCMMSData = (t) => {
     },
     {
       status: 'error',
-      title: dashboardTranslations.recentActivities.lowStock,
-      detail: t('sCMMS.dashboard.recentActivities.remaining', { quantity: 8 }),
+      title: t('sCMMS.dashboard.recentActivities.lowStock', {
+        item: t('sCMMS.warehouseManagement.item.gasketSeal'),
+      }),
+      detail: t('sCMMS.dashboard.recentActivities.remaining', { quantity: 5 }),
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -228,10 +231,52 @@ export const getCMMSData = (t) => {
     },
   ];
 
+  const devicesData = [
+    {
+      name: t('sCMMS.equipmentManagement.equipment.names.hydraulicPressA1'),
+      location: t('sCMMS.equipmentManagement.equipment.locations.lineAZone1'),
+      statusLabel: t('sCMMS.equipmentManagement.equipment.status.active'),
+      code: 'HP-2000X - HP2000X-001',
+
+      status: 'active',
+
+      statusColor: 'bg-green-100 text-green-700',
+      nextMaintenance: '12/1/2024',
+    },
+    {
+      name: t('sCMMS.equipmentManagement.equipment.names.conveyorBeltB2'),
+      code: 'CT-500L - CT500L-087',
+      location: t('sCMMS.equipmentManagement.equipment.locations.lineBZone2'),
+      status: 'maintenance',
+      statusLabel: t('sCMMS.equipmentManagement.equipment.status.maintenance'),
+      statusColor: 'bg-orange-100 text-orange-700',
+      nextMaintenance: '11/15/2024',
+    },
+    {
+      name: t('sCMMS.equipmentManagement.equipment.names.weldingRobotR3'),
+      code: 'WR-600 - WR600-155',
+      location: t('sCMMS.equipmentManagement.equipment.locations.lineCZone3'),
+      status: 'malfunction',
+      statusLabel: t('sCMMS.equipmentManagement.equipment.status.malfunction'),
+      statusColor: 'bg-red-100 text-red-700',
+      nextMaintenance: '11/25/2024',
+    },
+    {
+      name: t('sCMMS.equipmentManagement.equipment.names.cncMachineM4'),
+      code: 'CNC-1500 - CNC1500-042',
+      location: t('sCMMS.equipmentManagement.equipment.locations.machiningCenterZone1'),
+      status: 'active',
+      statusLabel: t('sCMMS.equipmentManagement.equipment.status.active'),
+      statusColor: 'bg-green-100 text-green-700',
+      nextMaintenance: '11/20/2024',
+    },
+  ];
+
   return {
     deviceStatusData,
     maintenanceActivities,
     warehouseStatus,
     recentActivities,
+    devicesData,
   };
 };

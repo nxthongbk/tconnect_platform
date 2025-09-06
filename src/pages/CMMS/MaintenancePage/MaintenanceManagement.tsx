@@ -1,41 +1,43 @@
 import { useState } from 'react';
 import { Plus } from '@phosphor-icons/react';
 import SearchFilterBar from '../CommonComponents/SearchBar/SearchFilterBar';
+import { useTranslation } from 'react-i18next';
 
 export default function MaintenanceManagement() {
+  const { t } = useTranslation();
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
   const statusMap = {
     all: null,
-    completed: 'Hoàn thành',
-    inprogress: 'Đang thực hiện',
-    scheduled: 'Đã lên lịch',
-    cancelled: 'Đã hủy',
+    completed: t('sCMMS.maintenanceManagement.status.completed'),
+    inprogress: t('sCMMS.maintenanceManagement.status.inprogress'),
+    scheduled: t('sCMMS.maintenanceManagement.status.scheduled'),
+    cancelled: t('sCMMS.maintenanceManagement.status.cancelled'),
   };
 
   const maintenances = [
     {
-      device: 'Máy ép thủy lực A1',
-      description: 'Bảo trì định kỳ hệ thống thủy lực',
-      type: 'Định kỳ',
+      device: t('sCMMS.maintenanceManagement.devices.hydraulicPressA1'),
+      description: t('sCMMS.maintenanceManagement.descriptions.hydraulicSystem'),
+      type: t('sCMMS.maintenanceManagement.types.periodic'),
       typeColor: 'bg-blue-100 text-blue-700',
-      status: 'Hoàn thành',
+      status: t('sCMMS.maintenanceManagement.status.completed'),
       statusColor: 'bg-green-100 text-green-700',
       date: '1/11/2024',
       completedDate: '1/11/2024',
-      technician: 'Nguyễn Văn An',
+      technician: t('sCMMS.maintenanceManagement.technicians.nguyenVanAn'),
       cost: '900.000 ₫',
     },
     {
-      device: 'Băng tải B2',
-      description: 'Sửa chữa motor băng tải bị hỏng',
-      type: 'Sửa chữa',
+      device: t('sCMMS.maintenanceManagement.devices.conveyorBeltB2'),
+      description: t('sCMMS.maintenanceManagement.descriptions.conveyorMotor'),
+      type: t('sCMMS.maintenanceManagement.types.repair'),
       typeColor: 'bg-orange-100 text-orange-700',
-      status: 'Đang thực hiện',
+      status: t('sCMMS.maintenanceManagement.status.inprogress'),
       statusColor: 'bg-orange-100 text-orange-700',
       date: '12/11/2024',
-      technician: 'Trần Thị Bình',
+      technician: t('sCMMS.maintenanceManagement.technicians.tranThiBinh'),
       cost: '2.500.000 ₫',
     },
   ];
@@ -53,14 +55,17 @@ export default function MaintenanceManagement() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Quản lý bảo trì</h1>
-          <p className="text-gray-600">Lập kế hoạch và theo dõi các hoạt động bảo trì thiết bị</p>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {' '}
+            {t('sCMMS.maintenanceManagement.title')}
+          </h1>
+          <p className="text-gray-600">{t('sCMMS.maintenanceManagement.subTitle')}</p>
         </div>
         <button
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
           // onClick={() => setOpenModal(true)}
         >
-          <Plus size={20} /> Tạo lịch bảo trì
+          <Plus size={20} /> {t('sCMMS.maintenanceManagement.createButton')}
         </button>
       </div>
 
@@ -70,13 +75,13 @@ export default function MaintenanceManagement() {
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
         filterOptions={[
-          { label: 'Tất cả', value: 'all' },
-          { label: 'Đã lên lịch', value: 'scheduled' },
-          { label: 'Đang thực hiện', value: 'inprogress' },
-          { label: 'Hoàn thành', value: 'completed' },
-          { label: 'Đã hủy', value: 'cancelled' },
+          { label: t('sCMMS.maintenanceManagement.filterOptions.all'), value: 'all' },
+          { label: t('sCMMS.maintenanceManagement.filterOptions.scheduled'), value: 'scheduled' },
+          { label: t('sCMMS.maintenanceManagement.filterOptions.inprogress'), value: 'inprogress' },
+          { label: t('sCMMS.maintenanceManagement.filterOptions.completed'), value: 'completed' },
+          { label: t('sCMMS.maintenanceManagement.filterOptions.cancelled'), value: 'cancelled' },
         ]}
-        placeholder="Tìm kiếm bảo trì..."
+        placeholder={t('sCMMS.maintenanceManagement.searchPlaceholder')}
       />
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -85,19 +90,19 @@ export default function MaintenanceManagement() {
             <thead className="bg-gray-50">
               <tr className="bg-gray-100 text-gray-600 text-sm">
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  THIẾT BỊ
+                  {t('sCMMS.maintenanceManagement.tableHeaders.device')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  LOẠI / TRẠNG THÁI
+                  {t('sCMMS.maintenanceManagement.tableHeaders.typeStatus')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  NGÀY THỰC HIỆN
+                  {t('sCMMS.maintenanceManagement.tableHeaders.executionDate')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  KỸ THUẬT VIÊN
+                  {t('sCMMS.maintenanceManagement.tableHeaders.technician')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  CHI PHÍ
+                  {t('sCMMS.maintenanceManagement.tableHeaders.cost')}
                 </th>
               </tr>
             </thead>
@@ -129,7 +134,8 @@ export default function MaintenanceManagement() {
                       {maintenance.date}
                       {maintenance.completedDate && (
                         <div className="text-xs text-gray-500">
-                          Hoàn thành: {maintenance.completedDate}
+                          {t('sCMMS.maintenanceManagement.completedDateLabel')}{' '}
+                          {maintenance.completedDate}
                         </div>
                       )}
                     </div>

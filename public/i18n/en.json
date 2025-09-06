@@ -560,12 +560,33 @@
       },
       "recentActivities": {
         "title": "Recent Activities",
-        "maintenanceCompleted": "{device} maintenance completed",
-        "maintenanceStarted": "Started repair on {device}",
-        "lowStock": "{item} low stock",
-        "remaining": "{quantity} items remaining - needs replenishment",
-        "technician": "Technician: {name}"
+        "maintenanceCompleted": "{{device}} maintenance completed",
+        "maintenanceStarted": "Started repair on {{device}}",
+        "lowStock": "{{item}} low stock",
+        "remaining": "Only {{quantity}} items remaining - needs replenishment",
+        "technician": "Technician: {{name}} - {{time}}"
       }
+    },
+    "deviceManagement": {
+      "device": {
+        "hydraulicPress": "Hydraulic Press A1",
+        "conveyorBelt": "Conveyor Belt B2"
+      }
+    },
+    "warehouseManagement": {
+      "item": {
+        "gasketSeal": "Air Filter"
+      }
+    },
+    "employees": {
+      "name": {
+        "johnSmith": "John Smith",
+        "sarahJohnson": "Sarah Johnson"
+      }
+    },
+    "time": {
+      "oneHourAgo": "1 hour ago",
+      "twoHoursAgo": "2 hours ago"
     },
     "equipmentManagement": {
       "title": "Equipment Management",
@@ -584,14 +605,39 @@
         "active": "Operational",
         "maintenance": "Maintenance",
         "malfunction": "Out of Order"
+      },
+      "equipment": {
+        "names": {
+          "hydraulicPressA1": "Hydraulic Press A1",
+          "conveyorBeltB2": "Conveyor Belt B2",
+          "weldingRobotR3": "Welding Robot R3",
+          "cncMachineM4": "CNC Machine M4"
+        },
+        "locations": {
+          "lineAZone1": "Production Line A - Zone 1",
+          "lineBZone2": "Production Line B - Zone 2",
+          "lineCZone3": "Production Line C - Zone 3",
+          "machiningCenterZone1": "Machining Center - Zone 1"
+        },
+        "status": {
+          "active": "Active",
+          "maintenance": "Under Maintenance",
+          "malfunction": "Malfunction"
+        }
       }
     },
     "maintenanceManagement": {
       "title": "Maintenance Management",
-      "subTitle": "Plan and track equipment maintenance activities",
-      "createSchedule": "Create Maintenance Schedule",
+      "subTitle": "Plan and track maintenance activities",
+      "createButton": "Create Maintenance Schedule",
       "searchPlaceholder": "Search maintenance...",
-      "allStatus": "All",
+      "filterOptions": {
+        "all": "All",
+        "scheduled": "Scheduled",
+        "inprogress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
       "tableHeaders": {
         "device": "EQUIPMENT",
         "typeStatus": "TYPE / STATUS",
@@ -603,30 +649,74 @@
         "periodic": "Periodic",
         "completed": "Completed",
         "repair": "Repair",
-        "inProgress": "In Progress"
+        "inprogress": "In Progress",
+        "scheduled": "Scheduled",
+        "cancelled": "Cancelled"
+      },
+      "types": {
+        "periodic": "Periodic",
+        "repair": "Repair"
+      },
+      "devices": {
+        "hydraulicPressA1": "Hydraulic Press A1",
+        "conveyorBeltB2": "Conveyor Belt B2"
       },
       "descriptions": {
-        "periodicMaintenance": "Periodic maintenance of the hydraulic system",
-        "repairMotor": "Repairing a broken conveyor motor"
-      }
+        "hydraulicSystem": "Periodic maintenance of hydraulic system",
+        "conveyorMotor": "Repair of damaged conveyor motor"
+      },
+      "technicians": {
+        "nguyenVanAn": "Nguyen Van An",
+        "tranThiBinh": "Tran Thi Binh"
+      },
+      "completedDateLabel": "Completed:"
     },
     "inventoryManagement": {
       "title": "Inventory Management",
       "subTitle": "Track inventory and manage supplies, spare parts",
       "addSupply": "Add Supply",
+      "totalItems": "Total Items",
+      "lowStock": "Low Stock",
+      "stockValue": "Stock Value",
       "searchPlaceholder": "Search supplies...",
       "allCategories": "All Categories",
+      "categories": {
+        "lubricants": "Lubricants",
+        "seals": "Seals",
+        "motors": "Motors"
+      },
+      "min": "Minimum",
+      "max": "Maximum",
       "tableHeaders": {
-        "supply": "SUPPLIES",
-        "inventory": "INVENTORY",
-        "status": "STATUS",
-        "unitPrice": "UNIT PRICE",
-        "supplier": "SUPPLIER",
-        "location": "WAREHOUSE LOCATION"
+        "item": "Item",
+        "stock": "Stock Level",
+        "status": "Status",
+        "price": "Unit Price",
+        "supplier": "Supplier",
+        "location": "Location"
+      },
+      "items": {
+        "oilHydraulic": "Oil Hydraulic",
+        "gasketSeal": "Gasket Seal",
+        "motor3HP": "3HP Electric Motor"
+      },
+      "units": {
+        "liter": "Liter",
+        "piece": "Piece"
       },
       "status": {
-        "sufficient": "Sufficient",
+        "available": "Available",
         "lowStock": "Low Stock"
+      },
+      "suppliers": {
+        "abcOil": "ABC Oil Company",
+        "xyz": "XYZ Supplier",
+        "motorSolutions": "Motor Solutions Ltd"
+      },
+      "locations": {
+        "warehouseA1": "Warehouse A - Rack 1",
+        "warehouseB3": "Warehouse B - Rack 3",
+        "warehouseC1": "Warehouse C - Rack 1"
       }
     },
     "reports": {

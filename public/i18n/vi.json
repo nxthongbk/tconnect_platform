@@ -596,13 +596,35 @@
       },
       "recentActivities": {
         "title": "Hoạt động gần đây",
-        "maintenanceCompleted": "{device} hoàn thành",
-        "maintenanceStarted": "Bắt đầu sửa chữa {device}",
-        "lowStock": "{item} sắp hết hàng",
-        "remaining": "Còn lại {quantity} cái - cần bổ sung",
-        "technician": "Kỹ thuật viên: {name}"
+        "maintenanceCompleted": "Bảo trì {{device}} hoàn thành",
+        "maintenanceStarted": "Bắt đầu sửa chữa {{device}}",
+        "lowStock": "{{item}} sắp hết hàng",
+        "remaining": "Còn lại {{quantity}} cái - cần bổ sung",
+        "technician": "Kỹ thuật viên: {{name}} - {{time}}"
       }
     },
+    "deviceManagement": {
+      "device": {
+        "hydraulicPress": "máy ép thủy lực A1",
+        "conveyorBelt": "băng tải B2"
+      }
+    },
+    "warehouseManagement": {
+      "item": {
+        "gasketSeal": "Gasket seal"
+      }
+    },
+    "employees": {
+      "name": {
+        "johnSmith": "Nguyễn Văn An",
+        "sarahJohnson": "Trần Thị Bình"
+      }
+    },
+    "time": {
+      "oneHourAgo": "1 tiếng trước",
+      "twoHoursAgo": "2 tiếng trước"
+    },
+
     "equipmentManagement": {
       "title": "Quản lý thiết bị",
       "subTitle": "Theo dõi và quản lý tất cả thiết bị trong nhà máy",
@@ -620,6 +642,25 @@
         "active": "Hoạt động",
         "maintenance": "Bảo trì",
         "malfunction": "Hỏng"
+      },
+      "equipment": {
+        "names": {
+          "hydraulicPressA1": "Máy ép thủy lực A1",
+          "conveyorBeltB2": "Băng tải B2",
+          "weldingRobotR3": "Robot hàn R3",
+          "cncMachineM4": "Máy CNC M4"
+        },
+        "locations": {
+          "lineAZone1": "Dây chuyền A - Khu vực 1",
+          "lineBZone2": "Dây chuyền B - Khu vực 2",
+          "lineCZone3": "Dây chuyền C - Khu vực 3",
+          "machiningCenterZone1": "Trung tâm gia công - Khu vực 1"
+        },
+        "status": {
+          "active": "Hoạt động",
+          "maintenance": "Bảo trì",
+          "malfunction": "Hỏng hóc"
+        }
       }
     },
     "maintenanceManagement": {
@@ -627,7 +668,13 @@
       "subTitle": "Lập kế hoạch và theo dõi các hoạt động bảo trì thiết bị",
       "createSchedule": "Tạo lịch bảo trì",
       "searchPlaceholder": "Tìm kiếm bảo trì...",
-      "allStatus": "Tất cả",
+      "filterOptions": {
+        "all": "Tất cả",
+        "scheduled": "Đã lên lịch",
+        "inprogress": "Đang thực hiện",
+        "completed": "Đã hoàn thành",
+        "cancelled": "Đã hủy"
+      },
       "tableHeaders": {
         "device": "THIẾT BỊ",
         "typeStatus": "LOẠI / TRẠNG THÁI",
@@ -639,30 +686,75 @@
         "periodic": "Định kỳ",
         "completed": "Hoàn thành",
         "repair": "Sửa chữa",
-        "inProgress": "Đang thực hiện"
+        "inProgress": "Đang thực hiện",
+        "scheduled": "Đã lên lịch",
+        "cancelled": "Đã hủy"
+      },
+      "types": {
+        "periodic": "Định kỳ",
+        "repair": "Sửa chữa"
+      },
+      "devices": {
+        "hydraulicPressA1": "Hydraulic Press A1",
+        "conveyorBeltB2": "Conveyor Belt B2"
       },
       "descriptions": {
-        "periodicMaintenance": "Bảo trì định kỳ hệ thống thủy lực",
-        "repairMotor": "Sửa chữa motor băng tải bị hỏng"
-      }
+        "hydraulicSystem": "Periodic maintenance of hydraulic system",
+        "conveyorMotor": "Repair of damaged conveyor motor"
+      },
+      "technicians": {
+        "nguyenVanAn": "Nguyen Van An",
+        "tranThiBinh": "Tran Thi Binh"
+      },
+      "completedDateLabel": "Completed:"
     },
     "inventoryManagement": {
       "title": "Quản lý kho vật tư",
       "subTitle": "Theo dõi tồn kho và quản lý vật tư, phụ tùng",
       "addSupply": "Thêm vật tư",
+      "totalItems": "Tổng mặt hàng",
+      "lowStock": "Sắp hết hàng",
+      "stockValue": "Giá trị tồn kho",
       "searchPlaceholder": "Tìm kiếm vật tư...",
       "allCategories": "Tất cả danh mục",
+      "categories": {
+        "lubricants": "Dầu nhờn",
+        "seals": "Gioăng/Phớt",
+        "motors": "Động cơ"
+      },
+      "min": "Tối thiểu",
+      "max": "Tối đa",
       "tableHeaders": {
-        "supply": "VẬT TƯ",
-        "inventory": "TỒN KHO",
-        "status": "TRẠNG THÁI",
-        "unitPrice": "ĐƠN GIÁ",
-        "supplier": "NHÀ CUNG CẤP",
-        "location": "VỊ TRÍ KHO"
+        "item": "Vật tư",
+        "stock": "Tồn kho",
+        "status": "Trạng thái",
+        "price": "Đơn giá",
+        "supplier": "Nhà cung cấp",
+        "location": "Vị trí kho"
+      },
+
+      "items": {
+        "oilHydraulic": "Dầu thủy lực",
+        "gasketSeal": "Gioăng kín",
+        "motor3HP": "Động cơ điện 3HP"
+      },
+      "units": {
+        "liter": "Lít",
+        "piece": "Cái"
       },
       "status": {
-        "sufficient": "Đủ",
+        "available": "Đủ",
         "lowStock": "Sắp hết"
+      },
+      "suppliers": {
+        "abcOil": "Công ty Dầu nhờn ABC",
+        "xyz": "Nhà cung cấp XYZ",
+        "motorSolutions": "Motor Solutions Ltd"
+      },
+      "locations": {
+        "warehouseA1": "Kho A - Kệ 1",
+        "warehouseB3": "Kho B - Kệ 3",
+        "warehouseC1": "Kho C - Kệ 1"
       }
     },
     "reports": {
