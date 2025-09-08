@@ -4,14 +4,14 @@ import NotFoundPage from '~/pages/common/404Page';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
 import CMMSMain from '~/pages/CMMS';
-import DashboardPage from '~/pages/CMMS/DashboardPage/Dashboard';
-import DevicesManagement from '~/pages/CMMS/DevicesPage/DevicesManagement';
-import MaintenanceManagement from '~/pages/CMMS/MaintenancePage/MaintenanceManagement';
-import InventoryManagement from '~/pages/CMMS/InventoryPage/InventoryManagement';
-import Report from '~/pages/CMMS/ReportPage/Report';
-import EmployeeManagement from '~/pages/CMMS/EmployeePage/EmployeeManagement';
-import Setting from '~/pages/CMMS/SettingPage/Setting';
 import SCMMSLandingPage from '~/pages/common/ScmmsLandingPage/Index';
+import Dashboard from '~/pages/sCMMS/dashboard/Dashboard';
+import EquipmentList from '~/pages/sCMMS/equipment/EquipmentList';
+import MaintenanceList from '~/pages/sCMMS/maintenance/MaintenanceList';
+import Reports from '~/pages/sCMMS/reports/Reports';
+import InventoryList from '~/pages/sCMMS/inventory/InventoryList';
+import Settings from '~/pages/sCMMS/settings/Settings';
+import UserManagement from '~/pages/sCMMS/users/UserManagement';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -50,13 +50,13 @@ const useRoutes = () => {
           element: <CMMSMain />,
           children: [
             { path: '', element: <Navigate to="dashboard" replace /> },
-            { path: 'dashboard', element: <DashboardPage /> },
-            { path: 'equipments', element: <DevicesManagement /> },
-            { path: 'maintenance', element: <MaintenanceManagement /> },
-            { path: 'inventory', element: <InventoryManagement /> },
-            { path: 'reports', element: <Report /> },
-            { path: 'employees', element: <EmployeeManagement /> },
-            { path: 'settings', element: <Setting /> },
+            { path: 'dashboard', element: <Dashboard /> },
+            { path: 'equipments', element: <EquipmentList /> },
+            { path: 'maintenance', element: <MaintenanceList /> },
+            { path: 'inventory', element: <InventoryList /> },
+            { path: 'reports', element: <Reports /> },
+            { path: 'employees', element: <UserManagement /> },
+            { path: 'settings', element: <Settings /> },
 
           ],
         },
