@@ -826,11 +826,152 @@
         "technician": "Kỹ thuật viên"
       }
     },
-		"settings": {
-			"title": "Cài đặt",
-			"language": "Ngôn ngữ",
-			"vi": "Tiếng Việt",
-			"en": "Tiếng Anh"
-		}
+    "settings": {
+      "title": "Cài đặt",
+      "language": "Ngôn ngữ",
+      "vi": "Tiếng Việt",
+      "en": "Tiếng Anh"
+    },
+    "landingPage": {
+      "menu": {
+        "features": "Tính năng",
+        "benefits": "Lợi ích",
+        "testimonials": "Đánh giá",
+        "pricing": "Chi phí",
+        "login": "Đăng nhập",
+        "getStarted": "Bắt đầu"
+      },
+      "hero": {
+        "headline1": "Tối đa hóa thiết bị",
+        "headline2": "Thời gian hoạt động & Hiệu suất",
+        "description": "Giải pháp CMMS hoàn chỉnh giúp chuyển đổi hoạt động bảo trì nhà máy. Giảm thời gian ngừng hoạt động lên đến 35% và cắt giảm chi phí bảo trì 25%.",
+        "startTrial": "Bắt đầu dùng thử miễn phí",
+        "watchDemo": "Xem bản demo"
+      },
+      "stats": {
+        "trusted": "Được tin cậy bởi 500+ nhà máy",
+        "downtimeReduction": "35%",
+        "downtimeReductionLabel": "Giảm thời gian ngừng hoạt động",
+        "costSavings": "25%",
+        "costSavingsLabel": "Giảm chi phí",
+        "systemUptime": "99.8%",
+        "systemUptimeLabel": "Thời gian hoạt động của hệ thống",
+        "support": "24/7",
+        "supportLabel": "Hỗ trợ"
+      },
+      "features": {
+        "title": "Quản lý bảo trì toàn diện",
+        "subTitle": "Tất cả những gì bạn cần để tối ưu hóa hoạt động bảo trì của nhà máy trong một nền tảng mạnh mẽ",
+        "workOrder": {
+          "title": "Quản lý công việc",
+          "desc": "Tạo, giao và theo dõi các nhiệm vụ bảo trì với cập nhật thời gian thực và truy cập di động."
+        },
+        "preventive": {
+          "title": "Bảo trì phòng ngừa",
+          "desc": "Lên lịch tự động và nhắc nhở để ngăn ngừa hỏng hóc thiết bị trước khi xảy ra."
+        },
+        "analytics": {
+          "title": "Phân tích & Báo cáo",
+          "desc": "Thông tin toàn diện về chi phí bảo trì, hiệu suất thiết bị và các chỉ số ROI."
+        },
+        "alerts": {
+          "title": "Cảnh báo thời gian thực",
+          "desc": "Thông báo tức thì về sự cố thiết bị, bảo trì quá hạn và cảnh báo quan trọng."
+        },
+        "asset": {
+          "title": "Quản lý tài sản",
+          "desc": "Theo dõi vòng đời thiết bị với lịch sử bảo trì và các chỉ số hiệu suất."
+        },
+        "compliance": {
+          "title": "Quản lý tuân thủ",
+          "desc": "Đảm bảo tuân thủ quy định với tài liệu và kiểm tra tự động."
+        }
+      },
+      "results": {
+        "title": "Kết quả có thể đo lường được cho nhà máy của bạn",
+        "desc": "Tham gia cùng hàng trăm cơ sở sản xuất đã chuyển đổi hoạt động bảo trì của họ với giải pháp CMMS của chúng tôi.",
+        "reduceDowntime": {
+          "title": "Giảm thời gian ngừng hoạt động không mong muốn",
+          "desc": "Khả năng bảo trì dự đoán giúp ngăn ngừa sự cố thiết bị bất ngờ."
+        },
+        "lowerCosts": {
+          "title": "Giảm chi phí bảo trì",
+          "desc": "Tối ưu hóa tồn kho linh kiện và phân bổ lao động để tiết kiệm chi phí đáng kể."
+        },
+        "increaseLifespan": {
+          "title": "Tăng tuổi thọ thiết bị",
+          "desc": "Lịch trình bảo trì hợp lý kéo dài tuổi thọ của các tài sản quan trọng của bạn."
+        },
+        "improveResponse": {
+          "title": "Cải thiện thời gian phản hồi",
+          "desc": "Truy cập di động và thông báo thời gian thực đảm bảo giải quyết sự cố nhanh hơn."
+        }
+      },
+      "roiCalculator": {
+        "title": "Tính ROI",
+        "annualSavings": "$850K",
+        "annualSavingsLabel": "Tiết kiệm hàng năm",
+        "roi": "320%",
+        "roiLabel": "ROI trong năm 1",
+        "timeSaved": "42 giờ",
+        "timeSavedLabel": "Thời gian tiết kiệm/Tháng",
+        "payback": "6 tháng",
+        "paybackLabel": "Thời gian hoàn vốn",
+        "button": "Tính toán ROI của bạn"
+      },
+      "testimonials": {
+        "title": "Được tin cậy bởi các nhà lãnh đạo ngành",
+        "subTitle": "Xem cách các nhà máy trên toàn thế giới đạt được hiệu quả vượt trội với CMMS của chúng tôi",
+        "items": [
+          {
+            "quote": "FactoryCMMS đã cách mạng hóa hoạt động bảo trì của chúng tôi. Chúng tôi đã giảm 40% thời gian ngừng hoạt động ngoài kế hoạch kể từ khi triển khai.",
+            "name": "Sarah Johnson",
+            "role": "Quản lý nhà máy, TechMfg Industries"
+          },
+          {
+            "quote": "Các tính năng bảo trì dự đoán đã giúp chúng tôi tiết kiệm hơn $500K trong năm đầu tiên. Đây là khoản đầu tư tốt nhất mà chúng tôi từng thực hiện.",
+            "name": "Mike Chen",
+            "role": "Giám đốc bảo trì, GlobalTech"
+          },
+          {
+            "quote": "Dễ sử dụng, nhiều tính năng mạnh mẽ và hỗ trợ tuyệt vời. Năng suất đội ngũ của chúng tôi đã tăng 30%.",
+            "name": "Lisa Rodriguez",
+            "role": "Trưởng nhóm vận hành, Precision Manufacturing"
+          }
+        ],
+        "cta": {
+          "headline": "Sẵn sàng để Chuyển đổi Hoạt động Bảo trì của Bạn?",
+          "subheadline": "Bắt đầu dùng thử miễn phí 30 ngày ngay hôm nay. Không cần thẻ tín dụng.",
+          "startTrial": "Bắt đầu Dùng thử Miễn phí",
+          "scheduleDemo": "Lên lịch Demo",
+          "joinFactories": "Tham gia 500+ nhà máy đã sử dụng FactoryCMMS"
+        },
+        "footer": {
+          "desc": "Tham gia cùng hàng trăm cơ sở sản xuất đã chuyển đổi hoạt động bảo trì của họ với giải pháp CMMS của chúng tôi. Tham gia ngay.",
+          "product": {
+            "title": "Sản phẩm",
+            "features": "Tính năng",
+            "pricing": "Giá cả",
+            "integrations": "Tích hợp",
+            "api": "API"
+          },
+          "company": {
+            "title": "Công ty",
+            "about": "Giới thiệu",
+            "careers": "Cơ hội nghề nghiệp",
+            "contact": "Liên hệ",
+            "blog": "Blog"
+          },
+          "support": {
+            "title": "Hỗ trợ",
+            "documentation": "Tài liệu",
+            "helpCenter": "Trung tâm trợ giúp",
+            "training": "Đào tạo",
+            "status": "Trạng thái"
+          },
+          "copyright": "© 2025 FactoryCMMS. All rights reserved."
+        }
+      }
+    }
   }
 }

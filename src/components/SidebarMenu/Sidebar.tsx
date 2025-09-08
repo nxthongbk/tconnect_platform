@@ -1,50 +1,113 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Package, Users, GearSix, HouseLine, Wrench, CalendarBlank } from '@phosphor-icons/react';
+import {
+  Package,
+  Users,
+  GearSix,
+  HouseLine,
+  Wrench,
+  CalendarBlank,
+  SignOut,
+} from '@phosphor-icons/react';
 import BarChart3Icon from '~/pages/CMMS/CommonComponents/CustomIcons/BarChart3Icon';
 import { useTranslation } from 'react-i18next';
+
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '~/contexts/app.context';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import authService from '~/services/auth.service';
+import { clearCookie, getRefreshTokenFromCookie } from '~/utils/auth';
+import { Avatar, Menu, MenuItem } from '@mui/material';
+import fileStorageService from '~/services/fileStorage.service';
 
 const Sidebar: React.FC = () => {
   const [open, setOpen] = useState(true);
   const { t } = useTranslation();
 
-const navItems = [
-  {
-    label: t('sCMMS.sidebar.dashboard'),
-    icon: <HouseLine size={22} className="text-gray-300" />,
-    to: '/dashboard',
-  },
-  {
-    label: t('sCMMS.sidebar.equipments'),
-    icon: <Wrench size={22} className="text-gray-300" />,
-    to: '/equipments',
-  },
-  {
-    label: t('sCMMS.sidebar.maintenance'),
-    icon: <CalendarBlank size={22} className="text-gray-300" />,
-    to: '/maintenance',
-  },
-  {
-    label: t('sCMMS.sidebar.inventory'),
-    icon: <Package size={22} className="text-gray-300" />,
-    to: '/inventory',
-  },
-  {
-    label: t('sCMMS.sidebar.reports'),
-    icon: <BarChart3Icon className="text-gray-300 h-5 w-5" />,
-    to: '/reports',
-  },
-  {
-    label: t('sCMMS.sidebar.employees'),
-    icon: <Users size={22} className="text-gray-300" />,
-    to: '/employees',
-  },
-  {
-    label: t('sCMMS.sidebar.settings'),
-    icon: <GearSix size={22} className="text-gray-300" />,
-    to: '/settings',
-  },
-];
+  const navigate = useNavigate();
+  const { reset } = useContext(AppContext);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { userInfo } = useContext(AppContext);
+
+  const logoutMutation = useMutation({
+    mutationFn: (query: { refreshToken: string }) => authService.logout(query),
+  });
+
+  const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    const refreshToken = getRefreshTokenFromCookie();
+    logoutMutation.mutate(
+      { refreshToken },
+      {
+        onSettled: () => {
+          clearCookie();
+          reset();
+          navigate('/login');
+        },
+      }
+    );
+    handleMenuClose();
+  };
+
+  const navItems = [
+    {
+      label: t('sCMMS.sidebar.dashboard'),
+      icon: <HouseLine size={22} className="text-gray-300" />,
+      to: '/dashboard',
+    },
+    {
+      label: t('sCMMS.sidebar.equipments'),
+      icon: <Wrench size={22} className="text-gray-300" />,
+      to: '/equipments',
+    },
+    {
+      label: t('sCMMS.sidebar.maintenance'),
+      icon: <CalendarBlank size={22} className="text-gray-300" />,
+      to: '/maintenance',
+    },
+    {
+      label: t('sCMMS.sidebar.inventory'),
+      icon: <Package size={22} className="text-gray-300" />,
+      to: '/inventory',
+    },
+    {
+      label: t('sCMMS.sidebar.reports'),
+      icon: <BarChart3Icon className="text-gray-300 h-5 w-5" />,
+      to: '/reports',
+    },
+    {
+      label: t('sCMMS.sidebar.employees'),
+      icon: <Users size={22} className="text-gray-300" />,
+      to: '/employees',
+    },
+    {
+      label: t('sCMMS.sidebar.settings'),
+      icon: <GearSix size={22} className="text-gray-300" />,
+      to: '/settings',
+    },
+  ];
+
+	const { data: img } = useQuery({
+    queryKey: ["userImg", userInfo?.avatarUrl],
+    queryFn: async () => {
+      const res: any = await fileStorageService.getFileImage(
+        userInfo?.avatarUrl
+      );
+      if (res !== undefined) {
+        const url = URL.createObjectURL(res);
+        return url;
+      }
+      return "";
+    },
+  });
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -128,17 +191,37 @@ const navItems = [
         </ul>
       </nav>
       <div
-        className={`border-t border-[#232e47]  flex items-center gap-3 ${open ? ' px-6 py-3' : 'justify-center p-2'}`}
+        className={`border-t border-[#232e47] flex items-center gap-3 ${open ? 'px-6 py-3' : 'justify-center p-2'}`}
       >
-        <div className={`w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center`}>
-          <span className={`text-white font-bold text-xs`}>AD</span>
-        </div>
-        {open && (
-          <div>
-            <div className="text-sm font-semibold text-white">Admin User</div>
-            <div className="text-xs text-gray-400">admin@factory.com</div>
-          </div>
-        )}
+				<Avatar
+					onClick={handleAvatarClick}
+					className="!w-[36px] !h-[36px] cursor-pointer"
+					alt={userInfo?.name || userInfo?.username}
+					src={img}
+					aria-controls={Boolean(anchorEl) ? 'sidebar-user-menu' : undefined}
+					aria-haspopup="true"
+					aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+				/>
+				{open && (
+					<div onClick={handleAvatarClick} className='cursor-pointer'>
+						<div className="text-sm font-semibold text-white">{userInfo?.name || userInfo?.username}</div>
+						<div className="text-xs text-gray-400">{userInfo?.email}</div>
+					</div>
+				)}
+        <Menu
+          id="sidebar-user-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          PaperProps={{ sx: { minWidth: 160, bgcolor: '#232e47', color: 'white' } }}
+        >
+          <MenuItem onClick={handleLogout} sx={{ color: 'white' }}>
+            <SignOut size={18} className="mr-2" />
+            <div className='text-sm'>{t('signOut', 'Sign out')}</div>
+          </MenuItem>
+        </Menu>
       </div>
     </aside>
   );
