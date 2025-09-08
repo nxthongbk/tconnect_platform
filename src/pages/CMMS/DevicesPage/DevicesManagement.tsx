@@ -14,18 +14,18 @@ export default function DevicesManagement() {
 
   type Device = {
     name: string;
-    model: string;
-    serial: string;
-    category: string;
+    model?: string;
+    serial?: string;
+    category?: string;
     location: string;
     status: string;
-    installDate: string;
-    interval: string;
-    description: string;
-    code: string;
-    statusLabel: string;
-    statusColor: string;
-    nextMaintenance: string;
+    installDate?: string;
+    interval?: string;
+    description?: string;
+    code?: string;
+    statusLabel?: string;
+    statusColor?: string;
+    nextMaintenance?: string;
   };
 
   const ensureAllFields = dev => ({
@@ -78,6 +78,7 @@ export default function DevicesManagement() {
           if (values.status === 'maintenance') statusColor = 'bg-yellow-100 text-yellow-800';
           if (values.status === 'out_of_order') statusColor = 'bg-red-100 text-red-800';
           if (values.status === 'operational') statusColor = 'bg-green-100 text-green-800';
+          if (values.status === 'offline') statusColor = 'bg-gray-100 text-gray-800';
 
           if (editDevice) {
             setLocalDevices(prev =>
@@ -198,18 +199,6 @@ export default function DevicesManagement() {
                         className="text-blue-600 hover:text-blue-800 p-1 rounded"
                         onClick={() => {
                           setModalOpen(true);
-                          setEditDevice({
-                            name: device.name || '',
-                            model: device.model || '',
-                            serial: device.serial || '',
-                            category: device.category || '',
-                            location: device.location || '',
-                            status: device.status || 'operational',
-                            installDate: device.installDate || '',
-                            interval: device.interval || '30',
-                            description: device.description || '',
-                            code: device.code,
-                          });
                           setEditDevice(ensureAllFields(device));
                         }}
                       >

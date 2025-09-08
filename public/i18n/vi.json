@@ -641,7 +641,7 @@
       "status": {
         "active": "Hoạt động",
         "maintenance": "Bảo trì",
-        "malfunction": "Hỏng",
+        "malfunction": "Bị hỏng",
         "offline": "Không hoạt động"
       },
       "equipment": {
@@ -662,12 +662,53 @@
           "maintenance": "Bảo trì",
           "malfunction": "Hỏng hóc"
         }
+      },
+      "modal": {
+        "addTitle": "Thêm Thiết Bị Mới",
+        "editTitle": "Chỉnh Sửa Thiết Bị",
+        "fields": {
+          "equipmentName": "Tên Thiết Bị",
+          "model": "Model",
+          "serialNumber": "Số Serial",
+          "category": "Danh Mục",
+          "location": "Vị Trí",
+          "status": "Trạng Thái",
+          "installDate": "Ngày Cài Đặt",
+          "maintenanceInterval": "Khoảng Thời Gian Bảo Trì (ngày)",
+          "description": "Mô Tả",
+          "selectCategory": "Chọn Danh Mục"
+        },
+        "placeholders": {
+          "equipmentName": "Nhập tên thiết bị",
+          "model": "Nhập mẫu",
+          "serialNumber": "Nhập số serial",
+          "category": "Chọn danh mục",
+          "location": "Nhập vị trí",
+          "status": "Chọn trạng thái",
+          "installDate": "mm/dd/yyyy",
+          "maintenanceInterval": "Nhập khoảng thời gian (ngày)",
+          "description": "Nhập mô tả"
+        },
+        "status": {
+          "active": "Hoạt động",
+          "maintenance": "Bảo trì",
+          "malfunction": "Bị hỏng",
+          "offline": "Không hoạt động"
+        },
+        "actions": {
+          "cancel": "Hủy",
+          "add": "Thêm Thiết Bị",
+          "save": "Cập nhật"
+        },
+        "validation": {
+          "required": "Trường này là bắt buộc"
+        }
       }
     },
     "maintenanceManagement": {
       "title": "Quản lý bảo trì",
       "subTitle": "Lập kế hoạch và theo dõi các hoạt động bảo trì thiết bị",
-      "createSchedule": "Tạo lịch bảo trì",
+      "createButton": "Tạo lịch bảo trì",
       "searchPlaceholder": "Tìm kiếm bảo trì...",
       "filterOptions": {
         "all": "Tất cả",
@@ -700,14 +741,62 @@
         "conveyorBeltB2": "Conveyor Belt B2"
       },
       "descriptions": {
-        "hydraulicSystem": "Periodic maintenance of hydraulic system",
-        "conveyorMotor": "Repair of damaged conveyor motor"
+        "hydraulicSystem": "Bảo trì định kỳ hệ thống thủy lực",
+        "conveyorMotor": "Sửa chữa động cơ băng tải bị hỏng"
       },
       "technicians": {
         "nguyenVanAn": "Nguyen Van An",
         "tranThiBinh": "Tran Thi Binh"
       },
-      "completedDateLabel": "Completed:"
+      "completedDateLabel": "Hoàn thành: ",
+      "modal": {
+        "addTitle": "Tạo lịch bảo trì mới",
+        "editTitle": "Chỉnh sửa bảo trì",
+        "fields": {
+          "equipment": "Thiết bị",
+          "maintenanceType": "Loại bảo trì",
+          "status": "Trạng thái",
+          "technician": "Kỹ thuật viên",
+          "scheduledDate": "Ngày đã lên lịch",
+          "estimatedDuration": "Thời gian ước tính (phút)",
+          "workDescription": "Mô tả công việc",
+          "partsUsed": "Các bộ phận đã sử dụng",
+          "notes": "Ghi chú"
+        },
+        "placeholders": {
+          "equipment": "Chọn thiết bị",
+          "maintenanceType": "Chọn loại bảo trì",
+          "status": "Chọn trạng thái",
+          "technician": "Chọn kỹ thuật viên",
+          "scheduledDate": "mm/dd/yyyy",
+          "estimatedDuration": "Nhập thời gian (phút)",
+          "workDescription": "Nhập mô tả công việc",
+          "notes": "Nhập ghi chú"
+        },
+        "types": {
+          "preventive": "Phòng ngừa",
+          "corrective": "Sửa chữa"
+        },
+        "status": {
+          "scheduled": "Đã lên lịch",
+          "inprogress": "Đang thực hiện",
+          "completed": "Đã hoàn thành",
+          "cancelled": "Đã hủy"
+        },
+        "actions": {
+          "cancel": "Hủy",
+          "schedule": "Lên lịch bảo trì",
+          "save": "Lưu thay đổi",
+          "addPart": "Thêm bộ phận"
+        },
+        "validation": {
+          "required": "Trường này là bắt buộc"
+        },
+        "partsUsed": {
+          "selectPart": "Chọn bộ phân",
+          "none": "Chưa có bộ phận nào được thêm."
+        }
+      }
     },
     "inventoryManagement": {
       "title": "Quản lý kho vật tư",

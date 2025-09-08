@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function AddScheduleModal({ open, onClose, onSubmit }) {
+  const { t } = useTranslation();
+
   const [form, setForm] = useState({
     equipment: '',
     type: 'Preventive',
@@ -22,7 +25,6 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  // Parts handlers
   const handlePartChange = (idx, field, value) => {
     setForm(prev => ({
       ...prev,
@@ -57,11 +59,15 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
         >
           ×
         </button>
-        <h2 className="text-2xl text-gray-900 mb-6">Schedule New Maintenance</h2>
+        <h2 className="text-2xl text-gray-900 mb-6">
+          {t('sCMMS.maintenanceManagement.modal.addTitle')}
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Equipment *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t('sCMMS.maintenanceManagement.modal.fields.equipment')} *
+              </label>
               <select
                 name="equipment"
                 value={form.equipment}
@@ -69,7 +75,9 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
                 required
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               >
-                <option value="">Select Equipment</option>
+                <option value="">
+                  {t('sCMMS.maintenanceManagement.modal.placeholders.equipment')}
+                </option>
                 <option value="Hydraulic Press A1">Hydraulic Press A1</option>
                 <option value="Conveyor Belt B2">Conveyor Belt B2</option>
                 <option value="Welding Robot R3">Welding Robot R3</option>
@@ -78,7 +86,7 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Maintenance Type
+                {t('sCMMS.maintenanceManagement.modal.fields.maintenanceType')}
               </label>
               <select
                 name="type"
@@ -92,21 +100,33 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t('sCMMS.maintenanceManagement.modal.fields.status')}
+              </label>
               <select
                 name="status"
                 value={form.status}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               >
-                <option value="Scheduled">Scheduled</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
-                <option value="Cancelled">Cancelled</option>
+                <option value="Scheduled">
+                  {t('sCMMS.maintenanceManagement.modal.status.scheduled')}
+                </option>
+                <option value="In Progress">
+                  {t('sCMMS.maintenanceManagement.modal.status.inprogress')}
+                </option>
+                <option value="Completed">
+                  {t('sCMMS.maintenanceManagement.modal.status.completed')}
+                </option>
+                <option value="Cancelled">
+                  {t('sCMMS.maintenanceManagement.modal.status.cancelled')}
+                </option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Technician *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t('sCMMS.maintenanceManagement.modal.fields.technician')} *
+              </label>
               <select
                 name="technician"
                 value={form.technician}
@@ -114,7 +134,9 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
                 required
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               >
-                <option value="">Select Technician</option>
+                <option value="">
+                  {t('sCMMS.maintenanceManagement.modal.placeholders.technician')}
+                </option>
                 <option value="Nguyen Van An">Nguyen Van An</option>
                 <option value="Tran Thi Binh">Tran Thi Binh</option>
                 <option value="Sarah Johnson">Sarah Johnson</option>
@@ -123,7 +145,7 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Scheduled Date *
+                {t('sCMMS.maintenanceManagement.modal.fields.scheduledDate')} *
               </label>
               <input
                 name="date"
@@ -136,7 +158,7 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Estimated Duration (minutes)
+                {t('sCMMS.maintenanceManagement.modal.fields.estimatedDuration')}
               </label>
               <input
                 name="duration"
@@ -150,7 +172,7 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Work Description *
+              {t('sCMMS.maintenanceManagement.modal.fields.workDescription')} *
             </label>
             <textarea
               name="description"
@@ -163,17 +185,21 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
           </div>
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-sm font-medium text-gray-700">Parts Used</label>
+              <label className="block text-sm font-medium text-gray-700">
+                {t('sCMMS.maintenanceManagement.modal.fields.partsUsed')}
+              </label>
               <button
                 type="button"
                 className="text-blue-600 text-sm font-medium hover:underline"
                 onClick={handleAddPart}
               >
-                + Add Part
+                + {t('sCMMS.maintenanceManagement.modal.actions.addPart')}
               </button>
             </div>
             {form.parts.length === 0 && (
-              <div className="text-gray-400 text-sm">No parts added.</div>
+              <div className="text-gray-400 text-sm">
+                {t('sCMMS.maintenanceManagement.modal.partsUsed.none')}
+              </div>
             )}
             {form.parts.map((p, idx) => (
               <div key={idx} className="flex gap-2 mb-2">
@@ -182,7 +208,9 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
                   value={p.part}
                   onChange={e => handlePartChange(idx, 'part', e.target.value)}
                 >
-                  <option value="">Select Part</option>
+                  <option value="">
+                    {t('sCMMS.maintenanceManagement.modal.partsUsed.selectPart')}
+                  </option>
                   <option value="Hydraulic Oil">Hydraulic Oil (Stock: 45 Liters)</option>
                   <option value="Gasket Seal">Gasket Seal (Stock: 8 Pieces)</option>
                   <option value="3HP Electric Motor">3HP Electric Motor (Stock: 2 Pieces)</option>
@@ -216,7 +244,9 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
             ))}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {t('sCMMS.maintenanceManagement.modal.fields.notes')}
+            </label>
             <textarea
               name="notes"
               value={form.notes}
@@ -231,13 +261,13 @@ export default function AddScheduleModal({ open, onClose, onSubmit }) {
               className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100"
               onClick={onClose}
             >
-              Cancel
+              {t('sCMMS.maintenanceManagement.modal.actions.cancel')}
             </button>
             <button
               type="submit"
               className="px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700"
             >
-              Schedule Maintenance
+              {t('sCMMS.maintenanceManagement.modal.actions.schedule')}
             </button>
           </div>
         </form>

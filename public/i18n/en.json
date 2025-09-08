@@ -605,7 +605,7 @@
         "active": "Operational",
         "maintenance": "Maintenance",
         "malfunction": "Out of Order",
-				"offline": "Offline"
+        "offline": "Offline"
       },
       "equipment": {
         "names": {
@@ -624,6 +624,47 @@
           "active": "Active",
           "maintenance": "Under Maintenance",
           "malfunction": "Malfunction"
+        }
+      },
+      "modal": {
+        "addTitle": "Add New Equipment",
+        "editTitle": "Edit Equipment",
+        "fields": {
+          "equipmentName": "Equipment Name",
+          "model": "Model",
+          "serialNumber": "Serial Number",
+          "category": "Category",
+          "location": "Location",
+          "status": "Status",
+          "installDate": "Install Date",
+          "maintenanceInterval": "Maintenance Interval (days)",
+          "description": "Description",
+          "selectCategory": "Select category"
+        },
+        "placeholders": {
+          "equipmentName": "Enter equipment name",
+          "model": "Enter model",
+          "serialNumber": "Enter serial number",
+          "category": "Select category",
+          "location": "Enter location",
+          "status": "Select status",
+          "installDate": "mm/dd/yyyy",
+          "maintenanceInterval": "Enter interval (days)",
+          "description": "Enter description"
+        },
+        "status": {
+          "active": "Operational",
+          "maintenance": "Maintenance",
+          "malfunction": "Out of Order",
+          "offline": "Offline"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "add": "Add Equipment",
+          "save": "Save Changes"
+        },
+        "validation": {
+          "required": "This field is required"
         }
       }
     },
@@ -670,7 +711,56 @@
         "nguyenVanAn": "Nguyen Van An",
         "tranThiBinh": "Tran Thi Binh"
       },
-      "completedDateLabel": "Completed:"
+      "completedDateLabel": "Completed:",
+
+      "modal": {
+        "addTitle": "Schedule New Maintenance",
+        "editTitle": "Edit Maintenance",
+        "fields": {
+          "equipment": "Equipment",
+          "maintenanceType": "Maintenance Type",
+          "status": "Status",
+          "technician": "Technician",
+          "scheduledDate": "Scheduled Date",
+          "estimatedDuration": "Estimated Duration (minutes)",
+          "workDescription": "Work Description",
+          "partsUsed": "Parts Used",
+          "notes": "Notes"
+        },
+        "placeholders": {
+          "equipment": "Select Equipment",
+          "maintenanceType": "Select Maintenance Type",
+          "status": "Select Status",
+          "technician": "Select Technician",
+          "scheduledDate": "mm/dd/yyyy",
+          "estimatedDuration": "Enter duration (minutes)",
+          "workDescription": "Enter work description",
+          "notes": "Enter notes"
+        },
+        "types": {
+          "preventive": "Preventive",
+          "corrective": "Corrective"
+        },
+        "status": {
+          "scheduled": "Scheduled",
+          "inprogress": "In Progress",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "schedule": "Schedule Maintenance",
+          "save": "Save Changes",
+          "addPart": "Add Part"
+        },
+        "validation": {
+          "required": "This field is required"
+        },
+        "partsUsed": {
+					"selectPart": "Select part",
+          "none": "No parts added."
+        }
+      }
     },
     "inventoryManagement": {
       "title": "Inventory Management",

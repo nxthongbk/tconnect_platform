@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from '@phosphor-icons/react';
+import { useTranslation } from 'react-i18next';
 
 interface DeviceFormValues {
   name: string;
-  model: string;
-  serial: string;
-  category: string;
+  model?: string;
+  serial?: string;
+  category?: string;
   location: string;
   status: string;
-  installDate: string;
-  interval: string;
-  description: string;
+  installDate?: string;
+  interval?: string;
+  description?: string;
+  code?: string;
+  statusLabel?: string;
+  statusColor?: string;
+  nextMaintenance?: string;
 }
 
 interface AddEditDeviceModalProps {
@@ -21,23 +26,7 @@ interface AddEditDeviceModalProps {
   isEdit?: boolean;
 }
 
-const statusOptions = [
-	{ label: 'Operational', value: 'operational' },
-	{ label: 'Maintenance', value: 'maintenance' },
-	{ label: 'Out of Order', value: 'out_of_order' },
-	{ label: 'Offline', value: 'offline' },
-];
 
-const categoryOptions = [
-	{ label: 'Select Category', value: '' },
-	{ label: 'Hydraulic Press', value: 'hydraulic_press' },
-	{ label: 'Conveyor', value: 'conveyor' },
-	{ label: 'Welding Robot', value: 'welding_robot' },
-	{ label: 'CNC Machine', value: 'cnc_machine' },
-	{ label: 'Generator', value: 'generator' },
-	{ label: 'Compressor', value: 'compressor' },
-	{ label: 'Other', value: 'other' },
-];
 
 export default function AddEditDeviceModal({
   open,
@@ -46,6 +35,8 @@ export default function AddEditDeviceModal({
   initialValues = {},
   isEdit = false,
 }: AddEditDeviceModalProps) {
+  const { t } = useTranslation();
+
   const [form, setForm] = useState<DeviceFormValues>({
     name: initialValues.name || '',
     model: initialValues.model || '',
@@ -56,7 +47,47 @@ export default function AddEditDeviceModal({
     installDate: initialValues.installDate || '',
     interval: initialValues.interval || '30',
     description: initialValues.description || '',
+    statusLabel: initialValues.statusLabel || '',
+    statusColor: initialValues.statusColor || '',
+    nextMaintenance: initialValues.nextMaintenance || '',
   });
+
+	const statusOptions = [
+  { label: t('sCMMS.equipmentManagement.modal.status.active'), value: 'operational' },
+  { label: t('sCMMS.equipmentManagement.modal.status.maintenance'), value: 'maintenance' },
+  { label: t('sCMMS.equipmentManagement.modal.status.malfunction'), value: 'out_of_order' },
+  { label: t('sCMMS.equipmentManagement.modal.status.offline'), value: 'offline' },
+];
+
+const categoryOptions = [
+  { label: t('sCMMS.equipmentManagement.modal.fields.selectCategory'), value: '' },
+  { label: 'Hydraulic Press', value: 'hydraulic_press' },
+  { label: 'Conveyor', value: 'conveyor' },
+  { label: 'Welding Robot', value: 'welding_robot' },
+  { label: 'CNC Machine', value: 'cnc_machine' },
+  { label: 'Generator', value: 'generator' },
+  { label: 'Compressor', value: 'compressor' },
+  { label: 'Other', value: 'other' },
+];
+
+  useEffect(() => {
+    if (open) {
+      setForm({
+        name: initialValues.name || '',
+        model: initialValues.model || '',
+        serial: initialValues.serial || '',
+        category: initialValues.category || '',
+        location: initialValues.location || '',
+        status: initialValues.status || 'operational',
+        installDate: initialValues.installDate || '',
+        interval: initialValues.interval || '30',
+        description: initialValues.description || '',
+        statusLabel: initialValues.statusLabel || '',
+        statusColor: initialValues.statusColor || '',
+        nextMaintenance: initialValues.nextMaintenance || '',
+      });
+    }
+  }, [initialValues, open]);
 
   if (!open) return null;
 
@@ -83,13 +114,15 @@ export default function AddEditDeviceModal({
           <X size={24} />
         </button>
         <h2 className="text-2xl text-gray-900 mb-6">
-          {isEdit ? 'Edit Equipment' : 'Add New Equipment'}
+          {isEdit
+            ? t('sCMMS.equipmentManagement.modal.editTitle')
+            : t('sCMMS.equipmentManagement.modal.addTitle')}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Equipment Name *
+                {t('sCMMS.equipmentManagement.modal.fields.equipmentName')} *
               </label>
               <input
                 name="name"
@@ -100,7 +133,9 @@ export default function AddEditDeviceModal({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Model</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t('sCMMS.equipmentManagement.modal.fields.model')} *
+              </label>
               <input
                 name="model"
                 value={form.model}
@@ -110,7 +145,7 @@ export default function AddEditDeviceModal({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Serial Number *
+                {t('sCMMS.equipmentManagement.modal.fields.serialNumber')} *
               </label>
               <input
                 name="serial"
@@ -121,7 +156,7 @@ export default function AddEditDeviceModal({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('sCMMS.equipmentManagement.modal.fields.category')}</label>
               <select
                 name="category"
                 value={form.category}
@@ -136,7 +171,7 @@ export default function AddEditDeviceModal({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Location *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('sCMMS.equipmentManagement.modal.fields.location')} *</label>
               <input
                 name="location"
                 value={form.location}
@@ -146,7 +181,7 @@ export default function AddEditDeviceModal({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('sCMMS.equipmentManagement.modal.fields.status')}</label>
               <select
                 name="status"
                 value={form.status}
@@ -161,7 +196,7 @@ export default function AddEditDeviceModal({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Install Date</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('sCMMS.equipmentManagement.modal.fields.installDate')}</label>
               <input
                 name="installDate"
                 value={form.installDate}
@@ -172,7 +207,7 @@ export default function AddEditDeviceModal({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Maintenance Interval (days)
+                {t('sCMMS.equipmentManagement.modal.fields.maintenanceInterval')}
               </label>
               <input
                 name="interval"
@@ -185,7 +220,7 @@ export default function AddEditDeviceModal({
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('sCMMS.equipmentManagement.modal.fields.description')}</label>
             <textarea
               name="description"
               value={form.description}
@@ -200,13 +235,13 @@ export default function AddEditDeviceModal({
               className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100"
               onClick={onClose}
             >
-              Cancel
+							{t('sCMMS.equipmentManagement.modal.actions.cancel')}
             </button>
             <button
               type="submit"
               className="px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700"
             >
-              {isEdit ? 'Save Changes' : 'Add Equipment'}
+              {isEdit ? t('sCMMS.equipmentManagement.modal.actions.save') : t('sCMMS.equipmentManagement.modal.actions.add')}
             </button>
           </div>
         </form>

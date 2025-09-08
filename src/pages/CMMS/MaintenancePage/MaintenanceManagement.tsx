@@ -45,7 +45,6 @@ export default function MaintenanceManagement() {
     },
   ];
 
-  // Combine static and user-added schedules
   const allMaintenances = [...maintenances, ...schedules];
   const filteredMaintenances = allMaintenances.filter(maintenance => {
     const matchesSearch =
@@ -76,7 +75,6 @@ export default function MaintenanceManagement() {
           open={openModal}
           onClose={() => setOpenModal(false)}
           onSubmit={schedule => {
-            // Map form fields to table display fields
             const typeMap = {
               Preventive: { label: t('sCMMS.maintenanceManagement.types.periodic'), color: 'bg-blue-100 text-blue-700' },
               Corrective: { label: t('sCMMS.maintenanceManagement.types.repair'), color: 'bg-orange-100 text-orange-700' },
