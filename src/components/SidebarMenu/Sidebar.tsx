@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const { reset } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const { userInfo } = useContext(AppContext);
+  const { userInfo } = useContext(AppContext);
 
   const logoutMutation = useMutation({
     mutationFn: (query: { refreshToken: string }) => authService.logout(query),
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
         onSettled: () => {
           clearCookie();
           reset();
-          navigate('/login');
+          navigate('/');
         },
       }
     );
@@ -94,20 +94,17 @@ const Sidebar: React.FC = () => {
     },
   ];
 
-	const { data: img } = useQuery({
-    queryKey: ["userImg", userInfo?.avatarUrl],
+  const { data: img } = useQuery({
+    queryKey: ['userImg', userInfo?.avatarUrl],
     queryFn: async () => {
-      const res: any = await fileStorageService.getFileImage(
-        userInfo?.avatarUrl
-      );
+      const res: any = await fileStorageService.getFileImage(userInfo?.avatarUrl);
       if (res !== undefined) {
         const url = URL.createObjectURL(res);
         return url;
       }
-      return "";
+      return '';
     },
   });
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -193,21 +190,23 @@ const Sidebar: React.FC = () => {
       <div
         className={`border-t border-[#232e47] flex items-center gap-3 ${open ? 'px-6 py-3' : 'justify-center p-2'}`}
       >
-				<Avatar
-					onClick={handleAvatarClick}
-					className="!w-[36px] !h-[36px] cursor-pointer"
-					alt={userInfo?.name || userInfo?.username}
-					src={img}
-					aria-controls={Boolean(anchorEl) ? 'sidebar-user-menu' : undefined}
-					aria-haspopup="true"
-					aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
-				/>
-				{open && (
-					<div onClick={handleAvatarClick} className='cursor-pointer'>
-						<div className="text-sm font-semibold text-white">{userInfo?.name || userInfo?.username}</div>
-						<div className="text-xs text-gray-400">{userInfo?.email}</div>
-					</div>
-				)}
+        <Avatar
+          onClick={handleAvatarClick}
+          className="!w-[36px] !h-[36px] cursor-pointer"
+          alt={userInfo?.name || userInfo?.username}
+          src={img}
+          aria-controls={Boolean(anchorEl) ? 'sidebar-user-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+        />
+        {open && (
+          <div onClick={handleAvatarClick} className="cursor-pointer">
+            <div className="text-sm font-semibold text-white">
+              {userInfo?.name || userInfo?.username}
+            </div>
+            <div className="text-xs text-gray-400">{userInfo?.email}</div>
+          </div>
+        )}
         <Menu
           id="sidebar-user-menu"
           anchorEl={anchorEl}
@@ -219,7 +218,7 @@ const Sidebar: React.FC = () => {
         >
           <MenuItem onClick={handleLogout} sx={{ color: 'white' }}>
             <SignOut size={18} className="mr-2" />
-            <div className='text-sm'>{t('signOut', 'Sign out')}</div>
+            <div className="text-sm">{t('signOut', 'Sign out')}</div>
           </MenuItem>
         </Menu>
       </div>

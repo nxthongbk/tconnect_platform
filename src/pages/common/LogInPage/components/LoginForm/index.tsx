@@ -9,8 +9,8 @@ import { useContext } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Typography } from '@mui/material';
-import { Factory } from '@phosphor-icons/react';
+import { Button } from '@mui/material';
+import { GearSix } from '@phosphor-icons/react';
 
 import '../../style.scss';
 
@@ -83,80 +83,86 @@ export default function LoginForm({ setResetMode }: IProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center mobile:py-12">
-      <div className="relative py-3 mobile:max-w-xl mobile:mx-auto min-w-[460px]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e40af] to-[#2563eb] backdrop-blur-lg shadow-lg transform -skew-y-6 mobile:skew-y-0 mobile:-rotate-6 mobile:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg mobile:rounded-3xl mobile:p-20">
-          <div className="max-w-md mx-auto">
-            <div className="flex justify-center items-center space-x-2">
-              <Factory size={50} className="text-blue-700" mirrored />
-              <span className="text-2xl font-semibold text-blue-700">TMA MES</span>
-            </div>
-            <div className="divide-y divide-gray-200">
-              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 mobile:text-lg mobile:leading-7">
-                <form onSubmit={handleSubmit(onSubmit, onInvalid)} style={{ width: '100%' }}>
-                  <InputCustom
-                    type="text"
-                    classNameContainer="font-normal"
-                    label={translation('Tên đăng nhập')}
-                    isRequired={true}
-                    control={control}
-                    name="username"
-                    isError={Boolean(errors.username)}
-                    variant="outlined"
-                    size="small"
-                    placeholder={translation('Nhập tên đăng nhập')}
-                    helperText={translation(errors.username?.message)}
-                    isSpacingHelperText={true}
-                  />
-                  <InputCustom
-                    type="password"
-                    label={translation('Mật khẩu')}
-                    classNameContainer=" font-normal"
-                    isRequired={true}
-                    control={control}
-                    name="password"
-                    isError={Boolean(errors.password)}
-                    variant="outlined"
-                    size="small"
-                    placeholder={translation('Nhập mật khẩu')}
-                    helperText={translation(errors.username?.message)}
-                    isSpacingHelperText={true}
-                  />
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
-                    <Typography
-                      variant="button3"
-                      sx={{ color: '#2563eb', fontSize: 14, cursor: 'pointer' }}
-                      onClick={() => setResetMode(true)}
-                    >
-                      {translation('Quên mật khẩu?')}
-                    </Typography>
-                  </Box>
-                  <Button
-                    className="login-btn"
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      bgcolor: '#0794ff',
-                      color: '#fff',
-                      fontWeight: 400,
-                      fontSize: 18,
-                      borderRadius: 2,
-                      py: 1,
-                      mt: 1,
-                      textTransform: 'none',
-                      boxShadow: 'none',
-                      transition: 'background 0.3s, transform 0.3s',
-                    }}
-                  >
-                    {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
-                  </Button>
-                </form>
-              </div>
-            </div>
-          </div>
+    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl p-8 relative">
+      <div className="flex flex-col items-center mb-6">
+        <GearSix size={36} className="text-blue-700 mb-1" />
+        <h2 className="text-2xl font-bold text-gray-900 mb-1">Login to FactoryCMMS</h2>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
+        <InputCustom
+          type="text"
+          classNameContainer="font-normal"
+          label={translation('Tên đăng nhập')}
+          isRequired={true}
+          control={control}
+          name="username"
+          isError={Boolean(errors.username)}
+          variant="outlined"
+          size="small"
+          placeholder={translation('Nhập tên đăng nhập')}
+          helperText={translation(errors.username?.message)}
+          isSpacingHelperText={true}
+        />
+        <InputCustom
+          type="password"
+          label={translation('Mật khẩu')}
+          classNameContainer="font-normal"
+          isRequired={true}
+          control={control}
+          name="password"
+          isError={Boolean(errors.password)}
+          variant="outlined"
+          size="small"
+          placeholder={translation('Nhập mật khẩu')}
+          helperText={translation(errors.password?.message)}
+          isSpacingHelperText={true}
+        />
+        <div className="flex items-center justify-between mb-2">
+          <label className="flex items-center text-gray-600 text-sm">
+            <input type="checkbox" className="mr-2" />
+            Remember me
+          </label>
+          <button
+            type="button"
+            className="text-blue-700 text-sm hover:underline"
+            onClick={() => setResetMode(true)}
+          >
+            {translation('Quên mật khẩu?')}
+          </button>
         </div>
+        <Button
+          className="login-btn"
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{
+            bgcolor: '#2563eb',
+            color: '#fff',
+            fontWeight: 500,
+            fontSize: 18,
+            borderRadius: 2,
+            py: 1.5,
+            mt: 1,
+            textTransform: 'none',
+            boxShadow: 'none',
+            transition: 'background 0.3s, transform 0.3s',
+          }}
+        >
+          {loginMutation.isPending ? (
+            'Signing in...'
+          ) : (
+            <span className="flex items-center justify-center">
+              <span className="mr-2">Sign in</span>
+              <span className="ph ph-sign-in"></span>
+            </span>
+          )}
+        </Button>
+      </form>
+      <div className="text-center text-sm text-gray-500 mt-4">
+        Don't have an account?{' '}
+        <a href="#" className="text-blue-700 hover:underline">
+          Contact Sales
+        </a>
       </div>
     </div>
   );

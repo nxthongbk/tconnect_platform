@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import LoginForm from '../LogInPage/components/LoginForm';
 import {
   ChartBar,
   Shield,
@@ -16,13 +16,13 @@ import { useTranslation } from 'react-i18next';
 
 export default function MesLandingPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   const handleSignIn = (e: React.MouseEvent) => {
     e.preventDefault();
     setMenuOpen(false);
-    navigate('/login');
+    setLoginModalOpen(true);
   };
 
   const features = [
@@ -120,6 +120,22 @@ export default function MesLandingPage() {
 
   return (
     <div className="overflow-y-auto max-h-screen bg-white">
+      {/* Login Modal */}
+      {loginModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto p-0">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-blue-700 text-2xl font-bold z-10"
+              onClick={() => setLoginModalOpen(false)}
+              aria-label="Close login modal"
+            >
+              &times;
+            </button>
+            <LoginForm setResetMode={() => {}} />
+          </div>
+        </div>
+      )}
+
       <header>
         <nav className="fixed top-0 left-0 right-0 bg-white z-50 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 mobile:px-6 miniLaptop:px-8">
