@@ -641,7 +641,8 @@
       "status": {
         "active": "Hoạt động",
         "maintenance": "Bảo trì",
-        "malfunction": "Hỏng"
+        "malfunction": "Hỏng",
+        "offline": "Không hoạt động"
       },
       "equipment": {
         "names": {

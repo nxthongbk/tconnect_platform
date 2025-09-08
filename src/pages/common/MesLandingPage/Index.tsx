@@ -120,7 +120,6 @@ export default function MesLandingPage() {
 
   return (
     <div className="overflow-y-auto max-h-screen bg-white">
-      {/* Login Modal */}
       {loginModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto p-0">
@@ -203,10 +202,8 @@ export default function MesLandingPage() {
         </nav>
       </header>
 
-      {/* Mobile Menu Drawer */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 pointer-events-auto">
-          {/* Overlay */}
           <div
             className="absolute inset-0 bg-black bg-opacity-30 transition-opacity"
             onClick={() => setMenuOpen(false)}

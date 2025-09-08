@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddSchedule from './AddScheduleModal';
 import { Plus } from '@phosphor-icons/react';
 import SearchFilterBar from '../CommonComponents/SearchBar/SearchFilterBar';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +8,8 @@ export default function MaintenanceManagement() {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [openModal, setOpenModal] = useState(false);
+  const [schedules, setSchedules] = useState([]);
 
   const statusMap = {
     all: null,
@@ -42,7 +45,9 @@ export default function MaintenanceManagement() {
     },
   ];
 
-  const filteredMaintenances = maintenances.filter(maintenance => {
+  // Combine static and user-added schedules
+  const allMaintenances = [...maintenances, ...schedules];
+  const filteredMaintenances = allMaintenances.filter(maintenance => {
     const matchesSearch =
       maintenance.device.toLowerCase().includes(search.toLowerCase()) ||
       maintenance.description.toLowerCase().includes(search.toLowerCase());
@@ -63,10 +68,44 @@ export default function MaintenanceManagement() {
         </div>
         <button
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-          // onClick={() => setOpenModal(true)}
+          onClick={() => setOpenModal(true)}
         >
           <Plus size={20} /> {t('sCMMS.maintenanceManagement.createButton')}
         </button>
+        <AddSchedule
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          onSubmit={schedule => {
+            // Map form fields to table display fields
+            const typeMap = {
+              Preventive: { label: t('sCMMS.maintenanceManagement.types.periodic'), color: 'bg-blue-100 text-blue-700' },
+              Corrective: { label: t('sCMMS.maintenanceManagement.types.repair'), color: 'bg-orange-100 text-orange-700' },
+              Inspection: { label: t('sCMMS.maintenanceManagement.types.inspection'), color: 'bg-green-100 text-green-700' },
+            };
+            const statusMap = {
+              Scheduled: { label: t('sCMMS.maintenanceManagement.status.scheduled'), color: 'bg-blue-100 text-blue-700' },
+              'In Progress': { label: t('sCMMS.maintenanceManagement.status.inprogress'), color: 'bg-orange-100 text-orange-700' },
+              Completed: { label: t('sCMMS.maintenanceManagement.status.completed'), color: 'bg-green-100 text-green-700' },
+              Cancelled: { label: t('sCMMS.maintenanceManagement.status.cancelled'), color: 'bg-gray-100 text-gray-700' },
+            };
+            setSchedules(prev => [
+              ...prev,
+              {
+                device: schedule.equipment,
+                description: schedule.description,
+                type: typeMap[schedule.type]?.label || schedule.type,
+                typeColor: typeMap[schedule.type]?.color || '',
+                status: statusMap[schedule.status]?.label || schedule.status,
+                statusColor: statusMap[schedule.status]?.color || '',
+                date: schedule.date,
+                completedDate: schedule.status === 'Completed' ? schedule.date : undefined,
+                technician: schedule.technician,
+                cost: '',
+              },
+            ]);
+            setOpenModal(false);
+          }}
+        />
       </div>
 
       <SearchFilterBar

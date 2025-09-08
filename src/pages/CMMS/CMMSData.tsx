@@ -236,9 +236,7 @@ export const getCMMSData = (t: any) => {
       location: t('sCMMS.equipmentManagement.equipment.locations.lineAZone1'),
       statusLabel: t('sCMMS.equipmentManagement.equipment.status.active'),
       code: 'HP-2000X - HP2000X-001',
-
       status: 'active',
-
       statusColor: 'bg-green-100 text-green-700',
       nextMaintenance: '12/1/2024',
     },

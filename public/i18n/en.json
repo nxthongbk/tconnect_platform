@@ -604,7 +604,8 @@
       "status": {
         "active": "Operational",
         "maintenance": "Maintenance",
-        "malfunction": "Out of Order"
+        "malfunction": "Out of Order",
+				"offline": "Offline"
       },
       "equipment": {
         "names": {

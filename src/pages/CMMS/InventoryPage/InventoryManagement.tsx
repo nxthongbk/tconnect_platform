@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddItemModal from './AddItemModal';
 import { Plus, Package, Warning } from '@phosphor-icons/react';
 import SearchFilterBar from '../CommonComponents/SearchBar/SearchFilterBar';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +8,8 @@ export default function InventoryManagement() {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [openModal, setOpenModal] = useState(false);
+  const [localItems, setLocalItems] = useState([]);
 
   const summaryCards = [
     {
@@ -87,7 +90,8 @@ export default function InventoryManagement() {
     },
   ];
 
-  const filteredItems = items.filter(item => {
+  const allItems = [...items, ...localItems];
+  const filteredItems = allItems.filter(item => {
     const matchesSearch =
       item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.sku.toLowerCase().includes(search.toLowerCase());
@@ -103,9 +107,41 @@ export default function InventoryManagement() {
           </h1>
           <p className="text-gray-600">{t('sCMMS.inventoryManagement.subTitle')}</p>
         </div>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          onClick={() => setOpenModal(true)}
+        >
           <Plus size={20} /> {t('sCMMS.inventoryManagement.addSupply')}
         </button>
+        <AddItemModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          onSubmit={item => {
+            setLocalItems(prev => [
+              ...prev,
+              {
+                name: item.name,
+                sku: item.sku,
+                category: item.category,
+                stock: Number(item.currentStock),
+                unit: item.unit,
+                min: Number(item.minStock),
+                max: Number(item.maxStock),
+                status: Number(item.currentStock) <= Number(item.minStock)
+                  ? t('sCMMS.inventoryManagement.status.lowStock')
+                  : t('sCMMS.inventoryManagement.status.available'),
+                statusColor: Number(item.currentStock) <= Number(item.minStock)
+                  ? 'bg-red-100 text-red-700'
+                  : 'bg-green-100 text-green-700',
+                price: item.price ? `${item.price} ₫` : '',
+                supplier: item.supplier,
+                location: item.storage,
+                subCategory: item.category ? t(`sCMMS.inventoryManagement.categories.${item.category}`) : '',
+              },
+            ]);
+            setOpenModal(false);
+          }}
+        />
       </div>
 
       <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mb-4">
