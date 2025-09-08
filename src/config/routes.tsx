@@ -3,7 +3,6 @@ import { AppContext } from '~/contexts/app.context';
 import NotFoundPage from '~/pages/common/404Page';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
-import MesLandingPage from '~/pages/common/MesLandingPage/Index';
 import CMMSMain from '~/pages/CMMS';
 import DashboardPage from '~/pages/CMMS/DashboardPage/Dashboard';
 import DevicesManagement from '~/pages/CMMS/DevicesPage/DevicesManagement';
@@ -12,6 +11,7 @@ import InventoryManagement from '~/pages/CMMS/InventoryPage/InventoryManagement'
 import Report from '~/pages/CMMS/ReportPage/Report';
 import EmployeeManagement from '~/pages/CMMS/EmployeePage/EmployeeManagement';
 import Setting from '~/pages/CMMS/SettingPage/Setting';
+import SCMMSLandingPage from '~/pages/common/ScmmsLandingPage/Index';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -35,7 +35,7 @@ const useRoutes = () => {
   const routesElement = createBrowserRouter([
     {
       path: '/',
-      element: <MesLandingPage />,
+      element: <SCMMSLandingPage />,
     },
     {
       path: '/login',

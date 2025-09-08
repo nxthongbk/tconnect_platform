@@ -39,6 +39,7 @@
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.542.0",
     "mapbox-gl": "^3.3.0",
     "notistack": "^3.0.1",
     "pdfjs-dist": "^4.5.136",
