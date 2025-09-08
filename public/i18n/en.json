@@ -529,11 +529,11 @@
     "subTitle": "Equipment & Inventory System",
     "sidebar": {
       "dashboard": "Dashboard",
-      "equipments": "Equipment Management",
+      "equipments": "Equipment",
       "maintenance": "Maintenance",
       "inventory": "Inventory",
       "reports": "Reports",
-      "employees": "User Management",
+      "employees": "Users",
       "settings": "Settings"
     },
     "dashboard": {
