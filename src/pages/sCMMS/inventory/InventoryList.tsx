@@ -16,21 +16,33 @@ export default function InventoryList() {
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
 
   const filteredInventory = inventory.filter(item => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.sku.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.sku.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter;
-    const matchesStatus = statusFilter === 'all' || 
+    const matchesStatus =
+      statusFilter === 'all' ||
       (statusFilter === 'low' && item.currentStock <= item.minStock) ||
-      (statusFilter === 'warning' && item.currentStock > item.minStock && item.currentStock <= item.minStock * 1.2) ||
+      (statusFilter === 'warning' &&
+        item.currentStock > item.minStock &&
+        item.currentStock <= item.minStock * 1.2) ||
       (statusFilter === 'in-stock' && item.currentStock > item.minStock * 1.2);
-    const matchesPrice = priceFilter === 'all' ||
+    const matchesPrice =
+      priceFilter === 'all' ||
       (priceFilter === 'low' && item.unitPrice < 50) ||
       (priceFilter === 'medium' && item.unitPrice >= 50 && item.unitPrice < 200) ||
       (priceFilter === 'high' && item.unitPrice >= 200);
     const matchesSupplier = supplierFilter === 'all' || item.supplier === supplierFilter;
     const matchesLocation = locationFilter === 'all' || item.location === locationFilter;
-    
-    return matchesSearch && matchesCategory && matchesStatus && matchesPrice && matchesSupplier && matchesLocation;
+
+    return (
+      matchesSearch &&
+      matchesCategory &&
+      matchesStatus &&
+      matchesPrice &&
+      matchesSupplier &&
+      matchesLocation
+    );
   });
 
   const categories = [...new Set(inventory.map(item => item.category))];
@@ -60,15 +72,15 @@ export default function InventoryList() {
 
   const handleSave = (itemData: Omit<InventoryItem, 'id'>) => {
     if (editingItem) {
-      setInventory(inventory.map(item => 
-        item.id === editingItem.id 
-          ? { ...itemData, id: editingItem.id }
-          : item
-      ));
+      setInventory(
+        inventory.map(item =>
+          item.id === editingItem.id ? { ...itemData, id: editingItem.id } : item
+        )
+      );
     } else {
       const newItem: InventoryItem = {
         ...itemData,
-        id: Date.now().toString()
+        id: Date.now().toString(),
       };
       setInventory([...inventory, newItem]);
     }
@@ -80,10 +92,15 @@ export default function InventoryList() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent">
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             Inventory Management
           </h1>
-          <p className="text-slate-600 mt-2 text-xl font-medium">Track stock levels and manage spare parts inventory</p>
+          <p className="text-slate-600 mt-2 text-xl font-medium">
+            Track stock levels and manage spare parts inventory
+          </p>
         </div>
         <button
           onClick={() => setShowForm(true)}
@@ -105,7 +122,9 @@ export default function InventoryList() {
               <Package className="text-blue-600" size={28} />
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Total Items</p>
+              <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">
+                Total Items
+              </p>
               <p className="text-4xl font-bold text-blue-600 mb-1">{inventory.length}</p>
             </div>
           </div>
@@ -117,7 +136,9 @@ export default function InventoryList() {
               <AlertTriangle className="text-red-600" size={24} />
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">Low Stock Items</p>
+              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
+                Low Stock Items
+              </p>
               <p className="text-2xl font-bold text-gray-900">
                 {inventory.filter(i => i.currentStock <= i.minStock).length}
               </p>
@@ -131,9 +152,16 @@ export default function InventoryList() {
               <Package className="text-green-600" size={24} />
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">Inventory Value</p>
+              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
+                Inventory Value
+              </p>
               <p className="text-2xl font-bold text-gray-900">
-                ${(inventory.reduce((acc, item) => acc + (item.currentStock * item.unitPrice), 0) / 1000).toFixed(1)}K
+                $
+                {(
+                  inventory.reduce((acc, item) => acc + item.currentStock * item.unitPrice, 0) /
+                  1000
+                ).toFixed(1)}
+                K
               </p>
             </div>
           </div>
@@ -145,34 +173,39 @@ export default function InventoryList() {
         <div className="space-y-4">
           {/* Search Bar */}
           <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Search inventory..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             />
           </div>
-          
+
           {/* Filter Options */}
           <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-5 gap-4">
             {/* Category Filter */}
             <select
               value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
+              onChange={e => setCategoryFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             >
               <option value="all">All Categories</option>
               {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
-            
+
             {/* Status Filter */}
             <select
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
+              onChange={e => setStatusFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             >
               <option value="all">All Status</option>
@@ -180,11 +213,11 @@ export default function InventoryList() {
               <option value="warning">Warning</option>
               <option value="in-stock">In Stock</option>
             </select>
-            
+
             {/* Price Filter */}
             <select
               value={priceFilter}
-              onChange={(e) => setPriceFilter(e.target.value)}
+              onChange={e => setPriceFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             >
               <option value="all">All Prices</option>
@@ -192,33 +225,42 @@ export default function InventoryList() {
               <option value="medium">Medium ($50-$200)</option>
               <option value="high">High (&gt; $200)</option>
             </select>
-            
+
             {/* Supplier Filter */}
             <select
               value={supplierFilter}
-              onChange={(e) => setSupplierFilter(e.target.value)}
+              onChange={e => setSupplierFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             >
               <option value="all">All Suppliers</option>
               {suppliers.map(supplier => (
-                <option key={supplier} value={supplier}>{supplier}</option>
+                <option key={supplier} value={supplier}>
+                  {supplier}
+                </option>
               ))}
             </select>
-            
+
             {/* Location Filter */}
             <select
               value={locationFilter}
-              onChange={(e) => setLocationFilter(e.target.value)}
+              onChange={e => setLocationFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             >
               <option value="all">All Locations</option>
               {locations.map(location => (
-                <option key={location} value={location}>{location}</option>
+                <option key={location} value={location}>
+                  {location}
+                </option>
               ))}
             </select>
-            
+
             {/* Clear Filters Button */}
-            {(categoryFilter !== 'all' || statusFilter !== 'all' || priceFilter !== 'all' || supplierFilter !== 'all' || locationFilter !== 'all' || searchTerm) && (
+            {(categoryFilter !== 'all' ||
+              statusFilter !== 'all' ||
+              priceFilter !== 'all' ||
+              supplierFilter !== 'all' ||
+              locationFilter !== 'all' ||
+              searchTerm) && (
               <button
                 onClick={() => {
                   setCategoryFilter('all');
@@ -234,13 +276,18 @@ export default function InventoryList() {
               </button>
             )}
           </div>
-          
+
           {/* Filter Summary */}
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>Showing {filteredInventory.length} of {inventory.length} items</span>
-            {(categoryFilter !== 'all' || statusFilter !== 'all' || priceFilter !== 'all' || supplierFilter !== 'all' || locationFilter !== 'all' || searchTerm) && (
-              <span className="text-blue-600">• Filters applied</span>
-            )}
+            <span>
+              Showing {filteredInventory.length} of {inventory.length} items
+            </span>
+            {(categoryFilter !== 'all' ||
+              statusFilter !== 'all' ||
+              priceFilter !== 'all' ||
+              supplierFilter !== 'all' ||
+              locationFilter !== 'all' ||
+              searchTerm) && <span className="text-blue-600">• Filters applied</span>}
           </div>
         </div>
       </div>
@@ -275,7 +322,7 @@ export default function InventoryList() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
-              {filteredInventory.map((item) => {
+              {filteredInventory.map(item => {
                 const stockStatus = getStockStatus(item);
                 return (
                   <tr key={item.id} className="hover:bg-gray-50 transition-colors duration-200">
@@ -295,7 +342,9 @@ export default function InventoryList() {
                       </div>
                     </td>
                     <td className="px-6 py-5">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${stockStatus.style}`}>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${stockStatus.style}`}
+                      >
                         {stockStatus.label}
                       </span>
                     </td>

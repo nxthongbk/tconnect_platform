@@ -12,11 +12,12 @@ export default function UserManagement() {
   const [showForm, setShowForm] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
-  const filteredUsers = users.filter(user => 
-    (user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     user.email.toLowerCase().includes(searchTerm.toLowerCase())) &&
-    (roleFilter === 'all' || user.role === roleFilter) &&
-    (departmentFilter === 'all' || user.department === departmentFilter)
+  const filteredUsers = users.filter(
+    user =>
+      (user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (roleFilter === 'all' || user.role === roleFilter) &&
+      (departmentFilter === 'all' || user.department === departmentFilter)
   );
 
   // Get unique departments for filter
@@ -28,20 +29,20 @@ export default function UserManagement() {
     admins: users.filter(u => u.role === 'admin').length,
     supervisors: users.filter(u => u.role === 'supervisor').length,
     technicians: users.filter(u => u.role === 'technician').length,
-    departments: departments.length
+    departments: departments.length,
   };
 
   const getRoleBadge = (role: User['role']) => {
     const styles = {
       admin: 'bg-purple-100 text-purple-800',
       supervisor: 'bg-blue-100 text-blue-800',
-      technician: 'bg-green-100 text-green-800'
+      technician: 'bg-green-100 text-green-800',
     };
-    
+
     const labels = {
       admin: 'Administrator',
       supervisor: 'Supervisor',
-      technician: 'Technician'
+      technician: 'Technician',
     };
 
     return (
@@ -70,7 +71,7 @@ export default function UserManagement() {
       'from-green-500 to-green-600',
       'from-purple-500 to-purple-600',
       'from-red-500 to-red-600',
-      'from-orange-500 to-orange-600'
+      'from-orange-500 to-orange-600',
     ];
     return colors[name.length % colors.length];
   };
@@ -88,15 +89,13 @@ export default function UserManagement() {
 
   const handleSave = (userData: Omit<User, 'id'>) => {
     if (editingUser) {
-      setUsers(users.map(user => 
-        user.id === editingUser.id 
-          ? { ...userData, id: editingUser.id }
-          : user
-      ));
+      setUsers(
+        users.map(user => (user.id === editingUser.id ? { ...userData, id: editingUser.id } : user))
+      );
     } else {
       const newUser: User = {
         ...userData,
-        id: `U${Date.now().toString().slice(-3)}`
+        id: `U${Date.now().toString().slice(-3)}`,
       };
       setUsers([...users, newUser]);
     }
@@ -107,12 +106,17 @@ export default function UserManagement() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent">
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             User Management
           </h1>
-          <p className="text-slate-600 mt-2 text-xl font-medium">Manage user accounts and permissions</p>
+          <p className="text-slate-600 mt-2 text-xl font-medium">
+            Manage user accounts and permissions
+          </p>
         </div>
-        <button 
+        <button
           onClick={() => setShowForm(true)}
           className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl flex items-center gap-3 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
         >
@@ -132,7 +136,9 @@ export default function UserManagement() {
               <Users className="text-blue-600" size={28} />
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Total Users</p>
+              <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">
+                Total Users
+              </p>
               <p className="text-4xl font-bold text-blue-600 mb-1">{stats.total}</p>
             </div>
           </div>
@@ -144,7 +150,9 @@ export default function UserManagement() {
               <Shield className="text-purple-600" size={24} />
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">Administrators</p>
+              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
+                Administrators
+              </p>
               <p className="text-2xl font-bold text-purple-600">{stats.admins}</p>
             </div>
           </div>
@@ -156,7 +164,9 @@ export default function UserManagement() {
               <UserCheck className="text-blue-600" size={24} />
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">Supervisors</p>
+              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
+                Supervisors
+              </p>
               <p className="text-2xl font-bold text-blue-600">{stats.supervisors}</p>
             </div>
           </div>
@@ -168,7 +178,9 @@ export default function UserManagement() {
               <Wrench className="text-green-600" size={24} />
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">Technicians</p>
+              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
+                Technicians
+              </p>
               <p className="text-2xl font-bold text-green-600">{stats.technicians}</p>
             </div>
           </div>
@@ -180,7 +192,9 @@ export default function UserManagement() {
               <Users className="text-orange-600" size={24} />
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">Departments</p>
+              <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
+                Departments
+              </p>
               <p className="text-2xl font-bold text-orange-600">{stats.departments}</p>
             </div>
           </div>
@@ -192,24 +206,27 @@ export default function UserManagement() {
         <div className="space-y-4">
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Search users..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
             />
           </div>
-          
+
           {/* Filter Options */}
           <div className="flex flex-wrap items-center gap-4">
             <Filter size={20} className="text-gray-500" />
-            
+
             {/* Role Filter */}
             <select
               value={roleFilter}
-              onChange={(e) => setRoleFilter(e.target.value)}
+              onChange={e => setRoleFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white min-w-[140px]"
             >
               <option value="all">All Roles</option>
@@ -217,19 +234,21 @@ export default function UserManagement() {
               <option value="supervisor">Supervisor</option>
               <option value="technician">Technician</option>
             </select>
-            
+
             {/* Department Filter */}
             <select
               value={departmentFilter}
-              onChange={(e) => setDepartmentFilter(e.target.value)}
+              onChange={e => setDepartmentFilter(e.target.value)}
               className="border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white min-w-[160px]"
             >
               <option value="all">All Departments</option>
               {departments.map(department => (
-                <option key={department} value={department}>{department}</option>
+                <option key={department} value={department}>
+                  {department}
+                </option>
               ))}
             </select>
-            
+
             {/* Clear Filters Button */}
             {(roleFilter !== 'all' || departmentFilter !== 'all' || searchTerm) && (
               <button
@@ -244,10 +263,12 @@ export default function UserManagement() {
               </button>
             )}
           </div>
-          
+
           {/* Filter Summary */}
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>Showing {filteredUsers.length} of {users.length} users</span>
+            <span>
+              Showing {filteredUsers.length} of {users.length} users
+            </span>
             {(roleFilter !== 'all' || departmentFilter !== 'all' || searchTerm) && (
               <span className="text-blue-600">• Filters applied</span>
             )}
@@ -276,32 +297,42 @@ export default function UserManagement() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
-              {filteredUsers.map((user) => (
+              {filteredUsers.map(user => (
                 <tr key={user.id} className="hover:bg-gray-50 transition-colors duration-200">
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg bg-gray-100">
                         {user.avatar ? (
-                          <img 
-                            src={user.avatar} 
+                          <img
+                            src={user.avatar}
                             alt={user.name}
                             className="w-full h-full object-cover"
-                            onError={(e) => {
+                            onError={e => {
                               const target = e.target as HTMLImageElement;
                               target.style.display = 'none';
                               target.parentElement!.innerHTML = `
                                 <div class="w-full h-full bg-gradient-to-br ${getAvatarColor(user.name)} flex items-center justify-center">
                                   <span class="text-white font-medium text-sm">
-                                    ${user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                                    ${user.name
+                                      .split(' ')
+                                      .map(n => n[0])
+                                      .join('')
+                                      .toUpperCase()}
                                   </span>
                                 </div>
                               `;
                             }}
                           />
                         ) : (
-                          <div className={`w-full h-full bg-gradient-to-br ${getAvatarColor(user.name)} flex items-center justify-center`}>
+                          <div
+                            className={`w-full h-full bg-gradient-to-br ${getAvatarColor(user.name)} flex items-center justify-center`}
+                          >
                             <span className="text-white font-medium text-sm">
-                              {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                              {user.name
+                                .split(' ')
+                                .map(n => n[0])
+                                .join('')
+                                .toUpperCase()}
                             </span>
                           </div>
                         )}
@@ -309,17 +340,13 @@ export default function UserManagement() {
                       <div>
                         <div className="text-sm font-semibold text-gray-900">{user.name}</div>
                         <div className="text-sm text-gray-500">{user.email}</div>
-                        {user.phone && (
-                          <div className="text-xs text-gray-400">{user.phone}</div>
-                        )}
+                        {user.phone && <div className="text-xs text-gray-400">{user.phone}</div>}
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-2">
-                      <div className="p-1 rounded-lg bg-gray-50">
-                        {getRoleIcon(user.role)}
-                      </div>
+                      <div className="p-1 rounded-lg bg-gray-50">{getRoleIcon(user.role)}</div>
                       {getRoleBadge(user.role)}
                     </div>
                   </td>
@@ -328,14 +355,14 @@ export default function UserManagement() {
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-2">
-                      <button 
+                      <button
                         onClick={() => handleEdit(user)}
                         className="text-blue-600 hover:text-blue-800 p-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
                         title="Edit User"
                       >
                         <Edit size={16} />
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleDelete(user.id)}
                         className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50 transition-all duration-200"
                         title="Delete User"

@@ -341,7 +341,7 @@ export default function EquipmentList() {
         error.id === editingError.id ? editingError : error
       );
       // In a real app, you would save this to your backend
-      console.log('Saving error:', editingError);
+      console.log('Saving error:', editingError, updatedErrors);
       setSelectedError(editingError);
       setEditingError(null);
     }
