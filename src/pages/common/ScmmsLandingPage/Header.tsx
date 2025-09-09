@@ -33,7 +33,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
             <Settings className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">ManufactureMax</span>
+            <span className="text-2xl font-bold text-gray-900">sCMMS</span>
           </div>
 
           <nav className="hidden smallLaptop:flex items-center space-x-8">

@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { 
+import {
   Settings as SettingsIcon,
-  Bell, 
-  Shield, 
-  Database, 
-  Wifi, 
-  Monitor, 
-  Mail, 
-  Clock, 
+  Bell,
+  Shield,
+  Database,
+  Wifi,
+  Monitor,
+  Mail,
+  Clock,
   Save,
   RefreshCw,
   Download,
@@ -15,7 +15,7 @@ import {
   AlertTriangle,
   CheckCircle,
   Eye,
-  EyeOff
+  EyeOff,
 } from 'lucide-react';
 
 export default function Settings() {
@@ -28,31 +28,31 @@ export default function Settings() {
     language: 'en',
     dateFormat: 'MM/DD/YYYY',
     currency: 'USD',
-    
+
     // Notification Settings
     emailNotifications: true,
     smsNotifications: false,
     maintenanceAlerts: true,
     inventoryAlerts: true,
     systemAlerts: true,
-    
+
     // Security Settings
     passwordPolicy: 'strong',
     sessionTimeout: 30,
     twoFactorAuth: false,
     loginAttempts: 5,
-    
+
     // System Settings
     backupFrequency: 'daily',
     dataRetention: 365,
     maintenanceMode: false,
     debugMode: false,
-    
+
     // Integration Settings
     apiEndpoint: 'https://api.factory-manager.com',
     apiKey: '••••••••••••••••',
     webhookUrl: '',
-    syncInterval: 15
+    syncInterval: 15,
   });
 
   const tabs = [
@@ -60,7 +60,7 @@ export default function Settings() {
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'security', label: 'Security', icon: Shield },
     { id: 'system', label: 'System', icon: Database },
-    { id: 'integrations', label: 'Integrations', icon: Wifi }
+    { id: 'integrations', label: 'Integrations', icon: Wifi },
   ];
 
   const handleSettingChange = (key: string, value: any) => {
@@ -105,17 +105,14 @@ export default function Settings() {
 
   const renderGeneralSettings = () => (
     <div className="space-y-6">
-      <SettingCard 
-        title="Company Information" 
-        description="Basic company and system information"
-      >
+      <SettingCard title="Company Information" description="Basic company and system information">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
             <input
               type="text"
               value={settings.companyName}
-              onChange={(e) => handleSettingChange('companyName', e.target.value)}
+              onChange={e => handleSettingChange('companyName', e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -124,7 +121,7 @@ export default function Settings() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
               <select
                 value={settings.timezone}
-                onChange={(e) => handleSettingChange('timezone', e.target.value)}
+                onChange={e => handleSettingChange('timezone', e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="UTC+7">UTC+7 (Bangkok)</option>
@@ -137,7 +134,7 @@ export default function Settings() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
               <select
                 value={settings.language}
-                onChange={(e) => handleSettingChange('language', e.target.value)}
+                onChange={e => handleSettingChange('language', e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="en">English</option>
@@ -150,16 +147,13 @@ export default function Settings() {
         </div>
       </SettingCard>
 
-      <SettingCard 
-        title="Display Preferences" 
-        description="Customize how data is displayed"
-      >
+      <SettingCard title="Display Preferences" description="Customize how data is displayed">
         <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Date Format</label>
             <select
               value={settings.dateFormat}
-              onChange={(e) => handleSettingChange('dateFormat', e.target.value)}
+              onChange={e => handleSettingChange('dateFormat', e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="MM/DD/YYYY">MM/DD/YYYY</option>
@@ -171,7 +165,7 @@ export default function Settings() {
             <label className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
             <select
               value={settings.currency}
-              onChange={(e) => handleSettingChange('currency', e.target.value)}
+              onChange={e => handleSettingChange('currency', e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="USD">USD ($)</option>
@@ -187,8 +181,8 @@ export default function Settings() {
 
   const renderNotificationSettings = () => (
     <div className="space-y-6">
-      <SettingCard 
-        title="Notification Channels" 
+      <SettingCard
+        title="Notification Channels"
         description="Choose how you want to receive notifications"
       >
         <div className="space-y-4">
@@ -204,13 +198,13 @@ export default function Settings() {
               <input
                 type="checkbox"
                 checked={settings.emailNotifications}
-                onChange={(e) => handleSettingChange('emailNotifications', e.target.checked)}
+                onChange={e => handleSettingChange('emailNotifications', e.target.checked)}
                 className="sr-only peer"
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Bell className="text-green-600" size={20} />
@@ -223,7 +217,7 @@ export default function Settings() {
               <input
                 type="checkbox"
                 checked={settings.smsNotifications}
-                onChange={(e) => handleSettingChange('smsNotifications', e.target.checked)}
+                onChange={e => handleSettingChange('smsNotifications', e.target.checked)}
                 className="sr-only peer"
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
@@ -232,16 +226,25 @@ export default function Settings() {
         </div>
       </SettingCard>
 
-      <SettingCard 
-        title="Alert Types" 
-        description="Configure which events trigger notifications"
-      >
+      <SettingCard title="Alert Types" description="Configure which events trigger notifications">
         <div className="space-y-4">
           {[
-            { key: 'maintenanceAlerts', label: 'Maintenance Alerts', desc: 'Equipment maintenance due dates and schedules' },
-            { key: 'inventoryAlerts', label: 'Inventory Alerts', desc: 'Low stock and reorder notifications' },
-            { key: 'systemAlerts', label: 'System Alerts', desc: 'System errors and performance issues' }
-          ].map((alert) => (
+            {
+              key: 'maintenanceAlerts',
+              label: 'Maintenance Alerts',
+              desc: 'Equipment maintenance due dates and schedules',
+            },
+            {
+              key: 'inventoryAlerts',
+              label: 'Inventory Alerts',
+              desc: 'Low stock and reorder notifications',
+            },
+            {
+              key: 'systemAlerts',
+              label: 'System Alerts',
+              desc: 'System errors and performance issues',
+            },
+          ].map(alert => (
             <div key={alert.key} className="flex items-center justify-between">
               <div>
                 <p className="font-medium text-gray-900">{alert.label}</p>
@@ -251,7 +254,7 @@ export default function Settings() {
                 <input
                   type="checkbox"
                   checked={settings[alert.key as keyof typeof settings] as boolean}
-                  onChange={(e) => handleSettingChange(alert.key, e.target.checked)}
+                  onChange={e => handleSettingChange(alert.key, e.target.checked)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
@@ -265,42 +268,50 @@ export default function Settings() {
 
   const renderSecuritySettings = () => (
     <div className="space-y-6">
-      <SettingCard 
-        title="Password Policy" 
+      <SettingCard
+        title="Password Policy"
         description="Configure password requirements and security"
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Password Strength</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password Strength
+            </label>
             <select
               value={settings.passwordPolicy}
-              onChange={(e) => handleSettingChange('passwordPolicy', e.target.value)}
+              onChange={e => handleSettingChange('passwordPolicy', e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="basic">Basic (8+ characters)</option>
               <option value="strong">Strong (8+ chars, numbers, symbols)</option>
-              <option value="very-strong">Very Strong (12+ chars, mixed case, numbers, symbols)</option>
+              <option value="very-strong">
+                Very Strong (12+ chars, mixed case, numbers, symbols)
+              </option>
             </select>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Session Timeout (minutes)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Session Timeout (minutes)
+              </label>
               <input
                 type="number"
                 value={settings.sessionTimeout}
-                onChange={(e) => handleSettingChange('sessionTimeout', parseInt(e.target.value))}
+                onChange={e => handleSettingChange('sessionTimeout', parseInt(e.target.value))}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 min="5"
                 max="480"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Max Login Attempts</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Max Login Attempts
+              </label>
               <input
                 type="number"
                 value={settings.loginAttempts}
-                onChange={(e) => handleSettingChange('loginAttempts', parseInt(e.target.value))}
+                onChange={e => handleSettingChange('loginAttempts', parseInt(e.target.value))}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 min="3"
                 max="10"
@@ -310,8 +321,8 @@ export default function Settings() {
         </div>
       </SettingCard>
 
-      <SettingCard 
-        title="Two-Factor Authentication" 
+      <SettingCard
+        title="Two-Factor Authentication"
         description="Add an extra layer of security to your account"
       >
         <div className="flex items-center justify-between">
@@ -326,7 +337,7 @@ export default function Settings() {
             <input
               type="checkbox"
               checked={settings.twoFactorAuth}
-              onChange={(e) => handleSettingChange('twoFactorAuth', e.target.checked)}
+              onChange={e => handleSettingChange('twoFactorAuth', e.target.checked)}
               className="sr-only peer"
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
@@ -338,17 +349,19 @@ export default function Settings() {
 
   const renderSystemSettings = () => (
     <div className="space-y-6">
-      <SettingCard 
-        title="Backup & Data Retention" 
+      <SettingCard
+        title="Backup & Data Retention"
         description="Configure automatic backups and data retention policies"
       >
         <div className="space-y-4">
           <div className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Backup Frequency</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Backup Frequency
+              </label>
               <select
                 value={settings.backupFrequency}
-                onChange={(e) => handleSettingChange('backupFrequency', e.target.value)}
+                onChange={e => handleSettingChange('backupFrequency', e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="hourly">Hourly</option>
@@ -358,18 +371,20 @@ export default function Settings() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Data Retention (days)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Data Retention (days)
+              </label>
               <input
                 type="number"
                 value={settings.dataRetention}
-                onChange={(e) => handleSettingChange('dataRetention', parseInt(e.target.value))}
+                onChange={e => handleSettingChange('dataRetention', parseInt(e.target.value))}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 min="30"
                 max="3650"
               />
             </div>
           </div>
-          
+
           <div className="flex gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors">
               <Download size={16} />
@@ -383,8 +398,8 @@ export default function Settings() {
         </div>
       </SettingCard>
 
-      <SettingCard 
-        title="System Maintenance" 
+      <SettingCard
+        title="System Maintenance"
         description="System maintenance and debugging options"
       >
         <div className="space-y-4">
@@ -400,13 +415,13 @@ export default function Settings() {
               <input
                 type="checkbox"
                 checked={settings.maintenanceMode}
-                onChange={(e) => handleSettingChange('maintenanceMode', e.target.checked)}
+                onChange={e => handleSettingChange('maintenanceMode', e.target.checked)}
                 className="sr-only peer"
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
             </label>
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Monitor className="text-purple-600" size={20} />
@@ -419,7 +434,7 @@ export default function Settings() {
               <input
                 type="checkbox"
                 checked={settings.debugMode}
-                onChange={(e) => handleSettingChange('debugMode', e.target.checked)}
+                onChange={e => handleSettingChange('debugMode', e.target.checked)}
                 className="sr-only peer"
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
@@ -432,8 +447,8 @@ export default function Settings() {
 
   const renderIntegrationSettings = () => (
     <div className="space-y-6">
-      <SettingCard 
-        title="API Configuration" 
+      <SettingCard
+        title="API Configuration"
         description="Configure external API connections and webhooks"
       >
         <div className="space-y-4">
@@ -442,19 +457,19 @@ export default function Settings() {
             <input
               type="url"
               value={settings.apiEndpoint}
-              onChange={(e) => handleSettingChange('apiEndpoint', e.target.value)}
+              onChange={e => handleSettingChange('apiEndpoint', e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="https://api.example.com"
             />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">API Key</label>
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={settings.apiKey}
-                onChange={(e) => handleSettingChange('apiKey', e.target.value)}
+                onChange={e => handleSettingChange('apiKey', e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-12 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter API key"
               />
@@ -467,24 +482,26 @@ export default function Settings() {
               </button>
             </div>
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Webhook URL</label>
             <input
               type="url"
               value={settings.webhookUrl}
-              onChange={(e) => handleSettingChange('webhookUrl', e.target.value)}
+              onChange={e => handleSettingChange('webhookUrl', e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="https://webhook.example.com/notify"
             />
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Sync Interval (minutes)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Sync Interval (minutes)
+            </label>
             <input
               type="number"
               value={settings.syncInterval}
-              onChange={(e) => handleSettingChange('syncInterval', parseInt(e.target.value))}
+              onChange={e => handleSettingChange('syncInterval', parseInt(e.target.value))}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               min="1"
               max="1440"
@@ -493,10 +510,7 @@ export default function Settings() {
         </div>
       </SettingCard>
 
-      <SettingCard 
-        title="Connection Status" 
-        description="Monitor external service connections"
-      >
+      <SettingCard title="Connection Status" description="Monitor external service connections">
         <div className="space-y-3">
           <div className="flex items-center justify-between p-3 bg-green-50 rounded-xl border border-green-200">
             <div className="flex items-center gap-3">
@@ -505,7 +519,7 @@ export default function Settings() {
             </div>
             <span className="text-sm text-green-600">Connected</span>
           </div>
-          
+
           <div className="flex items-center justify-between p-3 bg-green-50 rounded-xl border border-green-200">
             <div className="flex items-center gap-3">
               <CheckCircle className="text-green-600" size={20} />
@@ -513,7 +527,7 @@ export default function Settings() {
             </div>
             <span className="text-sm text-green-600">Connected</span>
           </div>
-          
+
           <div className="flex items-center justify-between p-3 bg-orange-50 rounded-xl border border-orange-200">
             <div className="flex items-center gap-3">
               <Clock className="text-orange-600" size={20} />
@@ -547,12 +561,17 @@ export default function Settings() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent">
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             System Settings
           </h1>
-          <p className="text-slate-600 mt-2 text-xl font-medium">Configure system preferences and integrations</p>
+          <p className="text-slate-600 mt-2 text-xl font-medium">
+            Configure system preferences and integrations
+          </p>
         </div>
-        
+
         <div className="flex gap-3">
           <button
             onClick={handleExport}
@@ -583,7 +602,7 @@ export default function Settings() {
         <div className="w-64 flex-shrink-0">
           <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 p-3">
             <nav className="space-y-1">
-              {tabs.map((tab) => {
+              {tabs.map(tab => {
                 const Icon = tab.icon;
                 return (
                   <button
@@ -605,9 +624,7 @@ export default function Settings() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1">
-          {renderTabContent()}
-        </div>
+        <div className="flex-1">{renderTabContent()}</div>
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ import {
   Tag,
   MapPin,
   Calendar,
+  GitPullRequestDraft,
 } from 'lucide-react';
 import { Equipment } from '../types';
 import { mockEquipment, mockMaintenance, additionalMaintenanceHistory } from '../data/mockData';
@@ -178,7 +179,7 @@ export default function EquipmentList() {
           {subtext && <p className="text-gray-400 text-sm mt-1">{subtext}</p>}
         </div>
         <div
-          className={`p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300 ${
+          className={`p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300 ml-1 ${
             color === 'text-blue-600'
               ? 'bg-gradient-to-br from-blue-50 to-blue-100'
               : color === 'text-green-600'
@@ -337,11 +338,11 @@ export default function EquipmentList() {
         {/* Row 1: Equipment Information, Equipment Logs, Maintenance History */}
         <div className="grid grid-cols-1 smallLaptop:grid-cols-3 gap-8 mb-8">
           {/* Equipment Information Card */}
-          <div className="bg-white p-4 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 relative">
             <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <QrCode className="text-blue-600" size={20} />
               Equipment Information
             </h3>
+
             <div className="space-y-3">
               {/* Compact Info with Icons */}
               <div className="space-y-2 text-sm">
@@ -365,9 +366,8 @@ export default function EquipmentList() {
                 </div>
               </div>
 
-              {/* Status */}
               <div className="flex items-center justify-center p-2">
-                {getStatusBadge(selectedEquipment.status)}
+                <QrCode className="text-blue-600" size={65} />
               </div>
 
               {/* Install Date */}
@@ -378,6 +378,8 @@ export default function EquipmentList() {
                 </span>
               </div>
             </div>
+
+            <div className="absolute top-4 right-4">{getStatusBadge(selectedEquipment.status)}</div>
           </div>
 
           {/* Equipment Logs Card */}
@@ -424,9 +426,9 @@ export default function EquipmentList() {
               Maintenance History
             </h3>
             {maintenanceHistory.length > 0 ? (
-              <div className="relative max-h-64 overflow-y-auto">
+              <div className="relative max-h-[266px] overflow-y-auto">
                 {/* Timeline Line */}
-                <div className="absolute left-16 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                <div className="absolute left-[71px] top-0 bottom-0 w-0.5 bg-gray-200"></div>
 
                 <div className="space-y-6">
                   {maintenanceHistory.map((record, index) => (
@@ -464,7 +466,7 @@ export default function EquipmentList() {
                       </div>
 
                       {/* Content */}
-                      <div className="ml-3 flex-1 pb-4">
+                      <div className="ml-2 mr-1 flex-1 pb-4">
                         <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 hover:shadow-md transition-shadow duration-200">
                           <div className="flex justify-between items-start mb-1">
                             <h4 className="font-medium text-gray-900 text-xs leading-tight">
@@ -731,12 +733,12 @@ export default function EquipmentList() {
             <div className="space-y-6">
               {/* Temperature Chart */}
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Temperature Timeline</h4>
-                <div className="h-32 bg-gray-50 rounded-lg p-4 border">
+                {/* <h4 className="text-sm font-semibold text-gray-700 mb-3">Temperature Timeline</h4> */}
+                <div className="h-32 p-4">
                   <svg width="100%" height="100%" viewBox="0 0 300 80">
                     {/* Grid lines */}
                     <defs>
-                      <pattern id="grid" width="30" height="20" patternUnits="userSpaceOnUse">
+                      <pattern id="grid" width="40" height="20" patternUnits="userSpaceOnUse">
                         <path
                           d="M 30 0 L 0 0 0 20"
                           fill="none"
@@ -748,13 +750,13 @@ export default function EquipmentList() {
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
                     {/* Y-axis labels */}
-                    <text x="5" y="15" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="15" fontSize="10" fill="#6b7280">
                       70°C
                     </text>
-                    <text x="5" y="45" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="45" fontSize="10" fill="#6b7280">
                       55°C
                     </text>
-                    <text x="5" y="75" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="75" fontSize="10" fill="#6b7280">
                       40°C
                     </text>
 
@@ -792,24 +794,25 @@ export default function EquipmentList() {
                     })}
                   </svg>
                 </div>
+                <p className="text-xs text-gray-700 text-center">Temperature Timeline</p>
               </div>
 
               {/* Vibration Chart */}
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Vibration Timeline</h4>
-                <div className="h-32 bg-gray-50 rounded-lg p-4 border">
+                {/* <h4 className="text-sm font-semibold text-gray-700 mb-3">Vibration Timeline</h4> */}
+                <div className="h-32 p-4">
                   <svg width="100%" height="100%" viewBox="0 0 300 80">
                     {/* Grid lines */}
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
                     {/* Y-axis labels */}
-                    <text x="5" y="15" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="15" fontSize="10" fill="#6b7280">
                       2.0
                     </text>
-                    <text x="5" y="45" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="45" fontSize="10" fill="#6b7280">
                       1.25
                     </text>
-                    <text x="5" y="75" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="75" fontSize="10" fill="#6b7280">
                       0.5
                     </text>
 
@@ -847,6 +850,7 @@ export default function EquipmentList() {
                     })}
                   </svg>
                 </div>
+                <p className="text-xs text-gray-700 text-center">Vibration Timeline</p>
               </div>
             </div>
           </div>
@@ -859,7 +863,10 @@ export default function EquipmentList() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent">
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             Equipment Management
           </h1>
           <p className="text-slate-600 mt-2 text-xl font-medium">
@@ -876,7 +883,7 @@ export default function EquipmentList() {
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-5 gap-8 mb-10">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-5 gap-2 laptop:gap-8 mb-10">
         <StatCard
           title="Total Equipment"
           value={stats.total}
