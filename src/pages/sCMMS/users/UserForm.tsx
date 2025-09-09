@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Upload } from 'lucide-react';
 import { User } from '../types';
 
 interface UserFormProps {
@@ -12,6 +12,8 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    avatar: '',
     role: 'technician' as User['role'],
     department: ''
   });
@@ -21,6 +23,8 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
       setFormData({
         name: user.name,
         email: user.email,
+        phone: user.phone || '',
+        avatar: user.avatar || '',
         role: user.role,
         department: user.department
       });
@@ -32,6 +36,18 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
     onSave(formData);
   };
 
+  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Create a local URL for preview
+      const imageUrl = URL.createObjectURL(file);
+      setFormData({ ...formData, avatar: imageUrl });
+      
+      // In a real application, you would upload the file to a server here
+      // and get back a permanent URL to store in the database
+      console.log('File selected:', file.name, file.size, file.type);
+    }
+  };
   const departments = [
     'Maintenance',
     'Production',
@@ -84,6 +100,74 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
               placeholder="Enter email address"
               required
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+              placeholder="Enter phone number"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Avatar Image
+            </label>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarUpload}
+                  className="hidden"
+                  id="avatar-upload"
+                />
+                <label
+                  htmlFor="avatar-upload"
+                  className="cursor-pointer bg-white border border-gray-300 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 flex items-center gap-2"
+                >
+                  <Upload size={16} />
+                  Browse Image
+                </label>
+                {formData.avatar && (
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, avatar: '' })}
+                    className="text-red-600 hover:text-red-800 text-sm font-medium"
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+              
+              {formData.avatar && (
+                <div className="text-sm text-gray-600">
+                  Selected: {formData.avatar.split('/').pop() || 'Image selected'}
+                </div>
+              )}
+            </div>
+            {formData.avatar && (
+              <div className="mt-3">
+                <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                <div className="w-16 h-16 rounded-full overflow-hidden shadow-md bg-gray-100">
+                  <img 
+                    src={formData.avatar} 
+                    alt="Avatar preview"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           <div>

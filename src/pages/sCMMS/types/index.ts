@@ -28,6 +28,8 @@ export interface MaintenanceRecord {
   cost: number;
   duration: number; // minutes
   notes?: string;
+  beforeImages?: string[];
+  afterImages?: string[];
 }
 
 export interface InventoryItem {
@@ -56,6 +58,8 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  phone?: string;
+  avatar?: string;
   role: 'admin' | 'technician' | 'supervisor';
   department: string;
 }

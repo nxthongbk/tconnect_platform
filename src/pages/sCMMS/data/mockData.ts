@@ -80,7 +80,15 @@ export const mockMaintenance: MaintenanceRecord[] = [
     ],
     cost: 155,
     duration: 120,
-    notes: 'Oil change and system check completed successfully'
+    notes: 'Oil change and system check completed successfully',
+    beforeImages: [
+      'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400'
+    ],
+    afterImages: [
+      'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=400'
+    ]
   },
   {
     id: 'M002',
@@ -96,7 +104,11 @@ export const mockMaintenance: MaintenanceRecord[] = [
     ],
     cost: 450,
     duration: 180,
-    notes: 'Replacing motor unit'
+    notes: 'Replacing motor unit',
+    beforeImages: [
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400'
+    ],
+    afterImages: []
   },
   {
     id: 'M003',
@@ -110,7 +122,9 @@ export const mockMaintenance: MaintenanceRecord[] = [
     partsUsed: [],
     cost: 0,
     duration: 90,
-    notes: 'Scheduled maintenance'
+    notes: 'Scheduled maintenance',
+    beforeImages: [],
+    afterImages: []
   }
 ];
 
@@ -297,6 +311,8 @@ export const mockUsers: User[] = [
     id: 'U001',
     name: 'John Smith',
     email: 'john.smith@factory.com',
+    phone: '+1 (555) 123-4567',
+    avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'technician',
     department: 'Maintenance'
   },
@@ -304,6 +320,8 @@ export const mockUsers: User[] = [
     id: 'U002',
     name: 'Sarah Johnson',
     email: 'sarah.johnson@factory.com',
+    phone: '+1 (555) 234-5678',
+    avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'technician',
     department: 'Maintenance'
   },
@@ -311,6 +329,8 @@ export const mockUsers: User[] = [
     id: 'U003',
     name: 'Mike Wilson',
     email: 'mike.wilson@factory.com',
+    phone: '+1 (555) 345-6789',
+    avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'supervisor',
     department: 'Production'
   },
@@ -318,6 +338,8 @@ export const mockUsers: User[] = [
     id: 'U004',
     name: 'Emily Davis',
     email: 'emily.davis@factory.com',
+    phone: '+1 (555) 456-7890',
+    avatar: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'admin',
     department: 'Operations'
   }

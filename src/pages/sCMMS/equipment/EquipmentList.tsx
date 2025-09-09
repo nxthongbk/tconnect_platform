@@ -20,7 +20,8 @@ import {
   Hash,
   Tag,
   MapPin,
-  Calendar
+  Calendar,
+  X,
 } from 'lucide-react';
 import { Equipment } from '../types';
 import { mockEquipment, mockMaintenance, additionalMaintenanceHistory } from '../data/mockData';
@@ -38,6 +39,31 @@ export default function EquipmentList() {
   const [runningState, setRunningState] = useState<'running' | 'idle' | 'error'>('running');
   const [sensorData, setSensorData] = useState<any[]>([]);
   const [equipmentLogs, setEquipmentLogs] = useState<any[]>([]);
+  const [errorPeriods, setErrorPeriods] = useState<any[]>([]);
+  const [selectedError, setSelectedError] = useState<any>(null);
+  const [editingError, setEditingError] = useState<any>(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [timeFilter, setTimeFilter] = useState({
+    startTime: new Date().toISOString().split('T')[0],
+    endTime: new Date().toISOString().split('T')[0],
+  });
+
+  // Simulate real-time sensor data
+  React.useEffect(() => {
+    if (!selectedEquipment) return;
+
+    const interval = setInterval(() => {
+      const newData = {
+        temperature: 45 + Math.random() * 20,
+        vibration: 0.5 + Math.random() * 1.5,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+
+      setSensorData(prev => [...prev.slice(-19), newData]);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [selectedEquipment]);
 
   // Simulate real-time sensor data
   React.useEffect(() => {
@@ -59,6 +85,39 @@ export default function EquipmentList() {
   // Simulate equipment logs
   React.useEffect(() => {
     if (!selectedEquipment) return;
+
+    // Set up error periods data
+    const errors = [
+      {
+        id: 'error1',
+        startTime: '22:00',
+        endTime: '24:00',
+        startPercent: 90,
+        widthPercent: 10,
+        errorCode: 'E001',
+        description: 'Hydraulic Pressure Drop',
+        severity: 'Critical',
+        cause: 'Hydraulic pump malfunction detected',
+        solution: 'Replace hydraulic pump and check system pressure',
+        reportedBy: 'System Auto-Detection',
+        timestamp: new Date(Date.now() - 120000).toLocaleString(),
+      },
+      {
+        id: 'error2',
+        startTime: '14:30',
+        endTime: '15:00',
+        startPercent: 60,
+        widthPercent: 2,
+        errorCode: 'W002',
+        description: 'Temperature Warning',
+        severity: 'Warning',
+        cause: 'Operating temperature exceeded 65°C',
+        solution: 'Check cooling system and clean air filters',
+        reportedBy: 'Temperature Sensor',
+        timestamp: new Date(Date.now() - 480000).toLocaleString(),
+      },
+    ];
+    setErrorPeriods(errors);
 
     const logs = [
       {
@@ -269,6 +328,32 @@ export default function EquipmentList() {
       default:
         return <Clock size={16} />;
     }
+  };
+
+  const handleEditError = (error: any) => {
+    setEditingError({ ...error });
+  };
+
+  const handleSaveError = () => {
+    if (editingError) {
+      // Update the error in the data
+      const updatedErrors = errorPeriods.map(error =>
+        error.id === editingError.id ? editingError : error
+      );
+      // In a real app, you would save this to your backend
+      console.log('Saving error:', editingError);
+      setSelectedError(editingError);
+      setEditingError(null);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingError(null);
+  };
+
+  const handleErrorClick = (error: any) => {
+    setSelectedError(error);
+    setShowErrorModal(true);
   };
 
   // const getLogSeverityColor = (severity: string) => {
@@ -528,6 +613,42 @@ export default function EquipmentList() {
               Running State
             </h3>
 
+            {/* Date Filter Controls - Compact */}
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-gray-600 font-medium">Date Range:</span>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <label className="text-xs font-medium text-gray-600">From:</label>
+                  <input
+                    type="date"
+                    value={timeFilter.startTime}
+                    onChange={e => setTimeFilter({ ...timeFilter, startTime: e.target.value })}
+                    className="border border-gray-300 rounded-lg px-2 py-1 text-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs font-medium text-gray-600">To:</label>
+                  <input
+                    type="date"
+                    value={timeFilter.endTime}
+                    onChange={e => setTimeFilter({ ...timeFilter, endTime: e.target.value })}
+                    className="border border-gray-300 rounded-lg px-2 py-1 text-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
+                <button
+                  onClick={() =>
+                    setTimeFilter({
+                      startTime: new Date().toISOString().split('T')[0],
+                      endTime: new Date().toISOString().split('T')[0],
+                    })
+                  }
+                  className="text-xs text-blue-600 hover:text-blue-800 font-medium px-2 py-1 rounded hover:bg-blue-50 transition-colors"
+                >
+                  Today
+                </button>
+              </div>
+            </div>
+
             {/* Current Status */}
             <div className="flex items-center justify-between mb-6">
               <span className="text-gray-600 font-medium">Current State:</span>
@@ -543,7 +664,11 @@ export default function EquipmentList() {
             <div className="mb-6">
               <div className="flex justify-between items-center mb-3">
                 <h4 className="text-sm font-semibold text-gray-700">24-Hour Timeline</h4>
-                <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
+                <div className="text-xs text-gray-500">
+                  {timeFilter.startTime === timeFilter.endTime
+                    ? new Date(timeFilter.startTime).toLocaleDateString()
+                    : `${new Date(timeFilter.startTime).toLocaleDateString()} - ${new Date(timeFilter.endTime).toLocaleDateString()}`}
+                </div>
               </div>
 
               {/* Timeline Bar */}
@@ -569,10 +694,15 @@ export default function EquipmentList() {
                 ></div>
 
                 {/* Error periods */}
-                <div
-                  className="absolute top-0 left-[90%] h-full bg-red-500"
-                  style={{ width: '10%' }}
-                ></div>
+                {errorPeriods.map(error => (
+                  <div
+                    key={error.id}
+                    className="absolute top-0 h-full bg-red-500 cursor-pointer hover:bg-red-600 transition-colors duration-200"
+                    style={{ left: `${error.startPercent}%`, width: `${error.widthPercent}%` }}
+                    onClick={() => handleErrorClick(error)}
+                    title={`${error.errorCode}: ${error.description} (${error.startTime} - ${error.endTime})`}
+                  ></div>
+                ))}
 
                 {/* Time markers */}
                 <div className="absolute top-0 left-0 w-px h-full bg-gray-300"></div>
@@ -854,6 +984,228 @@ export default function EquipmentList() {
             </div>
           </div>
         </div>
+        {/* Error Information Modal */}
+        {showErrorModal && selectedError && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center p-6 border-b border-gray-200">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`p-2 rounded-lg ${
+                      selectedError.severity === 'Critical'
+                        ? 'bg-red-100'
+                        : selectedError.severity === 'Warning'
+                          ? 'bg-orange-100'
+                          : 'bg-yellow-100'
+                    }`}
+                  >
+                    <AlertTriangle
+                      className={`${
+                        selectedError.severity === 'Critical'
+                          ? 'text-red-600'
+                          : selectedError.severity === 'Warning'
+                            ? 'text-orange-600'
+                            : 'text-yellow-600'
+                      }`}
+                      size={24}
+                    />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900">
+                      Error Details - {selectedError.errorCode}
+                    </h2>
+                    <p className="text-sm text-gray-600">{selectedError.description}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowErrorModal(false)}
+                  className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-6">
+                {/* Error Information */}
+                <div className="grid grid-cols-1 smallLaptop:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Error Code
+                      </label>
+                      <div className="p-3 bg-gray-50 rounded-lg border">
+                        {editingError ? (
+                          <input
+                            type="text"
+                            value={editingError.errorCode}
+                            onChange={e =>
+                              setEditingError({ ...editingError, errorCode: e.target.value })
+                            }
+                            className="font-mono text-lg font-bold text-red-600 bg-red-50 px-3 py-2 rounded-lg border border-red-200 focus:ring-2 focus:ring-red-500 focus:border-transparent w-full"
+                          />
+                        ) : (
+                          <span className="font-mono text-lg text-red-600">
+                            {selectedError.errorCode}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Severity Level
+                      </label>
+                      <div className="p-3 bg-gray-50 rounded-lg border">
+                        {editingError ? (
+                          <select
+                            value={editingError.severity}
+                            onChange={e =>
+                              setEditingError({ ...editingError, severity: e.target.value })
+                            }
+                            className={`px-3 py-2 rounded-lg text-sm font-semibold border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                              editingError.severity === 'Critical'
+                                ? 'bg-red-100 text-red-800 border-red-200'
+                                : 'bg-orange-100 text-orange-800 border-orange-200'
+                            }`}
+                          >
+                            <option value="Critical">Critical</option>
+                            <option value="Warning">Warning</option>
+                            <option value="Minor">Minor</option>
+                          </select>
+                        ) : (
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                              selectedError.severity === 'Critical'
+                                ? 'bg-red-100 text-red-800'
+                                : 'bg-orange-100 text-orange-800'
+                            }`}
+                          >
+                            {selectedError.severity}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Time Period
+                      </label>
+                      <div className="p-3 bg-gray-50 rounded-lg border">
+                        <span className="text-gray-900">
+                          {selectedError.startTime} - {selectedError.endTime}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Reported By
+                      </label>
+                      <div className="p-3 bg-gray-50 rounded-lg border">
+                        {editingError ? (
+                          <input
+                            type="text"
+                            value={editingError.reportedBy}
+                            onChange={e =>
+                              setEditingError({ ...editingError, reportedBy: e.target.value })
+                            }
+                            className="text-gray-900 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                          />
+                        ) : (
+                          <span className="text-gray-900">{selectedError.reportedBy}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Timestamp
+                      </label>
+                      <div className="p-3 bg-gray-50 rounded-lg border">
+                        <span className="text-gray-900">{selectedError.timestamp}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Description
+                  </label>
+                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <p className="text-gray-900">{selectedError.description}</p>
+                  </div>
+                </div>
+
+                {/* Root Cause */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Root Cause Analysis
+                  </label>
+                  <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                    <p className="text-gray-900">{selectedError.cause}</p>
+                  </div>
+                </div>
+
+                {/* Recommended Solution */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Recommended Solution
+                  </label>
+                  <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <p className="text-gray-900">{selectedError.solution}</p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                  <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
+                    {editingError ? (
+                      <>
+                        <button
+                          onClick={handleCancelEdit}
+                          className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={handleSaveError}
+                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
+                        >
+                          Save Changes
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => handleEditError(selectedError)}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                        >
+                          Edit Error
+                        </button>
+                        <button className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors duration-200">
+                          Acknowledge Error
+                        </button>
+                        <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200">
+                          Create Maintenance Task
+                        </button>
+                      </>
+                    )}
+                    <button
+                      onClick={() => setSelectedError(null)}
+                      className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
