@@ -182,8 +182,10 @@ export default function MaintenanceList() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1  className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
-            style={{ marginBottom: 0, paddingBottom: 2 }}>
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             Maintenance Management
           </h1>
           <p className="text-slate-600 mt-2 text-xl font-medium">
@@ -524,17 +526,23 @@ export default function MaintenanceList() {
                       {(record.beforeImages?.length || 0) > 0 && (
                         <button
                           onClick={() => handleViewImages(record)}
-                          className="text-xs text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                          className="text-xs text-blue-600 hover:text-blue-800 hover:underline cursor-pointer flex items-center gap-1"
                         >
-                          Before {record.beforeImages?.length}
+                          Before
+                          <span className="inline-block bg-blue-100 text-blue-700 rounded-full px-2 py-0.5 ml-1 text-xs font-semibold">
+                            {record.beforeImages?.length}
+                          </span>
                         </button>
                       )}
                       {(record.afterImages?.length || 0) > 0 && (
                         <button
                           onClick={() => handleViewImages(record)}
-                          className="text-xs text-green-600 hover:text-green-800 hover:underline cursor-pointer"
+                          className="text-xs text-green-600 hover:text-green-800 hover:underline cursor-pointer flex items-center gap-1"
                         >
-                          After {record.afterImages?.length}
+                          After
+                          <span className="inline-block bg-green-100 text-green-700 rounded-full px-2 py-0.5 mr-1 text-xs font-semibold">
+                            {record.afterImages?.length}
+                          </span>
                         </button>
                       )}
                     </div>

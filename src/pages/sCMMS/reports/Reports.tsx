@@ -480,7 +480,7 @@ export default function Reports() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 smallLaptop:grid-cols-2 gap-10">
         {/* Equipment Report */}
         <ReportCard title="Equipment Report" icon={TrendingUp}>
           <div className="space-y-5">
