@@ -20,8 +20,7 @@ import {
   Hash,
   Tag,
   MapPin,
-  Calendar,
-  GitPullRequestDraft,
+  Calendar
 } from 'lucide-react';
 import { Equipment } from '../types';
 import { mockEquipment, mockMaintenance, additionalMaintenanceHistory } from '../data/mockData';
