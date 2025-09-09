@@ -21,11 +21,23 @@
     url('./assets/fonts/Inter/Inter-Bold.ttf') format('truetype');
 }
 
-html,
+/* html,
 body {
   font-family: 'Inter', sans-serif;
   height: 100%;
   overflow: hidden;
+} */
+html,
+body {
+  line-height: 1.5;
+  text-size-adjust: 100%;
+  tab-size: 4;
+  font-family:
+    ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Tùy chỉnh thanh cuộn cho WebKit (Chrome, Safari) */

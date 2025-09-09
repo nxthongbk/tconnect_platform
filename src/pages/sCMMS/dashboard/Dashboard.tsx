@@ -132,7 +132,7 @@ export default function Dashboard() {
           <Wrench className="text-blue-600" size={24} />
           <h2 className="text-3xl font-bold text-slate-800">Equipment Status</h2>
         </div>
-        <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-4  gap-4 laptop:gap-8">
           <StatCard
             title="Total Equipment"
             value={equipmentStats.total}
