@@ -59,37 +59,37 @@ const Sidebar: React.FC = () => {
   const navItems = [
     {
       label: t('sCMMS.sidebar.dashboard'),
-      icon: <HouseLine size={22} className="text-gray-300" />,
+      icon: <HouseLine size={22} className="text-slate-400" />,
       to: '/dashboard',
     },
     {
       label: t('sCMMS.sidebar.equipments'),
-      icon: <Wrench size={22} className="text-gray-300" />,
+      icon: <Wrench size={22} className="text-slate-400" />,
       to: '/equipments',
     },
     {
       label: t('sCMMS.sidebar.maintenance'),
-      icon: <CalendarBlank size={22} className="text-gray-300" />,
+      icon: <CalendarBlank size={22} className="text-slate-400" />,
       to: '/maintenance',
     },
     {
       label: t('sCMMS.sidebar.inventory'),
-      icon: <Package size={22} className="text-gray-300" />,
+      icon: <Package size={22} className="text-slate-400" />,
       to: '/inventory',
     },
     {
       label: t('sCMMS.sidebar.reports'),
-      icon: <BarChart3Icon className="text-gray-300 h-5 w-5" />,
+      icon: <BarChart3Icon className="text-slate-400 h-5 w-5" />,
       to: '/reports',
     },
     {
       label: t('sCMMS.sidebar.employees'),
-      icon: <Users size={22} className="text-gray-300" />,
+      icon: <Users size={22} className="text-slate-400" />,
       to: '/employees',
     },
     {
       label: t('sCMMS.sidebar.settings'),
-      icon: <GearSix size={22} className="text-gray-300" />,
+      icon: <GearSix size={22} className="text-slate-400" />,
       to: '/settings',
     },
   ];
@@ -118,14 +118,16 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`h-screen bg-slate-900 text-white flex flex-col transition-all duration-300 ${open ? 'w-64' : 'w-16'}`}
+      className={`h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-2xl flex flex-col transition-all duration-300 ${open ? 'w-64' : 'w-16'}`}
     >
       <div
-        className={`flex items-center py-6 border-b border-slate-700 transition-all duration-300 ${open ? 'px-6 gap-2' : 'px-0 justify-center'}`}
+        className={`flex items-center py-6 border-b border-slate-700/50 transition-all duration-300 ${open ? 'px-6 gap-2' : 'px-0 justify-center'}`}
       >
         {open && (
           <div>
-            <div className="text-xl font-bold">{t('sCMMS.title')}</div>
+            <div className="text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              {t('sCMMS.title')}
+            </div>
             <div className="text-slate-400 text-sm mt-1">{t('sCMMS.subTitle')}</div>
           </div>
         )}
@@ -163,17 +165,17 @@ const Sidebar: React.FC = () => {
           )}
         </button>
       </div>
-      <nav className="flex-1 py-4 px-2">
+      <nav className="flex-1 py-4 px-2 space-y-1">
         <ul className="space-y-2">
           {navItems.map(item => (
             <li key={item.to}>
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-6 py-3 text-sm transition-all duration-150 rounded-lg ${
+                  `flex items-center gap-3 px-6 py-3 text-sm rounded-xl transition-all duration-200 group ${
                     isActive
-                      ? 'bg-blue-500 text-white'
-                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg transform scale-105'
+                      : 'text-slate-300 hover:bg-slate-800/50 hover:text-white hover:transform hover:scale-102'
                   } ${open ? '' : 'justify-center px-0'}`
                 }
                 end
@@ -188,10 +190,10 @@ const Sidebar: React.FC = () => {
         </ul>
       </nav>
       <div
-        className={`border-t border-[#232e47] flex items-center gap-3 ${open ? 'px-6 py-3' : 'justify-center p-2'}`}
+        className={`p-4 border-t border-slate-700/50 flex items-center gap-3 ${open ? 'px-6 py-3' : 'justify-center p-2'}`}
       >
         <Avatar
-          onClick={handleAvatarClick}
+          onClick={open ? undefined : handleAvatarClick}
           className="!w-[36px] !h-[36px] cursor-pointer"
           alt={userInfo?.name || userInfo?.username}
           src={img}
@@ -214,11 +216,11 @@ const Sidebar: React.FC = () => {
           onClose={handleMenuClose}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          PaperProps={{ sx: { minWidth: 160, bgcolor: '#232e47', color: 'white' } }}
+          PaperProps={{ sx: { minWidth: 220, bgcolor: '#232e47', color: 'white' } }}
         >
           <MenuItem onClick={handleLogout} sx={{ color: 'white' }}>
             <SignOut size={18} className="mr-2" />
-            <div className="text-sm">{t('signOut', 'Sign out')}</div>
+            <div className="text-sm hover:text-slate-300">{t('signOut', 'Sign out')}</div>
           </MenuItem>
         </Menu>
       </div>
