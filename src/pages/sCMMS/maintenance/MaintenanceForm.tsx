@@ -95,15 +95,20 @@ export default function MaintenanceForm({ record, onSave, onCancel }: Maintenanc
     onSave({ ...formData, partsUsed, beforeImages, afterImages });
   };
 
-  const addImage = (type: 'before' | 'after') => {
-    const url = prompt('Enter image URL:');
-    if (url) {
+  // Handle image file upload and convert to data URL
+  const handleImageUpload = (type: 'before' | 'after', files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dataUrl = e.target?.result as string;
       if (type === 'before') {
-        setBeforeImages([...beforeImages, url]);
+        setBeforeImages(prev => [...prev, dataUrl]);
       } else {
-        setAfterImages([...afterImages, url]);
+        setAfterImages(prev => [...prev, dataUrl]);
       }
-    }
+    };
+    reader.readAsDataURL(file);
   };
 
   const removeImage = (type: 'before' | 'after', index: number) => {
@@ -323,14 +328,16 @@ export default function MaintenanceForm({ record, onSave, onCancel }: Maintenanc
               <label className="block text-sm font-medium text-gray-700">
                 Before Maintenance Images
               </label>
-              <button
-                type="button"
-                onClick={() => addImage('before')}
-                className="text-blue-600 hover:text-blue-800 flex items-center gap-1 text-sm"
-              >
+              <label className="text-blue-600 hover:text-blue-800 flex items-center gap-1 text-sm cursor-pointer">
                 <Plus size={16} />
                 Add Image
-              </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={e => handleImageUpload('before', e.target.files)}
+                />
+              </label>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -371,14 +378,16 @@ export default function MaintenanceForm({ record, onSave, onCancel }: Maintenanc
               <label className="block text-sm font-medium text-gray-700">
                 After Maintenance Images
               </label>
-              <button
-                type="button"
-                onClick={() => addImage('after')}
-                className="text-green-600 hover:text-green-800 flex items-center gap-1 text-sm"
-              >
+              <label className="text-green-600 hover:text-green-800 flex items-center gap-1 text-sm cursor-pointer">
                 <Plus size={16} />
                 Add Image
-              </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={e => handleImageUpload('after', e.target.files)}
+                />
+              </label>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
