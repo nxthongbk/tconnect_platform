@@ -12,6 +12,7 @@ import Reports from '~/pages/sCMMS/reports/Reports';
 import InventoryList from '~/pages/sCMMS/inventory/InventoryList';
 import Settings from '~/pages/sCMMS/settings/Settings';
 import UserManagement from '~/pages/sCMMS/users/UserManagement';
+import FactoryLayout from '~/pages/sCMMS/factory/FactoryLayout';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -54,6 +55,7 @@ const useRoutes = () => {
             { path: 'equipments', element: <EquipmentList /> },
             { path: 'maintenance', element: <MaintenanceList /> },
             { path: 'inventory', element: <InventoryList /> },
+            { path: 'factory', element: <FactoryLayout /> },
             { path: 'reports', element: <Reports /> },
             { path: 'employees', element: <UserManagement /> },
             { path: 'settings', element: <Settings /> },

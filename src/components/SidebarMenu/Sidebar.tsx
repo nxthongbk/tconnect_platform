@@ -8,6 +8,7 @@ import {
   Wrench,
   CalendarBlank,
   SignOut,
+	Cube
 } from '@phosphor-icons/react';
 import BarChart3Icon from '~/pages/CMMS/CommonComponents/CustomIcons/BarChart3Icon';
 import { useTranslation } from 'react-i18next';
@@ -76,6 +77,11 @@ const Sidebar: React.FC = () => {
       label: t('sCMMS.sidebar.inventory'),
       icon: <Package size={22} className="text-slate-400" />,
       to: '/inventory',
+    },
+   {
+      label: '3D Factory',
+      icon: <Cube size={22} className="text-slate-400" />,
+      to: '/factory',
     },
     {
       label: t('sCMMS.sidebar.reports'),
