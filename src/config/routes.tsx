@@ -14,6 +14,7 @@ import Settings from '~/pages/sCMMS/settings/Settings';
 import UserManagement from '~/pages/sCMMS/users/UserManagement';
 import FactoryLayout from '~/pages/sCMMS/factory/FactoryLayout';
 import BlockchainDashboard from '~/pages/sCMMS/blockchain/BlockchainDashboard';
+import KnowledgeCenter from '~/pages/sCMMS/knowledge/KnowledgeCenter';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -58,6 +59,7 @@ const useRoutes = () => {
             { path: 'inventory', element: <InventoryList /> },
             { path: 'factory', element: <FactoryLayout /> },
             { path: 'blockchain', element: <BlockchainDashboard /> },
+            { path: 'knowledge-center', element: <KnowledgeCenter /> },
             { path: 'reports', element: <Reports /> },
             { path: 'employees', element: <UserManagement /> },
             { path: 'settings', element: <Settings /> },

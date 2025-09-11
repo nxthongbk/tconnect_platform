@@ -1,11 +1,29 @@
-.cmms-sidebar, :host(.cmms-sidebar) {
-    line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-    font-feature-settings: normal;
-    font-variation-settings: normal;
-    -webkit-tap-highlight-color: transparent;
+.cmms-sidebar .sidebar-icon {
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+.cmms-sidebar .group.bg-gradient-to-r .sidebar-icon {
+  color: #fff !important;
+}
+.cmms-sidebar .group:hover .sidebar-icon {
+  color: #fff !important;
+}
+.cmms-sidebar,
+:host(.cmms-sidebar) {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    Segoe UI Symbol,
+    'Noto Color Emoji';
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
 }

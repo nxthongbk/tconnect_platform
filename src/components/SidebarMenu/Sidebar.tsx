@@ -13,6 +13,7 @@ import {
   Box,
   Shield,
   LogOut,
+  BookOpen,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -63,47 +64,52 @@ const Sidebar: React.FC = () => {
   const navItems = [
     {
       label: t('sCMMS.sidebar.dashboard'),
-      icon: <Home size={22} className="text-slate-400" />,
+      icon: Home,
       to: '/dashboard',
     },
     {
       label: t('sCMMS.sidebar.equipments'),
-      icon: <Wrench size={22} className="text-slate-400" />,
+      icon: Wrench,
       to: '/equipments',
     },
     {
       label: t('sCMMS.sidebar.maintenance'),
-      icon: <Calendar size={22} className="text-slate-400" />,
+      icon: Calendar,
       to: '/maintenance',
     },
     {
       label: t('sCMMS.sidebar.inventory'),
-      icon: <Package size={22} className="text-slate-400" />,
+      icon: Package,
       to: '/inventory',
     },
     {
       label: '3D Factory',
-      icon: <Box size={22} className="text-slate-400" />,
+      icon: Box,
       to: '/factory',
     },
     {
       label: 'Blockchain IoT',
-      icon: <Shield size={22} className="text-slate-400" />,
+      icon: Shield,
       to: '/blockchain',
     },
     {
+      label: 'Knowledge Center',
+      icon: BookOpen,
+      to: '/knowledge-center',
+    },
+    {
       label: t('sCMMS.sidebar.reports'),
-      icon: <BarChart3 className="text-slate-400 h-5 w-5" />,
+      icon: BarChart3,
       to: '/reports',
     },
     {
       label: t('sCMMS.sidebar.employees'),
-      icon: <Users size={22} className="text-slate-400" />,
+      icon: Users,
       to: '/employees',
     },
     {
       label: t('sCMMS.sidebar.settings'),
-      icon: <Settings size={22} className="text-slate-400" />,
+      icon: Settings,
       to: '/settings',
     },
   ];
@@ -138,18 +144,17 @@ const Sidebar: React.FC = () => {
         className={`flex items-center py-6 border-b border-slate-700/50 transition-all duration-300 ${open ? 'px-6 gap-2' : 'px-0 justify-center'}`}
       >
         {open && (
-					<div className="flex flex-col">
-						<div className="flex items-center gap-3 mb-2">
-							<div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-								<Settings className="text-white" size={24} />
-							</div>
-							<div>
-								<h1 className="text-2xl font-bold leading-tight">{t('sCMMS.title')}</h1>
-							</div>
-						</div>
-						<span className="text-slate-300 text-sm mt-1">{t('sCMMS.subTitle')}</span>
-					</div>
-      
+          <div className="flex flex-col">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <Settings className="text-white" size={24} />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold leading-tight">{t('sCMMS.title')}</h1>
+              </div>
+            </div>
+            <span className="text-slate-300 text-sm mt-1">{t('sCMMS.subTitle')}</span>
+          </div>
         )}
         <button
           onClick={() => setOpen(o => !o)}
@@ -201,7 +206,12 @@ const Sidebar: React.FC = () => {
                 end
               >
                 <span className={open ? '' : 'w-6 h-6 flex items-center justify-center'}>
-                  {item.icon}
+                  {React.createElement(item.icon, {
+                    size: 22,
+                    className: 'sidebar-icon',
+                    color: undefined,
+                    ...(typeof item.icon === 'function' ? {} : { className: 'sidebar-icon' }),
+                  })}
                 </span>
                 {open && <span className="font-medium">{item.label}</span>}
               </NavLink>
