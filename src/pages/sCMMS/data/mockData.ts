@@ -1,4 +1,5 @@
 import { Equipment, MaintenanceRecord, InventoryItem, User } from '../types';
+import { BlockchainTransaction, IoTDevice, OTAUpdate } from '../types';
 
 export const mockEquipment: Equipment[] = [
   {
@@ -342,5 +343,237 @@ export const mockUsers: User[] = [
     avatar: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'admin',
     department: 'Operations'
+  }
+];
+
+export const mockBlockchainTransactions: BlockchainTransaction[] = [
+  {
+    id: 'tx_001',
+    hash: '0x1a2b3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890',
+    timestamp: '2024-11-12T10:30:00Z',
+    equipmentId: '1',
+    dataType: 'maintenance',
+    data: {
+      maintenanceId: 'M001',
+      action: 'completed',
+      technician: 'John Smith',
+      duration: 120,
+      cost: 155
+    },
+    signature: '0xabcdef1234567890abcdef1234567890abcdef12',
+    verified: true,
+    gasUsed: 21000,
+    blockNumber: 18450123
+  },
+  {
+    id: 'tx_002',
+    hash: '0x2b3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890ab',
+    timestamp: '2024-11-12T11:15:00Z',
+    equipmentId: '2',
+    dataType: 'sensor',
+    data: {
+      temperature: 75.5,
+      vibration: 2.3,
+      pressure: 145.2,
+      status: 'normal'
+    },
+    signature: '0xbcdef1234567890abcdef1234567890abcdef123',
+    verified: true,
+    gasUsed: 18500,
+    blockNumber: 18450124
+  },
+  {
+    id: 'tx_003',
+    hash: '0x3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcd',
+    timestamp: '2024-11-12T12:00:00Z',
+    equipmentId: '3',
+    dataType: 'firmware',
+    data: {
+      oldVersion: '1.2.3',
+      newVersion: '1.2.4',
+      updateStatus: 'completed',
+      checksum: 'sha256:abc123def456'
+    },
+    signature: '0xcdef1234567890abcdef1234567890abcdef1234',
+    verified: true,
+    gasUsed: 25000,
+    blockNumber: 18450125
+  }
+];
+
+export const mockIoTDevices: IoTDevice[] = [
+  {
+    id: 'iot_001',
+    equipmentId: '1',
+    deviceType: 'sensor',
+    macAddress: '00:1B:44:11:3A:B7',
+    ipAddress: '192.168.1.101',
+    firmwareVersion: '2.1.4',
+    lastUpdate: '2024-11-10T08:30:00Z',
+    status: 'online',
+    batteryLevel: 85,
+    signalStrength: -45,
+    sensors: [
+      {
+        id: 'sensor_001',
+        type: 'temperature',
+        value: 72.5,
+        unit: '°C',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 60, max: 85 },
+        status: 'normal'
+      },
+      {
+        id: 'sensor_002',
+        type: 'vibration',
+        value: 2.1,
+        unit: 'mm/s',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 0, max: 5 },
+        status: 'normal'
+      },
+      {
+        id: 'sensor_003',
+        type: 'pressure',
+        value: 142.8,
+        unit: 'PSI',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 120, max: 160 },
+        status: 'normal'
+      }
+    ]
+  },
+  {
+    id: 'iot_002',
+    equipmentId: '2',
+    deviceType: 'controller',
+    macAddress: '00:1B:44:11:3A:B8',
+    ipAddress: '192.168.1.102',
+    firmwareVersion: '1.8.2',
+    lastUpdate: '2024-11-08T14:20:00Z',
+    status: 'updating',
+    signalStrength: -52,
+    sensors: [
+      {
+        id: 'sensor_004',
+        type: 'current',
+        value: 15.2,
+        unit: 'A',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 10, max: 20 },
+        status: 'normal'
+      },
+      {
+        id: 'sensor_005',
+        type: 'voltage',
+        value: 220.5,
+        unit: 'V',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 200, max: 240 },
+        status: 'normal'
+      }
+    ]
+  },
+  {
+    id: 'iot_003',
+    equipmentId: '3',
+    deviceType: 'gateway',
+    macAddress: '00:1B:44:11:3A:B9',
+    ipAddress: '192.168.1.103',
+    firmwareVersion: '3.0.1',
+    lastUpdate: '2024-11-12T09:15:00Z',
+    status: 'online',
+    signalStrength: -38,
+    sensors: [
+      {
+        id: 'sensor_006',
+        type: 'temperature',
+        value: 68.3,
+        unit: '°C',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 50, max: 80 },
+        status: 'normal'
+      },
+      {
+        id: 'sensor_007',
+        type: 'humidity',
+        value: 45.2,
+        unit: '%',
+        timestamp: '2024-11-12T12:30:00Z',
+        threshold: { min: 30, max: 70 },
+        status: 'normal'
+      }
+    ]
+  },
+  {
+    id: 'iot_004',
+    equipmentId: '4',
+    deviceType: 'sensor',
+    macAddress: '00:1B:44:11:3A:BA',
+    ipAddress: '192.168.1.104',
+    firmwareVersion: '2.0.8',
+    lastUpdate: '2024-11-05T16:45:00Z',
+    status: 'offline',
+    batteryLevel: 12,
+    signalStrength: -78,
+    sensors: [
+      {
+        id: 'sensor_008',
+        type: 'vibration',
+        value: 8.5,
+        unit: 'mm/s',
+        timestamp: '2024-11-12T11:45:00Z',
+        threshold: { min: 0, max: 5 },
+        status: 'critical'
+      }
+    ]
+  }
+];
+
+export const mockOTAUpdates: OTAUpdate[] = [
+  {
+    id: 'ota_001',
+    deviceId: 'iot_001',
+    firmwareVersion: '2.1.5',
+    updateSize: 2048576, // 2MB
+    status: 'pending',
+    progress: 0,
+    startTime: '2024-11-12T13:00:00Z',
+    checksum: 'sha256:def456abc789def456abc789def456abc789def456abc789def456abc789def456',
+    signature: '0xdef456abc789def456abc789def456abc789def456'
+  },
+  {
+    id: 'ota_002',
+    deviceId: 'iot_002',
+    firmwareVersion: '1.9.0',
+    updateSize: 1572864, // 1.5MB
+    status: 'downloading',
+    progress: 65,
+    startTime: '2024-11-12T12:45:00Z',
+    checksum: 'sha256:abc789def456abc789def456abc789def456abc789def456abc789def456abc789',
+    signature: '0xabc789def456abc789def456abc789def456abc789'
+  },
+  {
+    id: 'ota_003',
+    deviceId: 'iot_003',
+    firmwareVersion: '3.0.2',
+    updateSize: 3145728, // 3MB
+    status: 'completed',
+    progress: 100,
+    startTime: '2024-11-12T09:00:00Z',
+    completedTime: '2024-11-12T09:15:00Z',
+    checksum: 'sha256:789def456abc789def456abc789def456abc789def456abc789def456abc789def',
+    signature: '0x789def456abc789def456abc789def456abc789def'
+  },
+  {
+    id: 'ota_004',
+    deviceId: 'iot_004',
+    firmwareVersion: '2.1.0',
+    updateSize: 1048576, // 1MB
+    status: 'failed',
+    progress: 25,
+    startTime: '2024-11-12T10:30:00Z',
+    checksum: 'sha256:456abc789def456abc789def456abc789def456abc789def456abc789def456abc',
+    signature: '0x456abc789def456abc789def456abc789def456abc'
   }
 ];

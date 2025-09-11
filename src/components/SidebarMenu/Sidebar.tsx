@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import {
-  Package,
-  Users,
-  GearSix,
-  HouseLine,
+  Home,
   Wrench,
-  CalendarBlank,
-  SignOut,
-	Cube
-} from '@phosphor-icons/react';
-import BarChart3Icon from '~/pages/CMMS/CommonComponents/CustomIcons/BarChart3Icon';
+  Calendar,
+  Package,
+  BarChart3,
+  Users,
+  Settings,
+  Box,
+  Shield,
+  LogOut,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +62,7 @@ const Sidebar: React.FC = () => {
   const navItems = [
     {
       label: t('sCMMS.sidebar.dashboard'),
-      icon: <HouseLine size={22} className="text-slate-400" />,
+      icon: <Home size={22} className="text-slate-400" />,
       to: '/dashboard',
     },
     {
@@ -70,7 +72,7 @@ const Sidebar: React.FC = () => {
     },
     {
       label: t('sCMMS.sidebar.maintenance'),
-      icon: <CalendarBlank size={22} className="text-slate-400" />,
+      icon: <Calendar size={22} className="text-slate-400" />,
       to: '/maintenance',
     },
     {
@@ -78,14 +80,19 @@ const Sidebar: React.FC = () => {
       icon: <Package size={22} className="text-slate-400" />,
       to: '/inventory',
     },
-   {
+    {
       label: '3D Factory',
-      icon: <Cube size={22} className="text-slate-400" />,
+      icon: <Box size={22} className="text-slate-400" />,
       to: '/factory',
     },
     {
+      label: 'Blockchain IoT',
+      icon: <Shield size={22} className="text-slate-400" />,
+      to: '/blockchain',
+    },
+    {
       label: t('sCMMS.sidebar.reports'),
-      icon: <BarChart3Icon className="text-slate-400 h-5 w-5" />,
+      icon: <BarChart3 className="text-slate-400 h-5 w-5" />,
       to: '/reports',
     },
     {
@@ -95,7 +102,7 @@ const Sidebar: React.FC = () => {
     },
     {
       label: t('sCMMS.sidebar.settings'),
-      icon: <GearSix size={22} className="text-slate-400" />,
+      icon: <Settings size={22} className="text-slate-400" />,
       to: '/settings',
     },
   ];
@@ -225,7 +232,7 @@ const Sidebar: React.FC = () => {
           PaperProps={{ sx: { minWidth: 220, bgcolor: '#232e47', color: 'white' } }}
         >
           <MenuItem onClick={handleLogout} sx={{ color: 'white' }}>
-            <SignOut size={18} className="mr-2" />
+            <LogOut size={18} className="mr-2" />
             <div className="text-sm hover:text-slate-300">{t('signOut', 'Sign out')}</div>
           </MenuItem>
         </Menu>

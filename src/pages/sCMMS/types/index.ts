@@ -63,3 +63,56 @@ export interface User {
   role: 'admin' | 'technician' | 'supervisor';
   department: string;
 }
+
+export interface BlockchainTransaction {
+  id: string;
+  hash: string;
+  timestamp: string;
+  equipmentId: string;
+  dataType: 'maintenance' | 'sensor' | 'status' | 'firmware';
+  data: any;
+  signature: string;
+  verified: boolean;
+  gasUsed?: number;
+  blockNumber?: number;
+}
+
+export interface IoTDevice {
+  id: string;
+  equipmentId: string;
+  deviceType: 'sensor' | 'controller' | 'gateway';
+  macAddress: string;
+  ipAddress: string;
+  firmwareVersion: string;
+  lastUpdate: string;
+  status: 'online' | 'offline' | 'updating';
+  batteryLevel?: number;
+  signalStrength: number;
+  sensors: IoTSensor[];
+}
+
+export interface IoTSensor {
+  id: string;
+  type: 'temperature' | 'vibration' | 'pressure' | 'humidity' | 'current' | 'voltage';
+  value: number;
+  unit: string;
+  timestamp: string;
+  threshold: {
+    min: number;
+    max: number;
+  };
+  status: 'normal' | 'warning' | 'critical';
+}
+
+export interface OTAUpdate {
+  id: string;
+  deviceId: string;
+  firmwareVersion: string;
+  updateSize: number;
+  status: 'pending' | 'downloading' | 'installing' | 'completed' | 'failed';
+  progress: number;
+  startTime: string;
+  completedTime?: string;
+  checksum: string;
+  signature: string;
+}
