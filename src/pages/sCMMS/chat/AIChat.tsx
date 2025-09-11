@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  MessageCircle,
   X,
   Send,
   Bot,
@@ -973,7 +972,7 @@ export default function AIChat({ isOpen, onToggle }: AIChatProps) {
         onClick={onToggle}
         className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 z-50"
       >
-        <MessageCircle size={24} />
+        <Bot size={24} />
       </button>
     );
   }

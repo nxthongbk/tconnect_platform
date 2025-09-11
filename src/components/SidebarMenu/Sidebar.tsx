@@ -1,3 +1,4 @@
+import './style.scss';
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -131,24 +132,30 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-2xl flex flex-col transition-all duration-300 ${open ? 'w-64' : 'w-16'}`}
+      className={`cmms-sidebar h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-2xl flex flex-col transition-all duration-300 ${open ? 'w-64' : 'w-16'}`}
     >
       <div
         className={`flex items-center py-6 border-b border-slate-700/50 transition-all duration-300 ${open ? 'px-6 gap-2' : 'px-0 justify-center'}`}
       >
         {open && (
-          <div>
-            <div className="text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-              {t('sCMMS.title')}
-            </div>
-            <div className="text-slate-400 text-sm mt-1">{t('sCMMS.subTitle')}</div>
-          </div>
+					<div className="flex flex-col">
+						<div className="flex items-center gap-3 mb-2">
+							<div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+								<Settings className="text-white" size={24} />
+							</div>
+							<div>
+								<h1 className="text-2xl font-bold leading-tight">{t('sCMMS.title')}</h1>
+							</div>
+						</div>
+						<span className="text-slate-300 text-sm mt-1">{t('sCMMS.subTitle')}</span>
+					</div>
+      
         )}
         <button
           onClick={() => setOpen(o => !o)}
           className={`flex p-1 items-center justify-center w-8 h-8 rounded-lg hover:bg-[#232e47] transition-all duration-200 ${open ? 'ml-auto' : ''}`}
           type="button"
-          aria-label={open ? 'Đóng menu' : 'Mở menu'}
+          aria-label={open ? 'Open' : 'Close'}
         >
           {open ? (
             <svg
@@ -179,7 +186,7 @@ const Sidebar: React.FC = () => {
         </button>
       </div>
       <nav className="flex-1 py-4 px-2 space-y-1">
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {navItems.map(item => (
             <li key={item.to}>
               <NavLink
@@ -196,7 +203,7 @@ const Sidebar: React.FC = () => {
                 <span className={open ? '' : 'w-6 h-6 flex items-center justify-center'}>
                   {item.icon}
                 </span>
-                {open && <span>{item.label}</span>}
+                {open && <span className="font-medium">{item.label}</span>}
               </NavLink>
             </li>
           ))}

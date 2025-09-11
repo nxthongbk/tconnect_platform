@@ -525,7 +525,7 @@
   "set-alarm-successfully": "Set alarm configuration successfully",
 
   "sCMMS": {
-    "title": "Factory Manager",
+    "title": "sCMMS",
     "subTitle": "Equipment & Inventory System",
     "sidebar": {
       "dashboard": "Dashboard",

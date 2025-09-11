@@ -307,6 +307,54 @@ export const mockInventory: InventoryItem[] = [
   }
 ];
 
+export const mockKnowledgeBase = [
+  {
+    id: '1',
+    title: 'Equipment Manual - Conveyor Belt System',
+    category: 'Manual',
+    type: 'PDF',
+    uploadDate: '2024-01-15',
+    size: '2.5 MB',
+    tags: ['conveyor', 'maintenance', 'safety'],
+    equipment: 'CONV-001',
+    version: '1.2',
+    status: 'Active',
+    fileUrl: 'https://example.com/manuals/conveyor-belt-manual.pdf',
+    fileSize: 2621440,
+    fileType: 'pdf'
+  },
+  {
+    id: '2',
+    title: 'Troubleshooting Guide - Hydraulic Press',
+    category: 'Troubleshooting',
+    type: 'DOC',
+    uploadDate: '2024-01-10',
+    size: '1.8 MB',
+    tags: ['hydraulic', 'troubleshooting', 'press'],
+    equipment: 'HYDR-002',
+    version: '2.1',
+    status: 'Active',
+    fileUrl: 'https://example.com/guides/hydraulic-press-troubleshooting.doc',
+    fileSize: 1887436,
+    fileType: 'doc'
+  },
+  {
+    id: '3',
+    title: 'Safety Procedures - Chemical Processing',
+    category: 'Safety',
+    type: 'PDF',
+    uploadDate: '2024-01-05',
+    size: '3.2 MB',
+    tags: ['safety', 'chemical', 'procedures'],
+    equipment: 'CHEM-003',
+    version: '1.0',
+    status: 'Active',
+    fileUrl: 'https://example.com/safety/chemical-processing-safety.pdf',
+    fileSize: 3355443,
+    fileType: 'pdf'
+  }
+];
+
 export const mockUsers: User[] = [
   {
     id: 'U001',
