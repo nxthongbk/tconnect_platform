@@ -9,7 +9,8 @@ import {
   Activity,
   BarChart3,
   Users,
-  Zap
+  Zap,
+	Power
 } from 'lucide-react';
 import { mockEquipment, mockMaintenance, mockInventory } from '../data/mockData';
 
@@ -18,7 +19,8 @@ export default function Dashboard() {
     total: mockEquipment.length,
     operational: mockEquipment.filter(e => e.status === 'operational').length,
     maintenance: mockEquipment.filter(e => e.status === 'maintenance').length,
-    broken: mockEquipment.filter(e => e.status === 'broken').length
+    broken: mockEquipment.filter(e => e.status === 'broken').length,
+    offline: mockEquipment.filter(e => e.status === 'offline').length
   };
 
   const maintenanceStats = {
@@ -132,7 +134,7 @@ export default function Dashboard() {
           <Wrench className="text-blue-600" size={24} />
           <h2 className="text-3xl font-bold text-slate-800">Equipment Status</h2>
         </div>
-        <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-4  gap-4 laptop:gap-8">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 smallLaptop:grid-cols-5 gap-2 laptop:gap-4">
           <StatCard
             title="Total Equipment"
             value={equipmentStats.total}
@@ -160,6 +162,13 @@ export default function Dashboard() {
             subtext="Needs attention"
             icon={AlertTriangle}
             color="text-red-600"
+          />
+          <StatCard
+            title="Offline"
+            value={equipmentStats.offline}
+            subtext="Not in use"
+            icon={Power}
+            color="text-gray-600"
           />
         </div>
       </div>
