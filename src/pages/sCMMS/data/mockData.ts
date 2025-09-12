@@ -15,7 +15,8 @@ export const mockEquipment: Equipment[] = [
     nextMaintenance: '2024-12-01',
     maintenanceInterval: 30,
     description: 'Main hydraulic press for component manufacturing',
-    imageUrl: 'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400'
+    imageUrl:
+      'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     id: '2',
@@ -30,7 +31,8 @@ export const mockEquipment: Equipment[] = [
     nextMaintenance: '2024-11-15',
     maintenanceInterval: 14,
     description: 'Product transport conveyor between stations',
-    imageUrl: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400'
+    imageUrl:
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     id: '3',
@@ -45,7 +47,8 @@ export const mockEquipment: Equipment[] = [
     nextMaintenance: '2024-11-25',
     maintenanceInterval: 21,
     description: 'Automated welding robot for production process',
-    imageUrl: 'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400'
+    imageUrl:
+      'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     id: '4',
@@ -60,8 +63,9 @@ export const mockEquipment: Equipment[] = [
     nextMaintenance: '2024-11-20',
     maintenanceInterval: 30,
     description: 'Precision CNC machining center',
-    imageUrl: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400'
-  }
+    imageUrl:
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
+  },
 ];
 
 export const mockMaintenance: MaintenanceRecord[] = [
@@ -77,19 +81,19 @@ export const mockMaintenance: MaintenanceRecord[] = [
     description: 'Routine hydraulic system maintenance',
     partsUsed: [
       { itemId: 'P001', itemName: 'Hydraulic Oil', quantity: 5, unitPrice: 25 },
-      { itemId: 'P002', itemName: 'Gasket Seal', quantity: 2, unitPrice: 15 }
+      { itemId: 'P002', itemName: 'Gasket Seal', quantity: 2, unitPrice: 15 },
     ],
     cost: 155,
     duration: 120,
     notes: 'Oil change and system check completed successfully',
     beforeImages: [
       'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
-      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400'
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
     ],
     afterImages: [
       'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400',
-      'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=400'
-    ]
+      'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=400',
+    ],
   },
   {
     id: 'M002',
@@ -100,16 +104,14 @@ export const mockMaintenance: MaintenanceRecord[] = [
     scheduledDate: '2024-11-12',
     technician: 'Sarah Johnson',
     description: 'Repair faulty conveyor motor',
-    partsUsed: [
-      { itemId: 'P003', itemName: '3HP Electric Motor', quantity: 1, unitPrice: 450 }
-    ],
+    partsUsed: [{ itemId: 'P003', itemName: '3HP Electric Motor', quantity: 1, unitPrice: 450 }],
     cost: 450,
     duration: 180,
     notes: 'Replacing motor unit',
     beforeImages: [
-      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400'
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
     ],
-    afterImages: []
+    afterImages: [],
   },
   {
     id: 'M003',
@@ -125,8 +127,8 @@ export const mockMaintenance: MaintenanceRecord[] = [
     duration: 90,
     notes: 'Scheduled maintenance',
     beforeImages: [],
-    afterImages: []
-  }
+    afterImages: [],
+  },
 ];
 
 // Additional maintenance records for equipment history
@@ -141,12 +143,10 @@ export const additionalMaintenanceHistory: MaintenanceRecord[] = [
     completedDate: '2024-10-01',
     technician: 'Mike Wilson',
     description: 'Monthly hydraulic system inspection',
-    partsUsed: [
-      { itemId: 'P002', itemName: 'Gasket Seal', quantity: 1, unitPrice: 15 }
-    ],
+    partsUsed: [{ itemId: 'P002', itemName: 'Gasket Seal', quantity: 1, unitPrice: 15 }],
     cost: 85,
     duration: 90,
-    notes: 'Routine inspection completed, minor seal replacement'
+    notes: 'Routine inspection completed, minor seal replacement',
   },
   {
     id: 'M005',
@@ -161,7 +161,7 @@ export const additionalMaintenanceHistory: MaintenanceRecord[] = [
     partsUsed: [],
     cost: 120,
     duration: 60,
-    notes: 'Sensor recalibrated to factory specifications'
+    notes: 'Sensor recalibrated to factory specifications',
   },
   {
     id: 'M006',
@@ -173,12 +173,10 @@ export const additionalMaintenanceHistory: MaintenanceRecord[] = [
     completedDate: '2024-10-28',
     technician: 'John Smith',
     description: 'Belt tension adjustment and lubrication',
-    partsUsed: [
-      { itemId: 'P001', itemName: 'Hydraulic Oil', quantity: 2, unitPrice: 25 }
-    ],
+    partsUsed: [{ itemId: 'P001', itemName: 'Hydraulic Oil', quantity: 2, unitPrice: 25 }],
     cost: 75,
     duration: 45,
-    notes: 'Belt tension optimized, all bearings lubricated'
+    notes: 'Belt tension optimized, all bearings lubricated',
   },
   {
     id: 'M007',
@@ -190,12 +188,10 @@ export const additionalMaintenanceHistory: MaintenanceRecord[] = [
     completedDate: '2024-09-22',
     technician: 'Mike Wilson',
     description: 'Emergency belt replacement',
-    partsUsed: [
-      { itemId: 'P003', itemName: '3HP Electric Motor', quantity: 1, unitPrice: 450 }
-    ],
+    partsUsed: [{ itemId: 'P003', itemName: '3HP Electric Motor', quantity: 1, unitPrice: 450 }],
     cost: 650,
     duration: 240,
-    notes: 'Belt snapped during operation, replaced with upgraded model'
+    notes: 'Belt snapped during operation, replaced with upgraded model',
   },
   {
     id: 'M008',
@@ -207,12 +203,10 @@ export const additionalMaintenanceHistory: MaintenanceRecord[] = [
     completedDate: '2024-10-25',
     technician: 'Sarah Johnson',
     description: 'Welding tip replacement and calibration',
-    partsUsed: [
-      { itemId: 'P004', itemName: 'Ball Bearing Set', quantity: 1, unitPrice: 35 }
-    ],
+    partsUsed: [{ itemId: 'P004', itemName: 'Ball Bearing Set', quantity: 1, unitPrice: 35 }],
     cost: 185,
     duration: 150,
-    notes: 'New welding tips installed, robot recalibrated'
+    notes: 'New welding tips installed, robot recalibrated',
   },
   {
     id: 'M009',
@@ -226,12 +220,12 @@ export const additionalMaintenanceHistory: MaintenanceRecord[] = [
     description: 'Spindle maintenance and tool calibration',
     partsUsed: [
       { itemId: 'P001', itemName: 'Hydraulic Oil', quantity: 1, unitPrice: 25 },
-      { itemId: 'P004', itemName: 'Ball Bearing Set', quantity: 2, unitPrice: 35 }
+      { itemId: 'P004', itemName: 'Ball Bearing Set', quantity: 2, unitPrice: 35 },
     ],
     cost: 195,
     duration: 180,
-    notes: 'Spindle serviced, all cutting tools recalibrated'
-  }
+    notes: 'Spindle serviced, all cutting tools recalibrated',
+  },
 ];
 
 export const mockInventory: InventoryItem[] = [
@@ -247,7 +241,7 @@ export const mockInventory: InventoryItem[] = [
     unitPrice: 25,
     supplier: 'Industrial Lubricants Inc.',
     location: 'Warehouse A - Shelf 1',
-    lastRestocked: '2024-10-15'
+    lastRestocked: '2024-10-15',
   },
   {
     id: 'P002',
@@ -261,7 +255,7 @@ export const mockInventory: InventoryItem[] = [
     unitPrice: 15,
     supplier: 'Precision Parts Ltd.',
     location: 'Warehouse B - Shelf 3',
-    lastRestocked: '2024-09-20'
+    lastRestocked: '2024-09-20',
   },
   {
     id: 'P003',
@@ -275,7 +269,7 @@ export const mockInventory: InventoryItem[] = [
     unitPrice: 450,
     supplier: 'Motor Solutions Ltd',
     location: 'Warehouse C - Shelf 1',
-    lastRestocked: '2024-11-01'
+    lastRestocked: '2024-11-01',
   },
   {
     id: 'P004',
@@ -289,7 +283,7 @@ export const mockInventory: InventoryItem[] = [
     unitPrice: 35,
     supplier: 'Bearing Specialists Co.',
     location: 'Warehouse A - Shelf 2',
-    lastRestocked: '2024-10-28'
+    lastRestocked: '2024-10-28',
   },
   {
     id: 'P005',
@@ -303,8 +297,8 @@ export const mockInventory: InventoryItem[] = [
     unitPrice: 22,
     supplier: 'Filter Tech Solutions',
     location: 'Warehouse B - Shelf 1',
-    lastRestocked: '2024-09-15'
-  }
+    lastRestocked: '2024-09-15',
+  },
 ];
 
 export const mockKnowledgeBase = [
@@ -321,7 +315,7 @@ export const mockKnowledgeBase = [
     status: 'Active',
     fileUrl: 'https://example.com/manuals/conveyor-belt-manual.pdf',
     fileSize: 2621440,
-    fileType: 'pdf'
+    fileType: 'pdf',
   },
   {
     id: '2',
@@ -336,7 +330,7 @@ export const mockKnowledgeBase = [
     status: 'Active',
     fileUrl: 'https://example.com/guides/hydraulic-press-troubleshooting.doc',
     fileSize: 1887436,
-    fileType: 'doc'
+    fileType: 'doc',
   },
   {
     id: '3',
@@ -351,8 +345,8 @@ export const mockKnowledgeBase = [
     status: 'Active',
     fileUrl: 'https://example.com/safety/chemical-processing-safety.pdf',
     fileSize: 3355443,
-    fileType: 'pdf'
-  }
+    fileType: 'pdf',
+  },
 ];
 
 export const mockUsers: User[] = [
@@ -361,37 +355,41 @@ export const mockUsers: User[] = [
     name: 'John Smith',
     email: 'john.smith@factory.com',
     phone: '+1 (555) 123-4567',
-    avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150',
+    avatar:
+      'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'technician',
-    department: 'Maintenance'
+    department: 'Maintenance',
   },
   {
     id: 'U002',
     name: 'Sarah Johnson',
     email: 'sarah.johnson@factory.com',
     phone: '+1 (555) 234-5678',
-    avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150',
+    avatar:
+      'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'technician',
-    department: 'Maintenance'
+    department: 'Maintenance',
   },
   {
     id: 'U003',
     name: 'Mike Wilson',
     email: 'mike.wilson@factory.com',
     phone: '+1 (555) 345-6789',
-    avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150',
+    avatar:
+      'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'supervisor',
-    department: 'Production'
+    department: 'Production',
   },
   {
     id: 'U004',
     name: 'Emily Davis',
     email: 'emily.davis@factory.com',
     phone: '+1 (555) 456-7890',
-    avatar: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=150',
+    avatar:
+      'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=150',
     role: 'admin',
-    department: 'Operations'
-  }
+    department: 'Operations',
+  },
 ];
 
 export const mockBlockchainTransactions: BlockchainTransaction[] = [
@@ -406,12 +404,12 @@ export const mockBlockchainTransactions: BlockchainTransaction[] = [
       action: 'completed',
       technician: 'John Smith',
       duration: 120,
-      cost: 155
+      cost: 155,
     },
     signature: '0xabcdef1234567890abcdef1234567890abcdef12',
     verified: true,
     gasUsed: 21000,
-    blockNumber: 18450123
+    blockNumber: 18450123,
   },
   {
     id: 'tx_002',
@@ -423,12 +421,12 @@ export const mockBlockchainTransactions: BlockchainTransaction[] = [
       temperature: 75.5,
       vibration: 2.3,
       pressure: 145.2,
-      status: 'normal'
+      status: 'normal',
     },
     signature: '0xbcdef1234567890abcdef1234567890abcdef123',
     verified: true,
     gasUsed: 18500,
-    blockNumber: 18450124
+    blockNumber: 18450124,
   },
   {
     id: 'tx_003',
@@ -440,13 +438,64 @@ export const mockBlockchainTransactions: BlockchainTransaction[] = [
       oldVersion: '1.2.3',
       newVersion: '1.2.4',
       updateStatus: 'completed',
-      checksum: 'sha256:abc123def456'
+      checksum: 'sha256:abc123def456',
     },
     signature: '0xcdef1234567890abcdef1234567890abcdef1234',
     verified: true,
     gasUsed: 25000,
-    blockNumber: 18450125
-  }
+    blockNumber: 18450125,
+  },
+  {
+    id: 'tx_004',
+    hash: '0x4c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcd',
+    timestamp: '2024-11-12T12:00:00Z',
+    equipmentId: '4',
+    dataType: 'firmware',
+    data: {
+      oldVersion: '1.2.3',
+      newVersion: '1.2.4',
+      updateStatus: 'completed',
+      checksum: 'sha256:abc123def456',
+    },
+    signature: '0xcdef1234567890abcdef1234567890abcdef1234',
+    verified: true,
+    gasUsed: 25000,
+    blockNumber: 18450126,
+  },
+  {
+    id: 'tx_005',
+    hash: '0x5c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcd',
+    timestamp: '2024-11-12T12:00:00Z',
+    equipmentId: '5',
+    dataType: 'sensor',
+    data: {
+      oldVersion: '1.2.3',
+      newVersion: '1.2.4',
+      updateStatus: 'completed',
+      checksum: 'sha256:abc123def456',
+    },
+    signature: '0xcdef1234567890abcdef1234567890abcdef1234',
+    verified: true,
+    gasUsed: 25000,
+    blockNumber: 18450127,
+  },
+  {
+    id: 'tx_006',
+    hash: '0x6c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcd',
+    timestamp: '2024-11-12T12:00:00Z',
+    equipmentId: '6',
+    dataType: 'maintenance',
+    data: {
+      oldVersion: '1.2.3',
+      newVersion: '1.2.4',
+      updateStatus: 'completed',
+      checksum: 'sha256:abc123def456',
+    },
+    signature: '0xcdef1234567890abcdef1234567890abcdef1234',
+    verified: false,
+    gasUsed: 30000,
+    blockNumber: 18450128,
+  },
 ];
 
 export const mockIoTDevices: IoTDevice[] = [
@@ -469,7 +518,7 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: '°C',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 60, max: 85 },
-        status: 'normal'
+        status: 'normal',
       },
       {
         id: 'sensor_002',
@@ -478,7 +527,7 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: 'mm/s',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 0, max: 5 },
-        status: 'normal'
+        status: 'normal',
       },
       {
         id: 'sensor_003',
@@ -487,9 +536,9 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: 'PSI',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 120, max: 160 },
-        status: 'normal'
-      }
-    ]
+        status: 'normal',
+      },
+    ],
   },
   {
     id: 'iot_002',
@@ -509,7 +558,7 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: 'A',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 10, max: 20 },
-        status: 'normal'
+        status: 'normal',
       },
       {
         id: 'sensor_005',
@@ -518,9 +567,9 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: 'V',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 200, max: 240 },
-        status: 'normal'
-      }
-    ]
+        status: 'normal',
+      },
+    ],
   },
   {
     id: 'iot_003',
@@ -540,7 +589,7 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: '°C',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 50, max: 80 },
-        status: 'normal'
+        status: 'normal',
       },
       {
         id: 'sensor_007',
@@ -549,9 +598,9 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: '%',
         timestamp: '2024-11-12T12:30:00Z',
         threshold: { min: 30, max: 70 },
-        status: 'normal'
-      }
-    ]
+        status: 'normal',
+      },
+    ],
   },
   {
     id: 'iot_004',
@@ -572,10 +621,10 @@ export const mockIoTDevices: IoTDevice[] = [
         unit: 'mm/s',
         timestamp: '2024-11-12T11:45:00Z',
         threshold: { min: 0, max: 5 },
-        status: 'critical'
-      }
-    ]
-  }
+        status: 'critical',
+      },
+    ],
+  },
 ];
 
 export const mockOTAUpdates: OTAUpdate[] = [
@@ -588,7 +637,7 @@ export const mockOTAUpdates: OTAUpdate[] = [
     progress: 0,
     startTime: '2024-11-12T13:00:00Z',
     checksum: 'sha256:def456abc789def456abc789def456abc789def456abc789def456abc789def456',
-    signature: '0xdef456abc789def456abc789def456abc789def456'
+    signature: '0xdef456abc789def456abc789def456abc789def456',
   },
   {
     id: 'ota_002',
@@ -599,7 +648,7 @@ export const mockOTAUpdates: OTAUpdate[] = [
     progress: 65,
     startTime: '2024-11-12T12:45:00Z',
     checksum: 'sha256:abc789def456abc789def456abc789def456abc789def456abc789def456abc789',
-    signature: '0xabc789def456abc789def456abc789def456abc789'
+    signature: '0xabc789def456abc789def456abc789def456abc789',
   },
   {
     id: 'ota_003',
@@ -611,7 +660,7 @@ export const mockOTAUpdates: OTAUpdate[] = [
     startTime: '2024-11-12T09:00:00Z',
     completedTime: '2024-11-12T09:15:00Z',
     checksum: 'sha256:789def456abc789def456abc789def456abc789def456abc789def456abc789def',
-    signature: '0x789def456abc789def456abc789def456abc789def'
+    signature: '0x789def456abc789def456abc789def456abc789def',
   },
   {
     id: 'ota_004',
@@ -622,6 +671,6 @@ export const mockOTAUpdates: OTAUpdate[] = [
     progress: 25,
     startTime: '2024-11-12T10:30:00Z',
     checksum: 'sha256:456abc789def456abc789def456abc789def456abc789def456abc789def456abc',
-    signature: '0x456abc789def456abc789def456abc789def456abc'
-  }
+    signature: '0x456abc789def456abc789def456abc789def456abc',
+  },
 ];

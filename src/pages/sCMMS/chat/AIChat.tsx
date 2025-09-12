@@ -968,12 +968,39 @@ export default function AIChat({ isOpen, onToggle }: AIChatProps) {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={onToggle}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 z-50"
-      >
-        <Bot size={24} />
-      </button>
+      <>
+        <button
+          onClick={onToggle}
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform z-50 wiggle-animate hover:hover-wiggle-animate"
+          style={{ animationDuration: '0.7s' }}
+          title="Open AI Assistant"
+        >
+          <Bot size={24} />
+        </button>
+        <style>{`
+          @keyframes wiggle {
+            0%, 100% { transform: rotate(-6deg) scale(1); }
+            20% { transform: rotate(6deg) scale(1.08); }
+            40% { transform: rotate(-4deg) scale(1.04); }
+            60% { transform: rotate(4deg) scale(1.08); }
+            80% { transform: rotate(-2deg) scale(1.02); }
+          }
+          .wiggle-animate {
+            animation: wiggle 0.7s infinite;
+          }
+          @keyframes hoverWiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(-12deg) scale(1.12); }
+            30% { transform: rotate(12deg) scale(1.12); }
+            45% { transform: rotate(-8deg) scale(1.08); }
+            60% { transform: rotate(8deg) scale(1.08); }
+            75% { transform: rotate(-4deg) scale(1.04); }
+          }
+          .hover-wiggle-animate:hover {
+            animation: hoverWiggle 0.5s;
+          }
+        `}</style>
+      </>
     );
   }
 
