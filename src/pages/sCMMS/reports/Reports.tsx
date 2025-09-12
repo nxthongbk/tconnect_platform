@@ -62,44 +62,66 @@ const BarChart = ({ data, title, color = 'blue' }: any) => {
 const PieChartComponent = ({ data, title }: any) => {
   const total = data.reduce((acc: number, item: any) => acc + item.value, 0);
 
+  // Map status to color (Equipment and Inventory)
+  const statusColors = {
+    Operational: '#3B82F6', // blue
+    Maintenance: '#10B981', // green
+    Broken: '#F59E0B', // yellow
+    Offline: '#EF4444', // red
+    'In Stock': '#22c55e', // green-500
+    Warning: '#f59e42', // orange-400
+    'Low Stock': '#ef4444', // red-500
+  };
+  const statusBgColors = {
+    Operational: 'bg-blue-500',
+    Maintenance: 'bg-green-500',
+    Broken: 'bg-yellow-500',
+    Offline: 'bg-red-500',
+    'In Stock': 'bg-green-500',
+    Warning: 'bg-orange-400',
+    'Low Stock': 'bg-red-500',
+  };
+
+  // Calculate start/end for each arc
+  let cumulative = 0;
+  const arcs = data.map((item: any, index: number) => {
+    console.log(index);
+
+    const value = item.value;
+    const percent = value / total;
+    const startAngle = cumulative * 2 * Math.PI;
+    const endAngle = (cumulative + percent) * 2 * Math.PI;
+    cumulative += percent;
+    const largeArcFlag = percent > 0.5 ? 1 : 0;
+    const radius = 40;
+    const cx = 60;
+    const cy = 60;
+    const x1 = cx + radius * Math.cos(startAngle - Math.PI / 2);
+    const y1 = cy + radius * Math.sin(startAngle - Math.PI / 2);
+    const x2 = cx + radius * Math.cos(endAngle - Math.PI / 2);
+    const y2 = cy + radius * Math.sin(endAngle - Math.PI / 2);
+    const d = `M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} Z`;
+    const color = statusColors[item.label] || '#8B5CF6';
+    return { d, color };
+  });
+
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>
       <div className="flex items-center justify-center mb-4">
-        <div className="relative w-32 h-32">
-          <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-            {data.map((item: any, index: number) => {
-              const percentage = (item.value / total) * 100;
-              const strokeDasharray = `${percentage} ${100 - percentage}`;
-              const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
-              const color = colors[index % colors.length];
-
-              return (
-                <circle
-                  key={index}
-                  cx="50"
-                  cy="50"
-                  r="15.915"
-                  fill="transparent"
-                  stroke={color}
-                  strokeWidth="8"
-                  strokeDasharray={strokeDasharray}
-                />
-              );
-            })}
+        <div className="relative w-48 h-48">
+          {' '}
+          {/* Bigger chart */}
+          <svg className="w-48 h-48" viewBox="0 0 120 120">
+            {arcs.map((arc, idx) => (
+              <path key={idx} d={arc.d} fill={arc.color} />
+            ))}
           </svg>
         </div>
       </div>
       <div className="space-y-2">
         {data.map((item: any, index: number) => {
-          const colors = [
-            'bg-blue-500',
-            'bg-green-500',
-            'bg-yellow-500',
-            'bg-red-500',
-            'bg-purple-500',
-          ];
-          const bgColor = colors[index % colors.length];
+          const bgColor = statusBgColors[item.label] || 'bg-purple-500';
           return (
             <div key={index} className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -119,6 +141,13 @@ const LineChart = ({ data, title, color = 'blue' }: any) => {
   const maxValue = Math.max(...data.map((d: any) => d.value));
   const minValue = Math.min(...data.map((d: any) => d.value));
   const range = maxValue - minValue || 1;
+  // Adjust chart vertical and horizontal padding
+  const chartTop = 10;
+  const chartBottom = 40; // leave more space for labels
+  const chartHeight = 200 - chartTop - chartBottom;
+  const chartLeft = 24;
+  const chartRight = 24;
+  const chartWidth = 400 - chartLeft - chartRight;
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
@@ -129,10 +158,10 @@ const LineChart = ({ data, title, color = 'blue' }: any) => {
           {[0, 1, 2, 3, 4].map(i => (
             <line
               key={i}
-              x1="0"
-              y1={i * 40}
-              x2="400"
-              y2={i * 40}
+              x1={chartLeft}
+              y1={chartTop + i * (chartHeight / 4)}
+              x2={400 - chartRight}
+              y2={chartTop + i * (chartHeight / 4)}
               stroke="#f3f4f6"
               strokeWidth="1"
             />
@@ -145,8 +174,8 @@ const LineChart = ({ data, title, color = 'blue' }: any) => {
             strokeWidth="3"
             points={data
               .map((d: any, i: number) => {
-                const x = (i / (data.length - 1)) * 400;
-                const y = 200 - ((d.value - minValue) / range) * 180;
+                const x = chartLeft + (i / (data.length - 1)) * chartWidth;
+                const y = chartTop + chartHeight - ((d.value - minValue) / range) * chartHeight;
                 return `${x},${y}`;
               })
               .join(' ')}
@@ -154,8 +183,8 @@ const LineChart = ({ data, title, color = 'blue' }: any) => {
 
           {/* Data points */}
           {data.map((d: any, i: number) => {
-            const x = (i / (data.length - 1)) * 400;
-            const y = 200 - ((d.value - minValue) / range) * 180;
+            const x = chartLeft + (i / (data.length - 1)) * chartWidth;
+            const y = chartTop + chartHeight - ((d.value - minValue) / range) * chartHeight;
             return (
               <circle
                 key={i}
@@ -166,14 +195,17 @@ const LineChart = ({ data, title, color = 'blue' }: any) => {
               />
             );
           })}
-        </svg>
 
-        {/* X-axis labels */}
-        <div className="flex justify-between mt-2 text-xs text-gray-500">
-          {data.map((d: any, i: number) => (
-            <span key={i}>{d.label}</span>
-          ))}
-        </div>
+          {/* X-axis labels inside SVG, moved up and padded horizontally */}
+          {data.map((d: any, i: number) => {
+            const x = chartLeft + (i / (data.length - 1)) * chartWidth;
+            return (
+              <text key={i} x={x} y={200 - 12} textAnchor="middle" fontSize="12" fill="#6b7280">
+                {d.label}
+              </text>
+            );
+          })}
+        </svg>
       </div>
     </div>
   );
@@ -480,8 +512,10 @@ export default function Reports() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1      className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
-            style={{ marginBottom: 0, paddingBottom: 2 }}>
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             Reports & Analytics
           </h1>
           <p className="text-slate-600 mt-2 text-xl font-medium">

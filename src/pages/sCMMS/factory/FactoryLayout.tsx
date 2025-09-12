@@ -116,6 +116,8 @@ export default function FactoryLayout() {
         <Factory3D
           selectedEquipment={selectedEquipment}
           onEquipmentSelect={handleEquipmentSelect}
+          isFullscreen={isFullscreen}
+          onClose={() => setIsFullscreen(false)}
         />
       </div>
 
