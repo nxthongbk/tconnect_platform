@@ -15,6 +15,7 @@ import {
 import { MaintenanceRecord } from '../types';
 import { mockMaintenance } from '../data/mockData';
 import MaintenanceForm from './MaintenanceForm';
+import React from 'react';
 
 export default function MaintenanceList() {
   const [maintenance, setMaintenance] = useState<MaintenanceRecord[]>(mockMaintenance);
@@ -27,6 +28,9 @@ export default function MaintenanceList() {
   const [showForm, setShowForm] = useState(false);
   const [editingRecord, setEditingRecord] = useState<MaintenanceRecord | null>(null);
   const [viewingImages, setViewingImages] = useState<MaintenanceRecord | null>(null);
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   // Calculate statistics
   const stats = {
@@ -67,6 +71,26 @@ export default function MaintenanceList() {
       matchesCost
     );
   });
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredMaintenance.length / itemsPerPage);
+  const paginatedMaintenance = filteredMaintenance.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Reset to first page when filters/search/itemsPerPage change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [
+    searchTerm,
+    statusFilter,
+    equipmentFilter,
+    typeFilter,
+    technicianFilter,
+    costFilter,
+    itemsPerPage,
+  ]);
 
   // Get unique values for filter options
   const equipmentOptions = [...new Set(maintenance.map(record => record.equipmentName))];
@@ -484,7 +508,7 @@ export default function MaintenanceList() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
-              {filteredMaintenance.map(record => (
+              {paginatedMaintenance.map(record => (
                 <tr key={record.id} className="hover:bg-gray-50 transition-colors duration-200">
                   <td className="px-6 py-5">
                     <div>
@@ -570,6 +594,98 @@ export default function MaintenanceList() {
             </tbody>
           </table>
         </div>
+        {/* Pagination Controls and Rows Per Page Selector */}
+        {(totalPages > 1 || filteredMaintenance.length > 0) && (
+          <div className="flex flex-col smallLaptop:flex-row justify-center smallLaptop:justify-between items-center gap-4 px-6 py-6">
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-1 flex-wrap">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                    currentPage === 1
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                  }`}
+                >
+                  Prev
+                </button>
+                {/* Smart pagination: show first, last, current, neighbors, ellipsis */}
+                {(() => {
+                  const pages = [];
+                  const pageWindow = 2; // how many neighbors to show
+                  for (let i = 1; i <= totalPages; i++) {
+                    if (
+                      i === 1 ||
+                      i === totalPages ||
+                      (i >= currentPage - pageWindow && i <= currentPage + pageWindow)
+                    ) {
+                      pages.push(i);
+                    } else if (
+                      (i === 2 && currentPage - pageWindow > 2) ||
+                      (i === totalPages - 1 && currentPage + pageWindow < totalPages - 1)
+                    ) {
+                      pages.push('ellipsis-' + i);
+                    }
+                  }
+                  let lastWasEllipsis = false;
+                  return pages.map(page => {
+                    if (typeof page === 'string' && page.startsWith('ellipsis')) {
+                      if (lastWasEllipsis) return null;
+                      lastWasEllipsis = true;
+                      return (
+                        <span key={page} className="px-2 text-gray-400 select-none">
+                          ...
+                        </span>
+                      );
+                    } else {
+                      lastWasEllipsis = false;
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page as number)}
+                          className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                            currentPage === page
+                              ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                              : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+                  });
+                })()}
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                    currentPage === totalPages
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+            {/* Rows per page selector */}
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-gray-600 font-medium">Rows per page:</label>
+              <select
+                value={itemsPerPage}
+                onChange={e => setItemsPerPage(Number(e.target.value))}
+                className="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white"
+              >
+                {[10, 15, 20, 25, 50].map(num => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Maintenance Form Modal */}

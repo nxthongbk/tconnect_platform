@@ -24,6 +24,12 @@ import { Play, Pause, ZoomIn, ZoomOut, Home, Eye, EyeOff, Camera, X } from 'luci
 interface Factory3DProps {
   selectedEquipment?: string | null;
   onEquipmentSelect?: (equipmentId: string) => void;
+  isFullscreen?: boolean;
+  onClose?: () => void;
+  showCameraStream?: boolean;
+  selectedCamera?: string | null;
+  onShowCameraStream?: (cameraId: string) => void;
+  onCloseCameraStream?: () => void;
 }
 
 export default function Factory3D({
@@ -31,7 +37,11 @@ export default function Factory3D({
   onEquipmentSelect,
   isFullscreen,
   onClose,
-}: Factory3DProps & { isFullscreen?: boolean; onClose?: () => void }) {
+  showCameraStream,
+  selectedCamera,
+  onShowCameraStream,
+  onCloseCameraStream,
+}: Factory3DProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<Scene | null>(null);
   const engineRef = useRef<Engine | null>(null);
@@ -41,8 +51,7 @@ export default function Factory3D({
   const [isPlaying, setIsPlaying] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
   const [cameraMode, setCameraMode] = useState<'free' | 'top' | 'side'>('free');
-  const [showCameraStream, setShowCameraStream] = useState(false);
-  const [selectedCamera, setSelectedCamera] = useState<string | null>(null);
+  // Remove local state for camera modal, use props only
 
   const getCameraInfo = (cameraId: string) => {
     const cameras = {
@@ -208,8 +217,7 @@ export default function Factory3D({
       cameraBody.actionManager = new ActionManager(scene);
       cameraBody.actionManager.registerAction(
         new ExecuteCodeAction(ActionManager.OnPickTrigger, () => {
-          setSelectedCamera(pos.id);
-          setShowCameraStream(true);
+          if (onShowCameraStream) onShowCameraStream(pos.id);
         })
       );
 
@@ -1081,7 +1089,7 @@ export default function Factory3D({
       {isFullscreen && onClose && (
         <button
           onClick={onClose}
-          className="absolute top-2 right- z-50 bg-white/90 hover:bg-white text-gray-700 hover:text-red-600 rounded-full p-2 shadow-xl transition-colors"
+          className="absolute top-2 right-2 z-50 bg-white/90 hover:bg-white text-gray-700 hover:text-red-600 rounded-full p-2 shadow-xl transition-colors"
           title="Close Fullscreen"
         >
           <svg
@@ -1179,7 +1187,7 @@ export default function Factory3D({
       </div>
 
       {/* Equipment Status Legend */}
-      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-xl">
+      <div className="absolute top-10 right-10 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-xl">
         <h3 className="text-sm font-semibold text-gray-900 mb-3">Equipment Status</h3>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -1248,13 +1256,21 @@ export default function Factory3D({
       )}
 
       {/* Instructions */}
-      <div className="absolute bottom-4 right-4 bg-black/70 text-white rounded-xl p-3 text-xs">
-        <p>Click and drag to rotate • Scroll to zoom • Click equipment/cameras for details</p>
-      </div>
+      {!isFullscreen && (
+        <div className="absolute bottom-4 right-4 bg-black/70 text-white rounded-xl p-3 text-xs">
+          <p>Click and drag to rotate • Scroll to zoom • Click equipment/cameras for details</p>
+        </div>
+      )}
 
       {/* Camera Stream Modal */}
       {showCameraStream && selectedCamera && (
-        <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-50">
+        <div
+          className={
+            isFullscreen
+              ? 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100]' // cover entire screen
+              : 'absolute inset-0 bg-black/80 flex items-center justify-center z-50'
+          }
+        >
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
             {/* Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
@@ -1277,10 +1293,7 @@ export default function Factory3D({
                   </span>
                 </div>
                 <button
-                  onClick={() => {
-                    setShowCameraStream(false);
-                    setSelectedCamera(null);
-                  }}
+                  onClick={onCloseCameraStream}
                   className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
                 >
                   <X size={24} />

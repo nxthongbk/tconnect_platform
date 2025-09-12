@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Plus, Search, AlertTriangle, Package, Edit, Trash2 } from 'lucide-react';
 import { InventoryItem } from '../types';
 import { mockInventory } from '../data/mockData';
@@ -14,7 +14,11 @@ export default function InventoryList() {
   const [locationFilter, setLocationFilter] = useState<string>('all');
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
+  // Compute filtered inventory first
   const filteredInventory = inventory.filter(item => {
     const matchesSearch =
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -44,6 +48,26 @@ export default function InventoryList() {
       matchesLocation
     );
   });
+
+  // Reset to first page when filters/search/itemsPerPage change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [
+    searchTerm,
+    categoryFilter,
+    statusFilter,
+    priceFilter,
+    supplierFilter,
+    locationFilter,
+    itemsPerPage,
+  ]);
+
+  // Pagination logic (must be after filteredInventory is defined)
+  const totalPages = Math.ceil(filteredInventory.length / itemsPerPage);
+  const paginatedInventory = filteredInventory.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const categories = [...new Set(inventory.map(item => item.category))];
   const suppliers = [...new Set(inventory.map(item => item.supplier))];
@@ -322,7 +346,7 @@ export default function InventoryList() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
-              {filteredInventory.map(item => {
+              {paginatedInventory.map(item => {
                 const stockStatus = getStockStatus(item);
                 return (
                   <tr key={item.id} className="hover:bg-gray-50 transition-colors duration-200">
@@ -383,6 +407,98 @@ export default function InventoryList() {
             </tbody>
           </table>
         </div>
+        {/* Pagination Controls and Rows Per Page Selector */}
+        {(totalPages > 1 || filteredInventory.length > 0) && (
+          <div className="flex flex-col smallLaptop:flex-row justify-center smallLaptop:justify-between items-center gap-4 px-6 py-6">
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-1 flex-wrap">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                    currentPage === 1
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                  }`}
+                >
+                  Prev
+                </button>
+                {/* Smart pagination: show first, last, current, neighbors, ellipsis */}
+                {(() => {
+                  const pages = [];
+                  const pageWindow = 2;
+                  for (let i = 1; i <= totalPages; i++) {
+                    if (
+                      i === 1 ||
+                      i === totalPages ||
+                      (i >= currentPage - pageWindow && i <= currentPage + pageWindow)
+                    ) {
+                      pages.push(i);
+                    } else if (
+                      (i === 2 && currentPage - pageWindow > 2) ||
+                      (i === totalPages - 1 && currentPage + pageWindow < totalPages - 1)
+                    ) {
+                      pages.push('ellipsis-' + i);
+                    }
+                  }
+                  let lastWasEllipsis = false;
+                  return pages.map((page) => {
+                    if (typeof page === 'string' && page.startsWith('ellipsis')) {
+                      if (lastWasEllipsis) return null;
+                      lastWasEllipsis = true;
+                      return (
+                        <span key={page} className="px-2 text-gray-400 select-none">
+                          ...
+                        </span>
+                      );
+                    } else {
+                      lastWasEllipsis = false;
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page as number)}
+                          className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                            currentPage === page
+                              ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                              : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+                  });
+                })()}
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                    currentPage === totalPages
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+            {/* Rows per page selector */}
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-gray-600 font-medium">Rows per page:</label>
+              <select
+                value={itemsPerPage}
+                onChange={e => setItemsPerPage(Number(e.target.value))}
+                className="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white"
+              >
+                {[10, 15, 20, 25, 50].map(num => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Inventory Form Modal */}
