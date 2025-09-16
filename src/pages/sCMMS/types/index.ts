@@ -12,6 +12,20 @@ export interface Equipment {
   maintenanceInterval: number; // days
   description?: string;
   imageUrl?: string;
+  oee?: {
+    overall: number;
+    availability: number;
+    performance: number;
+    quality: number;
+    trend: number;
+    lastUpdated: string;
+    weeklyTrend: Array<{
+      day: string;
+      value: number;
+    }>;
+    insights: string[];
+    recommendations: string[];
+  };
 }
 
 export interface MaintenanceRecord {
