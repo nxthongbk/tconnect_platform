@@ -86,6 +86,10 @@ export default function EquipmentList() {
     endTime: new Date().toISOString().split('T')[0],
   });
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
   // Simulate real-time sensor data
   React.useEffect(() => {
     if (!selectedEquipment) return;
@@ -226,6 +230,18 @@ export default function EquipmentList() {
       item.location.toLowerCase().includes(locationFilter.toLowerCase());
     return matchesSearch && matchesStatus && matchesCategory && matchesLocation;
   });
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredEquipment.length / itemsPerPage);
+  const paginatedEquipment = filteredEquipment.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Reset to first page when filters/search/itemsPerPage change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter, categoryFilter, locationFilter, itemsPerPage]);
 
   // Get unique categories and locations for filter options
   const categories = [...new Set(equipment.map(item => item.category))].filter(Boolean);
@@ -708,7 +724,7 @@ export default function EquipmentList() {
             </div>
 
             {/* AI Insights and Recommendations */}
-            <div className="grid grid-cols-1 smallLaptop:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 smallLaptop:grid-cols-2 gap-8 mb-8">
               {/* Insights */}
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
                 <h4 className="text-lg font-semibold text-blue-900 mb-4 flex items-center gap-2">
@@ -747,11 +763,11 @@ export default function EquipmentList() {
         {/* Row 1: Equipment Information, Equipment Logs, Maintenance History */}
         <div className="grid grid-cols-1 smallLaptop:grid-cols-3 gap-8 mb-8">
           {/* Equipment Information Card */}
-          <div className="bg-white p-4 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 relative">
             <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <QrCode className="text-blue-600" size={20} />
               Equipment Information
             </h3>
+
             <div className="space-y-3">
               {/* Compact Info with Icons */}
               <div className="space-y-2 text-sm">
@@ -775,9 +791,8 @@ export default function EquipmentList() {
                 </div>
               </div>
 
-              {/* Status */}
               <div className="flex items-center justify-center p-2">
-                {getStatusBadge(selectedEquipment.status)}
+                <QrCode className="text-blue-600" size={65} />
               </div>
 
               {/* Install Date */}
@@ -788,6 +803,8 @@ export default function EquipmentList() {
                 </span>
               </div>
             </div>
+
+            <div className="absolute top-4 right-4">{getStatusBadge(selectedEquipment.status)}</div>
           </div>
 
           {/* Equipment Logs Card */}
@@ -834,21 +851,19 @@ export default function EquipmentList() {
               Maintenance History
             </h3>
             {maintenanceHistory.length > 0 ? (
-              <div className="relative max-h-64 overflow-y-auto">
+              <div className="relative max-h-[266px] overflow-y-auto">
                 {/* Timeline Line */}
-                <div className="absolute left-16 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                <div className="absolute left-[71px] top-0 bottom-0 w-0.5 bg-gray-200"></div>
 
                 <div className="space-y-6">
-                  {maintenanceHistory.map((record) => (
-                    <div key={record.id} className="flex items-start gap-4">
-                      {/* Date */}
-                      <div className="text-center min-w-[60px]">
-                        <div className="text-sm font-bold text-gray-900">
-                          {new Date(record.scheduledDate).getDate()}
-                        </div>
-                        <div className="text-xs text-gray-500">
+                  {maintenanceHistory.map((record, index) => (
+                    <div key={record.id || index} className="relative flex items-start">
+                      {/* Timeline Date */}
+                      <div className="w-14 text-right pr-2 flex-shrink-0">
+                        <div className="text-xs font-semibold text-gray-900">
                           {new Date(record.scheduledDate).toLocaleDateString('en-US', {
                             month: 'short',
+                            day: 'numeric',
                           })}
                         </div>
                         <div className="text-xs text-gray-500">
@@ -876,15 +891,14 @@ export default function EquipmentList() {
                       </div>
 
                       {/* Content */}
-                      <div className="ml-3 flex-1 pb-4">
+                      <div className="ml-2 mr-1 flex-1 pb-4">
                         <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                          <h4 className="font-semibold text-gray-900 text-sm mb-1">
-                            {record.type}
-                          </h4>
-                          <p className="text-xs text-gray-600 mb-2">{record.description}</p>
-                          <div className="flex items-center gap-2 mb-2">
+                          <div className="flex justify-between items-start mb-1">
+                            <h4 className="font-medium text-gray-900 text-xs leading-tight">
+                              {record.description}
+                            </h4>
                             <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              className={`px-1.5 py-0.5 rounded-full text-xs font-medium ml-2 flex-shrink-0 ${
                                 record.status === 'completed'
                                   ? 'bg-green-100 text-green-800'
                                   : record.status === 'in-progress'
@@ -893,7 +907,7 @@ export default function EquipmentList() {
                               }`}
                             >
                               {record.status === 'completed'
-                                ? 'Completed'
+                                ? 'Done'
                                 : record.status === 'in-progress'
                                   ? 'Active'
                                   : 'Planned'}
@@ -1189,12 +1203,12 @@ export default function EquipmentList() {
             <div className="space-y-6">
               {/* Temperature Chart */}
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Temperature Timeline</h4>
-                <div className="h-32 bg-gray-50 rounded-lg p-4 border">
+                {/* <h4 className="text-sm font-semibold text-gray-700 mb-3">Temperature Timeline</h4> */}
+                <div className="h-32 p-4">
                   <svg width="100%" height="100%" viewBox="0 0 300 80">
                     {/* Grid lines */}
                     <defs>
-                      <pattern id="grid" width="30" height="20" patternUnits="userSpaceOnUse">
+                      <pattern id="grid" width="40" height="20" patternUnits="userSpaceOnUse">
                         <path
                           d="M 30 0 L 0 0 0 20"
                           fill="none"
@@ -1206,13 +1220,13 @@ export default function EquipmentList() {
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
                     {/* Y-axis labels */}
-                    <text x="5" y="15" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="15" fontSize="10" fill="#6b7280">
                       70°C
                     </text>
-                    <text x="5" y="45" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="45" fontSize="10" fill="#6b7280">
                       55°C
                     </text>
-                    <text x="5" y="75" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="75" fontSize="10" fill="#6b7280">
                       40°C
                     </text>
 
@@ -1250,24 +1264,25 @@ export default function EquipmentList() {
                     })}
                   </svg>
                 </div>
+                <p className="text-xs text-gray-700 text-center">Temperature Timeline</p>
               </div>
 
               {/* Vibration Chart */}
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Vibration Timeline</h4>
-                <div className="h-32 bg-gray-50 rounded-lg p-4 border">
+                {/* <h4 className="text-sm font-semibold text-gray-700 mb-3">Vibration Timeline</h4> */}
+                <div className="h-32 p-4">
                   <svg width="100%" height="100%" viewBox="0 0 300 80">
                     {/* Grid lines */}
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
                     {/* Y-axis labels */}
-                    <text x="5" y="15" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="15" fontSize="10" fill="#6b7280">
                       2.0
                     </text>
-                    <text x="5" y="45" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="45" fontSize="10" fill="#6b7280">
                       1.25
                     </text>
-                    <text x="5" y="75" fontSize="10" fill="#6b7280">
+                    <text x="-15" y="75" fontSize="10" fill="#6b7280">
                       0.5
                     </text>
 
@@ -1305,6 +1320,7 @@ export default function EquipmentList() {
                     })}
                   </svg>
                 </div>
+                <p className="text-xs text-gray-700 text-center">Vibration Timeline</p>
               </div>
             </div>
           </div>
@@ -1718,7 +1734,7 @@ export default function EquipmentList() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
-              {filteredEquipment.map(item => {
+              {paginatedEquipment.map(item => {
                 const currentOEE = getCurrentOEE(item.id);
                 return (
                   <tr key={item.id} className="hover:bg-gray-50 transition-colors duration-200">
@@ -1869,6 +1885,98 @@ export default function EquipmentList() {
             </tbody>
           </table>
         </div>
+        {/* Pagination Controls and Rows Per Page Selector */}
+        {(totalPages > 1 || filteredEquipment.length > 0) && (
+          <div className="flex flex-col smallLaptop:flex-row justify-center smallLaptop:justify-between items-center gap-4 px-6 py-6">
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-1 flex-wrap">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                    currentPage === 1
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                  }`}
+                >
+                  Prev
+                </button>
+                {/* Smart pagination: show first, last, current, neighbors, ellipsis */}
+                {(() => {
+                  const pages = [];
+                  const pageWindow = 2; // how many neighbors to show
+                  for (let i = 1; i <= totalPages; i++) {
+                    if (
+                      i === 1 ||
+                      i === totalPages ||
+                      (i >= currentPage - pageWindow && i <= currentPage + pageWindow)
+                    ) {
+                      pages.push(i);
+                    } else if (
+                      (i === 2 && currentPage - pageWindow > 2) ||
+                      (i === totalPages - 1 && currentPage + pageWindow < totalPages - 1)
+                    ) {
+                      pages.push('ellipsis-' + i);
+                    }
+                  }
+                  let lastWasEllipsis = false;
+                  return pages.map(page => {
+                    if (typeof page === 'string' && page.startsWith('ellipsis')) {
+                      if (lastWasEllipsis) return null;
+                      lastWasEllipsis = true;
+                      return (
+                        <span key={page} className="px-2 text-gray-400 select-none">
+                          ...
+                        </span>
+                      );
+                    } else {
+                      lastWasEllipsis = false;
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page as number)}
+                          className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                            currentPage === page
+                              ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                              : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+                  });
+                })()}
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 rounded-lg border text-sm font-medium transition-colors duration-200 ${
+                    currentPage === totalPages
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                      : 'bg-white text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-800'
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+            {/* Rows per page selector */}
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-gray-600 font-medium">Rows per page:</label>
+              <select
+                value={itemsPerPage}
+                onChange={e => setItemsPerPage(Number(e.target.value))}
+                className="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white"
+              >
+                {[10, 15, 20, 25, 50].map(num => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Equipment Form Modal */}
@@ -2207,7 +2315,7 @@ export default function EquipmentList() {
                     </div>
 
                     {/* 7-Day Trend Chart */}
-                    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 mb-8">
                       <h4 className="text-xl font-semibold text-gray-900 mb-6">7-Day OEE Trend</h4>
                       <div className="h-64 flex items-end justify-between gap-4">
                         {currentOEE.weeklyTrend.map((day, index) => {
@@ -2308,8 +2416,10 @@ export default function EquipmentList() {
                   <h3 className="text-xl font-semibold text-gray-900 mb-6">
                     Equipment Information
                   </h3>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
+
+                  <div className="grid grid-cols-2 gap-8">
+                    {/* LEFT SIDE */}
+                    <div className="space-y-4 pr-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-500 mb-1">
                           Model
@@ -2318,38 +2428,51 @@ export default function EquipmentList() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-500 mb-1">
+                          Category
+                        </label>
+                        <p className="text-gray-900">{viewingDetail.category}</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
+                          Location
+                        </label>
+                        <p className="text-gray-900">{viewingDetail.location}</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
+                          Install Date
+                        </label>
+                        <p className="text-gray-900">
+                          {new Date(viewingDetail.installDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
+                          Status
+                        </label>
+                        <span
+                          className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusBadge(
+                            viewingDetail.status
+                          )}`}
+                        >
+                          {viewingDetail.status.toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* RIGHT SIDE */}
+                    <div className="flex flex-col justify-start space-y-4">
+                      <div className="w-full">
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
                           Serial Number
                         </label>
                         <p className="text-gray-900 font-mono">{viewingDetail.serialNumber}</p>
                       </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 mb-1">
-                        Category
-                      </label>
-                      <p className="text-gray-900">{viewingDetail.category}</p>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 mb-1">
-                        Location
-                      </label>
-                      <p className="text-gray-900">{viewingDetail.location}</p>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 mb-1">
-                        Install Date
-                      </label>
-                      <p className="text-gray-900">
-                        {new Date(viewingDetail.installDate).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 mb-1">Status</label>
-                      <span
-                        className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusBadge(viewingDetail.status)}`}
-                      >
-                        {viewingDetail.status.toUpperCase()}
-                      </span>
+
+                      {/* QR Code Box */}
+                      <div className="rounded-md w-40 h-40 flex bg-white">
+                        <QrCode size={130} />
+                      </div>
                     </div>
                   </div>
                 </div>
