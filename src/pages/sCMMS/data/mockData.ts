@@ -4,6 +4,16 @@ import { BlockchainTransaction, IoTDevice, OTAUpdate } from '../types';
 export const mockEquipment: Equipment[] = [
   ...Array.from({ length: 150 }, (_, i) => {
     const statusArr = ['operational', 'maintenance', 'broken', 'offline'] as const;
+    // Random OEE values
+    const overall = +(Math.random() * 60 + 30).toFixed(1); // 30-90
+    const availability = +(Math.random() * 30 + 60).toFixed(1); // 60-90
+    const performance = +(Math.random() * 30 + 60).toFixed(1); // 60-90
+    const quality = +(Math.random() * 20 + 80).toFixed(1); // 80-100
+    const trend = +(Math.random() * 30 - 15).toFixed(1); // -15 to +15
+    const weeklyTrend = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => ({
+      day,
+      value: +(Math.random() * 60 + 30).toFixed(1),
+    }));
     return {
       id: (i + 1).toString(),
       name: `Equipment ${i + 1}`,
@@ -17,6 +27,27 @@ export const mockEquipment: Equipment[] = [
       nextMaintenance: '2024-12-01',
       maintenanceInterval: 30,
       description: `Description for Equipment ${i + 1}`,
+      oee: {
+        overall,
+        availability,
+        performance,
+        quality,
+        trend,
+        lastUpdated: '2024-11-12T14:30:00Z',
+        weeklyTrend,
+        insights: [
+          'Critical failure has severely impacted OEE',
+          'Robot arm malfunction causing extended downtime',
+          'Quality was good before breakdown occurred',
+          'Urgent repair required to restore operations',
+        ],
+        recommendations: [
+          'Emergency repair of robot arm mechanism',
+          'Replace worn servo motors immediately',
+          'Implement backup welding station',
+          'Review preventive maintenance intervals',
+        ],
+      },
       imageUrl: [
         'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
         'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
