@@ -30,7 +30,7 @@ const DonutChart = ({ data, title, centerText = 'blue' }: any) => {
   const total = data.reduce((acc: number, item: any) => acc + item.value, 0);
 
   return (
-    <div className="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300">
+    <div className="bg-white/90 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300 min-h-full">
       <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">{title}</h3>
       <div className="flex items-center justify-center mb-6">
         <div className="relative w-48 h-48">
@@ -70,7 +70,7 @@ const DonutChart = ({ data, title, centerText = 'blue' }: any) => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-1">
         {data.map((item: any, index: number) => {
           const colors = [
             'bg-blue-500',
@@ -85,10 +85,10 @@ const DonutChart = ({ data, title, centerText = 'blue' }: any) => {
           return (
             <div
               key={index}
-              className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
+              className="flex items-center justify-between p-1 bg-gray-50 rounded-xl"
             >
-              <div className="flex items-center gap-3">
-                <div className={`w-4 h-4 rounded-full ${bgColor}`}></div>
+              <div className="flex items-center gap-1">
+                <div className={`w-2 h-2 rounded-full ${bgColor}`}></div>
                 <span className="text-sm font-medium text-gray-700">{item.label}</span>
               </div>
               <div className="text-right">
@@ -666,8 +666,10 @@ export default function Reports() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1  className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
-            style={{ marginBottom: 0, paddingBottom: 2 }}>
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             Advanced Reports & Analytics
           </h1>
           <p className="text-slate-600 mt-2 text-xl font-medium">
@@ -900,7 +902,7 @@ export default function Reports() {
 
       {/* Donut Charts Section */}
       {(chartType === 'all' || chartType === 'donut') && (
-        <div className="grid grid-cols-1 smallLaptop:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 smallLaptop:grid-cols-3 gap-4 items-stretch">
           {/* Equipment Status Donut */}
           {(reportType === 'all' || reportType === 'equipment') &&
             selectedMetrics.includes('equipment') && (
