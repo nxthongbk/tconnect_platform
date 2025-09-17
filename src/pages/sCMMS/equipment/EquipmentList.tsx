@@ -658,13 +658,14 @@ export default function EquipmentList() {
                 </h4>
                 <div className="h-48 flex items-end justify-between gap-2">
                   {selectedEquipment.oee.weeklyTrend.map((day, index) => {
-                    const height = (day.value / 100) * 100;
+                    // Height is proportional to value, max 200px
+                    const heightPx = Math.max(10, Math.min(day.value * 1, 200));
                     return (
                       <div key={index} className="flex-1 flex flex-col items-center">
                         <div className="text-sm font-bold text-gray-900 mb-2">{day.value}%</div>
                         <div
                           className="w-full bg-gradient-to-t from-orange-500 to-orange-400 rounded-t-lg transition-all duration-1000 ease-out hover:shadow-lg transform hover:scale-105"
-                          style={{ height: `${height}%`, minHeight: '20px' }}
+                          style={{ height: `${heightPx}px` }}
                         ></div>
                         <div className="text-xs text-gray-600 mt-2 font-medium">{day.day}</div>
                       </div>
@@ -1556,7 +1557,10 @@ export default function EquipmentList() {
     <div className="p-10 space-y-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent">
+          <h1
+            className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight"
+            style={{ marginBottom: 0, paddingBottom: 2 }}
+          >
             Equipment Management
           </h1>
           <p className="text-slate-600 mt-2 text-xl font-medium">
@@ -2182,7 +2186,7 @@ export default function EquipmentList() {
                     </div>
 
                     {/* Overall OEE Score */}
-                    <div className="grid grid-cols-1 smallLaptop:grid-cols-4 gap-8 mb-8">
+                    <div className="grid grid-cols-1 smallLaptop:grid-cols-4 gap-6 mb-8">
                       <div className="smallLaptop:col-span-1">
                         <div className="bg-white p-8 rounded-3xl shadow-xl border border-white/50 text-center">
                           <div className="relative w-32 h-32 mx-auto mb-4">
@@ -2217,7 +2221,7 @@ export default function EquipmentList() {
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                               <div
-                                className={`text-3xl font-bold ${getOEEColor(currentOEE.overall)}`}
+                                className={`text-2xl font-bold ${getOEEColor(currentOEE.overall)}`}
                               >
                                 {currentOEE.overall.toFixed(1)}%
                               </div>
@@ -2316,10 +2320,11 @@ export default function EquipmentList() {
 
                     {/* 7-Day Trend Chart */}
                     <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 mb-8">
-                      <h4 className="text-xl font-semibold text-gray-900 mb-6">7-Day OEE Trend</h4>
+                      <h4 className="text-xl font-semibold text-gray-900 mb-4">7-Day OEE Trend</h4>
                       <div className="h-64 flex items-end justify-between gap-4">
                         {currentOEE.weeklyTrend.map((day, index) => {
-                          const height = (day.value / 100) * 100;
+                          // Height is proportional to value, max 300px
+                          const heightPx = Math.max(10, Math.min(day.value * 2, 300));
                           const color =
                             day.value >= 85
                               ? 'bg-green-500'
@@ -2335,7 +2340,9 @@ export default function EquipmentList() {
                               </div>
                               <div
                                 className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${color} shadow-lg hover:shadow-xl transform hover:scale-105`}
-                                style={{ height: `${height}%`, minHeight: '20px' }}
+                                style={{
+                                  height: `${heightPx}px`,
+                                }}
                               ></div>
                               <div className="text-xs text-gray-600 mt-2 font-medium">
                                 {day.day}
@@ -2652,27 +2659,33 @@ export default function EquipmentList() {
 
                   {/* 7-Day OEE Trend */}
                   <div className="bg-gray-50 p-6 rounded-2xl">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-14 flex items-center gap-2">
                       <TrendingUp className="text-blue-600" size={20} />
                       7-Day OEE Trend
                     </h3>
                     <div className="h-48 flex items-end justify-between gap-2">
-                      {oeeData.dailyData.map((day, index) => (
-                        <div key={index} className="flex-1 flex flex-col items-center">
-                          <div className="text-sm font-bold text-gray-900 mb-2">{day.oee}%</div>
-                          <div
-                            className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${
-                              day.oee >= 85
-                                ? 'bg-gradient-to-t from-green-600 to-green-400'
-                                : day.oee >= 70
-                                  ? 'bg-gradient-to-t from-orange-600 to-orange-400'
-                                  : 'bg-gradient-to-t from-red-600 to-red-400'
-                            } shadow-lg hover:shadow-xl transform hover:scale-105`}
-                            style={{ height: `${(day.oee / 100) * 100}%`, minHeight: '20px' }}
-                          ></div>
-                          <div className="text-xs text-gray-600 mt-2 font-medium">{day.day}</div>
-                        </div>
-                      ))}
+                      {oeeData.dailyData.map((day, index) => {
+                        // Height is proportional to value, max 200px
+                        const heightPx = Math.max(10, Math.min(day.oee * 2, 200));
+                        return (
+                          <div key={index} className="flex-1 flex flex-col items-center">
+                            <div className="text-sm font-bold text-gray-900 mb-2">{day.oee}%</div>
+                            <div
+                              className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${
+                                day.oee >= 85
+                                  ? 'bg-gradient-to-t from-green-600 to-green-400'
+                                  : day.oee >= 70
+                                    ? 'bg-gradient-to-t from-orange-600 to-orange-400'
+                                    : 'bg-gradient-to-t from-red-600 to-red-400'
+                              } shadow-lg hover:shadow-xl transform hover:scale-105`}
+                              style={{
+                                height: `${heightPx}px`,
+                              }}
+                            ></div>
+                            <div className="text-xs text-gray-600 mt-2 font-medium">{day.day}</div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 

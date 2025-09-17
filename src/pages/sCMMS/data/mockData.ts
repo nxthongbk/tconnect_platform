@@ -71,12 +71,21 @@ export const mockMaintenance: MaintenanceRecord[] = [
       completedDate: i % 3 === 0 ? `2024-11-${(i % 28) + 1}` : undefined,
       technician: ['John Smith', 'Sarah Johnson', 'Mike Wilson'][i % 3],
       description: `Maintenance task ${i + 1}`,
-      partsUsed: [],
+      partsUsed: [
+        { itemId: 'P001', itemName: 'Hydraulic Oil', quantity: 5, unitPrice: 25 },
+        { itemId: 'P002', itemName: 'Gasket Seal', quantity: 2, unitPrice: 15 },
+      ],
       cost: 100 + i * 10,
       duration: 60 + i * 5,
       notes: `Notes for maintenance ${i + 1}`,
-      beforeImages: [],
-      afterImages: [],
+      beforeImages: [
+        'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
+        'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
+      ],
+      afterImages: [
+        'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400',
+        'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=400',
+      ],
     };
   }),
 ];

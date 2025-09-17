@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { mockEquipment, mockMaintenance, mockInventory } from '../data/mockData';
 import * as XLSX from 'xlsx';
+import { MaintenanceRecord } from '../types';
 
 // Enhanced Chart Components
 const DonutChart = ({ data, title, centerText = 'blue' }: any) => {
@@ -108,10 +109,11 @@ const ColumnChart = ({ data, title, color = 'blue' }: any) => {
 
   return (
     <div className="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300">
-      <h3 className="text-xl font-bold text-gray-900 mb-6">{title}</h3>
+      <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
       <div className="h-64 flex items-end justify-between gap-4 mb-4">
         {data.map((item: any, index: number) => {
-          const height = (item.value / maxValue) * 100;
+          // Height is proportional to value, max 240px
+          const heightPx = Math.max(20, Math.min((item.value / maxValue) * 100, 200));
           const colors = {
             blue: 'bg-gradient-to-t from-blue-600 to-blue-400',
             green: 'bg-gradient-to-t from-green-600 to-green-400',
@@ -126,7 +128,7 @@ const ColumnChart = ({ data, title, color = 'blue' }: any) => {
                 <div className="text-sm font-bold text-gray-900 mb-2">{item.value}</div>
                 <div
                   className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${colors[color as keyof typeof colors] || colors.blue} shadow-lg hover:shadow-xl transform hover:scale-105`}
-                  style={{ height: `${height}%`, minHeight: '20px' }}
+                  style={{ height: `${heightPx}px` }}
                 ></div>
               </div>
               <div className="text-xs text-gray-600 mt-2 text-center font-medium">{item.label}</div>
@@ -380,6 +382,8 @@ export default function Reports() {
     'performance',
   ]);
 
+  const [maintenance] = useState<MaintenanceRecord[]>(mockMaintenance);
+
   // Generate time-filtered data based on selected period
   const getFilteredData = useMemo(() => {
     const now = new Date();
@@ -442,8 +446,6 @@ export default function Reports() {
   };
 
   const generateMaintenanceReport = () => {
-    const { maintenance } = getFilteredData;
-
     return {
       totalMaintenance: maintenance.length,
       completedMaintenance: maintenance.filter(m => m.status === 'completed').length,
