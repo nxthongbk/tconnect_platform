@@ -72,8 +72,8 @@ export default function InputCustom(props: TProps) {
               }
               sx={{
                 [`& .${inputBaseClasses.root}`]: { border: 'none' },
-                // [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 1 },
-                // [`& .MuiInputBase-input::placeholder`]: { color: '#fff !important', opacity: 0.75 },
+                [`& .MuiInputBase-input`]: { color: '#fff !important', opacity: 1 },
+                [`& .MuiInputBase-input::placeholder`]: { color: '#fff !important', opacity: 0.75 },
               }}
               InputProps={
                 type === 'password'

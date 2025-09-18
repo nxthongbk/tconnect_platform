@@ -10,7 +10,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@mui/material';
-import { GearSix } from '@phosphor-icons/react';
+import { Network } from '@phosphor-icons/react';
 
 import '../../style.scss';
 
@@ -83,15 +83,15 @@ export default function LoginForm({ setResetMode }: IProps) {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl p-8 relative">
+    <div className="w-full max-w-md mx-auto bg-slate-800 rounded-2xl shadow-2xl p-8 relative">
       <div className="flex flex-col items-center mb-6">
-        <GearSix size={36} className="text-blue-700 mb-1" />
-        <h2 className="text-2xl font-bold text-gray-900 mb-1">Login to sCMMS</h2>
+        <Network size={36} className="w-8 h-8 text-teal-400" />
+        <h2 className="text-2xl font-bold text-gray-200 mb-1">Login to IoTPlatform</h2>
       </div>
       <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
         <InputCustom
           type="text"
-          classNameContainer="font-normal"
+          classNameContainer="font-normal text-gray-200"
           label={translation('Tên đăng nhập')}
           isRequired={true}
           control={control}
@@ -106,7 +106,7 @@ export default function LoginForm({ setResetMode }: IProps) {
         <InputCustom
           type="password"
           label={translation('Mật khẩu')}
-          classNameContainer="font-normal"
+          classNameContainer="font-normal text-gray-200"
           isRequired={true}
           control={control}
           name="password"
@@ -118,20 +118,20 @@ export default function LoginForm({ setResetMode }: IProps) {
           isSpacingHelperText={true}
         />
         <div className="flex items-center justify-between mb-2">
-          <label className="flex items-center text-gray-600 text-sm">
+          <label className="flex items-center text-gray-300 text-sm">
             <input type="checkbox" className="mr-2" />
             Remember me
           </label>
           <button
             type="button"
-            className="text-blue-700 text-sm hover:underline"
+            className="text-teal-500 text-sm hover:underline"
             onClick={() => setResetMode(true)}
           >
             {translation('Quên mật khẩu?')}
           </button>
         </div>
         <Button
-          className="login-btn"
+          className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white transition-all duration-300"
           type="submit"
           variant="contained"
           fullWidth
@@ -160,7 +160,7 @@ export default function LoginForm({ setResetMode }: IProps) {
       </form>
       <div className="text-center text-sm text-gray-500 mt-4">
         Don't have an account?{' '}
-        <a href="#" className="text-blue-700 hover:underline">
+        <a href="#" className="text-teal-500 hover:underline">
           Contact Sales
         </a>
       </div>

@@ -4,7 +4,6 @@ import NotFoundPage from '~/pages/common/404Page';
 import { useContext } from 'react';
 import LogInPage from '~/pages/common/LogInPage';
 import CMMSMain from '~/pages/CMMS';
-import SCMMSLandingPage from '~/pages/common/ScmmsLandingPage/Index';
 import Dashboard from '~/pages/sCMMS/dashboard/Dashboard';
 import EquipmentList from '~/pages/sCMMS/equipment/EquipmentList';
 import MaintenanceList from '~/pages/sCMMS/maintenance/MaintenanceList';
@@ -15,6 +14,7 @@ import UserManagement from '~/pages/sCMMS/users/UserManagement';
 import FactoryLayout from '~/pages/sCMMS/factory/FactoryLayout';
 import BlockchainDashboard from '~/pages/sCMMS/blockchain/BlockchainDashboard';
 import KnowledgeCenter from '~/pages/sCMMS/knowledge/KnowledgeCenter';
+import TConnectLandingPage from '~/pages/common/TConnectLandingPage/Index';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
@@ -38,7 +38,7 @@ const useRoutes = () => {
   const routesElement = createBrowserRouter([
     {
       path: '/',
-      element: <SCMMSLandingPage />,
+      element: <TConnectLandingPage />,
     },
     {
       path: '/login',
