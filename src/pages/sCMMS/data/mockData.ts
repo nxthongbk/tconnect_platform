@@ -14,46 +14,57 @@ export const mockEquipment: Equipment[] = [
       day,
       value: +(Math.random() * 60 + 30).toFixed(1),
     }));
-    return {
-      id: (i + 1).toString(),
-      name: `Equipment ${i + 1}`,
-      model: `Model-${1000 + i}`,
-      serialNumber: `SN${1000 + i}`,
-      category: ['Hydraulic Press', 'Conveyor', 'Welding Robot', 'CNC Machine'][i % 4],
-      location: `Zone ${1 + (i % 4)}`,
-      status: statusArr[i % statusArr.length],
-      installDate: `2022-0${(i % 9) + 1}-15`,
-      lastMaintenance: '2024-11-01',
-      nextMaintenance: '2024-12-01',
-      maintenanceInterval: 30,
-      description: `Description for Equipment ${i + 1}`,
-      oee: {
-        overall,
-        availability,
-        performance,
-        quality,
-        trend,
-        lastUpdated: '2024-11-12T14:30:00Z',
-        weeklyTrend,
-        insights: [
-          'Critical failure has severely impacted OEE',
-          'Robot arm malfunction causing extended downtime',
-          'Quality was good before breakdown occurred',
-          'Urgent repair required to restore operations',
-        ],
-        recommendations: [
-          'Emergency repair of robot arm mechanism',
-          'Replace worn servo motors immediately',
-          'Implement backup welding station',
-          'Review preventive maintenance intervals',
-        ],
-      },
-      imageUrl: [
-        'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
-        'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
-        'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400',
-      ][i % 3],
-    };
+		// Randomize some values for more realistic mock data
+		const installMonth = Math.floor(Math.random() * 12) + 1;
+		const installDay = Math.floor(Math.random() * 28) + 1;
+		const maintenanceInterval = Math.floor(Math.random() * 60) + 15; // 15-75 days
+		const lastMaintenanceDay = Math.floor(Math.random() * 28) + 1;
+		const nextMaintenanceDay = Math.floor(Math.random() * 28) + 1;
+		const status = statusArr[Math.floor(Math.random() * statusArr.length)];
+		const categoryArr = ['Hydraulic Press', 'Conveyor', 'Welding Robot', 'CNC Machine'] as const;
+		const category = categoryArr[Math.floor(Math.random() * categoryArr.length)];
+		const locationZone = Math.floor(Math.random() * 4) + 1;
+		const imageUrls = [
+			'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=400',
+			'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
+			'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=400',
+		];
+		return {
+			id: (i + 1).toString(),
+			name: `Equipment ${i + 1}`,
+			model: `Model-${1000 + i}`,
+			serialNumber: `SN${1000 + i}`,
+			category,
+			location: `Zone ${locationZone}`,
+			status,
+			installDate: `2022-${installMonth.toString().padStart(2, '0')}-${installDay.toString().padStart(2, '0')}`,
+			lastMaintenance: `2024-11-${lastMaintenanceDay.toString().padStart(2, '0')}`,
+			nextMaintenance: `2025-12-${nextMaintenanceDay.toString().padStart(2, '0')}`,
+			maintenanceInterval,
+			description: `Description for Equipment ${i + 1}`,
+			oee: {
+			overall,
+			availability,
+			performance,
+			quality,
+			trend,
+			lastUpdated: '2024-11-12T14:30:00Z',
+			weeklyTrend,
+			insights: [
+				'Critical failure has severely impacted OEE',
+				'Robot arm malfunction causing extended downtime',
+				'Quality was good before breakdown occurred',
+				'Urgent repair required to restore operations',
+			],
+			recommendations: [
+				'Emergency repair of robot arm mechanism',
+				'Replace worn servo motors immediately',
+				'Implement backup welding station',
+				'Review preventive maintenance intervals',
+			],
+			},
+			imageUrl: imageUrls[Math.floor(Math.random() * imageUrls.length)],
+		};
   }),
 ];
 
