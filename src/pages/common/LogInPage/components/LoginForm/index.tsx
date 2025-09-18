@@ -83,7 +83,7 @@ export default function LoginForm({ setResetMode }: IProps) {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-slate-800 rounded-2xl shadow-2xl p-8 relative">
+    <div className="w-full max-w-md mx-auto bg-slate-800 rounded-2xl shadow-2xl p-10 relative">
       <div className="flex flex-col items-center mb-6">
         <Network size={36} className="w-8 h-8 text-teal-400" />
         <h2 className="text-2xl font-bold text-gray-200 mb-1">Login to IoTPlatform</h2>

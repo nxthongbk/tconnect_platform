@@ -1,1 +1,1 @@
-# sCMMS Factory Equipment Maintenance & Inventory Management System
+# TConnect Platform
