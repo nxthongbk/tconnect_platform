@@ -8,13 +8,13 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    allowedHosts: ['scmms.innovation.com.vn'],
+    allowedHosts: ['t-connect.innovation.com.vn'],
     //allowedHosts: ['*'],
   },
   preview: {
     host: true,
     port: 3000,
-    allowedHosts: ['scmms.innovation.com.vn'],
+    allowedHosts: ['t-connect.innovation.com.vn'],
     //allowedHosts: ['*'],
   },
   css: {

@@ -28,7 +28,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: nxthongbk/onesm:latest
+          tags: nxthongbk/t-connect:latest
 
   # Deploy:
   #   if: |
