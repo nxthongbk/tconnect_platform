@@ -140,28 +140,28 @@ export const translations: Record<'en' | 'vi', Translation> = {
       subtitle: "Everything you need to build, deploy, and manage IoT solutions at scale",
       items: {
         realtime: {
-          title: "Real-time Monitoring",
+          title: "Device Management",
           description: "Monitor all your IoT devices in real-time with instant alerts and notifications."
         },
         security: {
-          title: "Enterprise Security",
-          description: "Bank-level security with end-to-end encryption and advanced threat protection."
+          title: "Data Collection & Storage",
+          description: "Collect real-time data from thousands of devices. Support multiple protocols: MQTT, HTTP, CoAP, OPC-UA, etc.."
         },
         analytics: {
-          title: "Advanced Analytics",
-          description: "Powerful analytics and machine learning insights to optimize your operations."
+          title: "Security & Authentication",
+          description: "Device authentication (tokens, certificates, keys), Data encryption in transit and at rest (TLS/SSL), Role-based access control (RBAC) for users and devicess."
         },
         connectivity: {
-          title: "Global Connectivity",
-          description: "Connect devices worldwide with our global network infrastructure."
+          title: "Data Processing & Analytics",
+          description: "Real-time data stream processing, Rule engine to define logic."
         },
         mobile: {
-          title: "Mobile Management",
-          description: "Manage your entire IoT ecosystem from anywhere with our mobile apps."
+          title: "Dashboard & Visualization",
+          description: "Real-time dashboards for sensor data monitoring, Charts, maps, and alerts for visualization"
         },
         cloud: {
-          title: "Cloud Integration",
-          description: "Seamlessly integrate with major cloud platforms and existing systems."
+          title: "Integration & API",
+          description: "Provide REST API, MQTT API, and Webhooks for external integration, Connect with ERP, SCADA..."
         }
       }
     },
@@ -268,28 +268,28 @@ export const translations: Record<'en' | 'vi', Translation> = {
       subtitle: "Mọi thứ bạn cần để xây dựng, triển khai và quản lý các giải pháp IoT quy mô lớn",
       items: {
         realtime: {
-          title: "Giám sát thời gian thực",
+          title: "Quản lý thiết bị",
           description: "Giám sát tất cả thiết bị IoT của bạn theo thời gian thực với cảnh báo và thông báo tức thì."
         },
         security: {
-          title: "Bảo mật doanh nghiệp",
-          description: "Bảo mật cấp ngân hàng với mã hóa đầu cuối và bảo vệ chống lại các mối đe dọa tiên tiến."
+          title: "Thu thập và lưu trữ dữ liệu",
+          description: "Thu thập dữ liệu thời gian thực từ hàng ngàn thiết bị, Hỗ trợ nhiều giao thức như MQTT, HTTP, CoAP, OPC-UA..."
         },
         analytics: {
-          title: "Phân tích nâng cao",
-          description: "Phân tích mạnh mẽ và thông tin chi tiết từ machine learning để tối ưu hóa hoạt động của bạn."
+          title: "Bảo mật và xác thực",
+          description: "Xác thực thiết bị (token, certificate, key).Mã hóa dữ liệu khi truyền và lưu trữ (TLS/SSL).."
         },
         connectivity: {
-          title: "Kết nối toàn cầu",
-          description: "Kết nối thiết bị trên toàn thế giới với cơ sở hạ tầng mạng toàn cầu của chúng tôi."
+          title: "Xử lý và phân tích dữ liệu",
+          description: "Luồng xử lý dữ liệu real-time (stream processing). Rule engine cho phép tạo logic"
         },
         mobile: {
-          title: "Quản lý di động",
-          description: "Quản lý toàn bộ hệ sinh thái IoT của bạn từ bất kỳ đâu với ứng dụng di động của chúng tôi."
+          title: "Trực quan hóa dữ liệu",
+          description: "Dashboard hiển thị dữ liệu cảm biến theo thời gian thực.Biểu đồ, bản đồ, cảnh báo trực quan."
         },
         cloud: {
-          title: "Tích hợp đám mây",
-          description: "Tích hợp liền mạch với các nền tảng đám mây chính và hệ thống hiện có."
+          title: "Tích hợp và mở rộng",
+          description: "Cung cấp REST API, MQTT API, Webhook để tích hợp với hệ thống khác, Kết nối với ERP, SCADA..."
         }
       }
     },
@@ -363,7 +363,7 @@ export const translations: Record<'en' | 'vi', Translation> = {
         title: "Hỗ trợ",
         items: ["Trung tâm trợ giúp", "Trạng thái", "Bảo mật", "Quyền riêng tư"]
       },
-      copyright: "© 2025 IoTPlatform. Tất cả quyền được bảo lưu."
+      copyright: "© 2025 T-Connect. Tất cả quyền được bảo lưu."
     }
   }
 };
