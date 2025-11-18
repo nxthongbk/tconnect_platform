@@ -27,7 +27,7 @@ export type DeviceItems = {
 // Define default location
 const DEFAULT_LOCATION = {
   lat: 10.853397686226927,
-  lng: 106.62823723344383,
+  lng: 106.62823723344383
 };
 
 const iconMap = {
@@ -37,7 +37,7 @@ const iconMap = {
     Maintenance: cctvIconWarning,
     Offline: cctvIconError,
     Alarm: cctvIconError,
-    Default: cctvIconActive,
+    Default: cctvIconActive
   },
   streetlight: {
     Active: lampIconActive,
@@ -45,7 +45,7 @@ const iconMap = {
     Maintenance: lampIconWarning,
     Offline: lampIconError,
     Alarm: lampIconError,
-    Default: lampIconActive,
+    Default: lampIconActive
   },
   firealarm: {
     Active: cctvIconActive,
@@ -53,8 +53,8 @@ const iconMap = {
     Maintenance: cctvIconWarning,
     Offline: cctvIconError,
     Alarm: cctvIconError,
-    Default: cctvIconActive,
-  },
+    Default: cctvIconActive
+  }
 };
 
 export const getDeviceIcon = (type: string, status: string) => {
@@ -101,7 +101,7 @@ function getCachedIcon(type: string, status: string) {
   if (!iconCache[key]) {
     iconCache[key] = new L.Icon({
       iconUrl: getDeviceIcon(type, status),
-      iconSize: [65, 95],
+      iconSize: [65, 95]
     });
   }
   return iconCache[key];
@@ -119,7 +119,7 @@ function getAnimatedErrorIcon(type: string) {
         </div>
       `,
       iconSize: [65, 110],
-      iconAnchor: [32, 104],
+      iconAnchor: [32, 104]
     });
   }
   return animatedErrorIconCache[type];
@@ -132,7 +132,7 @@ export default function DeviceMapContainer({
   listOfDevices = [],
   setListOfDevices,
   openMarkerId,
-  setOpenMarkerId,
+  setOpenMarkerId
 }: CustomMapProps) {
   const [center] = useState(initialCenter || DEFAULT_LOCATION);
   const [map, setMap] = useState<any>(null);
@@ -148,17 +148,15 @@ export default function DeviceMapContainer({
     const lon = cleanedSocketData.longitude;
     if (!lat || !lon || lat === 'null' || lon === 'null') return;
 
-    setListOfDevices(prev => {
-      const index = prev.findIndex(item => item.id === cleanedSocketData.deviceId);
+    setListOfDevices((prev) => {
+      const index = prev.findIndex((item) => item.id === cleanedSocketData.deviceId);
       if (index === -1) return prev;
 
       const oldItem = prev[index];
       const oldLat = oldItem.latitude;
       const oldLon = oldItem.longitude;
 
-      const hasMoved =
-        parseFloat(oldLat as any) !== parseFloat(lat) ||
-        parseFloat(oldLon as any) !== parseFloat(lon);
+      const hasMoved = parseFloat(oldLat as any) !== parseFloat(lat) || parseFloat(oldLon as any) !== parseFloat(lon);
 
       if (!hasMoved) return prev;
 
@@ -190,7 +188,7 @@ export default function DeviceMapContainer({
 
   useEffect(() => {
     if (map && listOfDevices.length && !hasAutoCentered) {
-      const bounds = L.latLngBounds(listOfDevices.map(item => [item.lat ?? 0, item.lng ?? 0]));
+      const bounds = L.latLngBounds(listOfDevices.map((item) => [item.lat ?? 0, item.lng ?? 0]));
       map.fitBounds(bounds, { padding: [50, 50] });
       setHasAutoCentered(true);
     }
@@ -201,7 +199,6 @@ export default function DeviceMapContainer({
       const marker = markerRefs.current[openMarkerId];
       // Only fly if the popup is not already open (prevents repeated flyTo)
       if (!marker.isPopupOpen()) {
-        // @ts-ignore
         map.flyTo(marker.getLatLng(), 17, { duration: 1.2 });
         marker.openPopup();
       }
@@ -218,7 +215,7 @@ export default function DeviceMapContainer({
       maxZoom={18}
     >
       {/* <TileLayer url="http://192.168.12.10:8089/tile/{z}/{x}/{y}.png" /> */}
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
       {/* <TileLayer url="http://14.161.14.155:8081/tile/{z}/{x}/{y}.png" /> */}
       {/* <MapEventHandler onMoveEnd={handleMoveEnd} /> */}
@@ -241,24 +238,21 @@ export default function DeviceMapContainer({
       {listOfDevices?.map((item, index) => {
         if (!item.lat || !item.lng) return null;
         const isError = item.status === 'Error';
-        const markerIcon = isError
-          ? getAnimatedErrorIcon(item.type)
-          : getCachedIcon(item.type, item.status);
+        const markerIcon = isError ? getAnimatedErrorIcon(item.type) : getCachedIcon(item.type, item.status);
 
         return (
           <Marker
             key={item?.id || index}
             position={[item.lat, item.lng]}
             icon={markerIcon}
-            ref={ref => {
+            ref={(ref) => {
               if (ref && item.id) {
                 markerRefs.current[item.id] = ref;
               }
             }}
             eventHandlers={{
-              click: () =>
-                setOpenMarkerId && setOpenMarkerId(openMarkerId === item.id ? null : item.id),
-              popupclose: () => setOpenMarkerId && setOpenMarkerId(null),
+              click: () => setOpenMarkerId && setOpenMarkerId(openMarkerId === item.id ? null : item.id),
+              popupclose: () => setOpenMarkerId && setOpenMarkerId(null)
             }}
           >
             <Popup>

@@ -34,6 +34,9 @@ export default interface IControlCenterReducer {
   fakeData: any[];
   setFakeData: React.Dispatch<React.SetStateAction<any | null>>;
 
+  listOfDevices: any[];
+  setListOfDevices: React.Dispatch<React.SetStateAction<any[]>>;
+
   //Fake them lich su canh bao chay
   fakeHistory: any[];
   setFakeHistory: any;

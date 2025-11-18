@@ -4,7 +4,7 @@
   "version": "v1.0.0228",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite",
     "build": "node updateVersion.cjs && tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --port 3000",
@@ -34,6 +34,7 @@
     "i18next-http-backend": "^2.5.2",
     "js-cookie": "^3.0.5",
     "konva": "^9.3.14",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.554.0",
     "mapbox-gl": "^3.3.0",
@@ -49,6 +50,7 @@
     "react-i18next": "^14.1.2",
     "react-json-editor-ajrm": "^2.5.14",
     "react-konva": "^18.2.10",
+    "react-leaflet": "^4.2.1",
     "react-map-gl": "^7.1.7",
     "react-multi-carousel": "^2.8.5",
     "react-responsive-carousel": "^3.2.23",
@@ -63,6 +65,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.21",
     "@types/lodash": "^4.17.4",
     "@types/mapbox__mapbox-gl-geocoder": "^5.0.0",
     "@types/node": "^20.12.12",

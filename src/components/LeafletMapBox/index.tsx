@@ -8,7 +8,7 @@ import type { LatLngTuple } from 'leaflet';
 // Define default location
 const DEFAULT_LOCATION = {
   lat: 10.853397686226927,
-  lng: 106.62823723344383,
+  lng: 106.62823723344383
 };
 
 function convertNMEAToDecimal(coord: string): number {
@@ -29,10 +29,10 @@ interface CustomMapProps {
 
 function MapEventHandler({ onMoveEnd }: { onMoveEnd: (center: any) => void }) {
   useMapEvents({
-    moveend: e => {
+    moveend: (e) => {
       const center = e.target.getCenter();
       onMoveEnd(center);
-    },
+    }
   });
   return null;
 }
@@ -41,7 +41,7 @@ function MapInstanceSetter({ setMap }: { setMap: (map: any) => void }) {
   const map = useMap();
   useEffect(() => {
     setMap(map);
-  }, [map]);
+  }, [map, setMap]);
   return null;
 }
 
@@ -58,8 +58,7 @@ function extractValuesOnly(data: Record<string, any>) {
 }
 
 export default function CustomMap({ initialCenter, mapRef, socketData }: CustomMapProps) {
-  const { listOfDevices, setListOfDevices, openMarkerPopup, setOpenMarkerPopup } =
-    useContext(AppContext);
+  const { listOfDevices, setListOfDevices, openMarkerPopup, setOpenMarkerPopup } = useContext(AppContext);
   const [center, setCenter] = useState(initialCenter || DEFAULT_LOCATION);
   const [map, setMap] = useState<any>(null);
 
@@ -74,16 +73,15 @@ export default function CustomMap({ initialCenter, mapRef, socketData }: CustomM
     const lon = cleanedSocketData.longitude;
     if (!lat || !lon || lat === 'null' || lon === 'null') return;
 
-    setListOfDevices(prev => {
-      const index = prev.findIndex(item => item.id === cleanedSocketData.deviceId);
+    setListOfDevices((prev: any[]) => {
+      const index = prev.findIndex((item) => item.id === cleanedSocketData.deviceId);
       if (index === -1) return prev;
 
       const oldItem = prev[index];
       const oldLat = oldItem.latitude;
       const oldLon = oldItem.longitude;
 
-      const hasMoved =
-        parseFloat(oldLat) !== parseFloat(lat) || parseFloat(oldLon) !== parseFloat(lon);
+      const hasMoved = parseFloat(oldLat) !== parseFloat(lat) || parseFloat(oldLon) !== parseFloat(lon);
 
       if (!hasMoved) return prev;
 
@@ -91,20 +89,15 @@ export default function CustomMap({ initialCenter, mapRef, socketData }: CustomM
       updated[index] = { ...oldItem, ...cleanedSocketData };
       return updated;
     });
-  }, [socketData]);
+  }, [socketData, setListOfDevices]);
 
-  const handleMoveEnd = newCenter => {
+  const handleMoveEnd = (newCenter) => {
     if (center.lat !== newCenter.lat || center.lng !== newCenter.lng) {
       setCenter(newCenter);
     }
   };
 
-  const getValidCoordinates = (
-    lonStr?: string,
-    latStr?: string,
-    northSouth?: string,
-    eastWest?: string
-  ) => {
+  const getValidCoordinates = (lonStr?: string, latStr?: string, northSouth?: string, eastWest?: string) => {
     let lng = DEFAULT_LOCATION.lng;
     let lat = DEFAULT_LOCATION.lat;
 
@@ -133,7 +126,7 @@ export default function CustomMap({ initialCenter, mapRef, socketData }: CustomM
   const coordinates: LatLngTuple[] = useMemo(() => {
     if (!socketData?.deviceId) return [];
 
-    const latestDevice = listOfDevices.find(item => item.id === socketData.deviceId);
+    const latestDevice = listOfDevices.find((item) => item.id === socketData.deviceId);
     const lonStr = latestDevice?.longitude;
     const latStr = latestDevice?.latitude;
 
@@ -154,7 +147,7 @@ export default function CustomMap({ initialCenter, mapRef, socketData }: CustomM
       const bounds = L.latLngBounds(coordinates);
       map.fitBounds(bounds, {
         paddingTopLeft: [20, 100],
-        paddingBottomRight: [20, 20],
+        paddingBottomRight: [20, 20]
       });
     }
   }, [coordinates, map]);
@@ -166,14 +159,9 @@ export default function CustomMap({ initialCenter, mapRef, socketData }: CustomM
   }, [openMarkerPopup, listOfDevices]);
 
   return (
-    <MapContainer
-      center={center}
-      zoom={13}
-      style={{ height: '100vh', width: '100%', zIndex: 1 }}
-      ref={mapRef as any}
-    >
+    <MapContainer center={center} zoom={13} style={{ height: '100vh', width: '100%', zIndex: 1 }} ref={mapRef as any}>
       {/* <TileLayer url="http://192.168.12.10:8089/tile/{z}/{x}/{y}.png" /> */}
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
       {/* <TileLayer url="http://14.161.14.155:8081/tile/{z}/{x}/{y}.png" /> */}
       <MapEventHandler onMoveEnd={handleMoveEnd} />
@@ -191,13 +179,13 @@ export default function CustomMap({ initialCenter, mapRef, socketData }: CustomM
           <Marker
             key={item?.id || index}
             position={[lat, lng]}
-            ref={ref => {
+            ref={(ref) => {
               if (ref && item.id) {
                 markerRefs.current[item.id] = ref;
               }
             }}
             eventHandlers={{
-              click: () => setOpenMarkerPopup(item),
+              click: () => setOpenMarkerPopup(item)
             }}
           >
             <Popup>
