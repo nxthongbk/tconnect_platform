@@ -13,14 +13,14 @@ interface StatusChartProps {
 }
 
 const StatusChart = ({ statusList }: StatusChartProps) => {
-  const series = statusList.map(s => s.value);
-  const labels = statusList.map(s => s.label);
-  const colors = statusList.map(s => s.color);
+  const series = statusList.map((s) => s.value);
+  const labels = statusList.map((s) => s.label);
+  const colors = statusList.map((s) => s.color);
 
   const options: ApexOptions = {
     chart: {
       type: 'donut',
-      background: 'transparent',
+      background: 'transparent'
     },
     labels,
     colors,
@@ -29,14 +29,14 @@ const StatusChart = ({ statusList }: StatusChartProps) => {
     plotOptions: {
       pie: {
         donut: {
-          size: '75%',
-        },
-      },
+          size: '75%'
+        }
+      }
     },
     stroke: {
-      show: false,
+      show: false
     },
-    tooltip: { enabled: true },
+    tooltip: { enabled: true }
   };
 
   return (
@@ -50,18 +50,15 @@ const StatusChart = ({ statusList }: StatusChartProps) => {
         backgroundSize: '100% 100%',
         backgroundPosition: 'center',
         position: 'relative',
-        zIndex: 3,
+        zIndex: 3
       }}
     >
       <div style={{ position: 'relative', zIndex: 20 }}>
-        <ReactApexChart options={options} series={series} type="donut" width={160} />
+        <ReactApexChart options={options} series={series} type='donut' width={160} />
       </div>
       <div style={{ zIndex: 10 }}>
-        {statusList.map(s => (
-          <div
-            key={s.label}
-            style={{ display: 'flex', alignItems: 'center', marginBottom: 6, fontSize: 13 }}
-          >
+        {statusList.map((s) => (
+          <div key={s.label} style={{ display: 'flex', alignItems: 'center', marginBottom: 6, fontSize: 13 }}>
             <span
               style={{
                 display: 'inline-block',
@@ -69,7 +66,7 @@ const StatusChart = ({ statusList }: StatusChartProps) => {
                 height: 8,
                 borderRadius: '50%',
                 background: s.color,
-                marginRight: 4,
+                marginRight: 4
               }}
             />
             <span style={{ color: '#fff', minWidth: 110 }}>{s.label}</span>
