@@ -36,6 +36,8 @@ const ROUTES = {
   RECOMMENDATIONS: '/energy/recommendations',
   COSTS: '/energy/costs',
   ENVIRONMENTAL: '/energy/environmental',
+
+	SCITY_URL: 'https://scity-dev.innovation.com.vn/',
 };
 
 export default ROUTES;

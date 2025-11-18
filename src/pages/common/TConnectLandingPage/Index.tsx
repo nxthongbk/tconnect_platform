@@ -25,18 +25,43 @@ import {
   Facebook,
 } from 'lucide-react';
 import { translations, Translation } from './translations';
-import LoginForm from '../LogInPage/components/LoginForm';
+import { useNavigate } from 'react-router-dom';
+import ROUTES from '~/constants/routes.constant';
+// import LoginForm from '../LogInPage/components/LoginForm';
 
 function TConnectLandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [language, setLanguage] = useState<'en' | 'vi'>('en');
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const navigate = useNavigate();
+  // const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   const handleSignIn = (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsMenuOpen(false);
-    setLoginModalOpen(true);
+    // setIsMenuOpen(false);
+    // setLoginModalOpen(true);
+    let url = ROUTES.SCITY_URL;
+    const extractExternalUrl = (raw: string) => {
+      try {
+        //  const lower = raw.toLowerCase();
+        const lastHttpIndex = Math.max(raw.lastIndexOf('http://'), raw.lastIndexOf('https://'));
+        if (lastHttpIndex > 0) return raw.slice(lastHttpIndex);
+      } catch {
+        /* ignore */
+      }
+      return raw;
+    };
+
+    if (url.includes('localhost')) {
+      url = extractExternalUrl(url);
+    }
+
+    if (/^https?:\/\//i.test(url)) {
+      window.location.href = url;
+      return;
+    }
+
+    navigate(url);
   };
 
   const t: Translation = translations[language];
@@ -102,7 +127,7 @@ function TConnectLandingPage() {
 
   return (
     <div className="min-h-screen bg-slate-900">
-      {loginModalOpen && (
+      {/* {loginModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto p-0">
             <button
@@ -115,7 +140,7 @@ function TConnectLandingPage() {
             <LoginForm setResetMode={() => {}} />
           </div>
         </div>
-      )}
+      )} */}
       {/* Navigation */}
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
