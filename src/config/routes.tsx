@@ -6,7 +6,6 @@ import ControlCenterPage from '~/pages/tenant/ControlCenterPage';
 import DevicePage from '~/pages/tenant/DevicePage';
 import FireAlertPage from '~/pages/tenant/FireAlertPage';
 import HumanResourcesPage from '~/pages/tenant/HumanResourcesPage';
-import LandingPage from '~/pages/common/LandingPage';
 import LocationPage from '~/pages/tenant/LocationPage';
 import MainLayout from '~/layouts/MainLayout';
 import NotFoundPage from '~/pages/common/404Page';
@@ -21,11 +20,12 @@ import SysToolsPage from '~/pages/systemAdmin/SysToolsPage';
 import { useContext } from 'react';
 import DashboardPage from '~/pages/tenant/Dashboard/index.page';
 import ConfigPage from '~/pages/tenant/ConfigPage';
+import TConnectLandingPage from '~/pages/common/TConnectLandingPage/Index';
 
 const Guard = () => {
   const { isAuthenticated } = useContext(AppContext);
 
-  return isAuthenticated ? <Outlet /> : <LandingPage />;
+  return isAuthenticated ? <Outlet /> : <TConnectLandingPage />;
 };
 
 const CheckRoleSYSAdmin = () => {
@@ -76,8 +76,7 @@ const tenantRoutes: RouteObject[] = [
   {
     path: ROUTES.DASHBOARD,
     element: <DashboardPage />
-  }
-  ,
+  },
   {
     path: ROUTES.CONFIGURATION,
     element: <ConfigPage />

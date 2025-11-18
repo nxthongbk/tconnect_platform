@@ -25,7 +25,7 @@ html,
 body {
   font-family: 'Inter', sans-serif;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* Tùy chỉnh thanh cuộn cho WebKit (Chrome, Safari) */

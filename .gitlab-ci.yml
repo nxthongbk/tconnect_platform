@@ -6,7 +6,7 @@ stages:
 variables:
   DOCKER_TLS_CERTDIR: ''
   DOCKER_HUB_USERNAME: 'iotteam'
-  DOCKER_HUB_PASSWORD: ''
+  DOCKER_HUB_PASSWORD: 'dckr_pat_P3GakRsDaXMy8eLVXZXuLwUursw'
   DOCKER_IMAGE_NAME: 'iotteam/scity'
   DOCKER_IMAGE_TAG: 'latest'
 
