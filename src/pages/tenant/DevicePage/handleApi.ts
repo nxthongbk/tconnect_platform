@@ -129,33 +129,11 @@ export const useGetLatestTelemetry = (data: { entityType: string; entityId: stri
   return query;
 };
 
-export const useGetLatestTelemetryNoC = (data: { entityType: string; entityId: string; }) => {
-  const query = useQuery({
-    queryKey: ['lastestTelemetry', data.entityId],
-    queryFn: () => telemetryService.getLatestTelemetry(data)
-  });
-  return query;
-};
-
 export const useGetLatestTelemetrys = (data: { entityType: string; entityIds: string[] }) => {
   const queries =
     data?.entityIds?.map((deviceId) => ({
       queryKey: ['latestTelemetry', deviceId],
       queryFn: () => telemetryService.getLatestTelemetryCassandra({ entityType: data.entityType, entityId: deviceId })
-    })) || [];
-
-  const queryResults = useQueries({
-    queries
-  });
-
-  return queryResults;
-};
-
-export const useGetLatestTelemetrysNoC = (data: { entityType: string; entityIds: string[] }) => {
-  const queries =
-    data?.entityIds?.map((deviceId) => ({
-      queryKey: ['latestTelemetry', deviceId],
-      queryFn: () => telemetryService.getLatestTelemetry({ entityType: data.entityType, entityId: deviceId })
     })) || [];
 
   const queryResults = useQueries({

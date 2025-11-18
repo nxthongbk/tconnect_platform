@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["wulu"]
   pull_request:
-    branches: ["main"]
+    branches: ["wulu"]
     types: [closed]
 
 jobs:
@@ -28,12 +28,12 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: nxthongbk/scity-ui-service:latest
+          tags: nxthongbk/scity-ui-service:wulu
 
   Deploy:
     if: |
       (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true) ||
-      (github.event_name == 'push' && github.ref == 'refs/heads/develop')
+      (github.event_name == 'push' && github.ref == 'refs/heads/wulu')
     needs: Build
     name: Deploy to Server
     runs-on: ubuntu-latest

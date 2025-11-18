@@ -124,7 +124,7 @@ function RenderWidgetResult({
     case 'chart-pie':
       return (
         <div className={`grid-item`}>
-          <div className='grid-item__title'> {title ? title : 'Title'}</div>
+          <div className='grid-item__title'> {title ? title : 'Tiêu đề'}</div>
           <div className='grid-item__graph'>
             <PieChart width={550} height={350}>
               <Pie
@@ -168,7 +168,7 @@ function RenderWidgetResult({
     case 'chart-line':
       return (
         <div className={`grid-item`}>
-          <div className='grid-item__title'> {title ? title : 'Title'}</div>
+          <div className='grid-item__title'> {title ? title : 'Tiêu đề'}</div>
           <div className='flex justify-center grid-item__graph'>
             <LineChart data={dataChart} margin={{ left: 10, right: 10 }} width={550} height={350}>
               <CartesianGrid strokeDasharray='3 3' strokeOpacity={0.1} />
@@ -193,7 +193,7 @@ function RenderWidgetResult({
     case 'chart-area':
       return (
         <div className={`grid-item`}>
-          <div className='grid-item__title'> {title ? title : 'Title'}</div>
+          <div className='grid-item__title'> {title ? title : 'Tiêu đề'}</div>
           <div className='flex justify-center grid-item__graph'>
             <AreaChart data={dataChart} margin={{ left: 10, right: 10, top: 10, bottom: 10 }} width={550} height={350}>
               <CartesianGrid strokeDasharray='3 3' />
@@ -254,7 +254,7 @@ function RenderWidgetResult({
     case 'image':
       return (
         <div className={`grid-item`}>
-          <div className='grid-item__title'> {title ? title : 'Title'}</div>
+          <div className='grid-item__title'> {title ? title : 'Tiêu đề'}</div>
           <div className='flex justify-center p-2 grid-item__graph'>
             {image ? (
               <img src={image} className='w-full ' />
@@ -270,7 +270,7 @@ function RenderWidgetResult({
     case 'table':
       return (
         <div className={`grid-item`}>
-          <div className='grid-item__title'> {title ? title : 'Title'}</div>
+          <div className='grid-item__title'> {title ? title : 'Tiêu đề'}</div>
           <div className='flex flex-col justify-center grid-item__graph '>
             <div className='w-full flex justify-around p-3 text-right bg-[var(--grey-primary-80)]'>
               <div className='w-1/4 text-left'>

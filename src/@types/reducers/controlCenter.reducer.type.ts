@@ -18,10 +18,6 @@ export default interface IControlCenterReducer {
   openConfirmPopup: any;
   setOpenConfirmPopup: React.Dispatch<React.SetStateAction<any | null>>;
 
-  // Viewport Mini Map
-  viewportMiniMap: any;
-  setViewportMiniMap: React.Dispatch<React.SetStateAction<any | null>>;
-
   // Viewport Map Right
   viewportMapRight: any;
   setViewportMapRight: React.Dispatch<React.SetStateAction<any | null>>;
@@ -29,10 +25,6 @@ export default interface IControlCenterReducer {
   // Open marker popup
   openMarkerPopup: any;
   setOpenMarkerPopup: React.Dispatch<React.SetStateAction<any | null>>;
-
-  // Open bottom popup
-  openBottomPopup: any;
-  setOpenBottomPopup: React.Dispatch<React.SetStateAction<any | null>>;
 
   // selected filter
   selectedFilter: any[];
@@ -46,14 +38,6 @@ export default interface IControlCenterReducer {
   fakeHistory: any[];
   setFakeHistory: any;
 
-  //Storage list of devices
-  listOfDevices: any[];
-  setListOfDevices: any;
-
   alertTime: any;
   setAlertTime: any;
-
-  // selected device
-  selectedListDevice: any;
-  setSelectedListDevice: (device: any) => void;
 }

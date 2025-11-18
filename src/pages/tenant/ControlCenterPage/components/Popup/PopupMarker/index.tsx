@@ -141,8 +141,8 @@ export default function PopupMarker() {
         </DrawerCustom>
       ) : (
         <Popup
-          longitude={openMarkerPopup?.longitude}
-          latitude={openMarkerPopup?.latitude}
+          longitude={openMarkerPopup?.location?.longitude}
+          latitude={openMarkerPopup?.location?.latitude}
           onClose={onClose}
           className='!top-[-30px] min-w-[320px]'
         >

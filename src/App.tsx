@@ -1,22 +1,16 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useContext } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import './App.scss';
 import LoadingSuspense from './components/LoadingSuspense';
 import useRoutes from './config/routes';
-import AIChat from './pages/sCMMS/chat/AIChat';
+import { AppContext } from './contexts/app.context';
 
 function App() {
-	const [isChatOpen, setIsChatOpen] = useState(false);
-
-  const handleToggleChat = () => setIsChatOpen(open => !open);
-
+  const { userInfo } = useContext(AppContext);
   return (
-    <>
-      <Suspense fallback={<LoadingSuspense />}>
-        <RouterProvider router={useRoutes()} />
-      </Suspense>
-      <AIChat isOpen={isChatOpen} onToggle={handleToggleChat} />
-    </>
+    <Suspense fallback={<LoadingSuspense />}>
+      <RouterProvider router={useRoutes(userInfo?.roles[0])} />
+    </Suspense>
   );
 }
 

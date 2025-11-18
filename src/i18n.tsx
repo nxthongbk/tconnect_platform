@@ -6,11 +6,11 @@ i18next
   .use(Backend)
   .use(initReactI18next)
   .init({
-    lng: localStorage.getItem('cft-language')?.toString() ?? 'en',
+    lng: localStorage.getItem('cft-language')?.toString() ?? 'vi',
     backend: {
       loadPath: `${publicUrl}/i18n/{{lng}}.json`
     },
-    fallbackLng: 'en',
+    fallbackLng: 'vi',
     defaultNS: 'translations'
   });
 

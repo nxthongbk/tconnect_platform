@@ -5,41 +5,29 @@ import {
   IParamsCreacteDeviceProfile,
   IParamsCreateDeviceType,
   IParamsEditDeviceProfile,
-  IParamsGetDeviceType,
+  IParamsGetDeviceType
 } from '~/@types/deviceProfile/deviceProfile.type';
 
-export const useGetDataDeviceProfile = (
-  page: number,
-  size: number,
-  keyword: string,
-  typeId: string
-) => {
+export const useGetDataDeviceProfile = (page: number, size: number, keyword: string, typeId: string) => {
   const { isLoading, isSuccess, data, error } = useQuery({
     queryKey: ['getDataDeviceProfile', { page, size, keyword, typeId }],
     queryFn: () => deviceProfileService.getDeviceProfile(page, size, keyword, typeId),
-    staleTime: 1000,
+    staleTime: 1000
   });
   return { isLoading, isSuccess, data, dataDeviceProfile: data, error };
 };
 
-export const useGetDataDeviceProfiles = (
-  page: number,
-  size: number,
-  keyword: string,
-  typeIds: string[]
-) => {
+export const useGetDataDeviceProfiles = (page: number, size: number, keyword: string, typeIds: string[]) => {
   const { isLoading, isSuccess, data, error } = useQuery({
     queryKey: ['getDataDeviceProfiles', { page, size, keyword, typeIds }],
     queryFn: async () => {
       if (!typeIds.length) {
-        const response = await deviceProfileService.getDeviceProfile(page, size, keyword, '');
+        const response = await deviceProfileService.getDeviceProfile(page, size, keyword, '')
         return response.data;
       }
 
-      const requests = typeIds.map(typeId =>
-        deviceProfileService.getDeviceProfile(page, size, keyword, typeId)
-      );
-      const results = await void Promise.all(requests);
+      const requests = typeIds.map(typeId => deviceProfileService.getDeviceProfile(page, size, keyword, typeId));
+      const results = await Promise.all(requests);
 
       const mergedContent = results.flatMap(result => result?.data?.content);
       const totalItems = mergedContent.length;
@@ -48,10 +36,10 @@ export const useGetDataDeviceProfiles = (
         content: mergedContent,
         page,
         size,
-        total: totalItems,
+        total: totalItems
       };
     },
-    staleTime: 1000,
+    staleTime: 1000
   });
 
   return { isLoading, isSuccess, data, dataDeviceProfile: data?.content || [], error };
@@ -70,8 +58,9 @@ export const useDeleteDeviceProfile = (id: string) => {
       }
     },
     onSuccess: () => {
+
       queryClient.invalidateQueries({ queryKey: ['getDataDeviceProfiles'] });
-    },
+    }
   });
   return { mutate, isPending, isSuccess };
 };
@@ -87,9 +76,7 @@ export const useUpdateDeviceProfile = () => {
         const response = await deviceProfileService.updateDeviceProfile(data);
         return response;
       } else {
-        const newType = await deviceProfileService.createDeviceType({
-          label: data?.typeIdTemp?.inputValue,
-        });
+        const newType = await deviceProfileService.createDeviceType({ label: data?.typeIdTemp?.inputValue });
 
         if (newType?.data?.id) {
           data.typeId = newType.data.id;
@@ -107,10 +94,10 @@ export const useUpdateDeviceProfile = () => {
       }
     },
     onSuccess: () =>
-      void Promise.all([
+      Promise.all([
         queryClient.invalidateQueries({ queryKey: ['getDataDeviceProfiles'] }),
-        queryClient.invalidateQueries({ queryKey: ['getDataDeviceType'] }),
-      ]),
+        queryClient.invalidateQueries({ queryKey: ['getDataDeviceType'] })
+      ])
   });
 
   return { mutate, isPending, isSuccess, isError, dataDeviceProfileU: data?.data };
@@ -126,9 +113,7 @@ export const useCreateDeviceProfile = () => {
 
         await deviceProfileService.createDeviceProfile(data);
       } else {
-        const newType = await deviceProfileService.createDeviceType({
-          label: data?.typeIdTemp?.inputValue,
-        });
+        const newType = await deviceProfileService.createDeviceType({ label: data?.typeIdTemp?.inputValue });
 
         if (newType?.data?.id) {
           data.typeId = newType.data.id;
@@ -145,10 +130,10 @@ export const useCreateDeviceProfile = () => {
       }
     },
     onSuccess: () =>
-      void Promise.all([
+      Promise.all([
         queryClient.invalidateQueries({ queryKey: ['getDataDeviceProfiles'] }),
-        queryClient.invalidateQueries({ queryKey: ['getDataDeviceType'] }),
-      ]),
+        queryClient.invalidateQueries({ queryKey: ['getDataDeviceType'] })
+      ])
   });
 
   return { mutate, isPending, isSuccess };
@@ -168,25 +153,17 @@ export const useCreateDeviceType = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getDataDeviceType'] });
-    },
+    }
   });
 
-  return {
-    mutateDeviceTypeC: mutate,
-    isPendingDeviceTypeC: isPending,
-    isSuccessDeviceTypeC: isSuccess,
-  };
+  return { mutateDeviceTypeC: mutate, isPendingDeviceTypeC: isPending, isSuccessDeviceTypeC: isSuccess };
 };
 
 export const useGetDataDeviceType = (params: IParamsGetDeviceType) => {
   const { isLoading, isSuccess, data } = useQuery({
     queryKey: ['getDataDeviceType', params],
     queryFn: () => deviceProfileService.getDeviceType(params),
-    staleTime: 3 * 3000,
+    staleTime: 3 * 3000
   });
-  return {
-    isLoadingDeviceTypeR: isLoading,
-    isSuccessDevcieTypeR: isSuccess,
-    dataDeviceTypeR: data,
-  };
+  return { isLoadingDeviceTypeR: isLoading, isSuccessDevcieTypeR: isSuccess, dataDeviceTypeR: data };
 };

@@ -1,8 +1,8 @@
-import { useCallback, useRef, useState } from "react";
-import { TypographyProps, Typography, Tooltip } from "@mui/material";
+import { useCallback, useRef, useState } from 'react';
+import { TypographyProps, Typography, Tooltip } from '@mui/material';
 
 const TooltipEllipsisTypography = ({
-  variant = "body3",
+  variant = 'body3',
   lines = 1,
   children,
   tooltipMaxWidth = 300,
@@ -31,22 +31,22 @@ const TooltipEllipsisTypography = ({
       componentsProps={{
         tooltip: {
           sx: {
-            maxWidth: tooltipMaxWidth,
-          },
-        },
+            maxWidth: tooltipMaxWidth
+          }
+        }
       }}
     >
       <Typography
         variant={variant}
         ref={typoRef}
         sx={{
-          maxWidth: "100%",
-          display: "-webkit-box",
-          WebkitBoxOrient: "vertical",
+          maxWidth: '100%',
+          display: '-webkit-box',
+          WebkitBoxOrient: 'vertical',
           WebkitLineClamp: lines,
-          textOverflow: "ellipsis",
-          wordBreak: "break-all",
-          overflow: "hidden",
+          textOverflow: 'ellipsis',
+          wordBreak: 'break-all',
+          overflow: 'hidden'
         }}
         {...rest}
       >

@@ -27,11 +27,6 @@
   padding: 16px;
   border-top: 1px solid var(--border-color);
 }
-
-.MuiPagination-ul {
-  flex-wrap: nowrap !important;
-}
-
 .MuiDataGrid-columnHeaders {
   position: -webkit-sticky;
   position: sticky !important;
@@ -77,7 +72,7 @@
 .custom-top-cell {
   position: relative;
   &::before {
-    content: "Giờ";
+    content: 'Giờ';
     padding-left: 16px;
     width: 200%;
     height: 48px;
@@ -94,9 +89,7 @@
   }
 }
 
-.MuiDataGrid-virtualScrollerContent--overflowed
-  .MuiDataGrid-row--lastVisible
-  .MuiDataGrid-cell {
+.MuiDataGrid-virtualScrollerContent--overflowed .MuiDataGrid-row--lastVisible .MuiDataGrid-cell {
   border-bottom: 1px solid var(--border-color) !important;
 }
 
@@ -108,7 +101,7 @@
   }
 
   /* Firefox */
-  input[type="number"] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 }

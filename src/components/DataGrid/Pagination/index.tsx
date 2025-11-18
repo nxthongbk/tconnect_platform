@@ -1,18 +1,9 @@
-import {
-  MenuItem,
-  MenuProps,
-  Pagination,
-  PaginationItem,
-  Select,
-  Stack,
-  SxProps,
-  Typography,
-} from "@mui/material";
+import { MenuItem, MenuProps, Pagination, PaginationItem, Select, Stack, SxProps, Typography } from '@mui/material';
 
-import { Theme } from "@emotion/react";
-import { CaretDown, CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { Theme } from '@emotion/react';
+import { CaretDown, CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const PaginationComponent = ({
   page,
@@ -20,15 +11,12 @@ const PaginationComponent = ({
   setSize,
   setSizeOfPage,
   total,
-  // explainName,
+  explainName,
   sizeOfPage,
-  pageSizeOptions,
+  pageSizeOptions
 }: any) => {
   const { t } = useTranslation();
-  const totalPage: number = useMemo(
-    () => Math.ceil(total / sizeOfPage),
-    [total, sizeOfPage]
-  );
+  const totalPage: number = useMemo(() => Math.ceil(total / sizeOfPage), [total, sizeOfPage]);
 
   const handleChangePage = (_, value: number) => {
     setPage(value);
@@ -46,57 +34,47 @@ const PaginationComponent = ({
       : [
           {
             value: 30,
-            text: `30 / ${t("page")}`,
+            text: `30 / ${t('page')}`
           },
           {
             value: 50,
-            text: `50 / ${t("page")}`,
+            text: `50 / ${t('page')}`
           },
           {
             value: 100,
-            text: `100 / ${t("page")}`,
-          },
+            text: `100 / ${t('page')}`
+          }
         ];
 
   const menuProps: Partial<MenuProps> = {
     anchorOrigin: {
-      vertical: "top",
-      horizontal: "left",
+      vertical: 'top',
+      horizontal: 'left'
     },
     transformOrigin: {
-      vertical: "bottom",
-      horizontal: "left",
-    },
+      vertical: 'bottom',
+      horizontal: 'left'
+    }
   };
 
   return (
-    <Stack
-      direction="row"
-      className="pagination"
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      {/* {explainName && (
+    <Stack direction='row' className='pagination' justifyContent='space-between' alignItems='center'>
+      {explainName && (
         <Typography variant='body3'>
           {total} {explainName}
         </Typography>
-      )} */}
+      )}
 
-      <Stack direction="row" gap={2} alignItems="center">
+      <Stack direction='row' gap={2} alignItems='center'>
         <Pagination
           count={totalPage}
           page={page}
           hidePrevButton={page === 1}
           hideNextButton={page === totalPage}
           onChange={handleChangePage}
-          shape="rounded"
-          color="primary"
-          renderItem={(item) => (
-            <PaginationItem
-              slots={{ previous: CaretLeft, next: CaretRight }}
-              {...item}
-            />
-          )}
+          shape='rounded'
+          color='primary'
+          renderItem={(item) => <PaginationItem slots={{ previous: CaretLeft, next: CaretRight }} {...item} />}
         />
         {/* Page size */}
         <Select
@@ -106,17 +84,13 @@ const PaginationComponent = ({
           IconComponent={CaretDown}
           MenuProps={menuProps}
           renderValue={() => (
-            <Typography
-              variant="body3"
-              marginTop={0.4}
-              sx={{ fontSize: "14px" }}
-            >
-              {`${sizeOfPage} / ${t("page")}`}
+            <Typography variant='body3' marginTop={0.4} sx={{ fontSize: '14px' }}>
+              {`${sizeOfPage} / ${t('page')}`}
             </Typography>
           )}
         >
           {pageSize.map((item: any, index: any) => (
-            <MenuItem value={item.value} key={index} sx={{ fontSize: "14px" }}>
+            <MenuItem value={item.value} key={index} sx={{ fontSize: '14px' }}>
               {item.text}
             </MenuItem>
           ))}
@@ -129,22 +103,22 @@ const PaginationComponent = ({
 export default PaginationComponent;
 
 const selectPageSizeCustomStyle: SxProps<Theme> = {
-  width: "120px",
-  height: "32px",
-  borderRadius: "8px",
-  fontSize: "14px",
-  "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: "var(--border-color)",
+  width: '120px',
+  height: '32px',
+  borderRadius: '8px',
+  fontSize: '14px',
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'var(--border-color)'
   },
-  "& .Mui-hovered": {
-    backgroundColor: "red !important",
+  '& .Mui-hovered': {
+    backgroundColor: 'red !important'
   },
-  "&.MuiInputBase-root": {
-    height: "32px",
-    borderRadius: "6px",
+  '&.MuiInputBase-root': {
+    height: '32px',
+    borderRadius: '6px'
   },
-  "& .MuiSelect-icon": {
-    height: "20px",
-    width: "20px",
-  },
+  '& .MuiSelect-icon': {
+    height: '20px',
+    width: '20px'
+  }
 };

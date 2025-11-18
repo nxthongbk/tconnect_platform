@@ -37,7 +37,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
-const steps = ['Choose widget', 'Save information'];
+const steps = ['Chọn widget', 'Thêm thông tin'];
 const widgets = [
   {
     id: 1,
@@ -440,7 +440,7 @@ const CreateWidget: React.FC<CreateWidgetProps> = ({ handleSuccess, pageId }) =>
     <>
       <Button onClick={handleClickOpen} className='!justify-start  ' variant='outlined' startIcon={<Plus size={18} />}>
         <Typography variant='button3' fontWeight={600}>
-          Create widget
+          Thêm widget
         </Typography>
       </Button>
       <Dialog
@@ -457,7 +457,7 @@ const CreateWidget: React.FC<CreateWidgetProps> = ({ handleSuccess, pageId }) =>
       >
         <Box className='flex justify-between items-center p-4 h-[56px]'>
           <Typography color='var(--text-primary)' variant='h6'>
-            Create widget
+            Thêm widget
           </Typography>
           <IconButton aria-label='close' onClick={handleClose}>
             <IconPhosphor iconName='X' size={20} />

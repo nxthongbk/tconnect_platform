@@ -117,7 +117,7 @@ const PageComponent = ({ dashboard, toggleMenu }: any) => {
                   onClick={() => savePage()}
                   className='!bg-[var(--primary)] !text-[var(--white)] !font-semibold '
                 >
-                  <Typography variant='button3'>Save</Typography>
+                  <Typography variant='button3'>Lưu</Typography>
                 </ButtonCustom>
               </div>
             ) : (
@@ -127,7 +127,7 @@ const PageComponent = ({ dashboard, toggleMenu }: any) => {
                 onClick={() => setIsEdit(true)}
                 className='!bg-[var(--primary)] !text-[var(--white)] !font-semibold'
               >
-                <Typography variant='button3'>Edit page</Typography>
+                <Typography variant='button3'>Chỉnh sửa trang</Typography>
               </ButtonCustom>
             )}
           </div>

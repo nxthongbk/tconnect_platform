@@ -14,30 +14,8 @@ const ROUTES = {
   VIEW_DEVICE_BY_DEVICEPROFILE_ID: '/device-profile/:deviceProfileId/device',
   SETTING: '/setting',
   TOOLS: '/tools',
+  DASHBOARD: '/dashboard/:dashboardId',
   CONFIGURATION: '/configuration',
-  ENERGY: '/energy',
-  STREET_LIGHT: '/street-light',
-  CCTV: '/cctv',
-  TRAFFIC_LIGHT: '/traffic-light',
-  FIRE_ALARM: '/fire-alarm',
-  SOLAR_MONITORING: '/solar-monitoring',
-  ENVIRONMENT_MONITORING: '/environment-monitoring',
-  WATER_METER_MONITORING: '/water-meter-monitoring',
-  PARKING_MONITORING: '/parking-monitoring',
-  ACCESS_CONTROL: '/access-control',
-  SAFETY: '/safety',
-  HVAC: '/hvac',
-  LOCATION_DASHBOARD: '/dashboard/location/:id',
-
-  // Energy Platform routes
-  DASHBOARD: '/energy/dashboard',
-  DEVICES: '/energy/devices',
-  ANALYTICS: '/energy/analytics',
-  RECOMMENDATIONS: '/energy/recommendations',
-  COSTS: '/energy/costs',
-  ENVIRONMENTAL: '/energy/environmental',
-
-	SCITY_URL: 'https://scity-dev.innovation.com.vn/',
 };
 
 export default ROUTES;

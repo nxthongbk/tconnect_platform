@@ -68,7 +68,7 @@ export const useUpdateAlarmStatusOfLocation = () => {
       }
     },
     onSuccess: () =>
-      void Promise.all([
+      Promise.all([
         queryClient.invalidateQueries({ queryKey: ['locationMap'] }),
         queryClient.invalidateQueries({ queryKey: ['getAlarmLocationInfo'] })
       ])

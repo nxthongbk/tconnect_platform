@@ -98,7 +98,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           variant='outlined'
           size='small'
           placeholder={translation('Nhập tên đăng nhập')}
-          helperText={translation(errors.username?.message)}
+          helperText={errors.username?.message}
           isSpacingHelperText={true}
         />
         <InputCustom
@@ -112,7 +112,7 @@ export default function LoginForm({ setResetMode }: IProps) {
           variant='outlined'
           size='small'
           placeholder={translation('Nhập mật khẩu')}
-          helperText={translation(errors.username?.message)}
+          helperText={errors.password?.message}
           isSpacingHelperText={true}
         />
 

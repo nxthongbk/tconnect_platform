@@ -12,8 +12,7 @@ export default {
     screens: {
       mobile: '480px',
       tablet: '744px',
-			miniLaptop: '1280px',
-      smallLaptop: '1024px',
+      miniLaptop: '1280px',
       laptop: '1440px',
       desktop: '1728px'
     }

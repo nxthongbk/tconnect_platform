@@ -16,10 +16,7 @@ interface IProps {
   popup?: unknown;
   style?: any;
   avatarUrl?: string;
-  name?: string;
-  ipAddress?: string;
 }
-
 
 export default function MarkerMap({
   longitude,
@@ -32,8 +29,6 @@ export default function MarkerMap({
   popup,
   style,
   avatarUrl,
-  name,
-  ipAddress,
 }: IProps) {
   const { imageUrl } = useDownloadFileAvatar(avatarUrl);
 
@@ -51,13 +46,7 @@ export default function MarkerMap({
       case 'IGNORE':
         return (
           <div>
-            {name && ipAddress && (
-              <div className="marker-info-box">
-                <div className="name">{name}</div>
-                <div className="ip">{ipAddress}</div>
-              </div>
-            )}
-            <svg className="green-blink" width="64" height="77" viewBox="0 0 64 77" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="64" height="77" viewBox="0 0 64 77" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <clipPath id="circle-clip">
                   <circle cx="32" cy="29" r="16" />
@@ -106,17 +95,14 @@ export default function MarkerMap({
                     preserveAspectRatio="xMidYMid slice"
                     clipPath="url(#circle-clip)"
                   />
-
                 ) : (
                   <path
                     d="M42.4744 36.4998H40.9997V25.9998C40.9997 25.602 40.8417 25.2204 40.5604 24.9391C40.2791 24.6578 39.8975 24.4998 39.4997 24.4998H35.3747C35.2752 24.4998 35.1799 24.5393 35.1095 24.6096C35.0392 24.68 34.9997 24.7753 34.9997 24.8748V36.4998H33.4997V20.0382C33.5022 19.8046 33.4515 19.5735 33.3514 19.3623C33.2514 19.1512 33.1046 18.9655 32.9222 18.8195C32.6736 18.6257 32.3702 18.5151 32.0552 18.5035C31.7401 18.4918 31.4294 18.5798 31.1672 18.7548L23.6672 23.7498C23.4615 23.8871 23.2928 24.0731 23.1764 24.2913C23.0599 24.5095 22.9992 24.7531 22.9997 25.0004V36.4998H21.525C21.3312 36.4969 21.1435 36.5676 20.9996 36.6975C20.8558 36.8274 20.7665 37.007 20.7497 37.2001C20.7429 37.3027 20.7572 37.4056 20.7919 37.5024C20.8265 37.5992 20.8807 37.6879 20.951 37.7629C21.0213 37.8379 21.1063 37.8976 21.2007 37.9384C21.2951 37.9791 21.3969 38 21.4997 37.9998H42.4997C42.6025 38 42.7043 37.9791 42.7987 37.9384C42.8931 37.8976 42.9781 37.8379 43.0484 37.7629C43.1187 37.6879 43.1729 37.5992 43.2075 37.5024C43.2422 37.4056 43.2565 37.3027 43.2497 37.2001C43.2329 37.007 43.1436 36.8274 42.9997 36.6975C42.8559 36.5676 42.6682 36.4969 42.4744 36.4998Z"
                     fill="#1FAD68"
                   />
                 )}
-
               </g>
             </svg>
-
           </div>
         );
         break;

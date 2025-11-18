@@ -81,9 +81,9 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ tenantCode }) => {
     }
   });
   const createDashboardSchema = yup.object({
-    title: yup.string().required(t('title')),
-    locationId: yup.string().required()
-  });
+    title: yup.string().required(t('please-input-title')),
+    locationId: yup.string().required(t('devicePage.select-location')),
+  }); 
   const {
     control,
     reset,
@@ -103,6 +103,10 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ tenantCode }) => {
 
   const handleClose = () => {
     setOpen(false);
+    reset({ title: '' });
+    setSelectedTemplate(null);  
+    setImage(null);
+    setActiveStep(0); 
   };
   const createDashboard = useMutation({
     mutationFn: (body: { tenantCode: string; name: string; type: string; imageUrl: string; locationId: string }) => {
@@ -114,38 +118,44 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ tenantCode }) => {
       return dashboardService.createPage(tenantCode, body.dashboardId, body.data);
     }
   });
+  const createDashboardWithImage = (data: any, imageUrl: string | null) => {
+    createDashboard.mutate(
+      {
+        tenantCode: data.tenantCode,
+        name: data.title,
+        type: selectedTemplate.type,
+        imageUrl,
+        locationId: data.locationId,
+      },
+      {
+        onSuccess: (res) => {
+          if (selectedTemplate.type === 'custom-widget') {
+            createPage.mutate({
+              dashboardId: res?.data?.id,
+              data: [{ title: data.title, widgets: [], pageId: 1 }],
+            });
+          }
+          handleClose();
+          queryClient.invalidateQueries({ queryKey: ['getAllDashboard'] });
+          handleNotificationMessege(t('upload-success'));
+          setIsLoading(false);
+        },
+      }
+    );
+  };
+  
   const handleClick = handleSubmit((data) => {
+    setIsLoading(true);
+  
     if (image) {
       uploadFileMutation.mutate(image, {
-        onSuccess: (res) => {
-          createDashboard.mutate(
-            { tenantCode, name: data.title, type: selectedTemplate.type, imageUrl: res?.data?.id, locationId: data.locationId },
-            {
-              onSuccess: (res) => {
-                reset();
-                setSelectedTemplate(null);
-                setImage(null);
-                handleClose();
-                setActiveStep(0);
-                setIsLoading(true);
-                queryClient.invalidateQueries({ queryKey: ['getAllDashboard'] });
-                {
-                  selectedTemplate.type === 'custom-widget' && createPage.mutate({
-                    dashboardId: res?.data?.id,
-                    data: [{ title: data.title, widgets: [], pageId: 1 }]
-                  });
-                }
-                setIsLoading(false);
-                handleNotificationMessege(t('upload-success'));
-              }
-            }
-          );
-        }
+        onSuccess: (res) => createDashboardWithImage(data, res?.data?.id),
       });
-      return;
+    } else {
+      createDashboardWithImage(data, null);
     }
-    handleClose();
   });
+  
   const isValidStep = (step: number) => {
     switch (step) {
       case 0:
@@ -201,7 +211,12 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ tenantCode }) => {
                 isError={!!errors.title}
                 helperText={errors?.title?.message}
               />
-              <SelectLocation control={control} disabled={false} />
+              <SelectLocation
+              control={control}
+              disabled={false}
+              isError={!!errors.locationId} 
+              helperText={errors?.locationId?.message} 
+            />
             </div>
           </div>
         );
@@ -209,7 +224,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ tenantCode }) => {
       default:
         return <div>Unknown step</div>;
     }
-  }, [activeStep, selectedTemplate]);
+  }, [activeStep, selectedTemplate, errors]);
   return (
     <>
       <Button

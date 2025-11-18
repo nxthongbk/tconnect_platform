@@ -1,13 +1,13 @@
-import "./style.scss";
+import './style.scss';
 
-import { LinearProgress, Stack, SxProps, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { LinearProgress, Stack, SxProps, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
-import { CustomDataGridProps } from "./module";
-import { DataGrid } from "@mui/x-data-grid";
-import PaginationComponent from "./Pagination";
-import { Theme } from "@emotion/react";
-import { useTranslation } from "react-i18next";
+import { CustomDataGridProps } from './module';
+import { DataGrid } from '@mui/x-data-grid';
+import PaginationComponent from './Pagination';
+import { Theme } from '@emotion/react';
+import { useTranslation } from 'react-i18next';
 
 const CustomDataGrid = (props: CustomDataGridProps) => {
   const { t } = useTranslation();
@@ -34,9 +34,9 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
     columnGroupingModel,
     headerHeight = 48,
     rowHeight = 56,
-    emptyMessage = t("no-data"),
+    emptyMessage = t('no-data'),
     columnsVisible = undefined,
-    pageSizeOptions,
+    pageSizeOptions
   } = props;
 
   const [sizeOfPage, setSizeOfPage] = useState(size);
@@ -48,14 +48,12 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
 
   //Xử lý sự kiện khi người dùng scroll ngang cái table
   const handleScroll = (event: Event) => {
-    const selectCheckboxHeader = document.querySelector(
-      ".MuiDataGrid-columnHeaderCheckbox"
-    );
+    const selectCheckboxHeader = document.querySelector('.MuiDataGrid-columnHeaderCheckbox');
     //const actionHeader = document.querySelector('.MuiDataGrid-columnHeader[data-field="action"]')
 
     if (selectCheckboxHeader) {
       selectCheckboxHeader.setAttribute(
-        "style",
+        'style',
         `
           transform: translateX(${(event.target as HTMLElement).scrollLeft}px) !important;
           width: 50px;
@@ -68,9 +66,9 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
 
   useEffect(() => {
     const addScrollEvent = () => {
-      const element = document.querySelector(".MuiDataGrid-virtualScroller");
+      const element = document.querySelector('.MuiDataGrid-virtualScroller');
       if (element) {
-        element.addEventListener("scroll", handleScroll);
+        element.addEventListener('scroll', handleScroll);
       }
     };
 
@@ -79,9 +77,9 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
     }, 100);
 
     return () => {
-      const element = document.querySelector(".MuiDataGrid-virtualScroller");
+      const element = document.querySelector('.MuiDataGrid-virtualScroller');
       if (element) {
-        element.removeEventListener("scroll", handleScroll);
+        element.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);
@@ -89,26 +87,23 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
   function CustomNoRowsOverlay() {
     return (
       <Stack
-        p="8px 16px"
-        width="100%"
-        justifyContent="center"
-        borderBottom="1px solid var(--grey-neutral-100)"
-        boxSizing="border-box"
-        className="empty-record-message"
-        sx={{ overflow: "hidden" }}
+        p='8px 16px'
+        width='100%'
+        justifyContent='center'
+        borderBottom='1px solid var(--grey-neutral-100)'
+        boxSizing='border-box'
+        className='empty-record-message'
+        sx={{ overflow: 'hidden' }}
       >
-        <Typography variant="body3">{emptyMessage}</Typography>
+        <Typography variant='body3'>{emptyMessage}</Typography>
       </Stack>
     );
   }
 
   return (
-    <div
-      className="table__wrapper flex flex-col border rounded-lg"
-      style={{ width: "100%", flex: 1 }}
-    >
+    <div className='flex-1 table__wrapper flex justify-between flex-col border rounded-lg '>
       <DataGrid
-        sortingOrder={["desc", "asc"]}
+        sortingOrder={['desc', 'asc']}
         onRowSelectionModelChange={onSelectionModelChange}
         checkboxSelection={checkboxSelection}
         onRowClick={handleRowClick}
@@ -119,14 +114,14 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
         disableVirtualization={disableVirtual}
         slots={{
           noRowsOverlay: CustomNoRowsOverlay,
-          loadingOverlay: LinearProgress,
+          loadingOverlay: LinearProgress
         }}
         columnHeaderHeight={headerHeight}
         sx={{
-          display: "flex",
+          display: 'flex',
           ...dataGridCustomStyle,
-          height: "100%",
-          fontSize: "14px !important",
+          height: '100%',
+          fontSize: '14px !important'
         }}
         loading={loading}
         disableColumnFilter
@@ -134,9 +129,7 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
         disableColumnSelector
         hideFooter
         hideFooterPagination
-        getRowClassName={(params) =>
-          params.indexRelativeToCurrentPage % 2 === 0 ? "row-white" : "row-grey"
-        }
+        getRowClassName={(params) => (params.indexRelativeToCurrentPage % 2 === 0 ? 'row-white' : 'row-grey')}
         experimentalFeatures={experimentalFeatures}
         columnGroupingModel={columnGroupingModel}
         columnVisibilityModel={columnsVisible}
@@ -161,22 +154,22 @@ const CustomDataGrid = (props: CustomDataGridProps) => {
 export default CustomDataGrid;
 
 const dataGridCustomStyle: SxProps<Theme> = {
-  "& .MuiDataGrid-cell": {
-    borderRight: "none",
-    padding: "0px 16px",
-    whiteSpace: "wrap !important",
-    "& .MuiTypography-root": {
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      display: "-webkit-box",
+  '& .MuiDataGrid-cell': {
+    borderRight: 'none',
+    padding: '0px 16px',
+    whiteSpace: 'wrap !important',
+    '& .MuiTypography-root': {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
       WebkitLineClamp: 2,
-      WebkitBoxOrient: "vertical",
-      wordBreak: "break-word",
-    },
+      WebkitBoxOrient: 'vertical',
+      wordBreak: 'break-word'
+    }
   },
   borderRadius: 0,
-  border: "none",
-  "& .MuiDataGrid-row:hover": {
-    backgroundColor: "var(--blue-80)", // Change this to your desired hover color
-  },
+  border: 'none',
+  '& .MuiDataGrid-row:hover': {
+    backgroundColor: 'var(--blue-80)' // Change this to your desired hover color
+  }
 };
